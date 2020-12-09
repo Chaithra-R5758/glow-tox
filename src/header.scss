@@ -1,0 +1,79 @@
+@import 'src/constants/variables';
+.header{
+    .header-wrapper{
+        z-index: 97;
+        background-color: #fff;
+        display: flex;
+        flex: 1 1;
+        padding: 14px;
+        position: fixed; 
+        width: 100%; 
+        padding-right: 0px;
+        -webkit-box-shadow: 0px 1px 1px $grey4;
+        -moz-box-shadow: 0px 1px 1px $grey4;
+        box-shadow: 0px 1px 1px $grey4;
+    }
+    .log-out{
+        background-color: $primary-clr;
+        margin:0 10px;
+    }
+    .header-title{
+
+        font-family: $heading-font;
+        color: $grey1;
+        font-size: 24px;
+        font-weight: 700;
+        text-transform: capitalize;
+        line-height: 1.2em;
+        letter-spacing: 0px;
+        display: flex;
+        flex: 1 1;
+        justify-content: center;
+    }
+    .profile-name{
+        margin: 13px 0 0 0;
+        position: absolute;
+        padding: 0px 16px 0px 16px;
+        text-align: center;
+        color: #5f5956;
+        font-weight: 550;
+        margin-right: 0.75rem;
+        font-family: "montserrat";
+        top: 0;
+        right: 0;
+    }
+    @media screen and (max-width: 720px) {
+        .profile-name{
+            display: none;
+        }
+    }
+    .profile-icon{
+        display: flex;
+        // justify-content: center;
+        // align-items: center;
+    }
+    .profile-inner-wrapper{
+        display: flex;
+        flex:1;
+        justify-content: center;
+        align-items: center;
+    }
+    .profile-text{
+        font-family: $general-font;
+        font-size: 1rem;
+        //color: #B5B5C3;
+        color: $grey1;
+        font-weight: 500 ;
+        margin: 0 0.25rem 0 0.25rem ;
+        line-height: 1.5;
+    }
+    .user-alphabet{
+        background-color: #C9F7F5;
+       // background-color: $blue;
+        color: #1BC5BD;
+      //  color: $primary-clr;
+        padding: 6px 8px 6px 8px;
+        border-radius: 5px;
+        margin-left: 5px
+    }
+}

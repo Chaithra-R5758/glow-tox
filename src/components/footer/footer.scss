@@ -1,0 +1,32 @@
+.footer{
+    .footer-wrapper{
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background-color: #fff;
+        display: flex;
+        flex: 1;
+        padding: 0 20px 0 0;
+        justify-content: center;
+        align-items: center;
+        background-color: #1B1B1B;
+        padding: 5px 0;
+        margin-left: 70px;
+    }
+
+    @media screen and (max-width: 720px) {
+        .footer-wrapper{
+            margin-left: 0px;
+        }
+    }
+
+    .footer-title{
+    //color: #7E8299;
+    font-size: 12px !important;
+    font-weight: 400;
+    color: #929292;
+    //font-family: Poppins, Helvetica, "sans-serif";
+        padding:10px;
+    }
+}
