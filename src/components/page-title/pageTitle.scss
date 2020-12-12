@@ -1,0 +1,17 @@
+.page-title-wrapper{
+    display: flex;
+    margin: 25px 0;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+.page-title{
+    font-size: 22px;
+    margin: -10px 0 10px 0;
+    font-weight: 600;
+}
+.page-title-divider{
+    height: 0.01em;
+    width: 100%;
+    background-color: #b1b1b1;
+}

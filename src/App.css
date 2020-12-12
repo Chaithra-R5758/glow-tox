@@ -10,12 +10,15 @@
   color: #fff;
 }
 
+.content-body-wrapper{
+  display: flex;
+  flex-wrap: wrap;
+}
 
-
-
-
-
-
+.dashboard-card{
+  margin-right: 20px;
+  margin-bottom: 20px;
+}
 
 #components-layout-demo-top-side-2 .logo {
   float: left;

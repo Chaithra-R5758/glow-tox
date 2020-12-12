@@ -1,7 +1,7 @@
 @import 'src/constants/variables';
 .header{
     .header-wrapper{
-        z-index: 97;
+        z-index: 99;
         background-color: #fff;
         display: flex;
         flex: 1 1;
@@ -12,17 +12,20 @@
         -webkit-box-shadow: 0px 1px 1px $grey4;
         -moz-box-shadow: 0px 1px 1px $grey4;
         box-shadow: 0px 1px 1px $grey4;
+
+        -webkit-box-shadow: 0px 0px 9px 3px rgba(41,41,41,.25);
+        -moz-box-shadow: 0px 0px 9px 3px rgba(41,41,41,.25);
+        box-shadow: 0px 0px 9px 3px rgba(41,41,41,.25);
     }
     .log-out{
         background-color: $primary-clr;
         margin:0 10px;
     }
     .header-title{
-
         font-family: $heading-font;
         color: $grey1;
         font-size: 24px;
-        font-weight: 700;
+        font-weight: 600;
         text-transform: capitalize;
         line-height: 1.2em;
         letter-spacing: 0px;
@@ -33,12 +36,12 @@
     .profile-name{
         margin: 13px 0 0 0;
         position: absolute;
-        padding: 0px 16px 0px 16px;
+        padding: 0px 0px 0px 16px;
         text-align: center;
         color: #5f5956;
         font-weight: 550;
         margin-right: 0.75rem;
-        font-family: "montserrat";
+        font-family: 'Kumbh Sans', sans-serif;
         top: 0;
         right: 0;
     }
@@ -60,11 +63,10 @@
     }
     .profile-text{
         font-family: $general-font;
-        font-size: 1rem;
-        //color: #B5B5C3;
-        color: $grey1;
-        font-weight: 500 ;
-        margin: 0 0.25rem 0 0.25rem ;
+        font-size: 0.9rem;
+        color: #5f5956;
+        font-weight: 600 ;
+        margin: 0.5rem 0 0 0.25rem ;
         line-height: 1.5;
     }
     .user-alphabet{

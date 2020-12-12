@@ -3,9 +3,7 @@ import './footer.scss';
 import { COPYRIGHT_DESC } from "../../constants/";
 import { withRouter, } from "react-router-dom";
 
-
 class Footer extends React.Component {
-
   render() {
     return (
       <div className={'footer'}>
@@ -15,6 +13,5 @@ class Footer extends React.Component {
       </div>
     );
   }
-
 }
 export default (Footer)

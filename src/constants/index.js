@@ -1,19 +1,23 @@
-export const NAV_OPTIONS = {
-    admin:['Partners', 'Users', 'Tickets'],
-    partner:['Profile', 'Overview','Gateway Activity','Notification','Employee','Tickets'],
-    payee:['Profile','Make a Payment','Payment History'],
-}
+export const NAV_OPTIONS = [
+    'Dashboard',
+    'Services',
+    'Promotions',
+    'Service History',
+    'Gift Cards',
+]
+
+export const DASHBOARD_OPTIONS = [
+    'Active Services',
+    'Active Promotions',
+    'Active Subscriptions',
+    'Gift Cards',
+]
 export const CONSTANTS = {
-    primaryClr:'#003f62',
+    primaryClr:'#ff0000',
     headingFont:'varela round',
     textFont:'montserrat',
 }
-export const NOTIFY_TYPES = [
-    'Power Outage',
-    'Water Shortage',
-    'Gas Leak',
-]
 
-export const HEADER_TITLE = 'Bankcard Associates'
+export const HEADER_TITLE = 'Glow Tox'
 
-export const COPYRIGHT_DESC = 'Bankcard Associates, LLC., is a registered ISO of Wells Fargo Bank, N.A., Concord, CA. Copyright 2020 Bankcard Associates, LLC. All rights reserved.'
+export const COPYRIGHT_DESC = '@2020, GlowTox. All rights reserved.'

@@ -1,5 +1,6 @@
 .footer{
     .footer-wrapper{
+        z-index: 96;
         position: fixed;
         bottom: 0;
         left: 0;
@@ -10,9 +11,9 @@
         padding: 0 20px 0 0;
         justify-content: center;
         align-items: center;
-        background-color: #1B1B1B;
+        background-color: #fff;
         padding: 5px 0;
-        margin-left: 70px;
+       // margin-left: 70px;
     }
 
     @media screen and (max-width: 720px) {
@@ -27,6 +28,6 @@
     font-weight: 400;
     color: #929292;
     //font-family: Poppins, Helvetica, "sans-serif";
-        padding:10px;
+        padding:2px;
     }
 }

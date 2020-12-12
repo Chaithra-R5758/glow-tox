@@ -1,22 +1,16 @@
 import React from 'react';
 import { withRouter, } from "react-router-dom";
-// import Drawer from '@material-ui/core/Drawer';
-// import DehazeIcon from '@material-ui/icons/Dehaze';
-// import MailIcon from '@material-ui/icons/Mail';
-// import PersonIcon from '@material-ui/icons/Person';
-// import GroupIcon from '@material-ui/icons/Group';
-//import ChromeReaderModeIcon from '@material-ui/icons/ChromeReaderMode';
+import Icon from '@ant-design/icons';
 import './navbar.scss';
-// import AssignmentIndIcon from '@material-ui/icons/AssignmentInd';
-// import PageviewIcon from '@material-ui/icons/Pageview';
-// import LocalActivityIcon from '@material-ui/icons/LocalActivity';
-// import NotificationsActiveIcon from '@material-ui/icons/NotificationsActive';
-// import AccessibilityIcon from '@material-ui/icons/Accessibility';
-// import PaymentIcon from '@material-ui/icons/Payment';
-// import ReceiptIcon from '@material-ui/icons/Receipt';
-
 import { NAV_OPTIONS, HEADER_TITLE } from '../../constants/';
-//import Tooltip from '@material-ui/core/Tooltip';
+import {
+  CaretLeftOutlined,
+  GiftFilled,
+  FundFilled,
+  ExperimentFilled,
+  AppstoreFilled,
+  HistoryOutlined ,
+} from '@ant-design/icons';
 import { getRouteName } from '../../utils/';
 //import { connect } from 'react-redux';
 import Cookies from 'js-cookie';
@@ -32,33 +26,18 @@ class NavBar extends React.Component {
       selectedOption: '',
       userType: '',
       //  screenName: 'Home',
+      selectedNavOption:0,
     }
   }
 
   getIcon = (text) => {
     return "a"
-    // switch (text) {
-    //   case 'Partners': return (<GroupIcon />)
-    //   case 'Users': return (<PersonIcon />)
-    //   case 'Tickets': return (<ChromeReaderModeIcon />)
-
-    //   case 'Profile': return (<AssignmentIndIcon />)
-    //   case 'Overview': return (<PageviewIcon />)
-    //   case 'Gateway Activity': return (<LocalActivityIcon />)
-    //   case 'Notification': return (<NotificationsActiveIcon />)
-    //   case 'Employee': return (<AccessibilityIcon />)
-
-    //   case 'Make a Payment': return (<PaymentIcon />)
-    //   case 'Payment History': return (<ReceiptIcon />)
-
-    //   default: return (<MailIcon />)
-    // }
   }
 
-  componentWillMount(){
+  componentWillMount() {
     const userType = Cookies.get('userType')
-    if(userType){
-      this.setState({userType})
+    if (userType) {
+      this.setState({ userType })
     }
   }
 
@@ -74,11 +53,64 @@ class NavBar extends React.Component {
     this.setState({ selectedOption: screenName })
   }
 
+  getIcon = (navOption,index,selectedNavOption) => {
+    const iconSize = '18px';
+    const grey3 = '#b1b1b1';
+    const white = '#fff';
+    switch(navOption){
+      case 'Dashboard' : return  <AppstoreFilled  style={{fontSize:iconSize, 
+        color: selectedNavOption === index ? white : grey3 }} /> 
+      case 'Services' : return  <ExperimentFilled  style={{fontSize:iconSize, 
+        color: selectedNavOption === index ? white : grey3}} /> 
+      case 'Promotions' : return  <FundFilled  style={{fontSize:iconSize, 
+        color: selectedNavOption === index ? white : grey3}} /> 
+      case 'Service History' : return  <HistoryOutlined  style={{fontSize:iconSize, 
+        color: selectedNavOption === index ? white : grey3}} /> 
+      case 'Gift Cards' : return  <GiftFilled  style={{fontSize:iconSize, 
+        color: selectedNavOption === index ? white : grey3}} /> 
+      default : return 
+    }
+  }
+
   getNavOptions = () => {
-    const { userType } = this.state
-    if (userType === 'admin') return NAV_OPTIONS.admin
-    if (userType === 'partner') return NAV_OPTIONS.partner
-    if (userType === 'payee') return NAV_OPTIONS.payee
+    const { selectedNavOption } = this.state
+    const iconSize = '18px';
+    const grey3 = '#b1b1b1';
+    const result = NAV_OPTIONS.map((navOption,index) => {
+      return(
+        <div className={'nav-option'} onClick={() => this.setState({selectedNavOption:index})}>
+              <div>{this.getIcon(navOption,index,selectedNavOption)}</div>
+              <div className={ selectedNavOption === index ? 'nav-option-title-selected' : 'nav-option-title'}> {navOption} </div>
+        </div>
+      )
+    })
+    return result
+    debugger
+    return(
+      <div className={'nav-options-wrapper'}>
+            <div className={'nav-option'}>
+              <div> <AppstoreFilled  style={{fontSize:iconSize, color:grey3}} /> </div>
+              <div className={'nav-option-title'}> Dashboard </div>
+            </div>
+            <div className={'nav-option'}>
+              <div> <ExperimentFilled style={{fontSize:iconSize}} /> </div>
+              {/* <div><CaretLeftOutlined style={{fontSize:iconSize,}} /></div> */}
+              <div className={1 ? 'nav-option-title-selected' : 'nav-option-title'}> Service </div>
+            </div>
+            <div className={'nav-option'}>
+              <div> <FundFilled style={{fontSize:iconSize, color:grey3}}/> </div>
+              <div className={'nav-option-title'}> Promotions </div>
+            </div>
+            <div className={'nav-option'}>
+              <div> <HistoryOutlined  style={{fontSize:iconSize, color:grey3}}/> </div>
+              <div className={'nav-option-title'}> Service History </div>
+            </div>
+            <div className={'nav-option'}>
+              <div> <GiftFilled style={{fontSize:iconSize, color:grey3}}/></div>
+              <div className={'nav-option-title'}> Gift Cards </div>
+            </div>
+          </div>
+    )
   }
 
   sideList = (side, options) => (
@@ -107,33 +139,35 @@ class NavBar extends React.Component {
 
   render() {
     //const { loginReducers } = this.props
-    const { selectedOption, userType} = this.state
+    const { selectedOption, userType, selectedNavOption } = this.state
 
     // if (window.location.pathname === '/login' || window.location.pathname === '/')
     //   return null
-
+    const iconSize = '18px';
+    const grey3 = '#b1b1b1';
     return (
       <div className={'nav'}>
         <div className={'navbar'} >
-          <div className={'nav-title'}
+          {/* <div className={'nav-title'}
             onClick={this.toggleDrawer('left', true)}>
-            {/* <DehazeIcon /> */}
-          </div>
+             <DehazeIcon /> 
+          </div> */}
           <div className={'nav-options-wrapper'}>
-            {userType && this.getNavOptions().map((text, index) => (
-              // <Tooltip title={text} placement="right">
-                <div
-                  className={text === selectedOption ? 'nav-options option-selected' : 'nav-options'}
-                  onClick={() => this.navItemClicked(text)}>
-                  {this.getIcon(text)}
-                </div>
-              // </Tooltip>
-            ))}
+           {this.getNavOptions()}
           </div>
-          {/* <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)}>
+          {/* {userType && this.getNavOptions().map((text, index) => (
+            
+            <div
+              className={text === selectedOption ? 'nav-options option-selected' : 'nav-options'}
+              onClick={() => this.navItemClicked(text)}>
+              {this.getIcon(text)}
+            </div>
+            
+          ))} */}
+        </div>
+        {/* <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)}>
             {userType && this.sideList('left', this.getNavOptions())}
           </Drawer> */}
-        </div>
       </div>
     )
   }
@@ -143,8 +177,8 @@ class NavBar extends React.Component {
 
 
 
-const mapStateToProps = ({  }) => {
-  return {  }
+const mapStateToProps = ({ }) => {
+  return {}
 };
 
 export default NavBar
