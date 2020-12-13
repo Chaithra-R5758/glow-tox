@@ -1,7 +1,7 @@
 @import 'src/constants/variables';
 .nav-screen{
     .navbar{
-        background-color: $primary-clr;
+        background-color: #343557;
         position: fixed;
         top: 0;
         bottom: 0;
@@ -9,10 +9,20 @@
         z-index: 98;
         width: 80px;
         color: #fff;
+        margin-bottom: 33px;
+        border-bottom-right-radius: 20px;
+        margin-top: 56px;
+        border-top-right-radius: 20px;
+        padding-top: 35px;
+    }
+
+    .caret-icon{
+        position: absolute;
+        margin: 0 21px;
     }
 
     .nav-options-wrapper{
-        margin: 100px 0 0 0;
+    //    margin: 100px 0 0 0;
     }
 
     .nav-option{
@@ -68,16 +78,16 @@
     }
 
     @media screen and (max-width: 720px) {
-        .nav-options-wrapper{
-            display: none;
-        }
-        .navbar{
-            background-color: transparent;
-            width:0;
-        }
-        .nav-title{
-            padding: 16px 36px 16px 16px;
-        }
+        // .nav-options-wrapper{
+        //     display: none;
+        // }
+        // .navbar{
+        //     background-color: transparent;
+        //     width:0;
+        // }
+        // .nav-title{
+        //     padding: 16px 36px 16px 16px;
+        // }
         
     }
 

@@ -23,9 +23,9 @@ function Dashboard() {
                 <div className={'dashboard-card'}>
                   <Card
                     hoverable
-                    //style={{ width: 240 }}
+                    style={{ width: 240 }}
                     >
-                    <Meta title="Europe Street beat12"
+                    <Meta title={option}
                       description="www.instagram.com"
                     />
                   </Card>

@@ -38,7 +38,7 @@ class Header extends React.Component {
     return (
       <div className={'header'}>
         <div className={'header-wrapper'}>
-          <img src={brandLogo} style={{height:'28px',position:'absolute'}}/>
+          {/* <img src={brandLogo} style={{height:'28px',position:'absolute'}}/> */}
           <span className={'header-title'}>Glow Tox</span>
           <div className={'profile-name'}>
             <div className={'profile-inner-wrapper'}>

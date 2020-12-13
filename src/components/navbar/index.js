@@ -73,11 +73,17 @@ class NavBar extends React.Component {
   }
 
   getNavOptions = () => {
+    const grey3 = '#edf0f5';
     const { selectedNavOption } = this.state
     const result = NAV_OPTIONS.map((navOption,index) => {
       return(
         <div className={'nav-option'} onClick={() => this.setState({selectedNavOption:index})}>
-              <div>{this.getIcon(navOption,index,selectedNavOption)}</div>
+              <div>
+                {this.getIcon(navOption,index,selectedNavOption)}
+                {selectedNavOption === index &&
+                <span className={'caret-icon'}><CaretLeftOutlined style={{ color: grey3}}/></span>
+                }
+              </div>
               <div className={ selectedNavOption === index ? 'nav-option-title-selected' : 'nav-option-title'}> {navOption} </div>
         </div>
       )
