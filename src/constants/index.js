@@ -13,9 +13,9 @@ export const DASHBOARD_OPTIONS = [
     'Gift Cards',
 ]
 export const CONSTANTS = {
-    primaryClr:'#ff0000',
-    headingFont:'varela round',
-    textFont:'montserrat',
+    primaryClr: '#ff0000',
+    headingFont: 'varela round',
+    textFont: 'montserrat',
 }
 
 export const HEADER_TITLE = 'Glow Tox'

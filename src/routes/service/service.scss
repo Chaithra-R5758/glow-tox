@@ -1,0 +1,32 @@
+.service-screen{
+    .content-body-wrapper{
+        display: flex;
+        flex-direction: column;
+    }
+    .dashboard-card-wrapper{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    .dashboard-card{
+        margin: 10px;
+    }
+    .service-card-body-wrapper{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+   .service-card-title{
+        margin-bottom: 10px;
+   }
+   .service-add-btn{
+    background-color: #343557;
+    padding: 10px 15px;
+    border-radius: 25px;
+    color: white;
+    text-align: center;
+    align-self: flex-end;
+    margin: -5px 0 10px 0;
+   }
+}
