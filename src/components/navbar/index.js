@@ -74,8 +74,6 @@ class NavBar extends React.Component {
 
   getNavOptions = () => {
     const { selectedNavOption } = this.state
-    const iconSize = '18px';
-    const grey3 = '#b1b1b1';
     const result = NAV_OPTIONS.map((navOption,index) => {
       return(
         <div className={'nav-option'} onClick={() => this.setState({selectedNavOption:index})}>
@@ -85,32 +83,6 @@ class NavBar extends React.Component {
       )
     })
     return result
-    debugger
-    return(
-      <div className={'nav-options-wrapper'}>
-            <div className={'nav-option'}>
-              <div> <AppstoreFilled  style={{fontSize:iconSize, color:grey3}} /> </div>
-              <div className={'nav-option-title'}> Dashboard </div>
-            </div>
-            <div className={'nav-option'}>
-              <div> <ExperimentFilled style={{fontSize:iconSize}} /> </div>
-              {/* <div><CaretLeftOutlined style={{fontSize:iconSize,}} /></div> */}
-              <div className={1 ? 'nav-option-title-selected' : 'nav-option-title'}> Service </div>
-            </div>
-            <div className={'nav-option'}>
-              <div> <FundFilled style={{fontSize:iconSize, color:grey3}}/> </div>
-              <div className={'nav-option-title'}> Promotions </div>
-            </div>
-            <div className={'nav-option'}>
-              <div> <HistoryOutlined  style={{fontSize:iconSize, color:grey3}}/> </div>
-              <div className={'nav-option-title'}> Service History </div>
-            </div>
-            <div className={'nav-option'}>
-              <div> <GiftFilled style={{fontSize:iconSize, color:grey3}}/></div>
-              <div className={'nav-option-title'}> Gift Cards </div>
-            </div>
-          </div>
-    )
   }
 
   sideList = (side, options) => (
@@ -146,7 +118,7 @@ class NavBar extends React.Component {
     const iconSize = '18px';
     const grey3 = '#b1b1b1';
     return (
-      <div className={'nav'}>
+      <div className={'nav-screen'}>
         <div className={'navbar'} >
           {/* <div className={'nav-title'}
             onClick={this.toggleDrawer('left', true)}>

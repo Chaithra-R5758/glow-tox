@@ -1,4 +1,5 @@
 @import 'src/constants/variables';
+.nav-screen{
     .navbar{
         background-color: $primary-clr;
         position: fixed;
@@ -10,19 +11,30 @@
         color: #fff;
     }
 
+    .nav-options-wrapper{
+        margin: 100px 0 0 0;
+    }
+
     .nav-option{
         margin: 20px 0;
         text-align: center;
     }
 
-    .nav-options{
-        display: flex;
-        flex: 1;
-        justify-content: center;
-        align-items: center;
-        margin: 30px 0px 32px 0px;
-        color: $grey3;
+    .nav-option-title{
+        color:$grey3;
+        cursor: pointer;
+        line-height: 1.5;
+        font-family: 'Kumbh Sans', sans-serif;
+        font-size: 0.85em;
     }
+    .nav-option-title-selected{
+        color:#fff;
+        cursor: pointer;
+        line-height: 1.5;
+        font-family: 'Kumbh Sans', sans-serif;
+        font-size: 0.95em;
+    }
+
     .nav-title{
         color: white;
         background-color: $primary-clr;
@@ -30,41 +42,7 @@
         padding: 20px 46px 16px 24px;
         font-family: $heading-font;
     }
-    .MuiDrawer-paperAnchorLeft{
-        background-color: #1f1e2e !important;
-    }
-    .MuiTypography-displayBlock{
-        color: #fff;
-    }
-    .MuiListItemIcon-root{
-        color: #fff !important;
-        padding-left: 10px;
-        min-width: 40px !important;
-    }
-    .MuiListItemIcon-root-selected{
-        color: $primary-clr !important;
-    }
     
-    .MuiButtonBase-root .MuiListItem-root .MuiListItem-gutters .MuiListItem-button{
-        color: $primary-clr !important;
-    }
-
-    
-
-    .MuiSvgIcon-root{
-        width:20px !important;
-        height: 20px !important;
-    }
-    // .nav-option-text{
-    //     color: #fff;
-    //     font-family:$heading-font;
-    //     padding: 5px;
-    //     line-height: 1.5;
-    //     color: #fff;
-    //     padding: 8px 5px;
-    //     line-height: 1.5;
-    //     font-family: 'Kumbh Sans', sans-serif, Sans-serif;
-    // }
     .nav-option-text-selected{
         color: #a2a3b7;
     }
@@ -80,35 +58,13 @@
         align-items: center;
         cursor: pointer;
     }
-
-    // .nav-option-icon{
-    //     color: $grey3;
-    //     margin-left: 5px;
-    // }
     
     .nav-option-icon{
         font-size: 22px;
     }
-    .nav-option-title{
-        color:$grey3;
-        cursor: pointer;
-        line-height: 1.5;
-        font-family: 'Kumbh Sans', sans-serif;
-        font-size: 0.85em;
-    }
-    .nav-option-title-selected{
-        color:#fff;
-        cursor: pointer;
-        line-height: 1.5;
-        font-family: 'Kumbh Sans', sans-serif;
-        font-size: 0.95em;
-    }
+    
     .option-selected{
         color: #fff;
-    }
-
-    .nav-options-wrapper{
-        margin: 100px 0 0 0;
     }
 
     @media screen and (max-width: 720px) {
@@ -122,4 +78,11 @@
         .nav-title{
             padding: 16px 36px 16px 16px;
         }
+        
     }
+
+    
+}
+
+   
+    
