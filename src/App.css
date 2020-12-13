@@ -2,14 +2,6 @@
   text-align: center;
 }
 
-.nav-option{
-  color: #fff;
-}
-
-.header-title{
-  color: #fff;
-}
-
 .content-body-wrapper{
   display: flex;
   flex-wrap: wrap;

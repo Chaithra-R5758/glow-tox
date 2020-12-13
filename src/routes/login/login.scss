@@ -1,0 +1,44 @@
+@import "src/constants/variables";
+
+.login-screen{
+
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    .login-wrapper{
+        display: flex;
+        flex: .5 1;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        align-self: center;
+        border: 1px solid black;
+        width: 40%;
+        position: fixed;
+        top: 20%;
+        border: 1px solid #ccc;
+        padding: 10px 0px;
+    }
+
+    .login-brand{
+        height: 60px;
+        margin: 20px 20px 20px 20px;
+    }
+
+    .login-input-wrapper{
+        margin:0px 0 15px 0;
+    }
+    
+    .sign-in-btn{
+        margin:0px 0 50px 0
+    }
+
+    .field-error{
+        color: #ed494c;
+        font-size: 0.9em;
+        margin-bottom: -10px;
+    }
+}

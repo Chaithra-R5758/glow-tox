@@ -1,31 +1,16 @@
-import './App.css';
-import { Layout } from 'antd';
+import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-dom";
+import React, { Component, Suspense } from 'react';
+import Login  from './routes/login/'
+import Dashboard from './routes/dashboard/';
 
-const { Header, Footer, Sider, Content } = Layout;
-
-function App() {
-  return (
-    <div className="App">
-      <Layout>
-        <Header>
-          <div className={'header-title'}>
-            HEADER
-        </div>
-        </Header>
-        <Layout>
-          <Sider>
-            <div className={'nav-option'}>1</div>
-            <div className={'nav-option'}>1</div>
-            <div className={'nav-option'}>1</div>
-            <div className={'nav-option'}>1</div>
-            <div className={'nav-option'}>1</div>
-          </Sider>
-          <Content>Content</Content>
-        </Layout>
-        <Footer>Footer</Footer>
-      </Layout>
-    </div>
-  );
+class App extends Component {
+  render() {
+    return (
+        <Router>
+          <Route path="/login" component={() => <Login />} />
+          <Route path="/dashboard" component={() => <Dashboard />} />
+        </Router>
+    );
+  }
 }
-
-export default App;
+export default (App);
