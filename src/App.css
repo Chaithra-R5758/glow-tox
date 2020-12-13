@@ -5,6 +5,7 @@
 .content-body-wrapper{
   display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .dashboard-card{
