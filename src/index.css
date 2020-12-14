@@ -18,6 +18,16 @@ code {
     monospace;
 }
 
+.add-btn{
+  background-color: #343557;
+  padding: 10px 15px;
+  border-radius: 25px;
+  color: white;
+  text-align: center;
+  align-self: flex-end;
+  margin: -5px 0 10px 0;
+ }
+
 @media screen and (max-width: 720px) {
   .content-wrapper{
     justify-content: center;
