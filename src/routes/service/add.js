@@ -7,7 +7,7 @@ import './service.scss';
 import { Card, Button } from 'antd';
 const { Meta } = Card;
 
-function Service() {
+function ServiceAdd() {
   return (
     <div className="service-screen">
         <div className={'content-wrapper'}>
@@ -33,7 +33,6 @@ function Service() {
                       </div>
                     <Button type="primary">Primary Button</Button>
                     </div>
-                    
                   </Card>
                 </div>
               )
@@ -45,4 +44,4 @@ function Service() {
   );
 }
 
-export default Service;
+export default ServiceAdd;

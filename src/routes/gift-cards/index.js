@@ -101,9 +101,6 @@ const data = [
 function Dashboard() {
   return (
     <div className="gift-card-screen">
-      <Header />
-      <div>
-        <Navbar />
         <div className={'content-wrapper'}>
           <PageTitle
             title={'Gift Cards'}
@@ -124,8 +121,6 @@ function Dashboard() {
               </div>
           </div>
         </div>
-      </div>
-      <Footer />
     </div>
   );
 }

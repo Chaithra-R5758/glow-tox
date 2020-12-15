@@ -48,9 +48,11 @@ class NavBar extends React.Component {
     this.setState({ left: open });
   };
 
-  navItemClicked = (screenName) => {
+  navItemClicked = (screenName,index) => {
     this.props.history.push(getRouteName(screenName))
-    this.setState({ selectedOption: screenName })
+    this.setState({ selectedNavOption: index })
+
+   // this.setState({selectedNavOption:index})
   }
 
   getIcon = (navOption,index,selectedNavOption) => {
@@ -77,7 +79,7 @@ class NavBar extends React.Component {
     const { selectedNavOption } = this.state
     const result = NAV_OPTIONS.map((navOption,index) => {
       return(
-        <div className={'nav-option'} onClick={() => this.setState({selectedNavOption:index})}>
+        <div className={'nav-option'} onClick={() => this.navItemClicked(navOption,index)}>
               <div>
                 {this.getIcon(navOption,index,selectedNavOption)}
                 {selectedNavOption === index &&
@@ -155,8 +157,4 @@ class NavBar extends React.Component {
 
 
 
-const mapStateToProps = ({ }) => {
-  return {}
-};
-
-export default NavBar
+export default withRouter(NavBar)

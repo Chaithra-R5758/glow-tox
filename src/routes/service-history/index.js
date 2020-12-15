@@ -68,63 +68,58 @@ const data = [
     key: '1',
     name: 'John Brown',
     age: 32,
-    id:1,
+    id: 1,
     address: 'New York No. 1 Lake Park',
     tags: ['Scheduled',],
-    email:'akash@gmail.com',
-    offer:'10% off',
-    service:'service 1',
-    promoname:'No',
+    email: 'akash@gmail.com',
+    offer: '10% off',
+    service: 'service 1',
+    promoname: 'No',
   },
   {
     key: '2',
     name: 'Jim Green',
     age: 42,
-    id:2,
+    id: 2,
     address: 'London No. 1 Lake Park',
     tags: ['Scheduled'],
-    email:'hamse@gmail.com',
-    offer:'15% off',
-    service:'service 1',
-    promoname:'Promo Details',
+    email: 'hamse@gmail.com',
+    offer: '15% off',
+    service: 'service 1',
+    promoname: 'Promo Details',
   },
   {
     key: '3',
     name: 'Joe Black',
     age: 32,
-    id:3,
+    id: 3,
     address: 'Sidney No. 1 Lake Park',
     tags: ['Purchased',],
-    email:'john@gmail.com',
-    offer:'20% off',
-    service:'service 1',
-    promoname:'Promo Details',
+    email: 'john@gmail.com',
+    offer: '20% off',
+    service: 'service 1',
+    promoname: 'Promo Details',
   },
 ];
 
 function ServiceHistory() {
   return (
     <div className="service-history-screen">
-      <Header />
-      <div>
-        <Navbar />
-        <div className={'content-wrapper'}>
-          <PageTitle
-            title={'Service History'}
-          />
-          <div className={'service-history-wrapper'}>
-              <div className={'gift-card-inner-wrapper'}>
-                <div className={'search-wrapper'}>
-                  <Search placeholder="search" 
-                  loading ={false}
-                  enterButton />
-                </div>
-                <Table columns={columns} dataSource={data} />
-              </div>
+      <div className={'content-wrapper'}>
+        <PageTitle
+          title={'Service History'}
+        />
+        <div className={'service-history-wrapper'}>
+          <div className={'gift-card-inner-wrapper'}>
+            <div className={'search-wrapper'}>
+              <Search placeholder="search"
+                loading={false}
+                enterButton />
+            </div>
+            <Table columns={columns} dataSource={data} />
           </div>
         </div>
       </div>
-      <Footer />
     </div>
   );
 }

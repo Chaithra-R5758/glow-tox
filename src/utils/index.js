@@ -3,9 +3,9 @@ export const capitalize = (s) => {
     return s.charAt(0).toUpperCase() + s.slice(1)
 }
 
-export const getRouteName = (s) => {
-    if (typeof s !== 'string') return ''
-    return s.toLowerCase().replace(/\s/g,'')
+export const getRouteName = (name) => {
+    if (typeof name !== 'string') return ''
+    return name.toLowerCase().replace(/\s/g,'')
 }
 
 export const validateEmail = (email) => {

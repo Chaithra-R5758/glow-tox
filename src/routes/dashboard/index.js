@@ -1,6 +1,3 @@
-import Header from '../../Header'
-import Footer from '../../components/footer/'
-import Navbar from '../../components/navbar/'
 import { PageTitle } from '../../components/page-title/'
 import { DASHBOARD_OPTIONS } from '../../constants/';
 import './dashboard.scss';
@@ -10,9 +7,7 @@ const { Meta } = Card;
 function Dashboard() {
   return (
     <div className="dashboard-screen">
-      <Header />
-      <div>
-        <Navbar />
+      
         <div className={'content-wrapper'}>
           <PageTitle
             title={'Dashboard'}
@@ -34,8 +29,8 @@ function Dashboard() {
             }
           </div>
         </div>
-      </div>
-      <Footer />
+      
+      
     </div>
   );
 }
