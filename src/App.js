@@ -6,6 +6,7 @@ import Service from './routes/service';
 import GiftCard from './routes/gift-cards';
 import GiftCardCreate from './routes/gift-cards/create';
 import ServiceHistory from './routes/service-history';
+import ServiceHistoryView from './routes/service-history/view';
 import Header from './Header';
 import Footer from './components/footer/';
 import Navbar from './components/navbar/';
@@ -27,8 +28,10 @@ class App extends Component {
                 <Route path="/dashboard" component={() => <Dashboard />} />
                 <Route path="/services" component={() => <Service />} />
                 <Route path="/giftcards" component={() => <GiftCard />} />
-                <Route path="/giftcardcreate" component={() => <GiftCardCreate />} />
-                <Route path="/serviceHistory" component={() => <ServiceHistory />} />
+                <Route path="/giftcardscreate" component={() => <GiftCardCreate />} />
+                <Route path="/servicehistory" component={() => <ServiceHistory />} />
+                <Route path="/servicehistoryview" component={() => <ServiceHistoryView />} />
+
               </switch> :
               <switch>
                 <Route path="/login" component={() => <Login />} />

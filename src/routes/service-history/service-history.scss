@@ -11,4 +11,27 @@
         align-self: flex-end;
         margin: -5px 0 10px 0;
     }
+    .service-history-wrapper{
+        //display: flex;
+       // width: 40%;
+    }
+    .client-details-wrapper{
+        display: flex;
+        flex-direction: column;
+    }
+    .client-img{
+        height: 120px;
+        object-fit: contain;
+    }
+    .client-form-wrapper{
+        margin: 20px 0 0 0;
+    }
+    .card-wrapper{
+        margin: 10px;
+    }
+    .service-view-wrapper{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+    }
 }
