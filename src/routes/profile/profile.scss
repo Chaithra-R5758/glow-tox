@@ -1,0 +1,70 @@
+.profile-screen{
+    .content-body-wrapper{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        
+    }
+    
+
+   .profile-card-body{
+       display: flex;
+       align-items: center;
+       justify-content: center ;
+       margin-right: 60px;
+       margin-bottom: 10px;
+       margin-left: 30px;
+    
+      
+    }
+.img-card{
+    
+    width: 130px;
+    height: 130px;
+    position: relative;
+    overflow: hidden;;
+    border-radius: 50%;
+    float: left;
+    margin-right: 20px;
+    margin-bottom: 30px;
+    margin-left: 30px ;
+}
+.profile-card{
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 10px;
+    
+    
+}   
+    
+.profile-card-pwd{
+    
+    display: flex;
+    justify-content: center;
+    align-items : center;
+    margin: 10px ;
+    flex-direction: column;
+}   
+.pwd-card-body{
+    display: flex;
+    justify-content: center;
+    margin-left: 20px;
+    margin-right: 20px;
+    margin-bottom: 10px;
+       
+
+}
+.profile-add-btn{
+    display: flex;
+    justify-content: center;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    text-align: center;
+}
+    
+}
+
+   
