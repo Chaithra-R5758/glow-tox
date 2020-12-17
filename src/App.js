@@ -36,7 +36,7 @@ class App extends Component {
                 <Route path="/servicehistoryview" component={() => <ServiceHistoryView />} />
                 <Route path="/profile" component={() => <Profile />} />
                 <Route path="/promotions" component={() => <Promotions />} />
-                <Route path="/promotionsedit" component={()=> <PromotionsEdit/>}/>
+                <Route path="/promotionsedit" component={() => <PromotionsEdit />} />
               </switch> :
               <switch>
                 <Route path="/login" component={() => <Login />} />

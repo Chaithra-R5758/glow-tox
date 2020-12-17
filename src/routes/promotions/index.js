@@ -10,20 +10,20 @@ const { TextArea } = Input;
 
 
 function Promotions() {
-  
-    const [isModalVisible, setIsModalVisible] = useState(false);
-  
-    const showModal = () => {
-      setIsModalVisible(true);
-    };
-  
-    const handleOk = () => {
-      setIsModalVisible(false);
-    };
-  
-    const handleCancel = () => {
-      setIsModalVisible(false);
-    };
+
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
   return (
     <div className="promotions-screen">
       <div>
@@ -33,44 +33,73 @@ function Promotions() {
           />
           <div className={'content-body-wrapper'}>
             <div className={'promo-add-btn'}>
-            <Button type="default" shape="round" style={{backgroundColor:" #343557",color:"white"}} onClick={showModal}>
-        Add New Promo
+              <Button type="default" shape="round" style={{ backgroundColor: " #343557", color: "white" }} onClick={showModal}>
+                Add New Promo
       </Button>
-      <Modal title="Promotions-Add/Edit" visible={isModalVisible}   onOk={handleOk} onCancel={handleCancel} style={{ top: 20 }} >
-      <div className={'add-promo-card'}>
-      <Card  bordered={false}>
-                      
-                      <div className={'modal-img-card'} style={{width:180, marginBottom:10,marginTop:-15}}>
-                         <Image
- 
-                           src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-                         />
-                       </div>
-                       <div className={'modal-desc-card'} style={{marginBottom:10}} >
-                         <TextArea bordered={false} style={{backgroundColor:"#e4e4e7"}}
-                           placeholder=" Description"
-                           autoSize={{ minRows:6, maxRows: 8 }}
-                         />
-                       </div>
-                       <div className="modaladd-btn-card" >
-                         <Button type="default" shape="round" style={{backgroundColor:" #343557",color:"white"}} >Promo Code </Button>
-                       </div>
-                       <div className="modallink-btn-card">
-                         <Button type="default" shape="round" style={{backgroundColor:" #343557",color:"white"}} icon={<LinkOutlined />} >URL to Link to Service </Button>
-                       </div>
-                       
-                       </Card>
-                       </div>
-      </Modal>
+              <Modal title="Promotions-Add/Edit" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} style={{ top: 20 }} >
+                <div className={'add-promo-card'}>
+                  <Card bordered={false}>
+
+                    <div className={'modal-img-card'} style={{ width: 180, marginBottom: 10, marginTop: -15 }}>
+                      <Image
+
+                        src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                      />
+                    </div>
+                    <div className={'modal-desc-card'} style={{ marginBottom: 10 }} >
+                      <TextArea bordered={false} style={{ backgroundColor: "#e4e4e7" }}
+                        placeholder=" Description"
+                        autoSize={{ minRows: 6, maxRows: 8 }}
+                      />
+                    </div>
+                    <div className="modaladd-btn-card" >
+                      <Button type="default" shape="round" style={{ backgroundColor: " #343557", color: "white" }} >Promo Code </Button>
+                    </div>
+                    <div className="modallink-btn-card">
+                      <Button type="default" shape="round" style={{ backgroundColor: " #343557", color: "white" }} icon={<LinkOutlined />} >URL to Link to Service </Button>
+                    </div>
+
+                  </Card>
+                </div>
+              </Modal>
             </div>
             <div className={'promo-card-wrapper'}>
               {
                 ["", "", "", "", ""].map(option =>
                   <div className={'promo-card'}>
-                    <Card   bordered={false}>
+                    <Card bordered={false}>
                       <div className="edit-btn-card">
-                        {<EditOutlined />}
+                        <Button type="link" block style={{ textAlign: "right", color: "#343557" }} onClick={showModal}>
+                          {<EditOutlined />}
+                        </Button>
+                        <Modal title="Promotions-Add/Edit" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} style={{ top: 20 }} >
+                          <div className={'add-promo-card'}>
+                            <Card bordered={false}>
+
+                              <div className={'modal-img-card'} style={{ width: 180, marginBottom: 10, marginTop: -15 }}>
+                                <Image
+
+                                  src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                                />
+                              </div>
+                              <div className={'modal-desc-card'} style={{ marginBottom: 10 }} >
+                                <TextArea bordered={false} style={{ backgroundColor: "#e4e4e7" }}
+                                  placeholder=" Description"
+                                  autoSize={{ minRows: 6, maxRows: 8 }}
+                                />
+                              </div>
+                              <div className="modaladd-btn-card" >
+                                <Button type="default" shape="round" style={{ backgroundColor: " #343557", color: "white" }} >Promo Code </Button>
+                              </div>
+                              <div className="modallink-btn-card">
+                                <Button type="default" shape="round" style={{ backgroundColor: " #343557", color: "white" }} icon={<LinkOutlined />} >URL to Link to Service </Button>
+                              </div>
+
+                            </Card>
+                          </div>
+                        </Modal>
                       </div>
+
                       <div className={'img-card'}>
                         <Image
 
@@ -78,13 +107,13 @@ function Promotions() {
                         />
                       </div>
                       <div className={'desc-card'}>
-                        <TextArea  bordered={false} style={{backgroundColor:"#e4e4e7"}}
+                        <TextArea bordered={false} style={{ backgroundColor: "#e4e4e7" }}
                           placeholder="Promo Description"
                           autoSize={{ minRows: 5, maxRows: 8 }}
                         />
                       </div>
                       <div className="btn-card">
-                        <Button  type="default" shape="round" style={{backgroundColor:" #343557",color:"white"}} icon={<LinkOutlined />} >Link to Services </Button>
+                        <Button type="default" shape="round" style={{ backgroundColor: " #343557", color: "white" }} icon={<LinkOutlined />} >Link to Services </Button>
                       </div>
 
                     </Card>
@@ -95,7 +124,7 @@ function Promotions() {
           </div>
         </div>
       </div>
-      </div>
+    </div>
   );
 }
 
