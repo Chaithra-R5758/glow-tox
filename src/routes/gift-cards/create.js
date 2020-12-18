@@ -1,11 +1,6 @@
-import Header from '../../Header'
-import Footer from '../../components/footer/'
-import Navbar from '../../components/navbar/'
 import { PageTitle } from '../../components/page-title/'
-import { DASHBOARD_OPTIONS } from '../../constants/';
 import './gift-card.scss';
 import { Form, Input, Button, Card, Select } from 'antd';
-
 const { Option } = Select;
 
 function Dashboard() {

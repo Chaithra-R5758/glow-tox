@@ -3,6 +3,7 @@ import React, { Component, Suspense } from 'react';
 import Login from './routes/login/'
 import Dashboard from './routes/dashboard/';
 import Service from './routes/service';
+import ServiceAdd from './routes/service/add';
 import GiftCard from './routes/gift-cards';
 import GiftCardCreate from './routes/gift-cards/create';
 import ServiceHistory from './routes/service-history';
@@ -27,6 +28,7 @@ class App extends Component {
               <switch>
                 <Route path="/dashboard" component={() => <Dashboard />} />
                 <Route path="/services" component={() => <Service />} />
+                <Route exact path="/servicesadd" component={() => <ServiceAdd />} />
                 <Route path="/giftcards" component={() => <GiftCard />} />
                 <Route path="/giftcardscreate" component={() => <GiftCardCreate />} />
                 <Route path="/servicehistory" component={() => <ServiceHistory />} />
