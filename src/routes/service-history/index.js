@@ -59,7 +59,7 @@ const columns = [
     title: '',
     dataIndex: 'btn',
     key: 'btn',
-    render: text => <Button type="primary">View</Button>,
+    render: text => <Button type="default" shape="round" style={{ backgroundColor: " #343557", color: "white" }}>View</Button>,
   },
 ];
 
@@ -111,10 +111,10 @@ function ServiceHistory() {
         />
         <div className={'service-history-wrapper'}>
           <div className={'gift-card-inner-wrapper'}>
-            <div className={'search-wrapper'}>
-              <Search placeholder="search"
-                loading={false}
-                enterButton />
+            <div className={'search-wrapper'} >
+              <Search placeholder="search" 
+             loading={false}
+                enterButton  />
             </div>
             <Table columns={columns} dataSource={data} />
           </div>

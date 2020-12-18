@@ -1,5 +1,7 @@
 .service-screen{
+     font-family: 'Kumbh Sans', sans-serif;
     .content-body-wrapper{
+      font-family: 'Kumbh Sans', sans-serif;
         display: flex;
         flex-direction: column;
     }
@@ -13,7 +15,6 @@
     }
     .service-card-body-wrapper{
         display: flex;
-        flex-direction: column;
         justify-content: center;
         align-items: center;
     }
@@ -28,5 +29,50 @@
     text-align: center;
     align-self: flex-end;
     margin: -5px 0 10px 0;
+   }
+   .service-add-content{
+        display: flex;
+        flex-wrap: wrap;
+        flex: 1 1;
+   }
+   .service-add-left-content{
+        display: flex;
+        flex-direction: column;
+        flex: .3 1;
+   }
+   .service-add-right-content{
+        flex: 1;
+        padding: 20px 20px 20px 0px;
+        margin-left: -80px;
+   }
+   .service-add-img{
+        object-fit: contain;
+        width: 240px;
+        height: 240px;
+        align-self: center;
+        margin-bottom: 15px;
+   }
+   .image-picker-title{
+    text-align: center;
+   }
+   .image-picker-outer-wrapper{
+    border: 0.01px solid #d9d9d9;
+    padding: 10px;
+    margin: 0 10px;
+   }
+   .plus-btn{
+    display: flex;
+    margin: 20px 0 0 0;
+    border: 0.01px solid #d9d9d9;
+    padding: 5px 0px;
+    width: 85px;
+   }
+   .plus-btn-wrapper{
+    display: flex;
+    justify-content: center;
+   }
+   .service-add-outer-wrapper-card{
+    margin: 10px;
+    width: 80%;
    }
 }

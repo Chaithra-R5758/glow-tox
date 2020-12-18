@@ -1,14 +1,16 @@
 .page-title-wrapper{
     display: flex;
-    margin: 25px 0;
+    margin: 10px 0 20px 0;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
+    font-family: 'Kumbh Sans', sans-serif;
 }
 .page-title{
     font-size: 22px;
     margin: -10px 0 10px 0;
     font-weight: 600;
+    font-family: 'Kumbh Sans', sans-serif;
 }
 .page-title-divider{
     margin:0px !important;

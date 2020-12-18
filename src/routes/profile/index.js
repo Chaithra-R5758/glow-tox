@@ -1,11 +1,22 @@
-
 import { PageTitle } from '../../components/page-title/'
-
+import { Form, Select } from 'antd';
 import './profile.scss';
 import { Card, Input, Space, Image, Button } from 'antd';
 
 //const { Meta } = Card;
-
+const layout = {
+    labelCol: { span: 10 },
+    wrapperCol: { span: 16 },
+};
+const { Option } = Select;
+const prefixSelector = (
+    <Form.Item name="prefix" noStyle>
+        <Select style={{ width: 70 }}>
+            <Option value="91">+91</Option>
+            <Option value="87">+87</Option>
+        </Select>
+    </Form.Item>
+);
 function Profile() {
     return (
         <div className="profile-screen">
@@ -24,15 +35,25 @@ function Profile() {
                                     />
                                 </div>
                                 <Space direction="vertical">
-                                    <div className="profile-card-body">
-                                        <Input  placeholder="Full Name" />
+                                    <div className="profile-card-body" >
+                                        <Form
+                                            {...layout}
+                                            name="nest-profile">
+                                            <Form.Item name={['user', 'name']} label="Full Name">
+                                                <Input />
+                                            </Form.Item>
+                                            <Form.Item name={['user', 'email']} label="Email Id"
+                                                rules={[{ type: 'email' }]}>
+                                                <Input />
+                                            </Form.Item>
+                                            <Form.Item name={['user', 'phone']} label="Phone Number"
+                                                rules={[{ type: 'phoneNum' }]}>
+                                                <Input addonBefore={prefixSelector} style={{ width: '100%' }} />
+                                            </Form.Item>
+                                        </Form>
+
                                     </div>
-                                    <div className="profile-card-body">
-                                        <Input placeholder="Email" />
-                                    </div>
-                                    <div className="profile-card-body">
-                                        <Input placeholder="Phone Number" />
-                                    </div>
+
                                 </Space>
 
                             </Card>
@@ -42,13 +63,21 @@ function Profile() {
 
                                 <Space direction="vertical">
                                     <div className={'pwd-card-body'}>
-                                        <Input.Password placeholder="Enter Your Password" />
-                                    </div>
-                                    <div className={'pwd-card-body'}>
-                                        <Input.Password placeholder="Re-Enter Your Password" />
+                                        <Form
+                                            {...layout}
+                                            name="nest-profile">
+                                            <Form.Item name={['user', 'password']} label="Password"
+                                                rules={[{ type: 'password' }]}>
+                                                <Input.Password />
+                                            </Form.Item>
+                                            <Form.Item name={['user', 'Confirm']} label="Re-type Password"
+                                                rules={[{ type: 'password' }]}>
+                                                <Input.Password />
+                                            </Form.Item>
+                                        </Form>
                                     </div>
                                     <div className={'profile-add-btn'}>
-                                        <Button type="primary" shape="round">Submit</Button>
+                                        <Button type="default" shape="round" style={{ backgroundColor: " #343557", color: "white" }}>Submit</Button>
                                     </div>
                                 </Space>
 

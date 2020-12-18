@@ -9,8 +9,9 @@ import './header.scss';
 import Cookies from 'js-cookie';
 //import Button from '@material-ui/core/Button';
 import { UserOutlined } from '@ant-design/icons';
-import brandLogo from './assets/brand-logo.png';
+import { Anchor } from 'antd';
 
+const { Link } = Anchor;
 class Header extends React.Component {
 
   constructor() {
@@ -20,10 +21,10 @@ class Header extends React.Component {
     }
   }
 
-  componentDidMount(){
+  componentDidMount() {
     const userType = Cookies.get('userType')
-    if(userType){
-      this.setState({userType})
+    if (userType) {
+      this.setState({ userType })
     }
   }
 
@@ -34,7 +35,7 @@ class Header extends React.Component {
   }
 
   render() {
-  
+
     return (
       <div className={'header'}>
         <div className={'header-wrapper'}>
@@ -43,10 +44,10 @@ class Header extends React.Component {
           <div className={'profile-name'}>
             <div className={'profile-inner-wrapper'}>
               <div className={'profile-icon'}>
-                  {/* <AccountCircleIcon /> */}
-                  <UserOutlined style={{fontSize:'19px'}}/>
-                  </div>
-              <div className={'profile-text'}>Akash Hamse</div>
+                {/* <AccountCircleIcon /> */}
+                <UserOutlined style={{ fontSize: '19px' }} />
+              </div>
+              <div className={'profile-text'}> <Anchor affix={false}><Link href="/Profile" title="Akash Hamse" /></Anchor></div>
             </div>
           </div>
         </div>

@@ -1,4 +1,3 @@
-
 import { PageTitle } from '../../components/page-title'
 import './promotions.scss';
 import { Input, Card, Button, Image } from 'antd';
@@ -22,9 +21,7 @@ function Promotions() {
               save
               </Button>
             </div>
-            <div className={'promo-card-wrapper'}>
-              
-                
+            <div className={'promo-card-wrapper'}>  
                   <div className={'add-promo-card'}>
                     <Card  bordered={false}>
                       

@@ -1,4 +1,3 @@
-
 import { PageTitle } from '../../components/page-title'
 import './promotions.scss';
 import { Input, Card, Image } from 'antd';

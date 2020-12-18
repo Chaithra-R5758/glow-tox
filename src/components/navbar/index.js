@@ -9,7 +9,7 @@ import {
   FundFilled,
   ExperimentFilled,
   AppstoreFilled,
-  HistoryOutlined ,
+  HistoryOutlined,
 } from '@ant-design/icons';
 import { getRouteName } from '../../utils/';
 //import { connect } from 'react-redux';
@@ -26,7 +26,7 @@ class NavBar extends React.Component {
       selectedOption: '',
       userType: '',
       //  screenName: 'Home',
-      selectedNavOption:0,
+      selectedNavOption: 0,
     }
   }
 
@@ -48,45 +48,55 @@ class NavBar extends React.Component {
     this.setState({ left: open });
   };
 
-  navItemClicked = (screenName,index) => {
+  navItemClicked = (screenName, index) => {
     this.props.history.push(getRouteName(screenName))
     this.setState({ selectedNavOption: index })
 
-   // this.setState({selectedNavOption:index})
+    // this.setState({selectedNavOption:index})
   }
 
-  getIcon = (navOption,index,selectedNavOption) => {
+  getIcon = (navOption, index, selectedNavOption) => {
     const iconSize = '18px';
     const grey3 = '#b1b1b1';
     const white = '#fff';
-    switch(navOption){
-      case 'Dashboard' : return  <AppstoreFilled  style={{fontSize:iconSize, 
-        color: selectedNavOption === index ? white : grey3 }} /> 
-      case 'Services' : return  <ExperimentFilled  style={{fontSize:iconSize, 
-        color: selectedNavOption === index ? white : grey3}} /> 
-      case 'Promotions' : return  <FundFilled  style={{fontSize:iconSize, 
-        color: selectedNavOption === index ? white : grey3}} /> 
-      case 'Service History' : return  <HistoryOutlined  style={{fontSize:iconSize, 
-        color: selectedNavOption === index ? white : grey3}} /> 
-      case 'Gift Cards' : return  <GiftFilled  style={{fontSize:iconSize, 
-        color: selectedNavOption === index ? white : grey3}} /> 
-      default : return 
+    switch (navOption) {
+      case 'Dashboard': return <AppstoreFilled style={{
+        fontSize: iconSize,
+        color: selectedNavOption === index ? white : grey3
+      }} />
+      case 'Services': return <ExperimentFilled style={{
+        fontSize: iconSize,
+        color: selectedNavOption === index ? white : grey3
+      }} />
+      case 'Promotions': return <FundFilled style={{
+        fontSize: iconSize,
+        color: selectedNavOption === index ? white : grey3
+      }} />
+      case 'Service History': return <HistoryOutlined style={{
+        fontSize: iconSize,
+        color: selectedNavOption === index ? white : grey3
+      }} />
+      case 'Gift Cards': return <GiftFilled style={{
+        fontSize: iconSize,
+        color: selectedNavOption === index ? white : grey3
+      }} />
+      default: return
     }
   }
 
   getNavOptions = () => {
     const grey3 = '#edf0f5';
     const { selectedNavOption } = this.state
-    const result = NAV_OPTIONS.map((navOption,index) => {
-      return(
-        <div className={'nav-option'} onClick={() => this.navItemClicked(navOption,index)}>
-              <div>
-                {this.getIcon(navOption,index,selectedNavOption)}
-                {selectedNavOption === index &&
-                <span className={'caret-icon'}><CaretLeftOutlined style={{ color: grey3}}/></span>
-                }
-              </div>
-              <div className={ selectedNavOption === index ? 'nav-option-title-selected' : 'nav-option-title'}> {navOption} </div>
+    const result = NAV_OPTIONS.map((navOption, index) => {
+      return (
+        <div className={'nav-option'} onClick={() => this.navItemClicked(navOption, index)}>
+          <div>
+            {this.getIcon(navOption, index, selectedNavOption)}
+            {selectedNavOption === index &&
+              <span className={'caret-icon'}><CaretLeftOutlined style={{ color: grey3 }} /></span>
+            }
+          </div>
+          <div className={selectedNavOption === index ? 'nav-option-title-selected' : 'nav-option-title'}> {navOption} </div>
         </div>
       )
     })
@@ -133,7 +143,7 @@ class NavBar extends React.Component {
              <DehazeIcon /> 
           </div> */}
           <div className={'nav-options-wrapper'}>
-           {this.getNavOptions()}
+            {this.getNavOptions()}
           </div>
           {/* {userType && this.getNavOptions().map((text, index) => (
             

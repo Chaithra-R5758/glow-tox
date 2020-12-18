@@ -1,7 +1,7 @@
 @import "src/constants/variables";
 
 .login-screen{
-
+    font-family: 'Kumbh Sans', sans-serif;
     display: flex;
     flex: 1;
     justify-content: center;
@@ -9,6 +9,7 @@
     text-align: center;
 
     .login-wrapper{
+        font-family: 'Kumbh Sans', sans-serif;
         display: flex;
         flex: .5 1;
         flex-direction: column;
@@ -29,6 +30,7 @@
     }
 
     .login-input-wrapper{
+        font-family: 'Kumbh Sans', sans-serif;
         margin:0px 0 15px 0;
     }
     

@@ -1,8 +1,5 @@
-import Header from '../../Header'
-import Footer from '../../components/footer'
-import Navbar from '../../components/navbar'
 import { PageTitle } from '../../components/page-title'
-import { DASHBOARD_OPTIONS } from '../../constants';
+import testImg from '../../assets/test-img.jpg'
 import './service.scss';
 import { Card, Button } from 'antd';
 const { Meta } = Card;
@@ -25,13 +22,19 @@ function Service() {
                   <Card
                     hoverable
                     style={{ width: 240 }}
-                    cover={<img alt="example" src="https://os.alipayobjects.com/rmsportal/QBnOOoLaAfKPirc.png" />}
-                  >
+                    cover={<img alt="example" src={testImg} />}>
                     <div className={'service-card-body-wrapper'}>
-                      <div className={'service-card-title'}>
-                      <Meta title="Europe Street beat" />
+                      <div className={'service-meta-data-wrapper'}>
+                        <Meta title="Service 1" />
+                        <Button type="default" shape="round" style={{ backgroundColor: " #343557", color: "white" }}>Edit</Button>
                       </div>
-                    <Button type="primary">Primary Button</Button>
+                      <div>
+                        
+                      </div>
+                      {/* <div className={'service-card-title'}>
+                      <Meta title="Service 1" />
+                      </div>
+                    <Button type="primary">Edit</Button> */}
                     </div>
                     
                   </Card>
