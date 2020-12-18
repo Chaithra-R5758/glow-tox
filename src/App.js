@@ -11,6 +11,9 @@ import ServiceHistoryView from './routes/service-history/view';
 import Header from './Header';
 import Footer from './components/footer/';
 import Navbar from './components/navbar/';
+import Profile from './routes/profile/';
+import Promotions from './routes/promotions/';
+import PromotionsEdit from './routes/promotions/edit';
 import Cookies from 'js-cookie';
 
 class App extends Component {
@@ -33,7 +36,9 @@ class App extends Component {
                 <Route path="/giftcardscreate" component={() => <GiftCardCreate />} />
                 <Route path="/servicehistory" component={() => <ServiceHistory />} />
                 <Route path="/servicehistoryview" component={() => <ServiceHistoryView />} />
-
+                <Route path="/profile" component={() => <Profile />} />
+                <Route path="/promotions" component={() => <Promotions />} />
+                <Route path="/promotionsedit" component={()=> <PromotionsEdit/>}/>
               </switch> :
               <switch>
                 <Route path="/login" component={() => <Login />} />
