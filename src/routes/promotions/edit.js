@@ -1,6 +1,6 @@
 import { PageTitle } from '../../components/page-title'
 import './promotions.scss';
-import { Input, Card, Button, Image } from 'antd';
+import { Input, Card, Button, Image,Skeleton } from 'antd';
 import { LinkOutlined } from '@ant-design/icons';
 
 
@@ -16,12 +16,17 @@ function Promotions() {
             title={'Promotions-Add/Edit'}
           />
           <div className={'content-body-wrapper'}>
-            <div className={'promo-addedit-btn'}>
-            <Button type="default" shape="round" style={{backgroundColor:" #343557",color:"white"}}>
-              save
-              </Button>
+            <div className={'promo-addedit-btn'} style={{ padding: '10px 30px' }}>
+              Save
             </div>
             <div className={'promo-card-wrapper'}>  
+                  <div className={'add-promo-card'}>
+                  <Card
+                    style={{ width: 600 }}>
+                    <Skeleton paragraph={{ rows: 8 }} />
+                  </Card>
+                  </div></div>
+            {/* <div className={'promo-card-wrapper'}>  
                   <div className={'add-promo-card'}>
                     <Card  bordered={false}>
                       
@@ -47,7 +52,7 @@ function Promotions() {
                       </Card>
                   </div>
                 
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

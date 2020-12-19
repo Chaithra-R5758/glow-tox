@@ -30,6 +30,15 @@
     align-self: flex-end;
     margin: -5px 0 10px 0;
    }
+   .service-edit-btn{
+        background-color: #343557;
+    padding: 10px 15px;
+    border-radius: 25px;
+    color: white;
+    text-align: center;
+    align-self: flex-end;
+    margin: -5px 0 10px 0;
+   }
    .service-add-content{
         display: flex;
         flex-wrap: wrap;
@@ -56,6 +65,7 @@
     text-align: center;
    }
    .image-picker-outer-wrapper{
+        //display:flex;
     border: 0.01px solid #d9d9d9;
     padding: 10px;
     margin: 0 10px;
@@ -65,14 +75,17 @@
     margin: 20px 0 0 0;
     border: 0.01px solid #d9d9d9;
     padding: 5px 0px;
-    width: 85px;
+    width: 100px;
    }
    .plus-btn-wrapper{
     display: flex;
     justify-content: center;
    }
    .service-add-outer-wrapper-card{
+        display: flex;
     margin: 10px;
-    width: 80%;
+    //width: 80%;
    }
+  
+
 }

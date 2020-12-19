@@ -4,10 +4,10 @@ import Navbar from '../../components/navbar/'
 import { PageTitle } from '../../components/page-title/'
 import { DASHBOARD_OPTIONS } from '../../constants/';
 import './gift-card.scss';
-import { Card, Table, Tag, Space,Input } from 'antd';
+import { Card, Table, Tag, Space,Input ,Anchor} from 'antd';
 const { Meta } = Card;
 const { Search } = Input;
-
+const { Link } = Anchor;
 
 const columns = [
   {
@@ -114,7 +114,7 @@ function Dashboard() {
                     enterButton />
                   </div>
                   <div className={'add-btn'}>
-                  Create New
+                  <Anchor affix={false}><Link href="/Giftcardscreate" title="Create New" /></Anchor>
                   </div>
                 </div>
                 <Table columns={columns} dataSource={data} />

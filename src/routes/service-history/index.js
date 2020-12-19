@@ -4,9 +4,12 @@ import Navbar from '../../components/navbar'
 import { PageTitle } from '../../components/page-title'
 import { DASHBOARD_OPTIONS } from '../../constants';
 import './service-history.scss';
-import { Card, Table, Tag, Button, Input } from 'antd';
+import { Card, Table, Tag, Button, Input ,Skeleton,Anchor} from 'antd';
 const { Meta } = Card;
 const { Search } = Input;
+
+
+const { Link } = Anchor;
 
 const columns = [
   {
@@ -59,7 +62,7 @@ const columns = [
     title: '',
     dataIndex: 'btn',
     key: 'btn',
-    render: text => <Button type="default" shape="round" style={{ backgroundColor: " #343557", color: "white" }}>View</Button>,
+    render: text => <Button type="default" shape="round" style={{ backgroundColor: " #343557", color: "white" }}> <div className="view-btn"><Anchor affix={false}><Link href="/Servicehistoryview" title="view " /></Anchor></div></Button>
   },
 ];
 

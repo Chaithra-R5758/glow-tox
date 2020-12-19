@@ -55,11 +55,15 @@
    
 }
 .profile-add-btn{
-    display: flex;
-    justify-content: center;
-    // margin-bottom: 10px;
-    // // margin-top: 10px;
-    text-align: center;
+   
+        background-color: #343557;
+        padding: 10px 15px;
+        border-radius: 25px;
+        color: white;
+        text-align: center;
+       align-items: center;
+        margin: -5px 120px 10px 120px;
+      
 }    
 }
 

@@ -1,7 +1,7 @@
 import { PageTitle } from '../../components/page-title'
 import './service-history.scss';
 import brandIcon from '../../assets/brand-logo.png'
-import { Card, Form, Input, Select } from 'antd';
+import { Card, Form, Input, Select,Skeleton } from 'antd';
 const { Meta } = Card;
 const { Search } = Input;
 const { Option } = Select;
@@ -18,6 +18,22 @@ function ServiceHistory() {
           title={'Service History - View'}
         />
         <div className={'service-history-wrapper'}>
+          <div className={'service-view-wrapper'}>
+            <div className={'card-wrapper'}>
+            <Card
+                    style={{ width: 300}}>
+                    <Skeleton paragraph={{ rows: 8 }} />
+                  </Card>
+                  </div>
+                  
+            <div className={'card-wrapper'}>  
+            <Card
+                    style={{ width: 300}}>
+                    <Skeleton paragraph={{ rows: 8 }} />
+                  </Card>
+                  </div> 
+                  </div>
+            </div>     {/* <div className={'service-history-wrapper'}>
           <div className={'service-view-wrapper'}>
             <div className={'card-wrapper'}>
             <Card>
@@ -43,6 +59,7 @@ function ServiceHistory() {
               </div>
             </Card>
             </div>
+             
             <div className={'card-wrapper'}>
             <Card>  
               <div className={'client-details-wrapper'}>
@@ -72,7 +89,7 @@ function ServiceHistory() {
             </Card>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
     </div>
   );

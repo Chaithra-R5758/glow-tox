@@ -1,22 +1,35 @@
 import { PageTitle } from '../../components/page-title'
 import testImg from '../../assets/test-img.jpg'
 import './service.scss';
-import { Card, Button } from 'antd';
+import { Card, Button, template, Skeleton ,Anchor} from 'antd';
 const { Meta } = Card;
+
+
+const { Link } = Anchor;
 
 function Service() {
   return (
     <div className="service-screen">
-        <div className={'content-wrapper'}>
-          <PageTitle
-            title={'Service'}
-          />
-          <div className={'content-body-wrapper'}>
-            <div className={'service-add-btn'}>
-              Add New Service
+      <div className={'content-wrapper'}>
+        <PageTitle
+          title={'Service'}
+        />
+        <div className={'content-body-wrapper'}>
+          <div className={'add-btn'}>
+          <Anchor affix={false}><Link href="/Servicesadd" title="Add New Service" /></Anchor>
             </div>
-            <div className={'dashboard-card-wrapper'}>
+          <div className={'dashboard-card-wrapper'}>
             {
+              ["", "", "", "", ""].map(option =>
+                <div className={'dashboard-card'}>
+                  <Card
+                    style={{ width: 240 }}>
+                    <Skeleton paragraph={{ rows: 3 }} />
+                  </Card>
+                </div>
+              )
+            }
+            {/* {
               ["","","","",""].map(option =>
                 <div className={'dashboard-card'}>
                   <Card
@@ -29,21 +42,15 @@ function Service() {
                         <Button type="default" shape="round" style={{ backgroundColor: " #343557", color: "white" }}>Edit</Button>
                       </div>
                       <div>
-                        
                       </div>
-                      {/* <div className={'service-card-title'}>
-                      <Meta title="Service 1" />
-                      </div>
-                    <Button type="primary">Edit</Button> */}
                     </div>
-                    
                   </Card>
                 </div>
               )
-            }
-            </div>
+            } */}
           </div>
         </div>
+      </div>
     </div>
   );
 }

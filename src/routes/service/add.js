@@ -4,7 +4,9 @@ import './service.scss';
 import brandLogo from '../../assets/test-img.jpg'
 import { Card, Input, Form, Upload, Button } from 'antd';
 import { UploadOutlined, PlusCircleOutlined } from '@ant-design/icons';
+import { Anchor } from 'antd';
 
+const { Link } = Anchor;
 
 const { Meta } = Card;
 const { TextArea } = Input;
@@ -59,12 +61,12 @@ class ServiceAdd extends React.Component {
           />
           <div className={'content-body-wrapper'}>
             <div className={'add-btn'}>
-              Save
+            <Anchor affix={false}><Link href="/Services" title="Save" /></Anchor>
             </div>
 
             <div className={'dashboard-card-wrapper'}>
               <div className={'service-add-outer-wrapper-card'}>
-                <Card style={{}}>
+                <Card style={{width:1000}}>
                   <div className={'service-add-content'}>
                     <div className={'service-add-left-content'}>
                       <img
@@ -120,12 +122,12 @@ class ServiceAdd extends React.Component {
                       <div className={'plus-btn'}>
                         <PlusCircleOutlined 
                         style={{ 
-                          fontSize: '20px',
+                          fontSize: '25px',
                           color: 'rgb(38 38 38)',
                           padding: '0 10px',
                         }}
                         />
-                        Add
+                        <Anchor affix={false}><Link href="/Services" title="Add " /></Anchor>
                       </div>
                       </div>
                       {/* <Button type="primary">Add</Button> */}

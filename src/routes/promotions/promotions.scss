@@ -11,6 +11,9 @@
         align-items: center;
         justify-content: center;
     }
+    .dashboard-card{
+        margin: 10px;
+    }
     .promo-card {
         display: flex;
         align-items: center;
@@ -22,6 +25,7 @@
         text-align: center;
         align-self: flex-end;
         margin: -5px 0 10px 0;
+        
     }
     .img-card {
         float: right;
@@ -106,8 +110,12 @@
         // padding-left: 100px;
     }
     .promo-addedit-btn {
-        text-align: center;
-        align-self: flex-end;
-        margin: -5px 0 10px 0;
+        background-color: #343557;
+    padding: 10px 15px;
+    border-radius: 25px;
+    color: white;
+    text-align: center;
+    align-self: flex-end;
+    margin: -5px 0 10px 0;
     }
 }

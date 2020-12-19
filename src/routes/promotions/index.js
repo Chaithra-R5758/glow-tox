@@ -1,6 +1,6 @@
 import { PageTitle } from '../../components/page-title'
 import './promotions.scss';
-import { Input, Card, Image } from 'antd';
+import { Input, Card, Image,Skeleton } from 'antd';
 import { LinkOutlined, EditOutlined } from '@ant-design/icons';
 import React, { useState } from 'react';
 import { Modal, Button } from 'antd';
@@ -32,7 +32,7 @@ function Promotions() {
           />
           <div className={'content-body-wrapper'}>
             <div className={'promo-add-btn'}>
-              <Button type="default" shape="round" style={{ backgroundColor: " #343557", color: "white" }} onClick={showModal}>
+              <Button type="default" shape="round" style={{ backgroundColor: " #343557", color: "white",paddingTop:'5px' }} onClick={showModal}>
                 Add New Promo
       </Button>
               <Modal title="Promotions-Add/Edit" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} style={{ top: 20 }} >
@@ -63,6 +63,18 @@ function Promotions() {
               </Modal>
             </div>
             <div className={'promo-card-wrapper'}>
+            {
+              ["", "", "", "", ""].map(option =>
+                <div className={'promo-card'}>
+                  <Card
+                    style={{ width: 240 }}>
+                    <Skeleton paragraph={{ rows: 3 }} />
+                  </Card>
+                </div>
+              )
+            }
+            </div>
+            {/* <div className={'promo-card-wrapper'}>
               {
                 ["", "", "", "", ""].map(option =>
                   <div className={'promo-card'}>
@@ -119,7 +131,7 @@ function Promotions() {
                   </div>
                 )
               }
-            </div>
+            </div> */}
           </div>
         </div>
       </div>

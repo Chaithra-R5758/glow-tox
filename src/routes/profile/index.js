@@ -1,8 +1,8 @@
 import { PageTitle } from '../../components/page-title/'
 import { Form, Select } from 'antd';
 import './profile.scss';
-import { Card, Input, Space, Image, Button } from 'antd';
-
+import { Card, Input, Space, Image, Button,Anchor } from 'antd';
+const { Link } = Anchor;
 //const { Meta } = Card;
 const layout = {
     labelCol: { span: 10 },
@@ -29,6 +29,7 @@ function Profile() {
                     />
                     <div className={'content-body-wrapper'}>
                         <div className={'profile-card'}>
+                        
                             <Card type="inner" title="Personal Profile"  >
                                 <div className={'img-card'}>
                                     <Image src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
@@ -57,7 +58,9 @@ function Profile() {
                                 </Space>
 
                             </Card>
+                            
                         </div>
+                      
                         <div className={'profile-card-pwd'}>
                             <Card type="inner" title="Change Password" >
 
@@ -77,7 +80,7 @@ function Profile() {
                                         </Form>
                                     </div>
                                     <div className={'profile-add-btn'}>
-                                        <Button type="default" shape="round" style={{ backgroundColor: " #343557", color: "white" }}>Submit</Button>
+                                    <Anchor affix={false}><Link href="/Header" title="Submit" /></Anchor>
                                     </div>
                                 </Space>
 

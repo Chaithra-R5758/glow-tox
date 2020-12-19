@@ -14,10 +14,10 @@
         align-self: flex-end;
         margin: -5px 0 10px 0;
     }
-    .service-history-wrapper{
-        //display: flex;
-       // width: 40%;
-    }
+    // .service-history-wrapper{
+    //     //display: flex;
+    //    // width: 40%;
+    // }
     .client-details-wrapper{
         display: flex;
         flex-direction: column;
@@ -36,5 +36,8 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
+    }
+    .view-btn{
+        margin-top: -25px;
     }
 }
