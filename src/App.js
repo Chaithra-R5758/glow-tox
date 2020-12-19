@@ -19,34 +19,33 @@ import Cookies from 'js-cookie';
 
 class App extends Component {
   render() {
-    const userLoggedIn = 1 || Cookies.get('accessToken')
+    const userLoggedIn = 0 || Cookies.get('accessToken')
     return (
       <Router>
         <div>
-          <Header />
-          <div>
-            <Navbar />
-          </div>
           {
             userLoggedIn ?
-              <switch>
-                <Route path="/dashboard" component={() => <Dashboard />} />
-                <Route path="/services" component={() => <Service />} />
-                <Route exact path="/servicesadd" component={() => <ServiceAdd />} />
-                <Route path="/giftcards" component={() => <GiftCard />} />
-                <Route path="/giftcardscreate" component={() => <GiftCardCreate />} />
-                <Route path="/servicehistory" component={() => <ServiceHistory />} />
-                <Route path="/servicehistoryview" component={() => <ServiceHistoryView />} />
-                <Route path="/profile" component={() => <Profile />} />
-                <Route path="/promotions" component={() => <Promotions />} />
-                <Route path="/promotionsedit" component={()=> <PromotionsEdit/>}/>
-
-              </switch> :
+              <div>
+                <Header />
+                <div> <Navbar /> </div>
+                <switch>
+                  <Route path="/dashboard" component={() => <Dashboard />} />
+                  <Route path="/services" component={() => <Service />} />
+                  <Route exact path="/servicesadd" component={() => <ServiceAdd />} />
+                  <Route path="/giftcards" component={() => <GiftCard />} />
+                  <Route path="/giftcardscreate" component={() => <GiftCardCreate />} />
+                  <Route path="/servicehistory" component={() => <ServiceHistory />} />
+                  <Route path="/servicehistoryview" component={() => <ServiceHistoryView />} />
+                  <Route path="/profile" component={() => <Profile />} />
+                  <Route path="/promotions" component={() => <Promotions />} />
+                  <Route path="/promotionsedit" component={() => <PromotionsEdit />} />
+                </switch>
+                <Footer /> </div>
+              :
               <switch>
                 <Route path="/login" component={() => <Login />} />
               </switch>
           }
-          <Footer />
         </div>
       </Router>
     );
