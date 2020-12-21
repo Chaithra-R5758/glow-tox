@@ -1,11 +1,7 @@
 import { PageTitle } from '../../components/page-title'
 import testImg from '../../assets/test-img.jpg'
 import './service.scss';
-<<<<<<< HEAD
 import { Card, Button, template, Skeleton ,Anchor} from 'antd';
-=======
-import { Card, Button, template, Skeleton } from 'antd';
->>>>>>> 82f3ba66cc7d52f369d4ee648b0d675f60f522cc
 const { Meta } = Card;
 
 
@@ -19,12 +15,8 @@ function Service() {
           title={'Service'}
         />
         <div className={'content-body-wrapper'}>
-          <div className={'add-btn'}>
-<<<<<<< HEAD
-          <Anchor affix={false}><Link href="/Servicesadd" title="Add New Service" /></Anchor>
-=======
-            Add New Service
->>>>>>> 82f3ba66cc7d52f369d4ee648b0d675f60f522cc
+          <div className={'add-btn'} onClick={() => this.props.history.push('/Giftcardscreate')}>
+          Add New Service
             </div>
           <div className={'dashboard-card-wrapper'}>
             {
