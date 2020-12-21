@@ -19,7 +19,7 @@ import Cookies from 'js-cookie';
 
 class App extends Component {
   render() {
-    const userLoggedIn = 0 || Cookies.get('accessToken')
+    const userLoggedIn = 1 || Cookies.get('accessToken')
     return (
       <Router>
         <div>

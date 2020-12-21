@@ -80,7 +80,8 @@ function Profile() {
                                         </Form>
                                     </div>
                                     <div className={'profile-add-btn'}>
-                                    <Anchor affix={false}><Link href="/Header" title="Submit" /></Anchor>
+                                    Submit
+                                    {/* <Anchor affix={false}><Link href="/Header" title="Submit" /></Anchor> */}
                                     </div>
                                 </Space>
 
