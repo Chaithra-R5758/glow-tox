@@ -27,6 +27,7 @@ function Dashboard() {
                         </div>
                         {/* <div className={'card-wrapper'}>
                             <Card style={{ width: '90%' }}>
+                            <Card style={{ width: '70%' }}>
                                 <Form {...layout} name="nest-messages"
                                 //validateMessages={validateMessages}
                                 >

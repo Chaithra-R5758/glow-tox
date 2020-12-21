@@ -25,14 +25,14 @@ code {
   color: white;
   text-align: center;
   align-self: flex-end;
-  margin: -10px 0 -5px 0;
+  margin: -10px 0 0 0;
   min-width: 100px;
  }
 
 @media screen and (max-width: 720px) {
   .content-wrapper{
     justify-content: center;
-    padding: 65px 10px 40px 95px;
+    padding: 70px 20px 40px 20px;
   } 
   .page-title-wrapper{
     margin: 25px 0 15px 0;

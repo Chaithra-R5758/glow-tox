@@ -10,10 +10,13 @@ import {
   ExperimentFilled,
   AppstoreFilled,
   HistoryOutlined,
+  MenuOutlined
 } from '@ant-design/icons';
 import { getRouteName } from '../../utils/';
 //import { connect } from 'react-redux';
 import Cookies from 'js-cookie';
+import { Drawer, Button, Radio, Space } from 'antd';
+
 
 class NavBar extends React.Component {
   constructor() {
@@ -27,12 +30,15 @@ class NavBar extends React.Component {
       userType: '',
       //  screenName: 'Home',
       selectedNavOption: 0,
+      visible: false,
     }
   }
 
-  getIcon = (text) => {
-    return "a"
-  }
+  showDrawer = () => {
+    this.setState({
+      visible: true,
+    });
+  };
 
   componentWillMount() {
     const userType = Cookies.get('userType')
@@ -50,9 +56,7 @@ class NavBar extends React.Component {
 
   navItemClicked = (screenName, index) => {
     this.props.history.push(getRouteName(screenName))
-    this.setState({ selectedNavOption: index })
-
-    // this.setState({selectedNavOption:index})
+    this.setState({ selectedNavOption: index, visible: false })
   }
 
   getIcon = (navOption, index, selectedNavOption) => {
@@ -129,7 +133,9 @@ class NavBar extends React.Component {
 
   render() {
     //const { loginReducers } = this.props
-    const { selectedOption, userType, selectedNavOption } = this.state
+    const { visible, selectedOption, userType, selectedNavOption } = this.state
+
+
 
     // if (window.location.pathname === '/login' || window.location.pathname === '/')
     //   return null
@@ -138,11 +144,12 @@ class NavBar extends React.Component {
     return (
       <div className={'nav-screen'}>
         <div className={'navbar'} >
+
           {/* <div className={'nav-title'}
             onClick={this.toggleDrawer('left', true)}>
              <DehazeIcon /> 
           </div> */}
-          <div className={'nav-options-wrapper'}>
+          <div className={'nav-options-wrapper'} >
             {this.getNavOptions()}
           </div>
           {/* {userType && this.getNavOptions().map((text, index) => (
@@ -154,17 +161,26 @@ class NavBar extends React.Component {
             </div>
             
           ))} */}
+        </div >
+        <div className={'nav-bar-mob-wrapper'}>
+          <MenuOutlined onClick={this.showDrawer} />
         </div>
-        {/* <Drawer open={this.state.left} onClose={this.toggleDrawer('left', false)}>
-            {userType && this.sideList('left', this.getNavOptions())}
-          </Drawer> */}
-      </div>
+        <Drawer
+          title="Basic Drawer"
+          placement={'left'}
+          closable={false}
+          onClose={() => this.setState({visible:false})}
+          visible={visible}
+          title={'Glow Tox'}
+          headerStyle={{ backgroundColor: '#343557', color: '#fff' }}
+          //style={{backgroundColor:'#343557'}}
+          key={'left'}>
+          <div className={'nav-options-wrapper-mob'} >
+            {this.getNavOptions()}
+          </div>
+        </Drawer>
+      </div >
     )
   }
-
-
 }
-
-
-
 export default withRouter(NavBar)
