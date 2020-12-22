@@ -29,7 +29,7 @@ class NavBar extends React.Component {
       selectedOption: '',
       userType: '',
       //  screenName: 'Home',
-      selectedNavOption: 0,
+      selectedNavOption: -1,
       visible: false,
     }
   }
