@@ -38,6 +38,12 @@
         justify-content: center;
     }
     .view-btn{
-      margin-top: -25px;
+        background-color: #343557;
+        padding: 5px ;
+        border-radius: 25px;
+        color: white;
+        text-align: center;
+        align-self: flex-end;
+        margin: -5px 0 10px 0;;
     }
 }

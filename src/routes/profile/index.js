@@ -65,7 +65,7 @@ function Profile() {
                             <Card type="inner" title="Change Password" >
 
                                 <Space direction="vertical">
-                                    <div className={'pwd-card-body'}>
+                                    <div className={'pwd-card-body'} style={{height:122}}>
                                         <Form
                                             {...layout}
                                             name="nest-profile">
