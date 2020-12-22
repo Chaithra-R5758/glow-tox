@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-dom";
 import React, { Component, Suspense } from 'react';
-import Login from './routes/login/'
+import Login from './routes/login1/'
 import Dashboard from './routes/dashboard/';
 import Service from './routes/service';
 import ServiceAdd from './routes/service/add';

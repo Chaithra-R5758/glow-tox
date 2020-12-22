@@ -115,10 +115,15 @@
             cursor: pointer;
         }
         
-        // .nav-option{
-        //     margin: 20px 0;
-        //     text-align: center;
-        // }
+        .nav-option{
+            margin: 20px 0;
+            text-align: center;
+            display: flex;
+        }
+
+        .caret-icon{
+            display: none;
+        }
     }
 }
 
