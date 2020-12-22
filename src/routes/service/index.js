@@ -2,12 +2,15 @@ import { PageTitle } from '../../components/page-title'
 import testImg from '../../assets/test-img.jpg'
 import './service.scss';
 import { Card, Button, template, Skeleton ,Anchor} from 'antd';
+import React, { Component, Suspense } from 'react';
+import { withRouter } from 'react-router-dom';
 const { Meta } = Card;
 
 
 const { Link } = Anchor;
 
-function Service() {
+class Service extends Component { 
+  render(){
   return (
     <div className="service-screen">
       <div className={'content-wrapper'}>
@@ -15,7 +18,7 @@ function Service() {
           title={'Service'}
         />
         <div className={'content-body-wrapper'}>
-          <div className={'add-btn'} onClick={() => this.props.history.push('/Serviceadd')}>
+          <div className={'add-btn'} onClick={() => this.props.history.push('/Servicesadd')}>
           Add New Service
             </div>
           <div className={'dashboard-card-wrapper'}>
@@ -39,7 +42,7 @@ function Service() {
                     <div className={'service-card-body-wrapper'}>
                       <div className={'service-meta-data-wrapper'}>
                         <Meta title="Service 1" />
-                        <Button type="default" shape="round" style={{ backgroundColor: " #343557", color: "white" }}>Edit</Button>
+                        <div className={'edit-btn'} onClick={() => this.props.history.push('/Servicesadd')}>Edit</div>
                       </div>
                       <div>
                       </div>
@@ -54,5 +57,6 @@ function Service() {
     </div>
   );
 }
+}
 
-export default Service;
+export default withRouter(Service);

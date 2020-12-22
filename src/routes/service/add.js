@@ -5,6 +5,8 @@ import brandLogo from '../../assets/test-img.jpg'
 import { Card, Input, Form, Upload, Button } from 'antd';
 import { UploadOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import { Anchor } from 'antd';
+//import React, { Component, Suspense } from 'react';
+import { withRouter } from 'react-router-dom';
 
 const { Link } = Anchor;
 
@@ -60,7 +62,7 @@ class ServiceAdd extends React.Component {
             title={'Service - Add / Edit'}
           />
           <div className={'content-body-wrapper'}>
-            <div className={'add-btn'} onClick={() => this.props.history.push('/Service')}>
+            <div className={'add-btn'} onClick={() => this.props.history.push('/Services')}>
               Save
             {/* <Anchor affix={false}><Link href="/Services" title="Save" /></Anchor> */}
             </div>
@@ -120,7 +122,7 @@ class ServiceAdd extends React.Component {
                       <div className={'plus-btn-wrapper'}>
 
                       
-                      <div className={'plus-btn'} onClick={() => this.props.history.push('/Service')}>
+                      <div className={'plus-btn'} onClick={() => this.props.history.push('/Services')}>
                         <PlusCircleOutlined 
                         style={{ 
                           fontSize: '20px',
@@ -167,4 +169,4 @@ class ServiceAdd extends React.Component {
   }
 }
 
-export default ServiceAdd;
+export default withRouter(ServiceAdd);

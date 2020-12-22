@@ -5,6 +5,8 @@ import { PageTitle } from '../../components/page-title'
 import { DASHBOARD_OPTIONS } from '../../constants';
 import './service-history.scss';
 import { Card, Table, Tag, Button, Input ,Skeleton,Anchor} from 'antd';
+import React, { Component, Suspense } from 'react';
+import { withRouter } from 'react-router-dom';
 const { Meta } = Card;
 const { Search } = Input;
 
@@ -105,7 +107,8 @@ const data = [
   },
 ];
 
-function ServiceHistory() {
+class ServiceHistory extends Component { 
+  render(){
   return (
     <div className="service-history-screen">
       <div className={'content-wrapper'}>
@@ -126,5 +129,6 @@ function ServiceHistory() {
     </div>
   );
 }
+}
 
-export default ServiceHistory;
+export default withRouter(ServiceHistory);
