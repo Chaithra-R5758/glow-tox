@@ -62,7 +62,7 @@ function Promotions() {
                 </div>
               </Modal>
             </div>
-            <div className={'promo-card-wrapper'}>
+            {/* <div className={'promo-card-wrapper'}>
             {
               ["", "", "", "", ""].map(option =>
                 <div className={'promo-card'}>
@@ -73,8 +73,8 @@ function Promotions() {
                 </div>
               )
             }
-            </div>
-            {/* <div className={'promo-card-wrapper'}>
+            </div> */}
+            <div className={'promo-card-wrapper'}>
               {
                 ["", "", "", "", ""].map(option =>
                   <div className={'promo-card'}>
@@ -131,7 +131,7 @@ function Promotions() {
                   </div>
                 )
               }
-            </div> */}
+            </div>
           </div>
         </div>
       </div>

@@ -15,11 +15,11 @@ function Service() {
           title={'Service'}
         />
         <div className={'content-body-wrapper'}>
-          <div className={'add-btn'} onClick={() => this.props.history.push('/Giftcardscreate')}>
+          <div className={'add-btn'} onClick={() => this.props.history.push('/Serviceadd')}>
           Add New Service
             </div>
           <div className={'dashboard-card-wrapper'}>
-            {
+            {/* {
               ["", "", "", "", ""].map(option =>
                 <div className={'dashboard-card'}>
                   <Card
@@ -28,13 +28,13 @@ function Service() {
                   </Card>
                 </div>
               )
-            }
-            {/* {
+            } */}
+            {
               ["","","","",""].map(option =>
                 <div className={'dashboard-card'}>
                   <Card
                     hoverable
-                    style={{ width: 240 }}
+                    style={{ width: '200px' }}
                     cover={<img alt="example" src={testImg} />}>
                     <div className={'service-card-body-wrapper'}>
                       <div className={'service-meta-data-wrapper'}>
@@ -47,7 +47,7 @@ function Service() {
                   </Card>
                 </div>
               )
-            } */}
+            }
           </div>
         </div>
       </div>

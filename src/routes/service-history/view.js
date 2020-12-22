@@ -17,7 +17,7 @@ function ServiceHistory() {
         <PageTitle
           title={'Service History - View'}
         />
-        <div className={'service-history-wrapper'}>
+        {/* <div className={'service-history-wrapper'}>
           <div className={'service-view-wrapper'}>
             <div className={'card-wrapper'}>
             <Card
@@ -33,7 +33,7 @@ function ServiceHistory() {
                   </Card>
                   </div> 
                   </div>
-            </div>     {/* <div className={'service-history-wrapper'}>
+  </div>*/}<div className={'service-history-wrapper'}> 
           <div className={'service-view-wrapper'}>
             <div className={'card-wrapper'}>
             <Card>
@@ -89,7 +89,7 @@ function ServiceHistory() {
             </Card>
             </div>
           </div>
-        </div> */}
+        </div>
       </div>
     </div>
   );

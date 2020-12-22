@@ -9,7 +9,7 @@ import './header.scss';
 import Cookies from 'js-cookie';
 //import Button from '@material-ui/core/Button';
 import { UserOutlined } from '@ant-design/icons';
-import { Anchor } from 'antd';
+import { Anchor,Image } from 'antd';
 
 const { Link } = Anchor;
 class Header extends React.Component {
@@ -45,7 +45,10 @@ class Header extends React.Component {
             <div className={'profile-inner-wrapper'}>
               <div className={'profile-icon'}>
                 {/* <AccountCircleIcon /> */}
-                <UserOutlined style={{ fontSize: '19px' }} />
+                <Image
+      width={25}
+      src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+    /> 
               </div>
               <div className={'profile-text'}> <Anchor affix={false}><Link href="/Profile" title="Akash Hamse" /></Anchor></div>
             </div>

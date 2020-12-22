@@ -79,8 +79,9 @@ function Profile() {
                                             </Form.Item>
                                         </Form>
                                     </div>
-                                    <div className={'profile-add-btn'}>
-                                    <Anchor affix={false}><Link href="/Header" title="Submit" /></Anchor>
+                                    <div className={'profile-add-btn'} >
+                                    Submit
+                                    {/* <Anchor affix={false}><Link href="/Header" title="Submit" /></Anchor> */}
                                     </div>
                                 </Space>
 

@@ -62,8 +62,8 @@ const columns = [
     title: '',
     dataIndex: 'btn',
     key: 'btn',
-    render: text => <Button type="default" shape="round" style={{ backgroundColor: " #343557", color: "white" }}> <div className="view-btn"><Anchor affix={false}><Link href="/Servicehistoryview" title="view " /></Anchor></div></Button>
-  },
+    render: text => <Button type="default" shape="round" style={{ backgroundColor: " #343557", color: "white" }}> <div className="view-btn" onClick={() => this.props.history.push('/Servicehistoryview')}>View</div></Button>
+  }
 ];
 
 const data = [

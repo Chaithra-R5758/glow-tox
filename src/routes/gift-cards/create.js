@@ -1,9 +1,12 @@
 import { PageTitle } from '../../components/page-title/'
 import './gift-card.scss';
-import { Form, Input, Button, Card, Select , Skeleton ,Anchor} from 'antd';
+import { Form, Input, Button, Card, Select, Skeleton, Anchor } from 'antd';
 const { Option } = Select;
-const {Link}= Anchor;
+const { Link } = Anchor;
+const React = require('react');
+
 function Dashboard() {
+
     const layout = {
         labelCol: { span: 8 },
         wrapperCol: { span: 16 },
@@ -17,16 +20,17 @@ function Dashboard() {
                 <div className={'content-body-wrapper'}>
                     <div className={'gift-card-inner-wrapper'}>
                         <div className={'options-wrapper'}>
-                            <div className={'add-btn'} style={{ padding: '10px 30px' }}> <Anchor affix={false}><Link href="/Giftcards" title="Send" /></Anchor> </div>
+                            <div className={'add-btn'} onClick={() => this.props.history.push('/Giftcards')}> Send</div>
                         </div>
-                        <div className={'card-wrapper'}>
+                        {/* <div className={'card-wrapper'}>
                         <Card
                     style={{ width: 900}}>
                     <Skeleton paragraph={{ rows: 6 }} />
                   </Card>
-                        </div>
-                        {/* <div className={'card-wrapper'}>
-                            <Card style={{ width: '90%' }}>
+                        </div> */}
+                        <div className={'card-wrapper'}>
+                            <Card style={{ width: '50%' }}>
+
                                 <Form {...layout} name="nest-messages"
                                 //validateMessages={validateMessages}
                                 >
@@ -61,11 +65,12 @@ function Dashboard() {
                                                 <Option value="dollar">$</Option>
                                                 <Option value="percentage">%</Option>
                                             </Select>
-                                        </span>                                    </Form.Item>
+                                        </span>                                    
+                                        </Form.Item>
                                 </Form>
                             </Card>
 
-                        </div> */}
+                        </div>
                     </div>
                 </div>
             </div>

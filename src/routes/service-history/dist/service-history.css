@@ -1,0 +1,39 @@
+.service-history-screen {
+  font-family: "Kumbh Sans", sans-serif;
+}
+.service-history-screen .gift-card-inner-wrapper {
+  font-family: "Kumbh Sans", sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+.service-history-screen .search-wrapper {
+  font-family: "Kumbh Sans", sans-serif;
+  padding: 10px 15px;
+  border-radius: 25px;
+  color: white;
+  text-align: center;
+  align-self: flex-end;
+  margin: -5px 0 10px 0;
+}
+.service-history-screen .client-details-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+.service-history-screen .client-img {
+  height: 120px;
+  object-fit: contain;
+}
+.service-history-screen .client-form-wrapper {
+  margin: 20px 0 0 0;
+}
+.service-history-screen .card-wrapper {
+  margin: 10px;
+}
+.service-history-screen .service-view-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.service-history-screen .view-btn {
+  margin-top: -25px;
+}

@@ -1,6 +1,5 @@
-import Header from '../../Header'
-import Footer from '../../components/footer/'
-import Navbar from '../../components/navbar/'
+import React, { Component, Suspense } from 'react';
+import { withRouter } from "react-router-dom";
 import { PageTitle } from '../../components/page-title/'
 import { DASHBOARD_OPTIONS } from '../../constants/';
 import './gift-card.scss';
@@ -8,6 +7,8 @@ import { Card, Table, Tag, Space,Input ,Anchor} from 'antd';
 const { Meta } = Card;
 const { Search } = Input;
 const { Link } = Anchor;
+
+
 
 const columns = [
   {
@@ -98,7 +99,8 @@ const data = [
   },
 ];
 
-function Dashboard() {
+class GiftCard extends Component {
+render(){
   return (
     <div className="gift-card-screen">
         <div className={'content-wrapper'}>
@@ -113,8 +115,9 @@ function Dashboard() {
                     loading ={false}
                     enterButton />
                   </div>
-                  <div className={'add-btn'}>
-                  <Anchor affix={false}><Link href="/Giftcardscreate" title="Create New" /></Anchor>
+                  <div className={'add-btn'} onClick={() => this.props.history.push('/Giftcardscreate')}>
+                  Create New
+                  {/* <Anchor affix={false}><Link href="/Giftcardscreate" title="Create New" /></Anchor> */}
                   </div>
                 </div>
                 <Table columns={columns} dataSource={data} />
@@ -124,5 +127,6 @@ function Dashboard() {
     </div>
   );
 }
+}
 
-export default Dashboard;
+export default withRouter(GiftCard)

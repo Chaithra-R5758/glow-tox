@@ -60,8 +60,9 @@ class ServiceAdd extends React.Component {
             title={'Service - Add / Edit'}
           />
           <div className={'content-body-wrapper'}>
-            <div className={'add-btn'}>
-            <Anchor affix={false}><Link href="/Services" title="Save" /></Anchor>
+            <div className={'add-btn'} onClick={() => this.props.history.push('/Service')}>
+              Save
+            {/* <Anchor affix={false}><Link href="/Services" title="Save" /></Anchor> */}
             </div>
 
             <div className={'dashboard-card-wrapper'}>
@@ -119,15 +120,15 @@ class ServiceAdd extends React.Component {
                       <div className={'plus-btn-wrapper'}>
 
                       
-                      <div className={'plus-btn'}>
+                      <div className={'plus-btn'} onClick={() => this.props.history.push('/Service')}>
                         <PlusCircleOutlined 
                         style={{ 
-                          fontSize: '25px',
+                          fontSize: '20px',
                           color: 'rgb(38 38 38)',
-                          padding: '0 10px',
+                          padding: '0 10px ',
                         }}
-                        />
-                        <Anchor affix={false}><Link href="/Services" title="Add " /></Anchor>
+                        /> Add
+                        {/* <Anchor affix={false}><Link href="/Services" title="Add " /></Anchor> */}
                       </div>
                       </div>
                       {/* <Button type="primary">Add</Button> */}
