@@ -59,43 +59,62 @@ class NavBar extends React.Component {
     this.setState({ selectedNavOption: index, visible: false })
   }
 
-  getIcon = (navOption, index, selectedNavOption) => {
-    const iconSize = '18px';
+  getIcon = (navOption, index, selectedNavOption, navIconSize) => {
+    //const iconSize = '18px';
     const grey3 = '#b1b1b1';
     const white = '#fff';
     switch (navOption) {
       case 'Dashboard': return <AppstoreFilled style={{
-        fontSize: iconSize,
+        fontSize: navIconSize,
         color: selectedNavOption === index ? white : grey3
       }} />
       case 'Services': return <ExperimentFilled style={{
-        fontSize: iconSize,
+        fontSize: navIconSize,
         color: selectedNavOption === index ? white : grey3
       }} />
       case 'Promotions': return <FundFilled style={{
-        fontSize: iconSize,
+        fontSize: navIconSize,
         color: selectedNavOption === index ? white : grey3
       }} />
       case 'Service History': return <HistoryOutlined style={{
-        fontSize: iconSize,
+        fontSize: navIconSize,
         color: selectedNavOption === index ? white : grey3
       }} />
       case 'Gift Cards': return <GiftFilled style={{
-        fontSize: iconSize,
+        fontSize: navIconSize,
         color: selectedNavOption === index ? white : grey3
       }} />
       default: return
     }
   }
 
+  getNavOptionsMob = () => {
+    const grey3 = '#edf0f5';
+    const navIconSize = '24px'
+    const { selectedNavOption } = this.state
+    const result = NAV_OPTIONS.map((navOption, index) => {
+      return (
+        <div className={'nav-option'} style={{display:'flex',margin:'20px 0'}} onClick={() => this.navItemClicked(navOption, index)}>
+            {this.getIcon(navOption, index, selectedNavOption, navIconSize)}
+            <div style={{color:'#fff',margin:'0 10px'}} className={'nav-option-title-selected'}> {navOption} </div>
+            {/* {selectedNavOption === index &&
+              <span className={'caret-icon'}><CaretLeftOutlined style={{ color: grey3 }} /></span>
+            }           */}
+        </div>
+      )
+    })
+    return result
+  }
+
   getNavOptions = () => {
     const grey3 = '#edf0f5';
+    const navIconSize = '18px'
     const { selectedNavOption } = this.state
     const result = NAV_OPTIONS.map((navOption, index) => {
       return (
         <div className={'nav-option'} onClick={() => this.navItemClicked(navOption, index)}>
           <div>
-            {this.getIcon(navOption, index, selectedNavOption)}
+            {this.getIcon(navOption, index, selectedNavOption,navIconSize)}
             {selectedNavOption === index &&
               <span className={'caret-icon'}><CaretLeftOutlined style={{ color: grey3 }} /></span>
             }
@@ -171,12 +190,12 @@ class NavBar extends React.Component {
           closable={false}
           onClose={() => this.setState({visible:false})}
           visible={visible}
-          title={'Glow Tox'}
+          title={<div style={{color:'#fff'}}>Glow Tox</div>}
           headerStyle={{ backgroundColor: '#343557', color: '#fff' }}
-          //style={{backgroundColor:'#343557'}}
+          bodyStyle={{backgroundColor:'#343557'}}
           key={'left'}>
           <div className={'nav-options-wrapper-mob'} >
-            {this.getNavOptions()}
+            {this.getNavOptionsMob()}
           </div>
         </Drawer>
       </div >
