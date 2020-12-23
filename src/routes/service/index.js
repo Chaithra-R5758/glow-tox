@@ -18,7 +18,7 @@ class Service extends Component {
           title={'Service'}
         />
         <div className={'content-body-wrapper'}>
-          <div className={'add-btn'} onClick={() => this.props.history.push('/Servicesadd')}>
+          <div className={'primary-btn'} onClick={() => this.props.history.push('/Servicesadd')}>
           Add New Service
             </div>
           <div className={'dashboard-card-wrapper'}>

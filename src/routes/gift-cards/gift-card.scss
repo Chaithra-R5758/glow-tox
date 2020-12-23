@@ -17,13 +17,14 @@
         display: flex;
         justify-content: flex-end;
         align-items: center;
+        flex-wrap: wrap;
     }
     .card-wrapper{
         display: flex;
         justify-content: center;
         margin-top: 20px;
     }
-    .add-btn{
+    .primary-btn{
         margin-bottom: 15px;
       
     }

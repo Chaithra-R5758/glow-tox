@@ -2,6 +2,8 @@ import { PageTitle } from '../../components/page-title/'
 import { Form, Select } from 'antd';
 import './profile.scss';
 import { Card, Input, Space, Image, Button,Anchor } from 'antd';
+import brandLogo from '../../assets/test-img.jpg'
+
 const { Link } = Anchor;
 //const { Meta } = Card;
 const layout = {
@@ -32,8 +34,7 @@ function Profile() {
                         
                             <Card type="inner" title="Personal Profile"  >
                                 <div className={'img-card'}>
-                                    <Image src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
-                                    />
+                                <img src={brandLogo} />
                                 </div>
                                 <Space direction="vertical">
                                     <div className="profile-card-body" >
@@ -65,7 +66,7 @@ function Profile() {
                             <Card type="inner" title="Change Password" >
 
                                 <Space direction="vertical">
-                                    <div className={'pwd-card-body'}>
+                                    <div className={'pwd-card-body'} style={{height:121}}>
                                         <Form
                                             {...layout}
                                             name="nest-profile">
@@ -79,7 +80,7 @@ function Profile() {
                                             </Form.Item>
                                         </Form>
                                     </div>
-                                    <div className={'profile-add-btn'} >
+                                    <div className={'profile-primary-btn'} >
                                     Submit
                                     {/* <Anchor affix={false}><Link href="/Header" title="Submit" /></Anchor> */}
                                     </div>

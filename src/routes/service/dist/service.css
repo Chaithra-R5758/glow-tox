@@ -22,7 +22,7 @@
 .service-screen .service-card-title {
   margin-bottom: 10px;
 }
-.service-screen .service-add-btn {
+.service-screen .service-primary-btn {
   background-color: #343557;
   padding: 10px 15px;
   border-radius: 25px;
