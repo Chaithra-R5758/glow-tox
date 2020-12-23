@@ -32,9 +32,14 @@ function Promotions() {
           />
           <div className={'content-body-wrapper'}>
             <div className={'promo-primary-btn'}>
-              <Button type="default" shape="round" style={{ backgroundColor: " #343557", color: "white",paddingTop:'5px' }} onClick={showModal}>
-                Add New Promo
-      </Button>
+
+            <div className={'primary-btn margin-adjust'} onClick={() => this.props.history.push('/Servicesadd')}>
+            Add New Promo
+            </div>
+
+              {/* <Button type="default" shape="round" style={{ backgroundColor: " #343557", color: "white",paddingTop:'5px' }} onClick={showModal}>
+               
+      </Button> */}
               <Modal title="Promotions-Add/Edit" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} style={{ top: 20 }} >
                 <div className={'add-promo-card'}>
                   <Card bordered={false}>
