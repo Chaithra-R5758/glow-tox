@@ -31,7 +31,7 @@ function Promotions() {
             title={'Promotions'}
           />
           <div className={'content-body-wrapper'}>
-            <div className={'promo-add-btn'}>
+            <div className={'promo-primary-btn'}>
               <Button type="default" shape="round" style={{ backgroundColor: " #343557", color: "white",paddingTop:'5px' }} onClick={showModal}>
                 Add New Promo
       </Button>

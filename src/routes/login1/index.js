@@ -1,10 +1,16 @@
-import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-dom";
+import { withRouter, } from "react-router-dom";
 import React, { Component, Suspense } from 'react';
 import { Form, Input, Button, Checkbox } from 'antd';
 import brandLogo from '../../assets/brand-logo.png'
 import './login.scss'
+import Cookies from 'js-cookie';
 
 class Login extends Component {
+
+    signInClicked = () => {
+        Cookies.set('accessToken', 'value');
+        this.props.history.push('/dashboard')
+    }
 
     render() {
         const layout = {
@@ -71,17 +77,13 @@ class Login extends Component {
                         {/* <Form.Item {...tailLayout} name="remember" valuePropName="checked">
                             <Checkbox>Remember me</Checkbox>
                         </Form.Item> */}
-
-                        <Form.Item {...tailLayout}>
-                            <Button type="primary" htmlType="submit">
+                        <div className={'login-btn'} onClick={() => this.signInClicked()}>
                                 Submit
-            </Button>
-                        </Form.Item>
+                            </div>
                     </Form>
                 </div>
             </div>
         );
     };
 }
-
-export default (Login)
+export default withRouter(Login)

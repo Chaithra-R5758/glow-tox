@@ -62,7 +62,7 @@ class ServiceAdd extends React.Component {
             title={'Service - Add / Edit'}
           />
           <div className={'content-body-wrapper'}>
-            <div className={'add-btn'} onClick={() => this.props.history.push('/Services')}>
+            <div className={'primary-btn'} onClick={() => this.props.history.push('/Services')}>
               Save
             {/* <Anchor affix={false}><Link href="/Services" title="Save" /></Anchor> */}
             </div>
