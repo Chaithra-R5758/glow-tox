@@ -32,7 +32,7 @@ function Profile() {
                     <div className={'content-body-wrapper'}>
                         <div className={'profile-card'}>
                         
-                            <Card type="inner" title="Personal Profile"  >
+                            <Card type="inner" title="Personal Profile" >
                                 <div className={'img-card'}>
                                 <img src={brandLogo} />
                                 </div>
@@ -65,11 +65,11 @@ function Profile() {
                         <div className={'profile-card-pwd'}>
                             <Card type="inner" title="Change Password" >
 
-                                <Space direction="vertical">
-                                    <div className={'pwd-card-body'} style={{height:121}}>
+                                <Space direction="vertical" >
+                                    <div className={'pwd-card-body'}  >
                                         <Form
                                             {...layout}
-                                            name="nest-profile">
+                                            name="nest-profile" >
                                             <Form.Item name={['user', 'password']} label="Password"
                                                 rules={[{ type: 'password' }]}>
                                                 <Input.Password />

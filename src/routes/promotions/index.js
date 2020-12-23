@@ -78,7 +78,7 @@ function Promotions() {
               {
                 ["", "", "", "", ""].map(option =>
                   <div className={'promo-card'}>
-                    <Card bordered={false}>
+                    <Card bordered={true}>
                       <div className="edit-btn-card">
                         <Button type="link" block style={{ textAlign: "right", color: "#343557" }} onClick={showModal}>
                           {<EditOutlined />}
