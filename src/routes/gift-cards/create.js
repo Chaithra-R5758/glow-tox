@@ -24,7 +24,7 @@ class Dashboard extends Component{
                 <div className={'content-body-wrapper'}>
                     <div className={'gift-card-inner-wrapper'}>
                         <div className={'options-wrapper'}>
-                            <div className={'add-btn'} onClick={() => this.props.history.push('/Giftcards')}> Send</div>
+                            <div className={'primary-btn'} onClick={() => this.props.history.push('/Giftcards')}> Send</div>
                         </div>
                         {/* <div className={'card-wrapper'}>
                         <Card

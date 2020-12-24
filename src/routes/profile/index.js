@@ -80,7 +80,7 @@ function Profile() {
                                             </Form.Item>
                                         </Form>
                                     </div>
-                                    <div className={'profile-add-btn'} >
+                                    <div className={'profile-primary-btn'} >
                                     Submit
                                     {/* <Anchor affix={false}><Link href="/Header" title="Submit" /></Anchor> */}
                                     </div>

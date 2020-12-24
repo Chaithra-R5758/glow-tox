@@ -7,11 +7,22 @@ export const NAV_OPTIONS = [
 ]
 
 export const DASHBOARD_OPTIONS = [
-    'Active Services',
-    'Active Promotions',
-    'Active Subscriptions',
-    'Gift Cards',
+    {
+        title:'Active Services',
+        desc:'Contains all the active services',
+    },
+    {
+        title:'Active Promotions',
+        desc:'Contains all the active promotions',
+    },{
+        title:'Active Subscriptions',
+        desc:'Contains all the active subscriptions',
+    },{
+        title:'Gift Cards',
+        desc:'Contains all the gift cards',
+    },
 ]
+
 export const CONSTANTS = {
     primaryClr: '#ff0000',
     headingFont: 'varela round',

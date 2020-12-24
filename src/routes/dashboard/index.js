@@ -7,7 +7,6 @@ const { Meta } = Card;
 function Dashboard() {
   return (
     <div className="dashboard-screen">
-      
         <div className={'content-wrapper'}>
           <PageTitle
             title={'Dashboard'}
@@ -20,8 +19,8 @@ function Dashboard() {
                     hoverable
                     style={{ width: 240 }}
                     >
-                    <Meta title={option}
-                      description="www.instagram.com"
+                    <Meta title={option.title}
+                      description={option.desc}
                     />
                   </Card>
                 </div>

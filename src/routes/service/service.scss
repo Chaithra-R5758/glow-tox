@@ -21,7 +21,7 @@
    .service-card-title{
         margin-bottom: 10px;
    }
-   .service-add-btn{
+   .service-primary-btn{
     background-color: #343557;
     padding: 10px 15px;
     border-radius: 25px;
@@ -87,15 +87,16 @@
     //width: 80%;
    }
    .edit-btn{
-
      background-color: #343557;
-     padding: 10px 15px;
+     padding: 8px 30px 6px 30px;
      border-radius: 25px;
      color: white;
      text-align: center;
      align-self: flex-end;
-     margin: 5px 0 5px 0;
+     margin: 15px 0 -5px 0;
    }
-  
+  .margin-adjust{
+       margin-top: 12px;
+  }
 
 }
