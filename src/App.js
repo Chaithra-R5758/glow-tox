@@ -39,12 +39,17 @@ class App extends Component {
                   <Route path="/profile" component={() => <Profile />} />
                   <Route path="/promotions" component={() => <Promotions />} />
                   <Route path="/promotionsedit" component={() => <PromotionsEdit />} />
+                  <Redirect to="/dashboard" />
                 </switch>
                 <Footer /> </div>
               :
-              <switch>
-                <Route path="/login" component={() => <Login />} />
-              </switch>
+              <Switch>
+              <Route path="/login" component={() => <Login />} />
+              <Redirect to="/login" />
+            </Switch>
+              // <switch>
+              //   <Route path="/login" component={() => <Login />} />
+              // </switch>
           }
         </div>
       </Router>

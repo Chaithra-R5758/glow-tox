@@ -10,6 +10,7 @@ class Login extends Component {
     signInClicked = () => {
         Cookies.set('accessToken', 'value');
         this.props.history.push('/dashboard')
+        window.location.reload();
     }
 
     render() {

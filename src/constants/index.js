@@ -19,7 +19,7 @@ export const DASHBOARD_OPTIONS = [
         desc:'Contains all the active subscriptions',
     },{
         title:'Gift Cards',
-        desc:'Contains all the gift cards',
+        desc:'Contains all the gift card collections',
     },
 ]
 
