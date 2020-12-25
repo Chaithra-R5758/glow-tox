@@ -39,6 +39,8 @@
 .profile-screen .pwd-card-body {
   display: flex;
   justify-content: center;
+  flex-direction: column;
+  align-items: center;
   margin-left: 20px;
   margin-right: 20px;
 }

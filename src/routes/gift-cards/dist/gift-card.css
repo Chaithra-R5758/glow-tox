@@ -1,0 +1,34 @@
+.gift-card-screen {
+  font-family: "Kumbh Sans", sans-serif;
+}
+.gift-card-screen .gift-card-inner-wrapper {
+  font-family: "Kumbh Sans", sans-serif;
+  display: flex;
+  flex-direction: column;
+}
+.gift-card-screen .search-wrapper {
+  padding: 10px 15px;
+  border-radius: 25px;
+  color: white;
+  text-align: center;
+  align-self: flex-end;
+  margin: -5px 0 5px 0;
+}
+.gift-card-screen .options-wrapper {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.gift-card-screen .card-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+.gift-card-screen .primary-btn {
+  margin-bottom: 15px;
+}
+.gift-card-screen .margin-adjust {
+  margin-top: 12px;
+}

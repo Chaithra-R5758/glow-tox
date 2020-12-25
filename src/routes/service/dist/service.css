@@ -52,13 +52,14 @@
 }
 .service-screen .service-add-right-content {
   flex: 1;
+  justify-content: center;
+  align-items: center;
   padding: 20px 20px 20px 0px;
-  margin-left: -80px;
 }
 .service-screen .service-add-img {
   object-fit: contain;
-  width: 200px;
-  height: 200px;
+  width: 180px;
+  height: 180px;
   align-self: center;
   margin-bottom: 15px;
 }
@@ -83,14 +84,20 @@
 }
 .service-screen .service-add-outer-wrapper-card {
   display: flex;
+  align-items: center;
+  justify-content: center;
   margin: 10px;
+  width: 70%;
 }
 .service-screen .edit-btn {
   background-color: #343557;
-  padding: 10px 15px;
+  padding: 8px 30px 6px 30px;
   border-radius: 25px;
   color: white;
   text-align: center;
   align-self: flex-end;
-  margin: 5px 0 5px 0;
+  margin: 15px 0 -5px 0;
+}
+.service-screen .margin-adjust {
+  margin-top: 12px;
 }

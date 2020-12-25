@@ -22,7 +22,9 @@
     .card-wrapper{
         display: flex;
         justify-content: center;
+        align-items: center;
         margin-top: 20px;
+       
     }
     .primary-btn{
         margin-bottom: 15px;
@@ -30,4 +32,5 @@
     .margin-adjust{
         margin-top: 12px;
     }
+    
 }
