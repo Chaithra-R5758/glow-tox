@@ -8,36 +8,46 @@ const { Meta } = Card;
 
 class Dashboard extends React.Component {
 
-  // componentDidMount(){
-  //   window.location.reload();
-  // }
+  itemClicked = (index) => {
+    switch (index) {
+      case 0: this.props.history.push('/services')
+        break;
+      case 1: this.props.history.push('/promotions')
+        break;
+      case 2: this.props.history.push('/servicehistory')
+        break;
+      case 3: this.props.history.push('/giftcards')
+        break;
+      default: break;
+    }
+  }
 
-  render(){
-  return (
-    <div className="dashboard-screen">
+  render() {
+    return (
+      <div className="dashboard-screen">
         <div className={'content-wrapper'}>
           <PageTitle
             title={'Dashboard'}
           />
-          <div className={'content-body-wrapper'}>
+          <div
+            className={'content-body-wrapper'}>
             {
-              DASHBOARD_OPTIONS.map(option =>
-                <div className={'dashboard-card'}>
+              DASHBOARD_OPTIONS.map((option, index) =>
+                <div className={'dashboard-card'}
+                  onClick={() => this.itemClicked(index)}>
                   <Card
                     hoverable
-                    style={{ width: 240 }}
-                    >
+                    style={{ width: 240 }}>
                     <Meta title={option.title}
-                      description={option.desc}
-                    />
+                      description={option.desc}/>
                   </Card>
                 </div>
               )
             }
           </div>
         </div>
-    </div>
-  );
-          }
+      </div>
+    );
+  }
 }
 export default withRouter(Dashboard)
