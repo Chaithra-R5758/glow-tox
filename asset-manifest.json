@@ -1,26 +1,27 @@
 {
   "files": {
-    "main.css": "/pasprojects/glowtox-reactjs-ui/static/css/main.1a4c34fa.chunk.css",
-    "main.js": "/pasprojects/glowtox-reactjs-ui/static/js/main.2a38bf69.chunk.js",
-    "main.js.map": "/pasprojects/glowtox-reactjs-ui/static/js/main.2a38bf69.chunk.js.map",
-    "runtime-main.js": "/pasprojects/glowtox-reactjs-ui/static/js/runtime-main.29f1f27f.js",
-    "runtime-main.js.map": "/pasprojects/glowtox-reactjs-ui/static/js/runtime-main.29f1f27f.js.map",
-    "static/css/2.b00201c5.chunk.css": "/pasprojects/glowtox-reactjs-ui/static/css/2.b00201c5.chunk.css",
-    "static/js/2.23cff739.chunk.js": "/pasprojects/glowtox-reactjs-ui/static/js/2.23cff739.chunk.js",
-    "static/js/2.23cff739.chunk.js.map": "/pasprojects/glowtox-reactjs-ui/static/js/2.23cff739.chunk.js.map",
-    "static/js/3.8f04adae.chunk.js": "/pasprojects/glowtox-reactjs-ui/static/js/3.8f04adae.chunk.js",
-    "static/js/3.8f04adae.chunk.js.map": "/pasprojects/glowtox-reactjs-ui/static/js/3.8f04adae.chunk.js.map",
-    "index.html": "/pasprojects/glowtox-reactjs-ui/index.html",
-    "static/css/2.b00201c5.chunk.css.map": "/pasprojects/glowtox-reactjs-ui/static/css/2.b00201c5.chunk.css.map",
-    "static/css/main.1a4c34fa.chunk.css.map": "/pasprojects/glowtox-reactjs-ui/static/css/main.1a4c34fa.chunk.css.map",
-    "static/js/2.23cff739.chunk.js.LICENSE.txt": "/pasprojects/glowtox-reactjs-ui/static/js/2.23cff739.chunk.js.LICENSE.txt",
-    "static/media/brand-logo.f109f175.png": "/pasprojects/glowtox-reactjs-ui/static/media/brand-logo.f109f175.png"
+    "main.css": "/akashhamse/glow-tox/static/css/main.bfb4299f.chunk.css",
+    "main.js": "/akashhamse/glow-tox/static/js/main.c82d6d91.chunk.js",
+    "main.js.map": "/akashhamse/glow-tox/static/js/main.c82d6d91.chunk.js.map",
+    "runtime-main.js": "/akashhamse/glow-tox/static/js/runtime-main.136390cb.js",
+    "runtime-main.js.map": "/akashhamse/glow-tox/static/js/runtime-main.136390cb.js.map",
+    "static/css/2.b00201c5.chunk.css": "/akashhamse/glow-tox/static/css/2.b00201c5.chunk.css",
+    "static/js/2.183885e6.chunk.js": "/akashhamse/glow-tox/static/js/2.183885e6.chunk.js",
+    "static/js/2.183885e6.chunk.js.map": "/akashhamse/glow-tox/static/js/2.183885e6.chunk.js.map",
+    "static/js/3.8f04adae.chunk.js": "/akashhamse/glow-tox/static/js/3.8f04adae.chunk.js",
+    "static/js/3.8f04adae.chunk.js.map": "/akashhamse/glow-tox/static/js/3.8f04adae.chunk.js.map",
+    "index.html": "/akashhamse/glow-tox/index.html",
+    "static/css/2.b00201c5.chunk.css.map": "/akashhamse/glow-tox/static/css/2.b00201c5.chunk.css.map",
+    "static/css/main.bfb4299f.chunk.css.map": "/akashhamse/glow-tox/static/css/main.bfb4299f.chunk.css.map",
+    "static/js/2.183885e6.chunk.js.LICENSE.txt": "/akashhamse/glow-tox/static/js/2.183885e6.chunk.js.LICENSE.txt",
+    "static/media/brand-logo.f109f175.png": "/akashhamse/glow-tox/static/media/brand-logo.f109f175.png",
+    "static/media/propic.5e920797.png": "/akashhamse/glow-tox/static/media/propic.5e920797.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.29f1f27f.js",
+    "static/js/runtime-main.136390cb.js",
     "static/css/2.b00201c5.chunk.css",
-    "static/js/2.23cff739.chunk.js",
-    "static/css/main.1a4c34fa.chunk.css",
-    "static/js/main.2a38bf69.chunk.js"
+    "static/js/2.183885e6.chunk.js",
+    "static/css/main.bfb4299f.chunk.css",
+    "static/js/main.c82d6d91.chunk.js"
   ]
 }
