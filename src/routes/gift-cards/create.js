@@ -34,7 +34,7 @@ class Dashboard extends Component{
                         </div> */}
                         <div className={'card-wrapper'}>
                             <Card style={{ width: '50%' }}>
-
+                            
                                 <Form {...layout} name="nest-messages"
                                 //validateMessages={validateMessages}
                                 >
@@ -59,11 +59,11 @@ class Dashboard extends Component{
                                                 type="text"
                                                 value={''}
                                                 // onChange={onNumberChange}
-                                                style={{ width: 200 }}
+                                                style={{ width: '50%' }}
                                             />
                                             <Select
                                                 value={"$"}
-                                                style={{ width: 150, margin: '0 8px' }}
+                                                style={{ width: '40%', margin: '0 8px' }}
                                             // onChange={onCurrencyChange}
                                             >
                                                 <Option value="dollar">$</Option>
