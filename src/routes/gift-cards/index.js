@@ -115,9 +115,9 @@ render(){
                     loading ={false}
                     enterButton />
                   </div>
-                  <div className={'primary-btn margin-adjust'} onClick={() => this.props.history.push('/Giftcardscreate')}>
+                  <div className={'primary-btn margin-adjust'} onClick={() => this.props.history.push('/giftcardscreate')}>
                   Create New
-                  {/* <Anchor affix={false}><Link href="/Giftcardscreate" title="Create New" /></Anchor> */}
+                  {/* <Anchor affix={false}><Link href="/giftcardscreate" title="Create New" /></Anchor> */}
                   </div>
                 </div>
                 <Table columns={columns} dataSource={data} />

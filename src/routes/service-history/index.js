@@ -64,7 +64,7 @@ const columns = [
     title: '',
     dataIndex: 'btn',
     key: 'btn',
-    render: text =>  <div className="view-btn" onClick={() => this.props.history.push('/Servicehistoryview')}>View</div>
+    render: text =>  <div className="view-btn" onClick={() => {}}>View</div>
   }
 ];
 

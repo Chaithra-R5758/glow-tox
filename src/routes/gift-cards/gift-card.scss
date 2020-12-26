@@ -24,7 +24,6 @@
         justify-content: center;
         align-items: center;
         margin-top: 20px;
-       
     }
     .primary-btn{
         margin-bottom: 15px;
@@ -32,5 +31,23 @@
     .margin-adjust{
         margin-top: 12px;
     }
-    
+    .gift-card-create-row-wrapper{
+        display: flex;
+    }
+    .gift-card-create-row{
+        margin:20px;
+    }
+    @media screen and (max-width: 720px) {
+        .gift-card-create-row-wrapper{
+            display: block;
+        }
+        .gift-card-create-row{
+            margin:0px;
+        }
+        .card-wrapper{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    }
 }
