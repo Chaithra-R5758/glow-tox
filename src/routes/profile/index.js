@@ -34,7 +34,8 @@ function Profile() {
                         
                             <Card type="inner" title="Personal Profile" >
                                 <div className={'img-card'}>
-                                <img src={brandLogo} />
+                                <img src={'https://lh3.googleusercontent.com/ogw/ADGmqu8O8PGfR1MiMeaUyOfc7EvwnENHHbMADvGh_-d9Tw'}
+                                 className={'profile-img'}/>
                                 </div>
                                 <Space direction="vertical">
                                     <div className="profile-card-body" >

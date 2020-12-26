@@ -19,8 +19,10 @@
     "react-scripts": "4.0.1",
     "web-vitals": "^0.2.4"
   },
-  "homepage": "https://bitbucket.org/pasprojects/glowtox-reactjs-ui",
+  "homepage": "https://github.com/akashhamse/glow-tox",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy":"gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

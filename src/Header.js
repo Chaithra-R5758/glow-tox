@@ -11,7 +11,7 @@ import Cookies from 'js-cookie';
 //import Button from '@material-ui/core/Button';
 import { UserOutlined } from '@ant-design/icons';
 import { Anchor, Image } from 'antd';
-import brandLogo from '../src/assets/test-img.jpg'
+import brandLogo from '../src/assets/propic.png'
 
 const { Link } = Anchor;
 class Header extends React.Component {
@@ -46,7 +46,9 @@ class Header extends React.Component {
           <div className={'profile-name'}>
             <div className={'profile-inner-wrapper'} onClick={() => this.props.history.push('/profile')}>
               <div className={'profile-icon'}>
-                <img src={brandLogo} />
+                <img 
+                className={'profile-icon-img'}
+                src={'https://lh3.googleusercontent.com/ogw/ADGmqu8O8PGfR1MiMeaUyOfc7EvwnENHHbMADvGh_-d9Tw=s32-c-mo'} />
               </div>
               <div className={'profile-text'}> Akash hamse </div>
             </div>
