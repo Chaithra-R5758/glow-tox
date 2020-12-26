@@ -22,6 +22,12 @@
   border-radius: 50%;
   float: left;
 }
+.profile-screen .profile-img {
+  display: inline;
+  margin: 0 auto;
+  height: 100%;
+  width: auto;
+}
 .profile-screen .profile-card {
   display: flex;
   justify-content: center;
