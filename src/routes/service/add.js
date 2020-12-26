@@ -153,7 +153,7 @@ class ServiceAdd extends React.Component {
                         </Form.Item>
                         <Form.Item name={['user', 'email']} label="Description"
                           rules={[{ type: 'email' }]}>
-                          <TextArea rows={4} />
+                          <TextArea rows={7} />
                         </Form.Item>
                       </Form>
 

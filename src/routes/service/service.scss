@@ -105,8 +105,13 @@
    }
   .margin-adjust{
        margin-top: 12px;
-  }
+     }
 
+  .ant-card-meta-title{
+     text-align: center;
+     }
 
-
+  @media screen and (max-width: 720px) {
+     
+     }
 }

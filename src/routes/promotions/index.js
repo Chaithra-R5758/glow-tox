@@ -33,7 +33,7 @@ function Promotions() {
           <div className={'content-body-wrapper'}>
             <div className={'promo-primary-btn'}>
 
-            <div className={'primary-btn margin-adjust'} onClick={() => this.props.history.push('/Servicesadd')}>
+            <div className={'primary-btn margin-adjust'} onClick={() => {}}>
             Add New Promo
             </div>
 
