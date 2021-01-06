@@ -36,6 +36,7 @@
     
     display: flex;
     flex-wrap: wrap;
+    box-shadow:0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgpa(0,0,0,0.23);
    // justify-content: center;
     //align-items: flex-start;
     float:left;
@@ -76,6 +77,7 @@
     align-items : center;
     flex-direction: column;
     margin: -74px 10px 10px 10px ;
+    box-shadow:0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgpa(0,0,0,0.23);
     .ant-card{
         border-radius: 10px;
     }

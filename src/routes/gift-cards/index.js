@@ -3,7 +3,8 @@ import { withRouter } from "react-router-dom";
 import { PageTitle } from '../../components/page-title/'
 import { DASHBOARD_OPTIONS } from '../../constants/';
 import './gift-card.scss';
-import { Card, Table, Tag, Space,Input ,Anchor} from 'antd';
+import { SearchOutlined } from '@ant-design/icons'
+import { Card, Table, Tag, Space,Input ,Anchor,Button} from 'antd';
 const { Meta } = Card;
 const { Search } = Input;
 const { Link } = Anchor;
@@ -45,7 +46,7 @@ const columns = [
       <>
         {tags.map(tag => {
           let color = tag.length > 5 ? 'geekblue' : 'green';
-          if (tag === 'loser') {
+          if (tag === 'Refund') {
             color = 'volcano';
           }
           return (
@@ -66,7 +67,7 @@ const data = [
     age: 32,
     id:1,
     address: 'New York No. 1 Lake Park',
-    tags: ['New',],
+    tags: ['New'],
     email:'akash@gmail.com',
     offer:'10% off',
     service:'service 1'
@@ -78,6 +79,32 @@ const data = [
     id:2,
     address: 'London No. 1 Lake Park',
     tags: ['Redeemed'],
+    email:'hamse@gmail.com',
+    offer:'15% off',
+    service:'service 1'
+
+
+  },
+  {
+    key: '2',
+    name: 'Jim Green',
+    age: 42,
+    id:2,
+    address: 'London No. 1 Lake Park',
+    tags: ['Refund'],
+    email:'hamse@gmail.com',
+    offer:'15% off',
+    service:'service 1'
+
+
+  },
+  {
+    key: '2',
+    name: 'Jim Green',
+    age: 42,
+    id:2,
+    address: 'London No. 1 Lake Park',
+    tags: ['Chargeback'],
     email:'hamse@gmail.com',
     offer:'15% off',
     service:'service 1'
@@ -107,15 +134,15 @@ render(){
           <PageTitle
             title={'Gift Cards'}
           />
+          <div className={"gift-card"}>
+          <Card>
           <div className={'content-body-wrapper'}>
               <div className={'gift-card-inner-wrapper'}>
                 <div className={'options-wrapper'}>
                   <div className={'search-wrapper'}>
-                    <Search placeholder="search" 
-                    loading ={false}
-                    enterButton />
+                  <Input   placeholder="Search..." prefix={<SearchOutlined/>} />
                   </div>
-                  <div className={'primary-btn margin-adjust'} onClick={() => this.props.history.push('/giftcardscreate')}>
+                  <div className={'primary-btn '} onClick={() => this.props.history.push('/giftcardscreate')}>
                   Create New
                   {/* <Anchor affix={false}><Link href="/giftcardscreate" title="Create New" /></Anchor> */}
                   </div>
@@ -123,7 +150,10 @@ render(){
                 <Table columns={columns} dataSource={data} />
               </div>
           </div>
+          </Card>
+          </div>
         </div>
+       
     </div>
   );
 }

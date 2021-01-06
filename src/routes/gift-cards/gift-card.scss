@@ -1,9 +1,16 @@
 .gift-card-screen{
-    font-family: 'Kumbh Sans', sans-serif;
+    background-color:#F6F6F8;
     .gift-card-inner-wrapper{
-        font-family: 'Kumbh Sans', sans-serif;
+        font-family: 'Poppins', sans-serif;
         display: flex;
         flex-direction: column;
+    }
+    .gift-card{
+       
+        .ant-card{
+        border-radius: 10px;
+        box-shadow:0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgpa(0,0,0,0.23);
+        }
     }
     .search-wrapper{
         padding: 10px 15px;
@@ -12,6 +19,16 @@
         text-align: center;
         align-self: flex-end;
         margin: -5px 0 5px 0;
+    }
+    .primary-btn {
+        background-color: #8A50FD;
+padding: 5px 20px 5px 20px;
+border-radius: 5px;
+color: white;
+text-align: center;
+align-self: flex-end;
+margin: -10px 0 0 0;
+min-width: 100px;
     }
     .options-wrapper{
         display: flex;
