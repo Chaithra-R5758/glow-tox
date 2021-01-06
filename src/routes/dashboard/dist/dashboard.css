@@ -1,0 +1,26 @@
+.dashboard-screen {
+  background-color: #F6F6F8;
+}
+.dashboard-screen .content-body-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  font-family: "Poppins", sans-serif;
+  border: 0.5px solid #cecccc;
+  border-radius: 10px;
+  background-color: white;
+}
+.dashboard-screen .dashboard-card {
+  margin: 30px 10px 30px 20px;
+  width: 32%;
+}
+.dashboard-screen .dashboard-card .ant-card-meta-title {
+  margin-top: 10px;
+  color: white;
+}
+.dashboard-screen .dashboard-card .ant-card-meta-description {
+  color: white;
+}
+.dashboard-screen .dashboard-card .ant-card {
+  border-radius: 10px;
+}

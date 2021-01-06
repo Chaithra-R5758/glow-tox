@@ -1,14 +1,35 @@
 .dashboard-screen{
-    font-family: 'Kumbh Sans', sans-serif;
+    background-color: #F6F6F8;
+  
     .content-body-wrapper{
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
-        font-family: 'Kumbh Sans', sans-serif;
+        font-family: 'Poppins', sans-serif ;
+        border: 0.5px solid rgb(206, 204, 204);
+        border-radius: 10px;
+        background-color: white;
+        
+        
     }
     .dashboard-card{
-        margin: 10px;
+        margin: 30px 10px 30px 20px;
+        
+       width: 32%;
+       .ant-card-meta-title{
+           margin-top:10px;
+           color:white;
+       }
+       .ant-card-meta-description{
+           color: white;
+       }
+       .ant-card{
+           border-radius: 10px;
+       }
+       
+       
+       }
+       
     }
 
    
-}

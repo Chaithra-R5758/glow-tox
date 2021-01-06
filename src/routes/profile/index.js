@@ -1,9 +1,8 @@
 import { PageTitle } from '../../components/page-title/'
 import { Form, Select } from 'antd';
 import './profile.scss';
-import { Card, Input, Space, Image, Button,Anchor } from 'antd';
-import brandLogo from '../../assets/test-img.jpg'
-
+import { Card, Input, Space, Image, Button, Anchor } from 'antd';
+import { EditFilled } from '@ant-design/icons'
 const { Link } = Anchor;
 //const { Meta } = Card;
 const layout = {
@@ -11,14 +10,7 @@ const layout = {
     wrapperCol: { span: 16 },
 };
 const { Option } = Select;
-const prefixSelector = (
-    <Form.Item name="prefix" noStyle>
-        <Select style={{ width: 70 }}>
-            <Option value="91">+91</Option>
-            <Option value="87">+87</Option>
-        </Select>
-    </Form.Item>
-);
+
 function Profile() {
     return (
         <div className="profile-screen">
@@ -30,19 +22,29 @@ function Profile() {
                         title={'Profile'}
                     />
                     <div className={'content-body-wrapper'}>
-                        <div className={'profile-card'}>
-                        
-                            <Card type="inner" title="Personal Profile" >
+                        <div className={'profile-card'} >
+
+                            <Card >
+                                <div className={'title-card'}>
+                                    Personal Profile
+                           </div>
                                 <div className={'img-card'}>
-                                <img src={'https://lh3.googleusercontent.com/ogw/ADGmqu8O8PGfR1MiMeaUyOfc7EvwnENHHbMADvGh_-d9Tw'}
-                                 className={'profile-img'}/>
+                                    <img src={'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTElqQujDQxdUSZiRtY81HGprrV_jEvxBZ14Q&usqp=CAU'}
+                                        className={'profile-img'} />
+                                </div>
+                                <div className="edit-btn-card">
+                                    <Button type="link" block style={{ color: "#343557", fontSize: '1.5em' }}>
+                                        {<EditFilled />}
+                                    </Button>
                                 </div>
                                 <Space direction="vertical">
                                     <div className="profile-card-body" >
                                         <Form
-                                            {...layout}
-                                            name="nest-profile">
-                                            <Form.Item name={['user', 'name']} label="Full Name">
+                                            labelCol={{ span: 16 }}
+                                            wrapperCol={{ span: 32 }}
+                                            layout="vertical"
+                                            name="nest-profile" style={{width:'100%'}}>
+                                            <Form.Item name={['user', 'name']} label="Full Name" >
                                                 <Input />
                                             </Form.Item>
                                             <Form.Item name={['user', 'email']} label="Email Id"
@@ -51,28 +53,35 @@ function Profile() {
                                             </Form.Item>
                                             <Form.Item name={['user', 'phone']} label="Phone Number"
                                                 rules={[{ type: 'phoneNum' }]}>
-                                                <Input addonBefore={prefixSelector} style={{ width: '100%' }} />
+                                                <Input />
                                             </Form.Item>
+
                                         </Form>
 
                                     </div>
-
+                                    <div className={'profile-primary-btn'} >
+                                        Submit
+                                    </div>
                                 </Space>
 
                             </Card>
-                            
-                        </div>
-                      
-                        <div className={'profile-card-pwd'}>
-                            <Card type="inner" title="Change Password" >
 
+                        </div>
+
+                        <div className={'profile-card-pwd'}>
+                            <Card>
+                                <div className={'title-card'}>
+                                    Change Password
+                           </div>
                                 <Space direction="vertical" >
                                     <div className={'pwd-card-body'}  >
                                         <Form
-                                            {...layout}
-                                            name="nest-profile" >
+                                            labelCol={{ span: 26 }}
+                                            wrapperCol={{ span: 32 }}
+                                            layout="vertical"
+                                            name="nest-profile" style={{ width: '100%' }} >
                                             <Form.Item name={['user', 'password']} label="Password"
-                                                rules={[{ type: 'password' }]}>
+                                                rules={[{ type: 'password' }]} >
                                                 <Input.Password />
                                             </Form.Item>
                                             <Form.Item name={['user', 'Confirm']} label="Re-type Password"
@@ -82,8 +91,7 @@ function Profile() {
                                         </Form>
                                     </div>
                                     <div className={'profile-primary-btn'} >
-                                    Submit
-                                    {/* <Anchor affix={false}><Link href="/Header" title="Submit" /></Anchor> */}
+                                        Submit
                                     </div>
                                 </Space>
 
