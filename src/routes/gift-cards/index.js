@@ -86,10 +86,10 @@ const data = [
 
   },
   {
-    key: '2',
+    key: '3',
     name: 'Jim Green',
     age: 42,
-    id:2,
+    id:3,
     address: 'London No. 1 Lake Park',
     tags: ['Refund'],
     email:'hamse@gmail.com',
@@ -99,10 +99,10 @@ const data = [
 
   },
   {
-    key: '2',
+    key: '4',
     name: 'Jim Green',
     age: 42,
-    id:2,
+    id:4,
     address: 'London No. 1 Lake Park',
     tags: ['Chargeback'],
     email:'hamse@gmail.com',
@@ -112,20 +112,35 @@ const data = [
 
   },
   {
-    key: '3',
+    key: '5',
     name: 'Joe Black',
     age: 32,
-    id:3,
+    id:5,
     address: 'Sidney No. 1 Lake Park',
     tags: ['Redeemed',],
     email:'john@gmail.com',
     offer:'20% off',
     service:'service 1'
-
-
-  },
+  }
 ];
+for (let i = 6; i < 100; i++) {
+  data.push({
 
+  
+    key: 'i',
+    name: `John Brown ${i}`,
+    age: 32,
+    id:i,
+    address: `New York No.${i} Lake Park`,
+    tags: ['New'],
+    email:'akash@gmail.com',
+    offer:'10% off',
+    service:`service ${i}`
+  
+});
+
+
+}
 class GiftCard extends Component {
 render(){
   return (
