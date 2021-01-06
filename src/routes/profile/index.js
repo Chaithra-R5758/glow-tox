@@ -43,7 +43,7 @@ function Profile() {
                                             labelCol={{ span: 16 }}
                                             wrapperCol={{ span: 32 }}
                                             layout="vertical"
-                                            name="nest-profile" style={{width:'100%'}}>
+                                            name="nest-profile" style={{width:'500px'}}>
                                             <Form.Item name={['user', 'name']} label="Full Name" >
                                                 <Input />
                                             </Form.Item>
@@ -79,7 +79,7 @@ function Profile() {
                                             labelCol={{ span: 26 }}
                                             wrapperCol={{ span: 32 }}
                                             layout="vertical"
-                                            name="nest-profile" style={{ width: '100%' }} >
+                                            name="nest-profile" style={{ width: '350px' }} >
                                             <Form.Item name={['user', 'password']} label="Password"
                                                 rules={[{ type: 'password' }]} >
                                                 <Input.Password />
