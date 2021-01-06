@@ -76,5 +76,14 @@
   color: white;
   text-align: center;
   align-items: center;
+  margin: 2.5px 350px 0px 0px;
+}
+.profile-screen .profile-primary-pwd-btn {
+  background-color: #5C72E9;
+  padding: 10px 15px;
+  border-radius: 5px;
+  color: white;
+  text-align: center;
+  align-items: center;
   margin: 2.5px 250px 0px 0px;
 }

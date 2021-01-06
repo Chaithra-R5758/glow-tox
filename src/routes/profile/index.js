@@ -90,7 +90,7 @@ function Profile() {
                                             </Form.Item>
                                         </Form>
                                     </div>
-                                    <div className={'profile-primary-btn'} >
+                                    <div className={'profile-primary-pwd-btn'} >
                                         Submit
                                     </div>
                                 </Space>
