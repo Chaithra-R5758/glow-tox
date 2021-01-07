@@ -3,10 +3,12 @@
     .gift-card-inner-wrapper{
         font-family: 'Poppins', sans-serif;
         display: flex;
+        flex-wrap: wrap;
         flex-direction: column;
     }
     .gift-card{
        
+       margin: 0px 0px 0px -18px;
         .ant-card{
         border-radius: 10px;
         box-shadow:0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgpa(0,0,0,0.23);
@@ -18,7 +20,7 @@
         color: white;
         text-align: center;
         align-self: flex-end;
-        margin: -5px 0 5px 0;
+        margin: -10px 0 5px 0;
     }
     .primary-btn {
         background-color: #8A50FD;
@@ -58,6 +60,10 @@ min-width: 100px;
         .gift-card-create-row-wrapper{
             display: block;
         }
+        .gift-card{
+            display: flex;
+            flex-wrap: wrap;
+        }
         .gift-card-create-row{
             margin:0px;
         }
@@ -66,6 +72,7 @@ min-width: 100px;
             justify-content: center;
             align-items: center;
             margin-top: 0px;
+            
         }
     }
 }

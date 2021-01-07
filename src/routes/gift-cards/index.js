@@ -4,7 +4,7 @@ import { PageTitle } from '../../components/page-title/'
 import { DASHBOARD_OPTIONS } from '../../constants/';
 import './gift-card.scss';
 import { SearchOutlined } from '@ant-design/icons'
-import { Card, Table, Tag, Space,Input ,Anchor,Button} from 'antd';
+import { Card, Table, Tag, Space,Input ,Anchor,Button,Pagination} from 'antd';
 const { Meta } = Card;
 const { Search } = Input;
 const { Link } = Anchor;
@@ -162,7 +162,8 @@ render(){
                   {/* <Anchor affix={false}><Link href="/giftcardscreate" title="Create New" /></Anchor> */}
                   </div>
                 </div>
-                <Table columns={columns} dataSource={data} />
+                <Table columns={columns} dataSource={data}/>
+               
               </div>
           </div>
           </Card>
