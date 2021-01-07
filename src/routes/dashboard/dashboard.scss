@@ -5,17 +5,18 @@
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
+       
         font-family: 'Poppins', sans-serif ;
-        box-shadow:0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgpa(0,0,0,0.23);
-        border-radius: 10px;
+        box-shadow: 0 0px 12px #d2d2d2;
+         border-radius: 5px;
         background-color: white;
+        margin: 0px 0 0px -15px;
         
         
     }
     .dashboard-card{
         margin: 30px 10px 30px 20px;
-        
-       width: 32%;
+        width: 32%;
        .ant-card-meta-title{
            margin-top:10px;
            color:white;
@@ -24,12 +25,26 @@
            color: white;
        }
        .ant-card{
-           border-radius: 10px;
+           border-radius: 5px;
+           box-shadow: 0 0px 12px #d2d2d2;
        }
        
        
        }
+       @media screen and (max-width: 720px) {
+        .dashboard-card{
+            margin: 30px 10px 30px 30px;
+            width:80%;
+        }
+            .content-body-wrapper{
+                
+        justify-content: center;
        
+                flex-direction: column;
+            }
+        
+       
+    }
     }
 
    

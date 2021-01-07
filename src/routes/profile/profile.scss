@@ -36,7 +36,7 @@
     
     display: flex;
     flex-wrap: wrap;
-    box-shadow:0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgpa(0,0,0,0.23);
+    box-shadow:0 0px 12px #d2d2d2;
    // justify-content: center;
     //align-items: flex-start;
     float:left;
@@ -44,7 +44,7 @@
     //margin: 10px;
     //margin-left: -180px;
     .ant-card{
-        border-radius: 10px;
+        border-radius: 5px;
     }
   }
     .title-card{
@@ -79,7 +79,7 @@
     margin: -74px 10px 10px 10px ;
     box-shadow:0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgpa(0,0,0,0.23);
     .ant-card{
-        border-radius: 10px;
+        border-radius: 5px;
     }
     
     
