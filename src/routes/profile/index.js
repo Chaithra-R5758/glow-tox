@@ -40,20 +40,19 @@ function Profile() {
                                 <Space direction="vertical">
                                     <div className="profile-card-body" >
                                         <Form
-                                            labelCol={{ span: 16 }}
-                                            wrapperCol={{ span: 32 }}
+                                            
                                             layout="vertical"
-                                            name="nest-profile" style={{width:'500px'}}>
+                                            name="nest-profile" >
                                             <Form.Item name={['user', 'name']} label="Full Name" >
-                                                <Input />
+                                                <Input size="large" style={{borderRadius:'5px'}} />
                                             </Form.Item>
                                             <Form.Item name={['user', 'email']} label="Email Id"
                                                 rules={[{ type: 'email' }]}>
-                                                <Input />
+                                                <Input size="large" style={{borderRadius:'5px'}} />
                                             </Form.Item>
                                             <Form.Item name={['user', 'phone']} label="Phone Number"
                                                 rules={[{ type: 'phoneNum' }]}>
-                                                <Input />
+                                                <Input size="large" style={{borderRadius:'5px'}}/>
                                             </Form.Item>
 
                                         </Form>
@@ -76,17 +75,16 @@ function Profile() {
                                 <Space direction="vertical" >
                                     <div className={'pwd-card-body'}  >
                                         <Form
-                                            labelCol={{ span: 26 }}
-                                            wrapperCol={{ span: 32 }}
+                                           
                                             layout="vertical"
-                                            name="nest-profile" style={{ width: '350px' }} >
+                                            name="nest-profile"  >
                                             <Form.Item name={['user', 'password']} label="Password"
-                                                rules={[{ type: 'password' }]} >
-                                                <Input.Password />
+                                                rules={[{ type: 'password' }]}  >
+                                                <Input.Password size="large" style={{borderRadius:'5px' }}/>
                                             </Form.Item>
                                             <Form.Item name={['user', 'Confirm']} label="Re-type Password"
                                                 rules={[{ type: 'password' }]}>
-                                                <Input.Password />
+                                                <Input.Password size="large" style={{borderRadius:'5px' }} />
                                             </Form.Item>
                                         </Form>
                                     </div>
