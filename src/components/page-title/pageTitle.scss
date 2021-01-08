@@ -1,6 +1,6 @@
 .page-title-wrapper{
     display: flex;
-    margin: -20px 0 20px -18px;
+    margin:  -10px 20px 20px 0px;
     flex-direction: column;
     justify-content: flex-start;
     align-items: flex-start;
@@ -10,11 +10,18 @@
 }
 .page-title{
     font-size: 18px;
-    color:#565656;
-    margin: 10px 0px 10px 20px;
-    font-weight: 550;
+    color:#2b2b2b;
+    margin: 10px 15px;
+    font-weight: 500;
     font-family: 'Poppins', sans-serif;
 }
 .page-title-divider{
     margin:0px !important;
+}
+
+@media screen and (max-width: 720px) {
+    .page-title-wrapper {
+        display: flex;
+        margin: 10px 0px 20px 0px;
+    }
 }
