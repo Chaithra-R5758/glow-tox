@@ -39,58 +39,53 @@ class Login extends Component {
 
         return (
             <div className={'login-screen'}>
-                <Card style={{width:'400px' ,marginTop:'111px',marginLeft:'290px'}}>
-                 <Image 
-      width={350} src="https://image.freepik.com/free-vector/vector-illustration-home-office-computer-stationery-items-houseplants-desk_173706-73.jpg"/>
-                </Card>
+                
                 <div className={'login-wrapper'}>
                     
                     <Form
-                    layout="vertical"
-                    name="normal_login"
-                    className="login-form"
-                    initialValues={{ remember: true }}
-                    onFinish={onFinish} >
+                    
+                        layout="vertical"
+                        name="basic"
+                        initialValues={{
+                            remember: false,
+                        }}
+                        onFinish={onFinish}
+                        onFinishFailed={onFinishFailed} >
                           
                         <div className={'login-brand-logo-wrapper'}>
-                            <div className={'login-brand'}>
-                               <h1>GLOWTOX</h1>
-                               </div> 
+                            <img src={brandLogo} className={'login-brand'} />
                         </div>
                         <Form.Item 
                             label="Login"
-                            name="username"
-        rules={[{ required: true, message: 'Please input your Username!' }]}
-        >
-                            <Input  placeholder="Username" />
+                            name="Login"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Please input your username',
+                                },
+                            ]}
+                        >
+                            <Input />
                         </Form.Item>
                         <Form.Item
-                             name="password"
-                             rules={[{ required: true, message: 'Please input your Password!' }]}
-                           >
-                             <Input
-                               prefix={<LockOutlined className="site-form-item-icon" />}
-                               type="password"
-                               placeholder="Password"
-                             />
+                            label="Password"
+                            name="password"
+                            rules={[
+                                {
+                                    required: true,
+                                    message: 'Please input your password',
+                                },
+                            ]}
+                        >
+                            <Input.Password />
                         </Form.Item>
 
-                        <Form.Item>
-        <Form.Item name="remember" valuePropName="checked" noStyle>
-          <Checkbox>Remember me</Checkbox>
-        </Form.Item>
-
-        <a className="login-form-forgot" href="">
-          Forgot password
-        </a>
-      </Form.Item>
-
-      <Form.Item>
-        <Button type="primary" htmlType="submit" className="login-form-button">
-          Log in
-        </Button>
-        Or <a href="">register now!</a>
-      </Form.Item>
+                        {/* <Form.Item {...tailLayout} name="remember" valuePropName="checked">
+                            <Checkbox>Remember me</Checkbox>
+                        </Form.Item> */}
+                        <div className={'login-btn'} onClick={() => this.signInClicked()}>
+                                Submit
+                            </div>
                     </Form>
                 </div>
             </div>

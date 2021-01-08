@@ -1,11 +1,7 @@
-.login-screen {
-  font-family: "Poppins", sans-serif;
-}
 .login-screen .login-wrapper {
-  left: 63.1%;
-  top: 48%;
+  left: 50%;
+  top: 50%;
   position: absolute;
-  width: 24%;
   -webkit-transform: translate3d(-50%, -50%, 0);
   -moz-transform: translate3d(-50%, -50%, 0);
   transform: translate3d(-50%, -50%, 0);
@@ -13,9 +9,10 @@
   padding: 25px;
 }
 .login-screen .login-brand {
-  font-size: 20px;
-  width: 40px;
-  text-align: center;
+  height: 60px;
+  margin: auto;
+  /* text-align: center; */
+  display: flex;
 }
 .login-screen .login-username {
   margin-top: 20px;
