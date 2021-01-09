@@ -11,8 +11,15 @@
   flex-wrap: wrap;
   justify-content: center;
 }
+.service-screen .service-card {
+  margin: 0px 0px 0px -18px;
+}
+.service-screen .service-card .ant-card {
+  border-radius: 5px;
+  box-shadow: 0 0px 12px #d2d2d2;
+}
 .service-screen .dashboard-card {
-  margin: 10px;
+  margin: 30px;
 }
 .service-screen .service-card-body-wrapper {
   display: flex;
@@ -20,7 +27,7 @@
   align-items: center;
 }
 .service-screen .service-card-title {
-  margin-bottom: 10px;
+  margin-bottom: 0px;
 }
 .service-screen .service-primary-btn {
   background-color: #343557;
@@ -90,14 +97,30 @@
   width: 70%;
 }
 .service-screen .edit-btn {
-  background-color: #343557;
+  background-color: #5C72E9;
+  font-family: "Poppins", sans-serif;
   padding: 8px 30px 6px 30px;
-  border-radius: 25px;
+  border-radius: 5px;
   color: white;
   text-align: center;
   align-self: flex-end;
-  margin: 15px 0 -5px 0;
+  margin: 5px 0 -5px 0;
 }
-.service-screen .margin-adjust {
-  margin-top: 12px;
+.service-screen .service-meta-data-wrapper {
+  margin-top: -10px;
+  font-family: "Poppins", sans-serif;
+}
+.service-screen .primary-btn {
+  background-color: #5C72E9;
+  font-family: "Poppins", sans-serif;
+  padding: 10px 20px 10px 20px;
+  border-radius: 5px;
+  color: white;
+  text-align: center;
+  align-self: flex-end;
+  margin: -10px 0 0 0;
+  min-width: 100px;
+}
+.service-screen .ant-card-meta-title {
+  text-align: center;
 }

@@ -13,8 +13,16 @@
         justify-content: center;
     }
     
+    .service-card{
+       
+     margin: 0px 0px 0px -18px;
+      .ant-card{
+      border-radius:5px;
+      box-shadow:0 0px 12px #d2d2d2;
+      }
+     }
     .dashboard-card{
-        margin: 10px;
+        margin: 30px;
     }
     .service-card-body-wrapper{
         display: flex;
@@ -22,7 +30,7 @@
         align-items: center;
     }
    .service-card-title{
-        margin-bottom: 10px;
+        margin-bottom: 0px;
    }
    .service-primary-btn{
     background-color: #343557;
@@ -53,12 +61,10 @@
         flex: .3 1;
    }
    .service-add-right-content{
-        //display: flex;
         flex: 1;
         justify-content: center;
         align-items: center;
         padding: 20px 20px 20px 0px;
-//         margin-left: -90px;
    }
    .service-add-img{
         object-fit: contain;
@@ -71,7 +77,6 @@
     text-align: center;
    }
    .image-picker-outer-wrapper{
-     //    display:flex;
     border: 0.01px solid #d9d9d9;
     padding: 10px;
     margin: 0 10px;
@@ -95,16 +100,30 @@
     width: 70%;
    }
    .edit-btn{
-     background-color: #343557;
+     background-color:  #5C72E9;
+     font-family: "Poppins", sans-serif;
      padding: 8px 30px 6px 30px;
-     border-radius: 25px;
+     border-radius: 5px;
      color: white;
      text-align: center;
      align-self: flex-end;
-     margin: 15px 0 -5px 0;
+     margin: 5px 0 -5px 0;
    }
-  .margin-adjust{
-       margin-top: 12px;
+   .service-meta-data-wrapper{
+        margin-top: -10px;
+        font-family: "Poppins", sans-serif;
+   }
+  .primary-btn{
+          background-color: #5C72E9;
+          font-family: "Poppins", sans-serif;
+          padding: 10px 20px 10px 20px;
+          border-radius: 5px;
+          color: white;
+          text-align: center;
+          align-self: flex-end;
+          margin: -10px 0 0 0;
+          min-width: 100px;
+         
      }
 
   .ant-card-meta-title{

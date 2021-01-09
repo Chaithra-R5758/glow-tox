@@ -1,5 +1,5 @@
 import { PageTitle } from '../../components/page-title'
-import testImg from '../../assets/test-img.jpg'
+import loginImg from '../../assets/login-img.png'
 import './service.scss';
 import { Card, Button, template, Skeleton ,Anchor} from 'antd';
 import React, { Component, Suspense } from 'react';
@@ -17,8 +17,10 @@ class Service extends Component {
         <PageTitle
           title={'Service'}
         />
+        <div className={"service-card"}>
+          <Card>
         <div className={'content-body-wrapper'}>
-          <div className={'primary-btn margin-adjust'} onClick={() => this.props.history.push('/Servicesadd')}>
+          <div className={'primary-btn'} onClick={() => this.props.history.push('/Servicesadd')}>
           Add New Service
             </div>
           <div className={'dashboard-card-wrapper'}>
@@ -33,15 +35,16 @@ class Service extends Component {
               )
             } */}
             {
-              ["","","","",""].map(option =>
+              ["","","","","",""].map(option =>
+                
                 <div className={'dashboard-card'}>
                   <Card
                     hoverable
-                    style={{ width: '200px' }}
-                    cover={<img alt="example" src={testImg} />}>
+                    style={{ width: '190px' }}
+                    cover={<img alt="example" src={loginImg}  style={{height:'160px',backgroundColor:'#EFF2F7', position:'relative',borderRadius:'0 0 50% 50%/0 0 15% 15%'}}/>}>
                     <div className={'service-card-body-wrapper'}>
                       <div className={'service-meta-data-wrapper'}>
-                        <Meta title="Service 1" />
+                        <Meta title="Service Name" />
                         <div className={'edit-btn'} onClick={() => this.props.history.push('/Servicesadd')}>Edit</div>
                       </div>
                       <div>
@@ -52,6 +55,8 @@ class Service extends Component {
               )
             }
           </div>
+        </div>
+        </Card>
         </div>
       </div>
     </div>
