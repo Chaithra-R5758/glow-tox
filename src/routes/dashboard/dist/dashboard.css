@@ -34,5 +34,6 @@
   .dashboard-screen .content-body-wrapper {
     justify-content: center;
     flex-direction: column;
+    margin-right: 0px;
   }
 }

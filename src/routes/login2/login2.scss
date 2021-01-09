@@ -1,7 +1,9 @@
 
+body{
+    background-color: #CDD4E1 !important;
+}
 .login-screen{
-   background-image: url(https://static.vecteezy.com/system/resources/thumbnails/001/873/028/small/abstract-white-wave-lines-on-gray-background-and-texture-free-vector.jpg);
-    .login-wrapper{
+   .login-wrapper{
         font-family:'Poppins', sans-serif;
         left: 50%;
         top: 50%;
@@ -32,16 +34,16 @@
        font-family: "Poppins", sans-serif ;
        font-size: 30px;
        font-weight: 800;
-       color: #8A50FD;
+       color: #5B71E8;
        text-shadow: 0.5px 0.5px  gray;
     }
     .login-form-forgot{
-        color: #8A50FD;
+        color: #5B71E8;
         // margin-top: 20px;
         // margin-left: 100px;
     }
     .login-btn{
-        background-color: #8A50FD;
+        background-color: #5B71E8;
        // padding: 10px 15px 10px 15px;
         border-radius: 5px;
         color: white;
@@ -53,24 +55,33 @@
         //margin-top: 40px;
         cursor: pointer;
     }
+    .login-btn:hover {
+        background-color: #5B71E8;
+        color: white;
+        border:1px solid #5B71E8;
+    }
     @media screen and (max-width: 720px) {
         .login-wrapper{
-            border: 0px solid #d9d9d9;
-           padding: 15px;
-            margin: 25px;
-            margin-top: 40%;
-            left:0;
-            top:0;
-           // display: flex;
-           // align-items: center;
-            position: inherit;
-            transform: none;
+        //     border: 0px solid #d9d9d9;
+        //    padding: 15px;
+        //     margin: 25px;
+        //     margin-top: 40%;
+        //     left:0;
+        //     top:0;
+        //    // display: flex;
+        //    // align-items: center;
+        //     position: inherit;
+        //     transform: none;
+        border: 0px solid #d9d9d9;
+        display: flex;
+        flex: 1;
+        justify-content: center;
+        align-items: center;
             
     }
-    .login-card{
-        margin-right: 20px;
-    }
-    
+    // .login-card{
+    //   //  margin-right: 20px;
+    // }
     .image-card{
         display: none;
     }

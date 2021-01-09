@@ -2,7 +2,7 @@
 .nav-screen{
     font-family: 'Kumbh Sans', sans-serif;
     .navbar{
-        background-color: #343557;
+        background-color: #5C72E9;
         position: fixed;
         top: 0;
         bottom: 0;
@@ -81,6 +81,12 @@
     .ant-drawer-body{
         background-color: #343557 !important;
         
+    }
+
+    .logout-option{
+        position: absolute;
+        bottom: 0;
+        width: 100%;
     }
 
     @media screen and (max-width: 720px) {

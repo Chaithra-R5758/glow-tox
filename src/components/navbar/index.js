@@ -94,10 +94,10 @@ class NavBar extends React.Component {
     const { selectedNavOption } = this.state
     const result = NAV_OPTIONS.map((navOption, index) => {
       return (
-        <div className={'nav-option'} style={{display:'flex',margin:'20px 0'}} onClick={() => this.navItemClicked(navOption, index)}>
-            {this.getIcon(navOption, index, selectedNavOption, navIconSize)}
-            <div style={{color:'#fff',margin:'0 10px'}} className={'nav-option-title-selected'}> {navOption} </div>
-            {/* {selectedNavOption === index &&
+        <div className={'nav-option'} style={{ display: 'flex', margin: '20px 0' }} onClick={() => this.navItemClicked(navOption, index)}>
+          {this.getIcon(navOption, index, selectedNavOption, navIconSize)}
+          <div style={{ color: '#fff', margin: '0 10px' }} className={'nav-option-title-selected'}> {navOption} </div>
+          {/* {selectedNavOption === index &&
               <span className={'caret-icon'}><CaretLeftOutlined style={{ color: grey3 }} /></span>
             }           */}
         </div>
@@ -114,7 +114,7 @@ class NavBar extends React.Component {
       return (
         <div className={'nav-option'} onClick={() => this.navItemClicked(navOption, index)}>
           <div>
-            {this.getIcon(navOption, index, selectedNavOption,navIconSize)}
+            {this.getIcon(navOption, index, selectedNavOption, navIconSize)}
             {selectedNavOption === index &&
               <span className={'caret-icon'}><CaretLeftOutlined style={{ color: grey3 }} /></span>
             }
@@ -170,6 +170,16 @@ class NavBar extends React.Component {
           </div> */}
           <div className={'nav-options-wrapper'} >
             {this.getNavOptions()}
+
+            <div className={'nav-option logout-option'} onClick={() => null}>
+              <div>
+                <AppstoreFilled style={{
+                  fontSize: '24px',
+                  color: '#b1b1b1'
+                }} />
+              </div>
+              <div className={0 ? 'nav-option-title-selected' : 'nav-option-title'}>Logout</div>
+            </div>
           </div>
           {/* {userType && this.getNavOptions().map((text, index) => (
             
@@ -188,11 +198,11 @@ class NavBar extends React.Component {
           title="Basic Drawer"
           placement={'left'}
           closable={false}
-          onClose={() => this.setState({visible:false})}
+          onClose={() => this.setState({ visible: false })}
           visible={visible}
-          title={<div style={{color:'#fff'}}>Glow Tox</div>}
+          title={<div style={{ color: '#fff' }}>Glow Tox</div>}
           headerStyle={{ backgroundColor: '#343557', color: '#fff' }}
-          bodyStyle={{backgroundColor:'#343557'}}
+          bodyStyle={{ backgroundColor: '#343557' }}
           key={'left'}>
           <div className={'nav-options-wrapper-mob'} >
             {this.getNavOptionsMob()}
