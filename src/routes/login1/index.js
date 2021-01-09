@@ -44,7 +44,7 @@ class Login extends Component {
                     
                     <Form
                     
-                        layout="vertical"
+                        {...layout}
                         name="basic"
                         initialValues={{
                             remember: false,
