@@ -33,9 +33,9 @@ function Profile() {
                                         className={'profile-img'} />
                                 </div>
                                 <div className="edit-btn-card">
-                                    <Button type="link" block style={{ color: "#343557", fontSize: '1.5em' }}>
-                                        {<EditFilled />}
-                                    </Button>
+                                    
+                                        {<EditFilled style={{ color: "#343557", fontSize: '1.5em' }} />}
+                                   
                                 </div>
                                 <Space direction="vertical">
                                     <div className="profile-card-body" >

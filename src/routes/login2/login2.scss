@@ -1,6 +1,6 @@
 
 .login-screen{
-   
+   background-image: url(https://static.vecteezy.com/system/resources/thumbnails/001/873/028/small/abstract-white-wave-lines-on-gray-background-and-texture-free-vector.jpg);
     .login-wrapper{
         font-family:'Poppins', sans-serif;
         left: 50%;
@@ -29,8 +29,9 @@
     }
     h1{
        text-align: center;
-       font-family: "Poppins", sans-serif;
+       font-family: "Poppins", sans-serif ;
        font-size: 30px;
+       font-weight: 800;
        color: #8A50FD;
        text-shadow: 0.5px 0.5px  gray;
     }
@@ -57,14 +58,17 @@
             border: 0px solid #d9d9d9;
            padding: 15px;
             margin: 25px;
-            margin-top: 30%;
+            margin-top: 40%;
             left:0;
             top:0;
-            // display: flex;
-            // justify-content: center;
+           // display: flex;
+           // align-items: center;
             position: inherit;
             transform: none;
             
+    }
+    .login-card{
+        margin-right: 20px;
     }
     
     .image-card{
@@ -72,7 +76,7 @@
     }
     
     .login-btn{
-        width:250px;
+        width:240px;
         text-align: center;
     }
 }
