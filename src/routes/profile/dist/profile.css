@@ -89,8 +89,8 @@
 @media screen and (max-width: 720px) {
   .profile-screen .content-body-wrapper {
     display: flex;
-    justify-content: center;
     flex-direction: column;
+    margin: 10px 0px 20px 0px;
   }
   .profile-screen .profile-screen .img-card {
     width: 140px;
@@ -108,8 +108,7 @@
     width: auto;
   }
   .profile-screen .profile-card {
-    width: 90%;
-    margin-left: 30px;
+    width: 100%;
   }
   .profile-screen .edit-btn-card {
     float: right;
@@ -117,7 +116,7 @@
   }
   .profile-screen .profile-card-pwd {
     margin: 10px 0px 10px 0px;
-    width: 90%;
+    width: 100%;
   }
   .profile-screen .profile-card-body {
     width: 101%;
