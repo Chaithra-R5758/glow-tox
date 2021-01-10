@@ -1,63 +1,66 @@
 .promotions-screen {
-    font-family: 'Kumbh Sans', sans-serif;
+    background-color: #f6f6f8;
     .content-body-wrapper {
-        font-family: 'Kumbh Sans', sans-serif;
+        font-family: "Poppins", sans-serif;
         display: flex;
         flex-direction: column;
     }
     .promo-card-wrapper {
         display: flex;
         flex-wrap: wrap;
-        align-items: center;
         justify-content: center;
+        margin-left: 15px;
     }
-    .dashboard-card{
-        margin: 10px;
+    .promotions-card {
+        .ant-card {
+            border-radius: 5px;
+            box-shadow: 0 0px 12px #d2d2d2;
+            margin-right: 20px;
+        }
     }
-    .promo-card {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 10px;
-        flex-direction: column;
-    }
-    .promo-primary-btn {
-        text-align: center;
+    .primary-btn {
+        background-color: #5c72e9;
+        font-family: "Poppins", sans-serif;
+        border-radius: 5px;
+        color: white;
         align-self: flex-end;
-        margin: -5px 0 10px 0;
-        
+        cursor: pointer;
     }
+
+    .promo-card {
+        margin-top: 15px;
+    }
+
     .img-card {
         float: right;
-        width: 120px;
-        height: 120px;
+        width: 150px;
+        height: 140px;
         position: relative;
-        margin-left: 10px;
-        margin-top: 30px;
-        margin-bottom: 10px;
-        align-items: center;
-        justify-content: center;
-        flex-direction: column;
+        margin-left: 20px;
     }
     .btn-card {
-        margin-bottom: 5px;
+        background-color: #5c72e9;
+        font-family: "Poppins", sans-serif;
+        border-radius: 5px;
+        color: white;
         text-align: left;
+        cursor: pointer;
     }
     .edit-btn-card {
-        
         text-align: right;
-        margin-left: 0px;
-        font-size: 1em;
-        margin-top: -15px;
-        margin-right: -15px;
+        margin-top: -20px;
+        margin-right: -20px;
+        margin-bottom: 5px;
     }
     .desc-card {
-        font-family: 'Kumbh Sans', sans-serif;
+        font-family: "Poppins", sans-serif;
         display: flex;
-        width: 55%;
-        margin-top: 30px;
-        margin-bottom: 15px;
-        //margin-right: 10px;
+        margin-bottom: 10px;
+        font-size: 12px;
+        width: 140px;
+        height: 140px;
+        word-break: break-all;
+        color: #9c9c9c;
         flex-direction: column;
         justify-content: center;
         align-items: center;
@@ -75,26 +78,24 @@
         margin-bottom: 20px;
     }
     .add-btn-card {
-        //    display:flex;
-        //     justify-content: center;
-        font-family: 'Kumbh Sans', sans-serif;
+        font-family: "Poppins", sans-serif;
         text-align: left;
         margin-top: 30px;
         margin-right: 20px;
         margin-bottom: 52px;
     }
     .add-promo-card {
-        font-family: 'Kumbh Sans', sans-serif;
+        font-family: "Poppins", sans-serif;
         width: 60%;
         display: flex;
         align-items: center;
         justify-content: center;
         margin: 20px;
         flex-direction: column;
-        font-family: 'Kumbh Sans', sans-serif;
+        font-family: "Poppins", sans-serif;
     }
     .add-desc-card {
-        font-family: 'Kumbh Sans', sans-serif;
+        font-family: "Poppins ", sans-serif;
         display: flex;
         align-items: center;
         justify-content: center;
@@ -107,19 +108,33 @@
         margin-top: -50px;
         margin-bottom: 20px;
         text-align: left;
-        // padding-left: 100px;
     }
     .promo-addedit-btn {
         background-color: #343557;
-    padding: 10px 15px;
-    border-radius: 25px;
-    color: white;
-    text-align: center;
-    align-self: flex-end;
-    margin: -5px 0 10px 0;
+        padding: 10px 15px;
+        border-radius: 25px;
+        color: white;
+        text-align: center;
+        align-self: flex-end;
+        margin: -5px 0 10px 0;
     }
-    .margin-adjust{
-        margin-top: 12px;
+    @media screen and (max-width: 720px) {
+        .promotions-card {
+            margin-right: -10px;
+            .ant-card {
+                margin-right: 10px;
+            }
+        }
+        .promo-card {
+            margin-left: -5px;
+        }
+        .img-card {
+            margin-left: 0px;
+            margin-right: 5px;
+            margin-bottom: 10px;
+        }
+        .desc-card {
+            margin-left: 10px;
+        }
     }
-   
 }

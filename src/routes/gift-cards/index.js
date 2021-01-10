@@ -4,7 +4,7 @@ import { PageTitle } from '../../components/page-title/'
 import { DASHBOARD_OPTIONS } from '../../constants/';
 import './gift-card.scss';
 import { SearchOutlined } from '@ant-design/icons'
-import { Card, Table, Tag, Space,Input ,Anchor,Button,Pagination} from 'antd';
+import { Card, Table, Tag, Space, Input, Anchor, Button, Pagination } from 'antd';
 const { Meta } = Card;
 const { Search } = Input;
 const { Link } = Anchor;
@@ -65,23 +65,23 @@ const data = [
     key: '1',
     name: 'John Brown',
     age: 32,
-    id:1,
+    id: 1,
     address: 'New York No. 1 Lake Park',
     tags: ['New'],
-    email:'akash@gmail.com',
-    offer:'10% off',
-    service:'service 1'
+    email: 'akash@gmail.com',
+    offer: '10% off',
+    service: 'service 1'
   },
   {
     key: '2',
     name: 'Jim Green',
     age: 42,
-    id:2,
+    id: 2,
     address: 'London No. 1 Lake Park',
     tags: ['Redeemed'],
-    email:'hamse@gmail.com',
-    offer:'15% off',
-    service:'service 1'
+    email: 'hamse@gmail.com',
+    offer: '15% off',
+    service: 'service 1'
 
 
   },
@@ -89,12 +89,12 @@ const data = [
     key: '3',
     name: 'Jim Green',
     age: 42,
-    id:3,
+    id: 3,
     address: 'London No. 1 Lake Park',
     tags: ['Refund'],
-    email:'hamse@gmail.com',
-    offer:'15% off',
-    service:'service 1'
+    email: 'hamse@gmail.com',
+    offer: '15% off',
+    service: 'service 1'
 
 
   },
@@ -102,12 +102,12 @@ const data = [
     key: '4',
     name: 'Jim Green',
     age: 42,
-    id:4,
+    id: 4,
     address: 'London No. 1 Lake Park',
     tags: ['Chargeback'],
-    email:'hamse@gmail.com',
-    offer:'15% off',
-    service:'service 1'
+    email: 'hamse@gmail.com',
+    offer: '15% off',
+    service: 'service 1'
 
 
   },
@@ -115,64 +115,64 @@ const data = [
     key: '5',
     name: 'Joe Black',
     age: 32,
-    id:5,
+    id: 5,
     address: 'Sidney No. 1 Lake Park',
     tags: ['Redeemed',],
-    email:'john@gmail.com',
-    offer:'20% off',
-    service:'service 1'
+    email: 'john@gmail.com',
+    offer: '20% off',
+    service: 'service 1'
   }
 ];
 for (let i = 6; i < 100; i++) {
   data.push({
 
-  
+
     key: 'i',
     name: `John Brown ${i}`,
     age: 32,
-    id:i,
+    id: i,
     address: `New York No.${i} Lake Park`,
     tags: ['New'],
-    email:'akash@gmail.com',
-    offer:'10% off',
-    service:`service ${i}`
-  
-});
+    email: 'akash@gmail.com',
+    offer: '10% off',
+    service: `service ${i}`
+
+  });
 
 
 }
 class GiftCard extends Component {
-render(){
-  return (
-    <div className="gift-card-screen">
+  render() {
+    return (
+      <div className="gift-card-screen">
         <div className={'content-wrapper'}>
           <PageTitle
             title={'Gift Cards'}
           />
           <div className={"gift-card"}>
-          <Card>
-          <div className={'content-body-wrapper'}>
-              <div className={'gift-card-inner-wrapper'}>
-                <div className={'options-wrapper'}>
-                  <div className={'search-wrapper'}>
-                  <Input   placeholder="Search..." prefix={<SearchOutlined/>} />
-                  </div>
-                  <div className={'primary-btn '} onClick={() => this.props.history.push('/giftcardscreate')}>
-                  Create New
+            <Card>
+              <div className={'content-body-wrapper'}>
+                <div className={'gift-card-inner-wrapper'}>
+                  <div className={'options-wrapper'}>
+                    <div className={'search-wrapper'}>
+                      <Input placeholder="Search..." prefix={<SearchOutlined />} />
+                    </div>
+                    <div className={'primary-btn '} onClick={() => this.props.history.push('/giftcardscreate')}>
+                      Create New
                   {/* <Anchor affix={false}><Link href="/giftcardscreate" title="Create New" /></Anchor> */}
+                    </div>
                   </div>
+                  <Table columns={columns} dataSource={data} />
+
                 </div>
-                <Table columns={columns} dataSource={data}/>
-               
               </div>
-          </div>
-          </Card>
+            </Card>
           </div>
         </div>
-       
-    </div>
-  );
-}
+
+      </div>
+    );
+  }
 }
 
 export default withRouter(GiftCard)

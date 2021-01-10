@@ -7,13 +7,14 @@ import './service-history.scss';
 import { Card, Table, Tag, Button, Input ,Skeleton,Anchor} from 'antd';
 import React, { Component, Suspense } from 'react';
 import { withRouter } from 'react-router-dom';
+import { SearchOutlined } from '@ant-design/icons'
 const { Meta } = Card;
 const { Search } = Input;
 
 
 const { Link } = Anchor;
 
-const columns = [
+const columns = [ 
   {
     title: 'Transaction Id',
     dataIndex: 'id',
@@ -48,8 +49,10 @@ const columns = [
       <>
         {tags.map(tag => {
           let color = tag.length > 5 ? 'geekblue' : 'green';
-          if (tag === 'loser') {
-            color = 'volcano';
+          if (tag === 'Refund') {
+            color = 'orange';
+          }else if (tag ==='chargeback'){
+            color='red';
           }
           return (
             <Tag color={color} key={tag}>
@@ -75,7 +78,7 @@ const data = [
     age: 32,
     id: 1,
     address: 'New York No. 1 Lake Park',
-    tags: ['Scheduled',],
+    tags: ['paid',],
     email: 'akash@gmail.com',
     offer: '10% off',
     service: 'service 1',
@@ -87,7 +90,7 @@ const data = [
     age: 42,
     id: 2,
     address: 'London No. 1 Lake Park',
-    tags: ['Scheduled'],
+    tags: ['chargeback'],
     email: 'hamse@gmail.com',
     offer: '15% off',
     service: 'service 1',
@@ -99,13 +102,42 @@ const data = [
     age: 32,
     id: 3,
     address: 'Sidney No. 1 Lake Park',
-    tags: ['Purchased',],
+    tags: ['Refund'],
     email: 'john@gmail.com',
     offer: '20% off',
     service: 'service 1',
     promoname: 'Promo Details',
   },
+  {
+    key: '4',
+    name: 'Ronald Taylo',
+    age: 32,
+    id: 4,
+    address: 'Sidney No. 1 Lake Park',
+    tags: ['paid'],
+    email: 'ronald@gmail.com',
+    offer: '20% off',
+    service: 'service 1',
+    promoname: 'Promo Details',
+  },
 ];
+for (let i = 5; i < 100; i++) {
+  data.push({
+
+  
+    key: 'i',
+    name: `John Brown ${i}`,
+    age: 32,
+    id:i,
+    address: `New York No.${i} Lake Park`,
+    tags: ['New'],
+    email:'akash@gmail.com',
+    offer:'10% off',
+    service:`service ${i}`,
+    promoname: 'Promo Details',
+  
+});
+}
 
 class ServiceHistory extends Component { 
   render(){
@@ -115,15 +147,17 @@ class ServiceHistory extends Component {
         <PageTitle
           title={'Service History'}
         />
+        <div className={"history-card"}>
+          <Card>
         <div className={'service-history-wrapper'}>
           <div className={'gift-card-inner-wrapper'}>
             <div className={'search-wrapper'} >
-              <Search placeholder="search" 
-             loading={false}
-                enterButton  />
+            <Input   placeholder="Search..." prefix={<SearchOutlined/>} />
             </div>
-            <Table columns={columns} dataSource={data} />
+            <Table dataSource={data} columns={columns}  />
           </div>
+        </div>
+        </Card>
         </div>
       </div>
     </div>

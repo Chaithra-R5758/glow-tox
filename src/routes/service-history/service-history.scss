@@ -1,23 +1,26 @@
 .service-history-screen{
-    font-family: 'Kumbh Sans', sans-serif;
+    background-color: #f6f6f8;
     .gift-card-inner-wrapper{
-        font-family: 'Kumbh Sans', sans-serif;
+        font-family: 'Poppins', sans-serif;
         display: flex;
         flex-direction: column;
     }
     .search-wrapper{
-        font-family: 'Kumbh Sans', sans-serif;
+        font-family: 'Poppins', sans-serif;
         padding: 10px 15px;
         border-radius: 25px;
         color: white;
         text-align: center;
         align-self: flex-end;
-        margin: -5px 0 10px 0;
+        margin: -10px -20px 10px 0;
     }
-    // .service-history-wrapper{
-    //     //display: flex;
-    //    // width: 40%;
-    // }
+    .history-card{
+        .ant-card{
+        border-radius:5px;
+        box-shadow:0 0px 12px #d2d2d2;
+        margin-right: 20px;
+        }
+    }
     .client-details-wrapper{
         display: flex;
         flex-direction: column;
@@ -38,12 +41,27 @@
         justify-content: center;
     }
     .view-btn{
-        background-color: #343557;
+        background-color: #5c72e9;
         padding: 5px ;
-        border-radius: 25px;
+        border-radius: 5px;
         color: white;
         text-align: center;
+        text-align: center;
         align-self: flex-end;
-        margin: -5px 0 10px 0;;
+        margin: -5px 0 10px 0;
+    }  
+    th.ant-table-cell{
+        font-weight: bold;
+     
+}
+@media screen and (max-width: 720px) {
+    
+    .card-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 0px;
     }
+}
+
 }

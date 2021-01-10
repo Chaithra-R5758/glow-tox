@@ -1,7 +1,8 @@
 import { PageTitle } from '../../components/page-title'
 import './promotions.scss';
 import { Input, Card, Image,Skeleton } from 'antd';
-import { LinkOutlined, EditOutlined } from '@ant-design/icons';
+import loginImg from '../../assets/login-img.png'
+import { LinkOutlined, EditFilled } from '@ant-design/icons';
 import React, { useState } from 'react';
 import { Modal, Button } from 'antd';
 
@@ -30,16 +31,13 @@ function Promotions() {
           <PageTitle
             title={'Promotions'}
           />
+          
+          <div className={"promotions-card"}>
+          <Card>
           <div className={'content-body-wrapper'}>
-            <div className={'promo-primary-btn'}>
-
-            <div className={'primary-btn margin-adjust'} onClick={() => {}}>
+            <div className={'primary-btn '} onClick={() => {}}>
             Add New Promo
             </div>
-
-              {/* <Button type="default" shape="round" style={{ backgroundColor: " #343557", color: "white",paddingTop:'5px' }} onClick={showModal}>
-               
-      </Button> */}
               <Modal title="Promotions-Add/Edit" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} style={{ top: 20 }} >
                 <div className={'add-promo-card'}>
                   <Card bordered={false}>
@@ -66,7 +64,7 @@ function Promotions() {
                   </Card>
                 </div>
               </Modal>
-            </div>
+        
             {/* <div className={'promo-card-wrapper'}>
             {
               ["", "", "", "", ""].map(option =>
@@ -81,12 +79,12 @@ function Promotions() {
             </div> */}
             <div className={'promo-card-wrapper'}>
               {
-                ["", "", "", "", ""].map(option =>
+                ["", "", "", ""].map(option =>
                   <div className={'promo-card'}>
                     <Card bordered={true}>
                       <div className="edit-btn-card">
-                        <Button type="link" block style={{ textAlign: "right", color: "#343557" }} onClick={showModal}>
-                          {<EditOutlined />}
+                        <Button type="link" block style={{ textAlign: "right", color: "#343557" ,fontSize:'1.5em'}} onClick={showModal}>
+                          {<EditFilled/>}
                         </Button>
                         <Modal title="Promotions-Add/Edit" visible={isModalVisible} onOk={handleOk} onCancel={handleCancel} style={{ top: 20 }} >
                           <div className={'add-promo-card'}>
@@ -116,27 +114,29 @@ function Promotions() {
                         </Modal>
                       </div>
 
-                      <div className={'img-card'}>
+                      <div className={'img-card'} style={{backgroundColor:'#D7DBFE'}}>
                         <Image
 
-                          src="https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png"
+                          src={loginImg}
                         />
                       </div>
                       <div className={'desc-card'}>
-                        <TextArea bordered={false} style={{ backgroundColor: "#e4e4e7" }}
-                          placeholder="Promo Description"
-                          autoSize={{ minRows: 5, maxRows: 8 }}
-                        />
+                        
+                        The item is what you purchase from Envato Market. The end pro­­duct 
+                        is what you build with that item. Example: The item is a business 
+                      card template: the end product is th finalized business card.
+                       
                       </div>
-                      <div className="btn-card">
-                        <Button type="default" shape="round" style={{ backgroundColor: " #343557", color: "white" }} icon={<LinkOutlined />} >Link to Services </Button>
-                      </div>
+                        <Button className="btn-card" icon={<LinkOutlined />} >Link to Services </Button>
 
                     </Card>
                   </div>
                 )
               }
             </div>
+            </div>
+            </Card>
+        
           </div>
         </div>
       </div>
