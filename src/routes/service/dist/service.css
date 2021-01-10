@@ -1,8 +1,8 @@
 .service-screen {
-  font-family: "Kumbh Sans", sans-serif;
+  background-color: #F6F6F8;
 }
 .service-screen .content-body-wrapper {
-  font-family: "Kumbh Sans", sans-serif;
+  font-family: "Poppins", sans-serif;
   display: flex;
   flex-direction: column;
 }
@@ -11,12 +11,10 @@
   flex-wrap: wrap;
   justify-content: center;
 }
-.service-screen .service-card {
-  margin: 0px 0px 0px -18px;
-}
 .service-screen .service-card .ant-card {
   border-radius: 5px;
   box-shadow: 0 0px 12px #d2d2d2;
+  margin-right: 20px;
 }
 .service-screen .dashboard-card {
   margin: 30px;
@@ -97,7 +95,7 @@
   width: 70%;
 }
 .service-screen .edit-btn {
-  background-color: #5C72E9;
+  background-color: #5c72e9;
   font-family: "Poppins", sans-serif;
   padding: 8px 30px 6px 30px;
   border-radius: 5px;
@@ -111,7 +109,7 @@
   font-family: "Poppins", sans-serif;
 }
 .service-screen .primary-btn {
-  background-color: #5C72E9;
+  background-color: #5c72e9;
   font-family: "Poppins", sans-serif;
   padding: 10px 20px 10px 20px;
   border-radius: 5px;
@@ -123,4 +121,15 @@
 }
 .service-screen .ant-card-meta-title {
   text-align: center;
+}
+@media screen and (max-width: 720px) {
+  .service-screen .service-card {
+    margin: 10px 0px;
+    width: 106%;
+  }
+  .service-screen .content-body-wrapper {
+    margin-right: 0px;
+    padding: 10px 0px;
+    padding-left: 17px;
+  }
 }

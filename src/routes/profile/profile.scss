@@ -34,7 +34,7 @@
     margin-top: 50px;
 }   
 .profile-card{ 
-   width:67%;
+   width:64%;
   .ant-card{
         border-radius: 5px;
         box-shadow:0 0px 12px #d2d2d2;
@@ -53,7 +53,7 @@
         text-shadow: 0.5px 0.5px yellow;
        }
  .profile-card-body{
-    width: 242%;
+    width: 225%;
     margin-left: 10px;
    
 }
@@ -94,15 +94,14 @@
 
 @media screen and (max-width: 720px) {
     .content-body-wrapper{
-           
+        display: flex;   
        justify-content: center;
-     // margin: 10px;
                 flex-direction: column;
             }
             .profile-screen .img-card {
-                /* FONT-WEIGHT: 100; */
-                width: 150px;
-                height: 150px;
+
+                width: 140px;
+                height: 140px;
                 position: relative;
                 overflow: hidden;
                 align-items: flex-start;
@@ -117,6 +116,7 @@
             }
             .profile-card{
                 width: 90%;
+                margin-left: 30px;
             }
             .edit-btn-card{
     

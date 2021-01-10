@@ -1,120 +1,119 @@
-.service-screen{
-     font-family: 'Kumbh Sans', sans-serif;
-     
-    .content-body-wrapper{
-      font-family: 'Kumbh Sans', sans-serif;
-        display: flex;
-        flex-direction: column;
-    }
-   
-    .dashboard-card-wrapper{
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-    
-    .service-card{
-       
-     margin: 0px 0px 0px -18px;
-      .ant-card{
-      border-radius:5px;
-      box-shadow:0 0px 12px #d2d2d2;
-      }
+.service-screen {
+    background-color: #F6F6F8;
+
+     .content-body-wrapper {
+          font-family: "Poppins", sans-serif;
+          display: flex;
+          flex-direction: column;
      }
-    .dashboard-card{
-        margin: 30px;
-    }
-    .service-card-body-wrapper{
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-   .service-card-title{
-        margin-bottom: 0px;
-   }
-   .service-primary-btn{
-    background-color: #343557;
-    padding: 10px 15px;
-    border-radius: 25px;
-    color: white;
-    text-align: center;
-    align-self: flex-end;
-    margin: -5px 0 10px 0;
-   }
-   .service-edit-btn{
-        background-color: #343557;
-    padding: 10px 15px;
-    border-radius: 25px;
-    color: white;
-    text-align: center;
-    align-self: flex-end;
-    margin: -5px 0 10px 0;
-   }
-   .service-add-content{
-        display: flex;
-        flex-wrap: wrap;
-        flex: 1 1;
-   }
-   .service-add-left-content{
-        display: flex;
-        flex-direction: column;
-        flex: .3 1;
-   }
-   .service-add-right-content{
-        flex: 1;
-        justify-content: center;
-        align-items: center;
-        padding: 20px 20px 20px 0px;
-   }
-   .service-add-img{
-        object-fit: contain;
-        width: 180px;
-        height: 180px;
-        align-self: center;
-        margin-bottom: 15px;
-   }
-   .image-picker-title{
-    text-align: center;
-   }
-   .image-picker-outer-wrapper{
-    border: 0.01px solid #d9d9d9;
-    padding: 10px;
-    margin: 0 10px;
-   }
-   .plus-btn{
-    display: flex;
-    margin: 20px 0 0 0;
-    border: 0.01px solid #d9d9d9;
-    padding: 5px 0px;
-    width: 100px;
-   }
-   .plus-btn-wrapper{
-    display: flex;
-    justify-content: center;
-   }
-   .service-add-outer-wrapper-card{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    margin: 10px;
-    width: 70%;
-   }
-   .edit-btn{
-     background-color:  #5C72E9;
-     font-family: "Poppins", sans-serif;
-     padding: 8px 30px 6px 30px;
-     border-radius: 5px;
-     color: white;
-     text-align: center;
-     align-self: flex-end;
-     margin: 5px 0 -5px 0;
-   }
-   .service-meta-data-wrapper{
-        margin-top: -10px;
-        font-family: "Poppins", sans-serif;
-   }
-  .primary-btn{
-          background-color: #5C72E9;
+
+     .dashboard-card-wrapper {
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+     }
+
+     .service-card {
+          .ant-card {
+               border-radius: 5px;
+               box-shadow: 0 0px 12px #d2d2d2;
+               margin-right: 20px;
+          }
+     }
+     .dashboard-card {
+          margin: 30px;
+     }
+     .service-card-body-wrapper {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+     }
+     .service-card-title {
+          margin-bottom: 0px;
+     }
+     .service-primary-btn {
+          background-color: #343557;
+          padding: 10px 15px;
+          border-radius: 25px;
+          color: white;
+          text-align: center;
+          align-self: flex-end;
+          margin: -5px 0 10px 0;
+     }
+     .service-edit-btn {
+          background-color: #343557;
+          padding: 10px 15px;
+          border-radius: 25px;
+          color: white;
+          text-align: center;
+          align-self: flex-end;
+          margin: -5px 0 10px 0;
+     }
+     .service-add-content {
+          display: flex;
+          flex-wrap: wrap;
+          flex: 1 1;
+     }
+     .service-add-left-content {
+          display: flex;
+          flex-direction: column;
+          flex: 0.3 1;
+     }
+     .service-add-right-content {
+          flex: 1;
+          justify-content: center;
+          align-items: center;
+          padding: 20px 20px 20px 0px;
+     }
+     .service-add-img {
+          object-fit: contain;
+          width: 180px;
+          height: 180px;
+          align-self: center;
+          margin-bottom: 15px;
+     }
+     .image-picker-title {
+          text-align: center;
+     }
+     .image-picker-outer-wrapper {
+          border: 0.01px solid #d9d9d9;
+          padding: 10px;
+          margin: 0 10px;
+     }
+     .plus-btn {
+          display: flex;
+          margin: 20px 0 0 0;
+          border: 0.01px solid #d9d9d9;
+          padding: 5px 0px;
+          width: 100px;
+     }
+     .plus-btn-wrapper {
+          display: flex;
+          justify-content: center;
+     }
+     .service-add-outer-wrapper-card {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          margin: 10px;
+          width: 70%;
+     }
+     .edit-btn {
+          background-color: #5c72e9;
+          font-family: "Poppins", sans-serif;
+          padding: 8px 30px 6px 30px;
+          border-radius: 5px;
+          color: white;
+          text-align: center;
+          align-self: flex-end;
+          margin: 5px 0 -5px 0;
+     }
+     .service-meta-data-wrapper {
+          margin-top: -10px;
+          font-family: "Poppins", sans-serif;
+     }
+     .primary-btn {
+          background-color: #5c72e9;
           font-family: "Poppins", sans-serif;
           padding: 10px 20px 10px 20px;
           border-radius: 5px;
@@ -123,14 +122,21 @@
           align-self: flex-end;
           margin: -10px 0 0 0;
           min-width: 100px;
-         
      }
 
-  .ant-card-meta-title{
-     text-align: center;
+     .ant-card-meta-title {
+          text-align: center;
      }
 
-  @media screen and (max-width: 720px) {
-     
+     @media screen and (max-width: 720px) {
+          .service-card {
+               margin: 10px 0px;
+               width: 106%;
+          }
+          .content-body-wrapper {
+               margin-right: 0px;
+               padding: 10px 0px;
+               padding-left: 17px;
+          }
      }
 }

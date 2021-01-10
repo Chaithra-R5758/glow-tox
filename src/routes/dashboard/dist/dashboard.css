@@ -9,15 +9,17 @@
   box-shadow: 0 0px 12px #d2d2d2;
   border-radius: 5px;
   background-color: white;
-  margin: 0px 0 0px -18px;
+  margin-right: 20px;
+  padding: 20px;
 }
 .dashboard-screen .dashboard-card {
   margin: 30px 10px 30px 20px;
   width: 32%;
 }
 .dashboard-screen .dashboard-card .ant-card-meta-title {
-  margin-top: 10px;
   color: white;
+  margin: 20px 0px 0px 0px;
+  font-weight: 700;
 }
 .dashboard-screen .dashboard-card .ant-card-meta-description {
   color: white;
@@ -28,12 +30,12 @@
 }
 @media screen and (max-width: 720px) {
   .dashboard-screen .dashboard-card {
-    margin: 30px 10px 30px 30px;
-    width: 80%;
+    margin: 10px 0px;
+    width: 90%;
+    max-width: 350px;
   }
   .dashboard-screen .content-body-wrapper {
-    justify-content: center;
-    flex-direction: column;
     margin-right: 0px;
+    padding: 10px 0px;
   }
 }
