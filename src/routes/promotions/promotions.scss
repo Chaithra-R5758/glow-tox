@@ -43,7 +43,6 @@
         font-family: "Poppins", sans-serif;
         border-radius: 5px;
         color: white;
-        text-align: left;
         cursor: pointer;
     }
     .edit-btn-card {
@@ -129,12 +128,15 @@
             margin-left: -5px;
         }
         .img-card {
-            margin-left: 0px;
-            margin-right: 5px;
-            margin-bottom: 10px;
+            margin-left: 30px;
+            float: none;
         }
         .desc-card {
+            width: 200px;
             margin-left: 10px;
+        }
+        .btn-card {
+            margin-left: 30px;
         }
     }
 }

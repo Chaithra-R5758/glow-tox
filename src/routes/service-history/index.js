@@ -4,7 +4,7 @@ import Navbar from '../../components/navbar'
 import { PageTitle } from '../../components/page-title'
 import { DASHBOARD_OPTIONS } from '../../constants';
 import './service-history.scss';
-import { Card, Table, Tag, Button, Input ,Skeleton,Anchor} from 'antd';
+import { Card, Table, Tag, Button, Input, Skeleton, Anchor } from 'antd';
 import React, { Component, Suspense } from 'react';
 import { withRouter } from 'react-router-dom';
 import { SearchOutlined } from '@ant-design/icons'
@@ -14,7 +14,7 @@ const { Search } = Input;
 
 const { Link } = Anchor;
 
-const columns = [ 
+const columns = [
   {
     title: 'Transaction Id',
     dataIndex: 'id',
@@ -51,8 +51,8 @@ const columns = [
           let color = tag.length > 5 ? 'geekblue' : 'green';
           if (tag === 'Refund') {
             color = 'orange';
-          }else if (tag ==='chargeback'){
-            color='red';
+          } else if (tag === 'chargeback') {
+            color = 'red';
           }
           return (
             <Tag color={color} key={tag}>
@@ -67,7 +67,7 @@ const columns = [
     title: '',
     dataIndex: 'btn',
     key: 'btn',
-    render: text =>  <div className="view-btn" onClick={() => {}}>View</div>
+    render: text => <div className="view-btn" onClick={() => { }}>View</div>
   }
 ];
 
@@ -124,45 +124,45 @@ const data = [
 for (let i = 5; i < 100; i++) {
   data.push({
 
-  
+
     key: 'i',
     name: `John Brown ${i}`,
     age: 32,
-    id:i,
+    id: i,
     address: `New York No.${i} Lake Park`,
     tags: ['New'],
-    email:'akash@gmail.com',
-    offer:'10% off',
-    service:`service ${i}`,
+    email: 'akash@gmail.com',
+    offer: '10% off',
+    service: `service ${i}`,
     promoname: 'Promo Details',
-  
-});
+
+  });
 }
 
-class ServiceHistory extends Component { 
-  render(){
-  return (
-    <div className="service-history-screen">
-      <div className={'content-wrapper'}>
-        <PageTitle
-          title={'Service History'}
-        />
-        <div className={"history-card"}>
-          <Card>
-        <div className={'service-history-wrapper'}>
-          <div className={'gift-card-inner-wrapper'}>
-            <div className={'search-wrapper'} >
-            <Input   placeholder="Search..." prefix={<SearchOutlined/>} />
-            </div>
-            <Table dataSource={data} columns={columns}  />
+class ServiceHistory extends Component {
+  render() {
+    return (
+      <div className="service-history-screen">
+        <div className={'content-wrapper'}>
+          <PageTitle
+            title={'Service History'}
+          />
+          <div className={"history-card"}>
+            <Card>
+              <div className={'service-history-wrapper'}>
+                <div className={'gift-card-inner-wrapper'}>
+                  <div className={'search-wrapper'} >
+                    <Input placeholder="Search..." prefix={<SearchOutlined />} />
+                  </div>
+                  <Table dataSource={data} columns={columns} />
+                </div>
+              </div>
+            </Card>
           </div>
         </div>
-        </Card>
-        </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
 }
 
 export default withRouter(ServiceHistory);
