@@ -201,8 +201,8 @@ class NavBar extends React.Component {
           onClose={() => this.setState({ visible: false })}
           visible={visible}
           title={<div style={{ color: '#fff' }}>Glow Tox</div>}
-          headerStyle={{ backgroundColor: '#343557', color: '#fff' }}
-          bodyStyle={{ backgroundColor: '#343557' }}
+          headerStyle={{ backgroundColor: '#5C72E9', color: '#fff' }}
+          bodyStyle={{ backgroundColor: '#5C72E9' }}
           key={'left'}>
           <div className={'nav-options-wrapper-mob'} >
             {this.getNavOptionsMob()}
