@@ -19,7 +19,7 @@
         }
     }
     .primary-btn {
-        background-color: #5c72e9;
+        background-color: #5d72e9;
         font-family: "Poppins", sans-serif;
         border-radius: 5px;
         color: white;
@@ -39,7 +39,7 @@
         margin-left: 20px;
     }
     .btn-card {
-        background-color: #5c72e9;
+        background-color: #5d72e9;
         font-family: "Poppins", sans-serif;
         border-radius: 5px;
         color: white;
@@ -64,59 +64,14 @@
         justify-content: center;
         align-items: center;
     }
-    .edit-img-card {
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        float: left;
-        width: 200px;
-        height: 200px;
-        position: relative;
-        margin-top: 10px;
-        margin-right: 10px;
-        margin-bottom: 20px;
+    .ant-modal-content {
+        .modal-title {
+            font-family: "Poppins", sans-serif;
+            font-weight: " bolder";
+            font-size: "18px";
+        }
     }
-    .add-btn-card {
-        font-family: "Poppins", sans-serif;
-        text-align: left;
-        margin-top: 30px;
-        margin-right: 20px;
-        margin-bottom: 52px;
-    }
-    .add-promo-card {
-        font-family: "Poppins", sans-serif;
-        width: 60%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        margin: 20px;
-        flex-direction: column;
-        font-family: "Poppins", sans-serif;
-    }
-    .add-desc-card {
-        font-family: "Poppins ", sans-serif;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        text-align: left;
-        width: 100%;
-        margin-right: 10px;
-        flex-direction: column;
-    }
-    .link-btn-card {
-        margin-top: -50px;
-        margin-bottom: 20px;
-        text-align: left;
-    }
-    .promo-addedit-btn {
-        background-color: #343557;
-        padding: 10px 15px;
-        border-radius: 25px;
-        color: white;
-        text-align: center;
-        align-self: flex-end;
-        margin: -5px 0 10px 0;
-    }
+
     @media screen and (max-width: 720px) {
         .promotions-card {
             margin-right: -10px;

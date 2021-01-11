@@ -16,7 +16,7 @@ import { getRouteName } from '../../utils/';
 //import { connect } from 'react-redux';
 import Cookies from 'js-cookie';
 import { Drawer, Button, Radio, Space } from 'antd';
-
+import home from '../../assets/home.jpg'
 
 class NavBar extends React.Component {
   constructor() {
@@ -61,13 +61,17 @@ class NavBar extends React.Component {
 
   getIcon = (navOption, index, selectedNavOption, navIconSize) => {
     //const iconSize = '18px';
-    const grey3 = '#b1b1b1';
+    const grey3 = '#ccd4f8';
     const white = '#fff';
     switch (navOption) {
       case 'Dashboard': return <AppstoreFilled style={{
         fontSize: navIconSize,
         color: selectedNavOption === index ? white : grey3
       }} />
+      //<img src={home} style={{width:'30px'}}/> 
+        
+      
+      
       case 'Services': return <ExperimentFilled style={{
         fontSize: navIconSize,
         color: selectedNavOption === index ? white : grey3
@@ -201,8 +205,8 @@ class NavBar extends React.Component {
           onClose={() => this.setState({ visible: false })}
           visible={visible}
           title={<div style={{ color: '#fff' }}>Glow Tox</div>}
-          headerStyle={{ backgroundColor: '#343557', color: '#fff' }}
-          bodyStyle={{ backgroundColor: '#343557' }}
+          headerStyle={{ backgroundColor: '#5C72E9', color: '#fff' }}
+          bodyStyle={{ backgroundColor: '#5C72E9' }}
           key={'left'}>
           <div className={'nav-options-wrapper-mob'} >
             {this.getNavOptionsMob()}

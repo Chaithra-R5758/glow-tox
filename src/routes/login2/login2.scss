@@ -1,6 +1,10 @@
 
 body{
     background-color: #CDD4E1 !important;
+    background-image: url('../../assets/login-bgk.jpg');
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-size: cover;
 }
 .login-screen{
    .login-wrapper{
@@ -31,11 +35,11 @@ body{
        font-family: "Poppins", sans-serif ;
        font-size: 30px;
        font-weight: 800;
-       color: #5B71E8;
+       color: #5D72E9;
        text-shadow: 0.5px 0.5px  gray;
     }
     .login-form-forgot{
-        color: #5B71E8;
+        color: #5D72E9;
         
     }
     .login-btn{
@@ -47,9 +51,9 @@ body{
         cursor: pointer;
     }
     .login-btn:hover {
-        background-color: #5B71E8;
+        background-color: #5D72E9;
         color: white;
-        border:1px solid #5B71E8;
+        border:1px solid #5D72E9;
     }
     @media screen and (max-width: 720px) {
         .login-wrapper{
