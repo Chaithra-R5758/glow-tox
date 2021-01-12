@@ -1,15 +1,8 @@
-import React, { Component, Suspense } from 'react';
-import { withRouter } from "react-router-dom";
+import React, { useState } from 'react';
 import { PageTitle } from '../../components/page-title/'
-import { DASHBOARD_OPTIONS } from '../../constants/';
 import './gift-card.scss';
 import { SearchOutlined } from '@ant-design/icons'
-import { Card, Table, Tag, Space, Input, Anchor, Button, Pagination } from 'antd';
-const { Meta } = Card;
-const { Search } = Input;
-const { Link } = Anchor;
-
-
+import { Card, Table, Tag, Input, Button, Modal } from 'antd';
 
 const columns = [
   {
@@ -141,38 +134,87 @@ for (let i = 6; i < 100; i++) {
 
 
 }
-class GiftCard extends Component {
-  render() {
-    return (
-      <div className="gift-card-screen">
-        <div className={'content-wrapper'}>
-          <PageTitle
-            title={'Gift Cards'}
-          />
-          <div className={"gift-card"}>
-            <Card>
-              <div className={'content-body-wrapper'}>
-                <div className={'gift-card-inner-wrapper'}>
-                  <div className={'options-wrapper'}>
-                    <div className={'search-wrapper'}>
-                      <Input placeholder="Search..." prefix={<SearchOutlined />} />
-                    </div>
-                    <div className={'primary-btn '} onClick={() => this.props.history.push('/giftcardscreate')}>
-                      Create New
-                  {/* <Anchor affix={false}><Link href="/giftcardscreate" title="Create New" /></Anchor> */}
-                    </div>
+function GiftCard() {
+  const [isModalVisible, setIsModalVisible] = useState(true);
+
+  const showModal = () => {
+    setIsModalVisible(false);
+  };
+
+  return (
+    <div className="gift-card-screen">
+      <div className={'content-wrapper'}>
+        <PageTitle
+          title={'Gift Cards'}
+        />
+        <div className={"gift-card"}>
+          <Card>
+            <div className={'content-body-wrapper'}>
+              <div className={'gift-card-inner-wrapper'}>
+                <div className={'options-wrapper'}>
+                  <div className={'search-wrapper'}>
+                    <Input placeholder="Search..." prefix={<SearchOutlined />} />
                   </div>
-                  <Table columns={columns} dataSource={data} />
-
+                  <div className={'primary-btn '} onClick={showModal}>
+                    Create New
+                  </div>
                 </div>
-              </div>
-            </Card>
-          </div>
-        </div>
+                <Modal visible={isModalVisible} footer={null} closable={false} width={700} style={{ top: 250 }} >
+                  <div className="modal-title" style={{
+                    fontFamily: "Poppins, sans-serif",
+                    fontWeight: ' bolder', fontSize: '18px'
+                  }}>Gift Cards-Create</div>
+                  <Button className="save-btn" style={{ float: 'right', backgroundColor: '#5D72E9', color: 'white', borderRadius: '5px', padding: '0px 25px 0px 25px', marginTop: '-30px' }}>Save</Button>
 
+
+                  <div className="create-wrapper" style={{ display: 'flex', marginTop: 20 }}>
+                    <Input value="Client Name" placeholder="Client Name" style={{ width: '70%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginRight: 10 }} />
+
+
+
+                    <Input value="Email Id" placeholder="Email Id" style={{ width: '70%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px' }} />
+
+                  </div>
+
+                  <div className={'create-row'} style={{ display: 'flex', marginTop: 20 }}>
+
+
+                    <Input value="Service Name" placeholder="Service Name" style={{ width: '70%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginRight: 10 }} />
+
+
+
+
+                    <Input
+                      value="Value"
+                      placeholder="Value"
+
+                      style={{ width: '37%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginRight: 10 }}
+                    />
+                    <div className={" select-wrapper"}  >
+                      <select style={{ width: 140, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px' }}>
+
+                        <option value="" > </option>
+                        <option value="dollar" >$</option>
+                        <option value="percentage">%</option>
+                      </select>
+                    </div>
+
+                  </div>
+
+
+
+                </Modal>
+                <Table columns={columns} dataSource={data} />
+
+              </div>
+            </div>
+          </Card>
+        </div>
       </div>
-    );
-  }
+
+    </div>
+  );
 }
 
-export default withRouter(GiftCard)
+
+export default GiftCard

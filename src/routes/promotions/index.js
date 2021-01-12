@@ -93,13 +93,13 @@ function Promotions() {
         fontWeight:' bolder', fontSize:'15px'}}>
                        Promo Code
                        
-                       <input maxLength={5} style={{width:'80%',backgroundColor: ' #E2E2E2',blockSize:30,border:'0px',borderRadius:'5px',marginTop:'5px'}}/>
+                       <Input style={{width:'80%',backgroundColor: ' #E2E2E2',blockSize:30,border:'0px',borderRadius:'5px',marginTop:'5px'}}/>
                     
                     </div>
                     <div className="modal-code" style={{fontFamily:"Poppins, sans-serif",
         fontWeight:' bolder', fontSize:'15px'}}>
                       Link to Services
-                    <input style={{backgroundColor: ' #E2E2E2',blockSize:30,border:'0px',borderRadius:'5px',marginTop:'5px'}}/>
+                    <Input style={{backgroundColor: ' #E2E2E2',blockSize:30,border:'0px',borderRadius:'5px',marginTop:'5px'}}/>
                     </div>
                     </div>
 

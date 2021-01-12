@@ -39,7 +39,7 @@ class App extends Component {
                   <Route path="/profile" component={() => <Profile />} />
                   <Route path="/promotions" component={() => <Promotions />} />
                   <Route path="/promotionsedit" component={() => <PromotionsEdit />} />
-                  <Redirect to="/dashboard" />
+                  {/* <Redirect to="/servicehistoryview" /> */}
                 </switch>
                 <Footer /> </div>
               :
