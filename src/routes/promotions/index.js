@@ -17,13 +17,7 @@ function Promotions() {
     setIsModalVisible(true);
   };
 
-  const handleOk = () => {
-    setIsModalVisible(false);
-  };
-
-  const handleCancel = () => {
-    setIsModalVisible(false);
-  };
+ 
   return (
     <div className="promotions-screen">
       <div>
@@ -61,7 +55,7 @@ function Promotions() {
                         <Button type="link" block style={{ textAlign: "right", color: "#343557" ,fontSize:'1.5em'}} onClick={showModal}>
                           {<EditFilled/>}
                         </Button>
-                        <Modal   visible={isModalVisible} onOk={handleOk}footer={null} closable={false} onCancel={handleCancel}width={400 } style={{ top: 80}} >
+                        <Modal   visible={isModalVisible} footer={null} closable={false} width={400 } style={{ top: 80}} >
                 <div className={'add-promo-card'}>
                  
                     <div className="modal-title" style={{fontFamily:"Poppins, sans-serif",

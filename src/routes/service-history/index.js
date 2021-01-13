@@ -71,56 +71,8 @@ function ServiceHistory() {
       title: '',
       dataIndex: 'btn',
       key: 'btn',
-      render: text => <div className="view-btn" onClick={showModal}>View
-    <Modal visible={isModalVisible} footer={null} closable={false} width={700} style={{ top: 180 }} >
-          <div className="modal-title" style={{
-            fontFamily: "Poppins, sans-serif",
-            fontWeight: ' bolder', fontSize: '18px'
-          }}>Service History-View</div>
-          <Button className="save-btn" style={{ float: 'right', backgroundColor: '#5D72E9', color: 'white', borderRadius: '5px', padding: '0px 25px 0px 25px', marginTop: '-30px' }}>Save</Button>
-
-          <div className="image-wrapper" style={{ display: 'flex', marginTop: 20 }}>
-            <Image width={180} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTChQdlYiED1Ot1XBsYrExnQlEPnuU55oXFXA&usqp=CAU" />
-            <div className="create-wrapper" >
-
-              <Input value="Full Name" placeholder="Full Name" style={{ width: 270, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
-
-              <Input value="Loyality Points" placeholder="Loyality Points" style={{ width: 270, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10 }} />
-
-              <Input value="Email Id" placeholder="Email Id" style={{ width: 270, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10 }} />
-
-              <Input value="Mobile Number" placeholder="Mobile Number" style={{ width: 270, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10 }} />
-
-            </div>
-
-          </div>
-          <div style={{ height: '1px', width: '100%', backgroundColor: '#E2E2E2', marginTop: 20 }} />
-          <div className="image-wrapper" style={{ display: 'flex', marginTop: 20 }}>
-            <Image width={180} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTChQdlYiED1Ot1XBsYrExnQlEPnuU55oXFXA&usqp=CAU" />
-            <div className="create-wrapper" >
-
-              <Input value="Full Name" placeholder="Full Name" style={{ width: 270, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
-
-              <Input value="Loyality Points" placeholder="Loyality Points" style={{ width: 270, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10 }} />
-
-              <Input value="Email Id" placeholder="Email Id" style={{ width: 270, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10 }} />
-
-              <Input value="Mobile Number" placeholder="Mobile Number" style={{ width: 270, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10 }} />
-
-            </div>
-
-          </div>
-
-
-
-
-
-
-
-
-
-        </Modal></div>
-
+      render: text => <div className="view-btn" onClick={showModal}>View</div>
+    
     }
   ];
 
@@ -207,6 +159,54 @@ function ServiceHistory() {
                   <Input placeholder="Search..." prefix={<SearchOutlined />} />
                 </div>
                 <Table dataSource={data} columns={columns} />
+                <Modal visible={isModalVisible} footer={null} closable={false} width={700} style={{ top: 180 }} >
+          <div className="modal-title" style={{
+            fontFamily: "Poppins, sans-serif",
+            fontWeight: ' bolder', fontSize: '18px'
+          }}>Service History-View</div>
+          <Button className="save-btn" style={{ float: 'right', backgroundColor: '#5D72E9', color: 'white', borderRadius: '5px', padding: '0px 25px 0px 25px', marginTop: '-30px' }}>Save</Button>
+
+          <div className="image-wrapper" style={{ display: 'flex', marginTop: 20 }}>
+            <Image width={180} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTChQdlYiED1Ot1XBsYrExnQlEPnuU55oXFXA&usqp=CAU" />
+            <div className="create-wrapper" >
+
+              <Input value="Full Name" placeholder="Full Name" style={{ width: 270, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
+
+              <Input value="Loyality Points" placeholder="Loyality Points" style={{ width: 270, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10 }} />
+
+              <Input value="Email Id" placeholder="Email Id" style={{ width: 270, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10 }} />
+
+              <Input value="Mobile Number" placeholder="Mobile Number" style={{ width: 270, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10 }} />
+
+            </div>
+
+          </div>
+          <div style={{ height: '1px', width: '100%', backgroundColor: '#E2E2E2', marginTop: 20 }} />
+          <div className="image-wrapper" style={{ display: 'flex', marginTop: 20 }}>
+            <Image width={180} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTChQdlYiED1Ot1XBsYrExnQlEPnuU55oXFXA&usqp=CAU" />
+            <div className="create-wrapper" >
+
+              <Input value="Full Name" placeholder="Full Name" style={{ width: 270, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
+
+              <Input value="Loyality Points" placeholder="Loyality Points" style={{ width: 270, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10 }} />
+
+              <Input value="Email Id" placeholder="Email Id" style={{ width: 270, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10 }} />
+
+              <Input value="Mobile Number" placeholder="Mobile Number" style={{ width: 270, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10 }} />
+
+            </div>
+
+          </div>
+
+
+
+
+
+
+
+
+
+        </Modal>
               </div>
             </div>
           </Card>
