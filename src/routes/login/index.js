@@ -1,107 +1,173 @@
-import React from 'react';
-import brandLogo from '../../assets/brand-logo.png'
+import { withRouter, } from "react-router-dom";
+import React, { Component, Suspense } from 'react';
+import { Form, Input, Button, Checkbox, Card, Image } from 'antd';
+import loginImg from '../../assets/login-img.png'
 import './login.scss'
-import { Input, Space } from 'antd';
-import { EyeInvisibleOutlined, EyeTwoTone } from '@ant-design/icons';
-import { Button } from 'antd';
-import Password from 'antd/lib/input/Password';
-import axios from '../../config/api/'
+import Cookies from 'js-cookie';
+import { UserOutlined, LockOutlined } from '@ant-design/icons';
+//import axios from '../../config/api/'
+import axios from 'axios';
 
+class Login extends Component {
 
-class Login extends React.Component {
   constructor() {
     super();
     this.state = {
-      email:'',
-      password:'',
-      emailError:'',
-      passwordError:'',
+      password: '',
+      userName: '',
+      errorMsg: '',
+      isLoading: false,
     }
   }
 
-  signIn = async () => {
-    const {email,password} = this.state
-    const result = await axios.post('/auth/signin', { email, password })
-  }
-
-  checkEmailValidation = (email) => {
+  isEmailId = (email) => {
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
   }
 
-  validateCredentials = () => {
-    const { email, password, passwordError, emailError } = this.state
+  signInClicked = async () => {
 
-    if(email === ''){
-      this.setState({emailError:'Email cannot be empty'})
-    }
-    else if(!this.checkEmailValidation(email)){
-      this.setState({emailError:'Email is not valid'})
-    }
-    if(password === ''){
-      this.setState({passwordError:'Password cannot be empty'})
-    }
-    else if(password.length < 4){
-      this.setState({passwordError:'Password cannot be less than 8 characters'})
-    }
-    if(!passwordError && !emailError){
-      this.signIn()
+    //  this.props.history.push('/dashboard')
+    //  window.location.reload();
+    const { password, userName } = this.state
+    
+
+    // if (!password || !userName) {
+    //   this.setState({ errorMsg: 'UserName/Password cannot be empty' })
+    // }
+    // else if (!this.isEmailId(userName)) {
+    //   this.setState({ errorMsg: 'Invalid Email ID' })
+    // }
+    // else if (password.length <= 4) {
+    //   this.setState({ errorMsg: 'Invalid password length' })
+    // }
+    // else 
+    {
+      this.setState({ isLoading: true })
+      const result = await axios.post('https://d9c6y9z297.execute-api.eu-west-1.amazonaws.com/prod/login',
+        {
+          emailId: "test@gmail.com",
+          password: "test1@1234",
+          userType: "Super Admin"
+        },
+        {
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+
+      // axios({
+      //               method: 'POST',
+      //               headers: { 'content-type': 'application/json' },
+      //               data: {
+
+      //               },
+      //               url:'https://d9c6y9z297.execute-api.eu-west-1.amazonaws.com/prod/login',
+      //               });
+
+      
+
+
+
+
+
+
+
+      // const result = await axios.post('/login', {
+      //     "emailId": "test@gmail.com",
+      //     "password" : "test1@1234",
+      //     "userType": "Super Admin",
+      // })
+      this.setState({ isLoading: false })
+      // debugger
+      Cookies.set('accessToken', 'value');
+      // this.setState({ errorMsg:result.data.message })
     }
   }
 
-  render() {
-    const { emailError, passwordError } = this.state
 
+
+
+  render() {
+    const { isLoading } = this.state
+    const layout = {
+      labelCol: {
+        span: 8,
+      },
+      wrapperCol: {
+        span: 16,
+      },
+    };
+    const onFinish = (values) => {
+      console.log('Success:', values);
+    };
+
+    const onFinishFailed = (errorInfo) => {
+      console.log('Failed:', errorInfo);
+    };
+    const { errorMsg } = this.state
     return (
       <div className={'login-screen'}>
         <div className={'login-wrapper'}>
-          <img src={brandLogo} className={'login-brand'} />
-          <Space direction="vertical">
-            <div className={'login-input-wrapper'}>
-              <Input
-                size="large"
-                placeholder="Email"
-                onChange={(event)=>{
-                  this.setState({
-                    email:event.target.value,
-                    emailError:'',
-                  })
-                }}
-              />
-              <div className={'field-error'}>{emailError}</div>
-            </div>
-            <div className={'login-input-wrapper'}>
-              <Input.Password
-                size="large"
-                placeholder="Password"
-                onChange={(event)=>{
-                  this.setState({
-                    password:event.target.value,
-                    passwordError:'',
-                  })
-                }}
-                iconRender={visible => (visible ? <EyeTwoTone /> : <EyeInvisibleOutlined />)}
-              />
-              <div className={'field-error'}>{passwordError}</div>
-            </div>
-            <div className={'sign-in-btn'}>
-              <Button 
-                type="primary" 
-                size={'large'}
-                onClick={()=>this.validateCredentials()}
-                block>
-              Sign In
-                </Button>
-            </div>
-          </Space>
+          <div className={'login-card'}>
+            <Card className={'image-card'} style={{ backgroundColor: '#EFF2F7', border: '0px', boxShadow: '0 0px 12px #d2d2d2' }} >
+              <Image width={350} src={loginImg} />
+            </Card>
+            <Card style={{ border: '0px', boxShadow: '0 0px  12px  #d2d2d2' }}>
+              <Form
+                layout="vertical"
+                name="normal_login"
+                className="login-form"
+                initialValues={{ remember: true }}
+                onFinish={onFinish} >
 
-
+                <div className={'login-brand-logo-wrapper'}>
+                  <h1>GLOWTOX</h1>
+                </div>
+                <Form.Item
+                  label="Login"
+                  name="username"
+                  rules={[{ message: 'Please input your Username!' }]}>
+                  <Input
+                    size="large"
+                    style={{ borderRadius: '5px' }}
+                    prefix={<UserOutlined className="site-form-item-icon" />}
+                    onChange={(e) => this.setState({ userName: e.target.value })}
+                    placeholder="Username" />
+                </Form.Item>
+                <Form.Item
+                  label="Password"
+                  name="password"
+                  rules={[{ message: 'Please input your Password!' }]}
+                >
+                  <Input size="large" style={{ borderRadius: '5px' }}
+                    prefix={<LockOutlined className="site-form-item-icon" />}
+                    type="password"
+                    placeholder="Password"
+                    onChange={(e) => this.setState({ password: e.target.value })}
+                  />
+                </Form.Item>
+                <div className={'error-msg'}>{errorMsg}</div>
+                <Form.Item>
+                  <Button
+                    loading={isLoading}
+                    //type={'primary'}
+                    type="primary"
+                    size="large"  className="login-btn" onClick={() => this.signInClicked()}>
+                    Sign in
+                  </Button>
+                </Form.Item>
+                <Form.Item style={{ textAlign: 'center', marginTop: '-10px' }}>
+                  <a className="login-form-forgot" href="" >
+                    Forgot password
+                  </a>
+                </Form.Item>
+              </Form>
+            </Card>
+          </div>
         </div>
       </div>
-    )
-  }
+    );
+  };
 }
-
-
-
-export default (Login);
+export default withRouter(Login)

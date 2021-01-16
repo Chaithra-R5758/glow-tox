@@ -16,6 +16,9 @@ function ServiceHistory() {
   const showModal = () => {
     setIsModalVisible(true);
   };
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
   const history = useHistory();
   const handleHistory = () => {
     history.push("/servicehistory" )
@@ -164,15 +167,15 @@ function ServiceHistory() {
                   <Input placeholder="Search..." prefix={<SearchOutlined />} />
                 </div>
                 <Table dataSource={data} columns={columns} />
-                <Modal visible={isModalVisible} footer={null} closable={false} width={700} style={{ top: 180 }} >
+                <Modal visible={isModalVisible} footer={null} onCancel={handleCancel} width={700} style={{ top: 180 }} >
           <div className="modal-title" style={{
             fontFamily: "Poppins, sans-serif",
             fontWeight: ' bolder', fontSize: '18px'
           }}>Service History-View</div>
-          <Button className="save-btn" style={{ float: 'right', backgroundColor: '#5D72E9', color: 'white', borderRadius: '5px', padding: '0px 25px 0px 25px', marginTop: '-30px' }} onClick={handleHistory}>Save</Button>
+          <Button className="save-btn" style={{ float: 'right', backgroundColor: '#5D72E9', color: 'white', borderRadius: '5px', padding: ' 0px 25px', marginTop: '-30px',marginRight:15 }} onClick={handleHistory}>Save</Button>
 
           <div className="image-wrapper" style={{ display: 'flex', marginTop: 20 }}>
-            <Image width={180} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTChQdlYiED1Ot1XBsYrExnQlEPnuU55oXFXA&usqp=CAU" />
+            <img width={90} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTChQdlYiED1Ot1XBsYrExnQlEPnuU55oXFXA&usqp=CAU" />
             <div className="create-wrapper" >
 
               <Input value="Full Name" placeholder="Full Name" style={{ width: 270, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
@@ -188,7 +191,7 @@ function ServiceHistory() {
           </div>
           <div style={{ height: '1px', width: '100%', backgroundColor: '#E2E2E2', marginTop: 20 }} />
           <div className="image-wrapper" style={{ display: 'flex', marginTop: 20 }}>
-            <Image width={180} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTChQdlYiED1Ot1XBsYrExnQlEPnuU55oXFXA&usqp=CAU" />
+            <img width={90} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTChQdlYiED1Ot1XBsYrExnQlEPnuU55oXFXA&usqp=CAU" />
             <div className="create-wrapper" >
 
               <Input value="Full Name" placeholder="Full Name" style={{ width: 270, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
