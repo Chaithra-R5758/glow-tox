@@ -10,7 +10,7 @@ const { TextArea } = Input;
 const { Link } = Anchor;
 
 function Service() {
-  const [isModalVisible, setIsModalVisible] = useState(true);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const showModal = () => {
     setIsModalVisible(false);
@@ -82,13 +82,13 @@ function Service() {
               )
             } */}
                 {
-                  ["", "", "", "", "", ""].map(option =>
+                  ["", "", "", ""].map(option =>
 
                     <div className={'dashboard-card'}>
                       <Card
                         hoverable
-                        style={{ width: '190px' }}
-                        cover={<img alt="example" src={loginImg} style={{ height: '160px', backgroundColor: '#EFF2F7', position: 'relative', borderRadius: '0 0 50% 50%/0 0 15% 15%' }} />}>
+                        style={{ width: '220px', height: '300px' }}
+                        cover={<img alt="example" src={loginImg} style={{ height: '200px', backgroundColor: '#EFF2F7', position: 'relative', borderRadius: '0 0 50% 50%/0 0 15% 15%' }} />}>
                         <div className={'service-card-body-wrapper'}>
                           <div className={'service-meta-data-wrapper'}>
                             <Meta title="Service Name" />

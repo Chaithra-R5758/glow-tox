@@ -5,14 +5,62 @@ import loginImg from '../../assets/login-img.png'
 import './login2.scss'
 import Cookies from 'js-cookie';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
+import axios from '../../config/api/'
+
 
 class Login extends Component {
 
-  signInClicked = () => {
-    Cookies.set('accessToken', 'value');
-    this.props.history.push('/dashboard')
-    window.location.reload();
+  constructor(){
+    super();
+    this.state = {
+      password:'',
+      email:'',
+      errorMsg:'',
+    }
   }
+  isEmailId = (email) => {
+    const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
+  }
+
+  signInClicked = async () => {
+    
+  //  this.props.history.push('/dashboard')
+  //  window.location.reload();
+    const { password, userName } = this.state
+
+    if(!password || !userName){
+      this.setState({errorMsg: 'UserName/Password cannot be empty'})
+    }
+    else if(!this.isEmailId(userName)){
+      this.setState({errorMsg: 'Invalid Email ID'})
+    }
+    else if(password.length <= 4){
+      this.setState({errorMsg: 'Invalid password length'})
+    }
+
+
+    
+
+    const result = await axios.post('/login', {
+                        "emailId": userName,
+                        "password" : password,
+                        "userType": "Super Admin",
+                    })
+                    
+    Cookies.set('accessToken', 'value');
+    this.setState({
+      errorMsg:result.data.message
+    })
+                    
+
+                  
+    // debugger
+
+  }
+
+ 
+
 
   render() {
     const layout = {
@@ -23,12 +71,6 @@ class Login extends Component {
         span: 16,
       },
     };
-    const tailLayout = {
-      wrapperCol: {
-        offset: 8,
-        span: 16,
-      },
-    };
     const onFinish = (values) => {
       console.log('Success:', values);
     };
@@ -36,7 +78,7 @@ class Login extends Component {
     const onFinishFailed = (errorInfo) => {
       console.log('Failed:', errorInfo);
     };
-
+    const { errorMsg } = this.state
     return (
       <div className={'login-screen'}>
         <div className={'login-wrapper'}>
@@ -58,10 +100,13 @@ class Login extends Component {
                 <Form.Item
                   label="Login"
                   name="username"
-                  rules={[{ message: 'Please input your Username!' }]}
-                >
-                  <Input size="large" style={{ borderRadius: '5px' }}
-                    prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+                  rules={[{ message: 'Please input your Username!' }]}>
+                  <Input 
+                    size="large" 
+                    style={{ borderRadius: '5px' }}
+                    prefix={<UserOutlined className="site-form-item-icon" />} 
+                    onChange={(e) => this.setState({userName: e.target.value})}
+                    placeholder="Username" />
                 </Form.Item>
                 <Form.Item
                   label="Password"
@@ -72,8 +117,10 @@ class Login extends Component {
                     prefix={<LockOutlined className="site-form-item-icon" />}
                     type="password"
                     placeholder="Password"
+                    onChange={(e) => this.setState({password: e.target.value})}
                   />
                 </Form.Item>
+                <div className={'error-msg'}>{errorMsg}</div>
                 <Form.Item>
                   <Button size="large" block className="login-btn" onClick={() => this.signInClicked()}>
                     Sign in

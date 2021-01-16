@@ -10,7 +10,12 @@ import {
   ExperimentFilled,
   AppstoreFilled,
   HistoryOutlined,
-  MenuOutlined
+  MenuOutlined,
+  HomeFilled,
+  StarFilled,
+  ShopFilled,
+  FileTextFilled,
+  DribbbleCircleFilled
 } from '@ant-design/icons';
 import { getRouteName } from '../../utils/';
 //import { connect } from 'react-redux';
@@ -64,30 +69,51 @@ class NavBar extends React.Component {
     const grey3 = '#ccd4f8';
     const white = '#fff';
     switch (navOption) {
-      case 'Dashboard': return <AppstoreFilled style={{
+      case 'Dashboard': return <HomeFilled style={{
         fontSize: navIconSize,
         color: selectedNavOption === index ? white : grey3
-      }} />
+      }}
+      
+      />
+      
+      // <AppstoreFilled style={{
+      //   fontSize: navIconSize,
+      //   color: selectedNavOption === index ? white : grey3
+      // }} />
       //<img src={home} style={{width:'30px'}}/> 
         
       
       
-      case 'Services': return <ExperimentFilled style={{
+      case 'Services': return <DribbbleCircleFilled style={{
         fontSize: navIconSize,
         color: selectedNavOption === index ? white : grey3
       }} />
+      
+      // <ExperimentFilled style={{
+      //   fontSize: navIconSize,
+      //   color: selectedNavOption === index ? white : grey3
+      // }} />
       case 'Promotions': return <FundFilled style={{
         fontSize: navIconSize,
         color: selectedNavOption === index ? white : grey3
       }} />
-      case 'Service History': return <HistoryOutlined style={{
+      case 'Service History': return <FileTextFilled style={{
         fontSize: navIconSize,
         color: selectedNavOption === index ? white : grey3
-      }} />
+      }}/>
+      // <HistoryOutlined style={{
+      //   fontSize: navIconSize,
+      //   color: selectedNavOption === index ? white : grey3
+      // }} />
       case 'Gift Cards': return <GiftFilled style={{
         fontSize: navIconSize,
         color: selectedNavOption === index ? white : grey3
-      }} />
+      }}/>
+      
+      // <GiftFilled style={{
+      //   fontSize: navIconSize,
+      //   color: selectedNavOption === index ? white : grey3
+      // }} />
       default: return
     }
   }
