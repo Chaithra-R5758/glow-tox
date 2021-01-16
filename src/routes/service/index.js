@@ -3,6 +3,7 @@ import loginImg from '../../assets/login-img.png'
 import './service.scss';
 import { Card, Button, Modal, Skeleton, Anchor, Input, Image, Form } from 'antd';
 import React, { useState } from 'react';
+import {BrowserRouter as Router,useHistory} from 'react-router-dom'
 const { Meta } = Card;
 const { TextArea } = Input;
 
@@ -10,12 +11,18 @@ const { TextArea } = Input;
 const { Link } = Anchor;
 
 function Service() {
+  
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const showModal = () => {
     setIsModalVisible(true);
   };
+  const history = useHistory();
+  const handleHistory = () => {
+    history.push("/services" )
+  }
   return (
+    <Router>
     <div className="service-screen">
       <div className={'content-wrapper'}>
         <PageTitle
@@ -32,7 +39,7 @@ function Service() {
                   fontFamily: "Poppins, sans-serif",
                   fontWeight: ' bolder', fontSize: '18px'
                 }}>Service Add/Edit</div>
-                <Button className="save-btn" style={{ float: 'right', backgroundColor: '#5D72E9', color: 'white', borderRadius: '5px', padding: '0px 45px 0px 45px', marginTop: '-30px' }}>Save</Button>
+                <Button className="save-btn" style={{ float: 'right', backgroundColor: '#5D72E9', color: 'white', borderRadius: '5px', padding: '0px 45px 0px 45px', marginTop: '-30px' }}onClick={handleHistory}>Save</Button>
 
 
 
@@ -107,6 +114,7 @@ function Service() {
         </div>
       </div>
     </div>
+    </Router>
   );
 }
 

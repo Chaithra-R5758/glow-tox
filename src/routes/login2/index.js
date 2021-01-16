@@ -7,7 +7,6 @@ import Cookies from 'js-cookie';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 import axios from '../../config/api/'
 
-
 class Login extends Component {
 
   constructor(){
@@ -16,8 +15,10 @@ class Login extends Component {
       password:'',
       email:'',
       errorMsg:'',
+      isLoading:false,
     }
   }
+
   isEmailId = (email) => {
     const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     return re.test(String(email).toLowerCase());
@@ -38,31 +39,25 @@ class Login extends Component {
     else if(password.length <= 4){
       this.setState({errorMsg: 'Invalid password length'})
     }
-
-
-    
-
-    const result = await axios.post('/login', {
-                        "emailId": userName,
-                        "password" : password,
-                        "userType": "Super Admin",
-                    })
-                    
-    Cookies.set('accessToken', 'value');
-    this.setState({
-      errorMsg:result.data.message
-    })
-                    
-
-                  
-    // debugger
-
+    else{
+      this.setState({isLoading:true})
+      const result = await axios.post('/login', {
+          "emailId": "test@gmail.com",
+          "password" : "test1@1234",
+          "userType": "Super Admin",
+      })
+      this.setState({isLoading:false})
+      debugger
+   //  Cookies.set('accessToken', 'value');
+      //this.setState({ errorMsg:result.data.message })
+    }
   }
 
  
 
 
   render() {
+    const { isLoading } = this.state
     const layout = {
       labelCol: {
         span: 8,
@@ -122,7 +117,9 @@ class Login extends Component {
                 </Form.Item>
                 <div className={'error-msg'}>{errorMsg}</div>
                 <Form.Item>
-                  <Button size="large" block className="login-btn" onClick={() => this.signInClicked()}>
+                  <Button 
+                  loading={isLoading}
+                  size="large" block className="login-btn" onClick={() => this.signInClicked()}>
                     Sign in
                   </Button>
                 </Form.Item>

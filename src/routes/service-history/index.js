@@ -8,6 +8,7 @@ import { Card, Table, Tag, Button, Input, Skeleton, Modal, Image } from 'antd';
 import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import { SearchOutlined } from '@ant-design/icons'
+import {BrowserRouter as Router,useHistory} from 'react-router-dom'
 
 function ServiceHistory() {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -15,7 +16,10 @@ function ServiceHistory() {
   const showModal = () => {
     setIsModalVisible(true);
   };
-
+  const history = useHistory();
+  const handleHistory = () => {
+    history.push("/servicehistory" )
+  }
 
 
   const columns = [
@@ -146,6 +150,7 @@ function ServiceHistory() {
 
 
   return (
+    <Router>
     <div className="service-history-screen">
       <div className={'content-wrapper'}>
         <PageTitle
@@ -164,7 +169,7 @@ function ServiceHistory() {
             fontFamily: "Poppins, sans-serif",
             fontWeight: ' bolder', fontSize: '18px'
           }}>Service History-View</div>
-          <Button className="save-btn" style={{ float: 'right', backgroundColor: '#5D72E9', color: 'white', borderRadius: '5px', padding: '0px 25px 0px 25px', marginTop: '-30px' }}>Save</Button>
+          <Button className="save-btn" style={{ float: 'right', backgroundColor: '#5D72E9', color: 'white', borderRadius: '5px', padding: '0px 25px 0px 25px', marginTop: '-30px' }} onClick={handleHistory}>Save</Button>
 
           <div className="image-wrapper" style={{ display: 'flex', marginTop: 20 }}>
             <Image width={180} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTChQdlYiED1Ot1XBsYrExnQlEPnuU55oXFXA&usqp=CAU" />
@@ -213,6 +218,7 @@ function ServiceHistory() {
         </div>
       </div>
     </div>
+    </Router>
   );
 }
 export default withRouter(ServiceHistory);

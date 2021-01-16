@@ -3,6 +3,8 @@ import { PageTitle } from '../../components/page-title/'
 import './gift-card.scss';
 import { SearchOutlined } from '@ant-design/icons'
 import { Card, Table, Tag, Input, Button, Modal } from 'antd';
+import {BrowserRouter as Router,useHistory} from 'react-router-dom'
+
 
 const columns = [
   {
@@ -134,14 +136,19 @@ for (let i = 6; i < 100; i++) {
 
 
 }
-function GiftCard() {
+function GiftCards() {
   const [isModalVisible, setIsModalVisible] = useState(false);
-
+  const history = useHistory();
+  const handleHistory = () => {
+    history.push("/giftcards")
+  }
   const showModal = () => {
     setIsModalVisible(true);
   };
 
   return (
+   
+    <Router>
     <div className="gift-card-screen">
       <div className={'content-wrapper'}>
         <PageTitle
@@ -164,7 +171,7 @@ function GiftCard() {
                     fontFamily: "Poppins, sans-serif",
                     fontWeight: ' bolder', fontSize: '18px'
                   }}>Gift Cards-Create</div>
-                  <Button className="save-btn" style={{ float: 'right', backgroundColor: '#5D72E9', color: 'white', borderRadius: '5px', padding: '0px 25px 0px 25px', marginTop: '-30px' }}>Save</Button>
+                  <Button className="save-btn" style={{ float: 'right', backgroundColor: '#5D72E9', color: 'white', borderRadius: '5px', padding: '0px 25px 0px 25px', marginTop: '-30px' }} onClick={handleHistory}>Save</Button>
                   <div className="create-wrapper" style={{ display: 'flex', marginTop: 20 }}>
                     <Input value="Client Name" placeholder="Client Name" style={{ width: '70%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginRight: 10 }} />
                     <Input value="Email Id" placeholder="Email Id" style={{ width: '70%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px' }} />
@@ -193,8 +200,10 @@ function GiftCard() {
         </div>
       </div>
     </div>
+    </Router>
+    
   );
 }
 
 
-export default GiftCard
+export default GiftCards

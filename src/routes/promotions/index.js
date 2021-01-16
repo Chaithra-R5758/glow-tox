@@ -5,7 +5,7 @@ import loginImg from '../../assets/login-img.png'
 import { LinkOutlined, EditFilled } from '@ant-design/icons';
 import React, { useState } from 'react';
 import { Modal, Button } from 'antd';
-
+import {BrowserRouter as Router,useHistory} from 'react-router-dom'
 const { TextArea } = Input;
 
 
@@ -16,9 +16,14 @@ function Promotions() {
   const showModal = () => {
     setIsModalVisible(true);
   };
+  const history = useHistory();
+  const handleHistory = () => {
+    history.push("/promotions" )
+  }
 
  
   return (
+    <Router>
     <div className="promotions-screen">
       <div>
         <div className={'content-wrapper'}>
@@ -60,7 +65,7 @@ function Promotions() {
                  
                     <div className="modal-title" style={{fontFamily:"Poppins, sans-serif",
         fontWeight:' bolder', fontSize:'18px'}}>Promotions Edit</div>
-        <Button className="save-btn" style={{float:'right', backgroundColor: '#5D72E9',color:'white',borderRadius:'5px',padding:'0px 25px 0px 25px',marginTop:'-30px'}}>Save</Button>
+        <Button className="save-btn" style={{float:'right', backgroundColor: '#5D72E9',color:'white',borderRadius:'5px',padding:'0px 25px 0px 25px',marginTop:'-30px'}} onClick={handleHistory}>Save</Button>
 
                     
                     
@@ -129,6 +134,7 @@ function Promotions() {
         </div>
       </div>
     </div>
+    </Router>
   );
 }
 
