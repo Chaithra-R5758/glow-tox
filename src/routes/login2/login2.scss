@@ -7,6 +7,11 @@ body{
     background-size: cover;
 }
 .login-screen{
+    .error-msg{
+        color: red;
+        text-align: center;
+        margin: -10px 0px 10px 0px;
+    }
    .login-wrapper{
         font-family:'Poppins', sans-serif;
         left: 50%;

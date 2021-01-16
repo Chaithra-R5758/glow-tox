@@ -135,7 +135,7 @@ for (let i = 6; i < 100; i++) {
 
 }
 function GiftCard() {
-  const [isModalVisible, setIsModalVisible] = useState(true);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const showModal = () => {
     setIsModalVisible(false);
@@ -165,29 +165,15 @@ function GiftCard() {
                     fontWeight: ' bolder', fontSize: '18px'
                   }}>Gift Cards-Create</div>
                   <Button className="save-btn" style={{ float: 'right', backgroundColor: '#5D72E9', color: 'white', borderRadius: '5px', padding: '0px 25px 0px 25px', marginTop: '-30px' }}>Save</Button>
-
-
                   <div className="create-wrapper" style={{ display: 'flex', marginTop: 20 }}>
                     <Input value="Client Name" placeholder="Client Name" style={{ width: '70%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginRight: 10 }} />
-
-
-
                     <Input value="Email Id" placeholder="Email Id" style={{ width: '70%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px' }} />
-
                   </div>
-
                   <div className={'create-row'} style={{ display: 'flex', marginTop: 20 }}>
-
-
                     <Input value="Service Name" placeholder="Service Name" style={{ width: '70%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginRight: 10 }} />
-
-
-
-
                     <Input
                       value="Value"
                       placeholder="Value"
-
                       style={{ width: '37%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginRight: 10 }}
                     />
                     <div className={" select-wrapper"}  >
@@ -198,20 +184,14 @@ function GiftCard() {
                         <option value="percentage">%</option>
                       </select>
                     </div>
-
                   </div>
-
-
-
                 </Modal>
                 <Table columns={columns} dataSource={data} />
-
               </div>
             </div>
           </Card>
         </div>
       </div>
-
     </div>
   );
 }
