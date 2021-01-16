@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-dom";
 import React, { Component, Suspense } from 'react';
-import Login from './routes/login2/'
+import Login from './routes/login/'
 import Dashboard from './routes/dashboard/';
 import Service from './routes/service';
 import ServiceAdd from './routes/service/add';
@@ -44,8 +44,8 @@ class App extends Component {
                 <Footer /> </div>
               :
               <Switch>
-              <Route path="/login2" component={() => <Login />} />
-              <Redirect to="/login2" />
+              <Route path="/login" component={() => <Login />} />
+              <Redirect to="/login" />
             </Switch>
               // <switch>
               //   <Route path="/login" component={() => <Login />} />

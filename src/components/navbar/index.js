@@ -15,7 +15,8 @@ import {
   StarFilled,
   ShopFilled,
   FileTextFilled,
-  DribbbleCircleFilled
+  DribbbleCircleFilled,
+  PoweroffOutlined
 } from '@ant-design/icons';
 import { getRouteName } from '../../utils/';
 //import { connect } from 'react-redux';
@@ -203,8 +204,8 @@ class NavBar extends React.Component {
 
             <div className={'nav-option logout-option'} onClick={() => null}>
               <div>
-                <AppstoreFilled style={{
-                  fontSize: '24px',
+                <PoweroffOutlined style={{
+                  fontSize: '16px',
                   color: '#b1b1b1'
                 }} />
               </div>

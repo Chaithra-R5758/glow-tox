@@ -21,6 +21,18 @@ function Service() {
   const handleHistory = () => {
     history.push("/services" )
   }
+
+  React.useEffect(() => {
+    fetch('')
+      .then(results => results.json())
+      .then(data => {
+        debugger
+        // const {name} = data.results[0];
+        // setFirstName(name.first);
+        // setLastName(name.last);
+      });
+  }, []);
+
   return (
     <Router>
     <div className="service-screen">
