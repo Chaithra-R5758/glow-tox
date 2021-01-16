@@ -47,8 +47,8 @@ class Login extends Component {
           "userType": "Super Admin",
       })
       this.setState({isLoading:false})
-      debugger
-   //  Cookies.set('accessToken', 'value');
+      //debugger
+    Cookies.set('accessToken', 'value');
       //this.setState({ errorMsg:result.data.message })
     }
   }

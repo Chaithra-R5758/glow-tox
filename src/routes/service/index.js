@@ -44,7 +44,7 @@ function Service() {
 
 
                 <div className={'service-add-left-content'} style={{ display: 'flex', marginTop: 20 }}>
-                  <Image
+                  <img
                     width={350}
                     className={'service-add-img'}
                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSb1vm2W-b2WQOKVn-OHECsVw0jGt9zY1SLeg&usqp=CAU" />
