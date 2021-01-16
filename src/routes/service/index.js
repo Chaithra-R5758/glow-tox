@@ -13,7 +13,7 @@ function Service() {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const showModal = () => {
-    setIsModalVisible(false);
+    setIsModalVisible(true);
   };
   return (
     <div className="service-screen">
@@ -92,7 +92,7 @@ function Service() {
                         <div className={'service-card-body-wrapper'}>
                           <div className={'service-meta-data-wrapper'}>
                             <Meta title="Service Name" />
-                            <div className={'edit-btn'} onClick={() => this.props.history.push('/Servicesadd')}>Edit</div>
+                            <div className={'edit-btn'} onClick={showModal}>Edit</div>
                           </div>
                           <div>
                           </div>

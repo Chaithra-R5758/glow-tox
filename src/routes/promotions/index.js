@@ -29,7 +29,7 @@ function Promotions() {
           <div className={"promotions-card"}>
           <Card>
           <div className={'content-body-wrapper'}>
-            <div className={'primary-btn '} >
+            <div className={'primary-btn '} onClick={showModal}>
             Add Promo
             </div>
               
@@ -115,7 +115,7 @@ function Promotions() {
                       card template: the end product is th finalized business card.
                        
                       </div>
-                        <Button className="btn-card" icon={<LinkOutlined />} >Link to Services </Button>
+                        <Button className="btn-card" onClick={showModal} icon={<LinkOutlined />} >Link to Services </Button>
 
                     </Card>
                   </div>

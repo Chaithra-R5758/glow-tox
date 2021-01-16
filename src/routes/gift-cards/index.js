@@ -138,7 +138,7 @@ function GiftCard() {
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const showModal = () => {
-    setIsModalVisible(false);
+    setIsModalVisible(true);
   };
 
   return (

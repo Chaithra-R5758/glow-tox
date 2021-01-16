@@ -43,6 +43,7 @@
 }
 .gift-card-screen .primary-btn {
   margin-bottom: 15px;
+  cursor: pointer;
 }
 .gift-card-screen .margin-adjust {
   margin-top: 12px;
