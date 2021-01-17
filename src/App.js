@@ -4,7 +4,7 @@ import Login from './routes/login/'
 import Dashboard from './routes/dashboard/';
 import Service from './routes/service';
 import ServiceAdd from './routes/service/add';
-import GiftCard from './routes/gift-cards';
+import GiftCard from './routes/gift-cards2';
 import GiftCardCreate from './routes/gift-cards/create';
 import ServiceHistory from './routes/service-history';
 import ServiceHistoryView from './routes/service-history/view';

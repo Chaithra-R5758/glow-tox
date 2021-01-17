@@ -6,6 +6,7 @@ import { LinkOutlined, EditFilled } from '@ant-design/icons';
 import React, { useState } from 'react';
 import { Modal, Button } from 'antd';
 import {BrowserRouter as Router,useHistory} from 'react-router-dom'
+import { response } from './mock.js'
 const { TextArea } = Input;
 
 
@@ -53,7 +54,8 @@ function Promotions() {
             </div> */}
             <div className={'promo-card-wrapper'}>
               {
-                ["", "", "", ""].map(option =>
+                response.promotion
+                .map(promotion =>
                   <div className={'promo-card'}>
                     <Card bordered={true}>
                       <div className="edit-btn-card">
@@ -109,16 +111,11 @@ function Promotions() {
 
                       <div className={'img-card'} style={{backgroundColor:'#D7DBFE'}}>
                         <Image
-
-                          src={loginImg}
+                          src={promotion.promoImage ? promotion.promoImage:loginImg}
                         />
                       </div>
                       <div className={'desc-card'}>
-                        
-                        The item is what you purchase from Envato Market. The end pro­­duct 
-                        is what you build with that item. Example: The item is a business 
-                      card template: the end product is th finalized business card.
-                       
+                        {promotion.description ? promotion.description : 'No Description'}
                       </div>
                         <Button className="btn-card" onClick={showModal} icon={<LinkOutlined />} >Link to Services </Button>
 

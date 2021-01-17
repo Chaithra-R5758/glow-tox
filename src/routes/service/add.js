@@ -1,7 +1,7 @@
 import React from 'react';
 import { PageTitle } from '../../components/page-title'
 import './service.scss';
-import brandLogo from '../../assets/test-img.jpg'
+//import brandLogo from '../../assets/test-img.jpg'
 import { Card, Input, Form, Upload, Button } from 'antd';
 import { UploadOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import { Anchor } from 'antd';
@@ -72,10 +72,10 @@ class ServiceAdd extends React.Component {
                 <Card style={{width:1000}}>
                   <div className={'service-add-content'}>
                     <div className={'service-add-left-content'}>
-                      <img
+                      {/* <img
                         alt="example"
                         className={'service-add-img'}
-                        src={brandLogo} />
+                        src={brandLogo} /> */}
                       <div className={'service-card-body-wrapper'}>
                         <div className={'image-picker-outer-wrapper'}>
                         {fileList.length === 0 && <div className={'image-picker-title'}>Before</div> }
