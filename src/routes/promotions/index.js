@@ -3,30 +3,32 @@ import './promotions.scss';
 import { Input, Card, Image,Skeleton } from 'antd';
 import loginImg from '../../assets/login-img.png'
 import { LinkOutlined, EditFilled } from '@ant-design/icons';
-import React, { useState } from 'react';
+import React, { Component } from 'react';
 import { Modal, Button } from 'antd';
-import {BrowserRouter as Router,useHistory} from 'react-router-dom'
-const { TextArea } = Input;
+import { withRouter } from 'react-router-dom';
 
 
-function Promotions() {
 
-  const [isModalVisible, setIsModalVisible] = useState(false);
+class Promotions extends React.Component {
+  
+  state = { visible: false };
 
-  const showModal = () => {
-    setIsModalVisible(true);
+  showModal = () => {
+    this.setState({
+      visible: true,
+    });
   };
-  const handleCancel = () => {
-    setIsModalVisible(false);
-  };
-  const history = useHistory();
-  const handleHistory = () => {
-    history.push("/promotions" )
-  }
 
+  hideModal = () => {
+    this.setState({
+      visible: false,
+    });
+  };
  
+ render(){
+   
   return (
-    <Router>
+   
     <div className="promotions-screen">
       <div>
         <div className={'content-wrapper'}>
@@ -37,7 +39,7 @@ function Promotions() {
           <div className={"promotions-card"}>
           <Card>
           <div className={'content-body-wrapper'}>
-            <div className={'primary-btn '} onClick={showModal}>
+            <div className={'primary-btn '} onClick={this.showModal}>
             Add Promo
             </div>
               
@@ -60,15 +62,17 @@ function Promotions() {
                   <div className={'promo-card'}>
                     <Card bordered={true}>
                       <div className="edit-btn-card">
-                        <Button type="link" block style={{ textAlign: "right", color: "#343557" ,fontSize:'1.5em'}} onClick={showModal}>
+                        <Button type="link" block style={{ textAlign: "right", color: "#343557" ,fontSize:'1.5em'}} onClick={this.showModal}>
                           {<EditFilled/>}
                         </Button>
-                        <Modal   visible={isModalVisible} footer={null} onCancel={handleCancel} width={400 } style={{ top: 80}} >
+                        <Modal   
+          visible={this.state.visible}
+          onCancel={this.hideModal} footer={null} width={400 } style={{ top: 80}} >
                 <div className={'add-promo-card'}>
                  
                     <div className="modal-title" style={{fontFamily:"Poppins, sans-serif",
         fontWeight:' bolder', fontSize:'18px'}}>Promotions Edit</div>
-        <Button className="save-btn" style={{float:'right', backgroundColor: '#5D72E9',color:'white',borderRadius:'5px',padding:' 0px 25px',marginTop:'-30px',marginRight:15}} onClick={handleHistory}>Save</Button>
+        <Button className="save-btn" style={{float:'right', backgroundColor: '#5D72E9',color:'white',borderRadius:'5px',padding:' 0px 25px',marginTop:'-30px',marginRight:15}}onClick={() => this.props.history.push('/promotions')}>Save</Button>
 
                     
                     
@@ -76,7 +80,7 @@ function Promotions() {
                     <Button type="link" block style={{ textAlign: "right", color: "#343557" ,fontSize:'1.5em'}}>
                     {<EditFilled/>}
                     </Button>
-                    <img  style={{width:160,transform:'translateX(60%) translateY(-30%) '}}
+                    <img alt="" style={{width:160,transform:'translateX(60%) translateY(-30%) '}}
                         src={loginImg} />
                     
                     
@@ -111,7 +115,7 @@ function Promotions() {
                       </div>
 
                       <div className={'img-card'} style={{backgroundColor:'#D7DBFE'}}>
-                        <img width={150}
+                        <img alt="" width={150}
 
                           src={loginImg}
                         />
@@ -123,7 +127,7 @@ function Promotions() {
                       card template: the end product is th finalized business card.
                        
                       </div>
-                        <Button className="btn-card" onClick={showModal} icon={<LinkOutlined />} >Link to Services </Button>
+                        <Button className="btn-card" onClick={this.showModal} icon={<LinkOutlined />} >Link to Services </Button>
 
                     </Card>
                   </div>
@@ -137,8 +141,9 @@ function Promotions() {
         </div>
       </div>
     </div>
-    </Router>
   );
+ }
+ 
 }
 
-export default Promotions;
+export default withRouter(Promotions);
