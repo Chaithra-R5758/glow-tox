@@ -19,6 +19,9 @@ function Service() {
   const showModal = () => {
     setIsModalVisible(true);
   };
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
   const history = useHistory();
   const handleHistory = () => {
     history.push("/services" )
@@ -48,15 +51,18 @@ function Service() {
               <div className={'primary-btn'} onClick={showModal}>
                 Add New Service
             </div>
-              <Modal visible={isModalVisible} footer={null} closable={false} width={800} style={{ top: 100 }} >
+              <Modal visible={isModalVisible} footer={null} width={800} style={{ top: 100 }}onCancel={handleCancel} >
                 <div className="modal-title" style={{
                   fontFamily: "Poppins, sans-serif",
                   fontWeight: ' bolder', fontSize: '18px'
                 }}>Service Add/Edit</div>
-                <Button className="save-btn" style={{ float: 'right', backgroundColor: '#5D72E9', color: 'white', borderRadius: '5px', padding: '0px 45px 0px 45px', marginTop: '-30px' }}onClick={handleHistory}>Save</Button>
+                <Button className="save-btn" style={{ float: 'right', backgroundColor: '#5D72E9', color: 'white', borderRadius: '5px', padding: '0px 25px', marginTop: '-30px' ,marginRight:15}}onClick={handleHistory}>Save</Button>
+
+
+
                 <div className={'service-add-left-content'} style={{ display: 'flex', marginTop: 20 }}>
-                  <Image
-                    width={350}
+                  <img
+                    width={350} height={220}
                     className={'service-add-img'}
                     src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSb1vm2W-b2WQOKVn-OHECsVw0jGt9zY1SLeg&usqp=CAU" />
                   <div className="create-wrapper" style={{ marginLeft: 30, width: 370, fontFamily: "Poppins,sans-serif",textShadow:'0.5px 0.5px yellow' }} >

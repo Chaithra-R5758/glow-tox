@@ -17,6 +17,9 @@ function Promotions() {
   const showModal = () => {
     setIsModalVisible(true);
   };
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
   const history = useHistory();
   const handleHistory = () => {
     history.push("/promotions" )
@@ -62,12 +65,12 @@ function Promotions() {
                         <Button type="link" block style={{ textAlign: "right", color: "#343557" ,fontSize:'1.5em'}} onClick={showModal}>
                           {<EditFilled/>}
                         </Button>
-                        <Modal   visible={isModalVisible} footer={null} closable={false} width={400 } style={{ top: 80}} >
+                        <Modal   visible={isModalVisible} footer={null} onCancel={handleCancel} width={400 } style={{ top: 80}} >
                 <div className={'add-promo-card'}>
                  
                     <div className="modal-title" style={{fontFamily:"Poppins, sans-serif",
         fontWeight:' bolder', fontSize:'18px'}}>Promotions Edit</div>
-        <Button className="save-btn" style={{float:'right', backgroundColor: '#5D72E9',color:'white',borderRadius:'5px',padding:'0px 25px 0px 25px',marginTop:'-30px'}} onClick={handleHistory}>Save</Button>
+        <Button className="save-btn" style={{float:'right', backgroundColor: '#5D72E9',color:'white',borderRadius:'5px',padding:' 0px 25px',marginTop:'-30px',marginRight:15}} onClick={handleHistory}>Save</Button>
 
                     
                     
@@ -75,7 +78,7 @@ function Promotions() {
                     <Button type="link" block style={{ textAlign: "right", color: "#343557" ,fontSize:'1.5em'}}>
                     {<EditFilled/>}
                     </Button>
-                    <Image  style={{width:160,transform:'translateX(60%) translateY(-30%) '}}
+                    <img  style={{width:160,transform:'translateX(60%) translateY(-30%) '}}
                         src={loginImg} />
                     
                     

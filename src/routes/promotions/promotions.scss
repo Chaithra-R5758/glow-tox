@@ -45,6 +45,26 @@
         color: white;
         cursor: pointer;
     }
+    .btn-card:focus {
+        background-color: #5d72e9;
+        font-family: "Poppins", sans-serif;
+        border-radius: 5px;
+        color: white;
+        cursor: pointer;
+    }
+    .btn-card:hover {
+        background-color: #5d72e9;
+        font-family: "Poppins", sans-serif;
+        border-radius: 5px;
+        color: white;
+        cursor: pointer;
+    }.btn-card :active{
+        background-color: #5d72e9;
+        font-family: "Poppins", sans-serif;
+        border-radius: 5px;
+        color: white;
+        cursor: pointer;
+    }
     .edit-btn-card {
         text-align: right;
         margin-top: -20px;
