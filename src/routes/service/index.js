@@ -54,9 +54,9 @@ function Service() {
               <Modal visible={isModalVisible} footer={null} width={800} style={{ top: 100 }}onCancel={handleCancel} >
                 <div className="modal-title" style={{
                   fontFamily: "Poppins, sans-serif",
-                  fontWeight: ' bolder', fontSize: '18px'
+                  fontWeight: ' bolder', fontSize: '18px',marginTop:20
                 }}>Service Add/Edit</div>
-                <Button className="save-btn" style={{ float: 'right', backgroundColor: '#5D72E9', color: 'white', borderRadius: '5px', padding: '0px 25px', marginTop: '-30px' ,marginRight:15}}onClick={handleHistory}>Save</Button>
+                <Button className="save-btn" style={{ float: 'right', backgroundColor: '#5D72E9', color: 'white', borderRadius: '5px', padding: '0px 25px', marginTop: '-30px'}}onClick={handleHistory}>Save</Button>
 
 
 

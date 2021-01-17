@@ -135,6 +135,9 @@ function GiftCards() {
   const showModal = () => {
     setIsModalVisible(true);
   };
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
 
   return (
    
@@ -156,10 +159,10 @@ function GiftCards() {
                     Create New
                   </div>
                 </div>
-                <Modal visible={isModalVisible} footer={null} closable={false} width={700} style={{ top: 250 }} >
+                <Modal visible={isModalVisible} footer={null} onCancel={handleCancel} width={700} style={{ top: 250 }} >
                   <div className="modal-title" style={{
                     fontFamily: "Poppins, sans-serif",
-                    fontWeight: ' bolder', fontSize: '18px'
+                    fontWeight: ' bolder', fontSize: '18px',marginTop:20
                   }}>Gift Cards-Create</div>
                   <Button className="save-btn" style={{ float: 'right', backgroundColor: '#5D72E9', color: 'white', borderRadius: '5px', padding: '0px 25px 0px 25px', marginTop: '-30px' }} onClick={handleHistory}>Save</Button>
                   <div className="create-wrapper" style={{ display: 'flex', marginTop: 20 }}>
