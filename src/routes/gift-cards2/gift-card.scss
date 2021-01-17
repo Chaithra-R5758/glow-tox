@@ -1,0 +1,75 @@
+.gift-card-screen {
+    background-color: #f6f6f8;
+    .gift-card-inner-wrapper {
+        font-family: "Poppins", sans-serif;
+        display: flex;
+        flex-direction: column;
+    }
+    .gift-card {
+        .ant-card {
+            border-radius: 5px;
+            box-shadow: 0 0px 12px #d2d2d2;
+            margin-right: 20px;
+        }
+    }
+    .search-wrapper {
+        padding: 10px 15px;
+        border-radius: 25px;
+        color: white;
+        text-align: center;
+        align-self: flex-end;
+        margin: -10px 0 5px 0;
+    }
+    .primary-btn {
+        background-color: #5D72E9;
+        padding: 5px 20px 5px 20px;
+        border-radius: 5px;
+        color: white;
+        text-align: center;
+        align-self: flex-end;
+        margin: -10px 0 0 0;
+        min-width: 100px;
+    }
+    .options-wrapper {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        flex-wrap: wrap;
+    }
+    .card-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin-top: 20px;
+    }
+    .primary-btn {
+        margin-bottom: 15px;
+        cursor: pointer;
+    }
+    .margin-adjust {
+        margin-top: 12px;
+    }
+    .gift-card-create-row-wrapper {
+        display: flex;
+    }
+    .gift-card-create-row {
+        margin: 20px;
+    }
+    th.ant-table-cell {
+        font-weight: bold;
+    }
+    @media screen and (max-width: 720px) {
+        .gift-card-create-row-wrapper {
+            display: block;
+        }
+        .gift-card-create-row {
+            margin: 0px;
+        }
+        .card-wrapper {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-top: 0px;
+        }
+    }
+}
