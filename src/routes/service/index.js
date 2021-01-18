@@ -51,15 +51,23 @@ function Service() {
               <div className={'primary-btn'} onClick={showModal}>
                 Add New Service
             </div>
-              <Modal visible={isModalVisible} footer={null} width={800} style={{ top: 100 }}onCancel={handleCancel} >
+              <Modal visible={isModalVisible} footer={null} width={800} 
+                style={{ top: 100 }}onCancel={handleCancel} >
                 <div className="modal-title" style={{
                   fontFamily: "Poppins, sans-serif",
                   fontWeight: ' bolder', fontSize: '18px'
                 }}>Service Add/Edit</div>
-                <Button className="save-btn" style={{ float: 'right', backgroundColor: '#5D72E9', color: 'white', borderRadius: '5px', padding: '0px 25px', marginTop: '-30px' ,marginRight:15}}onClick={handleHistory}>Save</Button>
-
-
-
+                <Button 
+                className="save-btn" 
+                style={{ 
+                  float: 'right', 
+                  backgroundColor: '#5D72E9', 
+                  color: 'white', 
+                  borderRadius: '5px', 
+                  padding: '0px 25px', 
+                  marginTop: '-30px' ,
+                  marginRight:15}}
+                onClick={handleHistory}>Save</Button>
                 <div className={'service-add-left-content'} style={{ display: 'flex', marginTop: 20 }}>
                   <img
                     width={350} height={220}
@@ -68,25 +76,25 @@ function Service() {
                   <div className="create-wrapper" style={{ marginLeft: 30, width: 370, fontFamily: "Poppins,sans-serif",textShadow:'0.5px 0.5px yellow' }} >
                     <Form
                       layout="vertical"
-                      name="nest-messages"
-                    >
-                      <Form.Item name={['user', 'name']} label="Service Name"
-                      // rules={[{ required: true }]}
+                      name="nest-messages">
+                      <Form.Item 
+                        name={['user', 'name']} 
+                        label="Service Name" // rules={[{ required: true }]}
                       >
                         <Input 
-                          value={responseId.service.serviceName}
+                          value={responseId.service.serviceName || ''}
                           style={{ blockSize: 40, borderRadius: '5px' }} />
                       </Form.Item>
                       <Form.Item name={['user', 'email']} label="Email Id"
                         rules={[{ type: 'email' }]}>
                         <Input 
-                          value={responseId.service.serviceName}
+                          value={responseId.service.serviceName || 'b'}
                           style={{ blockSize: 40, borderRadius: '5px' }} />
                       </Form.Item>
                       <Form.Item name={['user', 'email']} label="Description"
                         rules={[{ type: 'email' }]}>
                         <TextArea 
-                          value={responseId.service.description}
+                          value={responseId.service.description || ''}
                           rows={7} style={{ borderRadius: '5px' }} />
                       </Form.Item>
                     </Form>
