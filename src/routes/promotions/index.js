@@ -2,15 +2,22 @@ import { PageTitle } from '../../components/page-title'
 import './promotions.scss';
 import { Input, Card, Image,Skeleton } from 'antd';
 import loginImg from '../../assets/login-img.png'
-import { LinkOutlined, EditFilled } from '@ant-design/icons';
+import { LinkOutlined, EditFilled,CloseOutlined  } from '@ant-design/icons';
 import React, { useState } from 'react';
-import { Modal, Button } from 'antd';
+import { Modal, Button, Upload } from 'antd';
 import {BrowserRouter as Router,useHistory} from 'react-router-dom'
 import { response } from './mock.js'
 const { TextArea } = Input;
 
 
 function Promotions() {
+  const props = {
+    name: 'file',
+    action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
+    headers: {
+      authorization: 'authorization-text',
+    }
+  }
 
   const [isModalVisible, setIsModalVisible] = useState(false);
 
@@ -27,6 +34,7 @@ function Promotions() {
 
  
   return (
+    
     <Router>
     <div className="promotions-screen">
       <div>
@@ -67,19 +75,21 @@ function Promotions() {
                         </Button>
                         <Modal   visible={isModalVisible} footer={null} onCancel={handleCancel} width={400 } style={{ top: 80}} >
                 <div className={'add-promo-card'}>
-                 
                     <div className="modal-title" style={{fontFamily:"Poppins, sans-serif",
-        fontWeight:' bolder', fontSize:'18px'}}>Promotions Edit</div>
-        <Button className="save-btn" style={{float:'right', backgroundColor: '#5D72E9',color:'white',borderRadius:'5px',padding:' 0px 25px',marginTop:'-30px',marginRight:15}} onClick={handleHistory}>Save</Button>
+        fontWeight:' bolder', fontSize:'18px',marginTop:20}}>Promotions Edit</div>
+        
+        <Button className="save-btn" style={{float:'right', backgroundColor: '#5D72E9',color:'white',borderRadius:'5px',padding:' 0px 25px',marginTop:'-30px'}} onClick={handleHistory}>Save</Button>
 
                     
                     
                     <div className={'modal-img-card'} style={{  backgroundColor: ' #E2E2E2',height:150,marginTop:20 ,marginBottom:10}}>
-                    <Button type="link" block style={{ textAlign: "right", color: "#343557" ,fontSize:'1.5em'}}>
+                   <Upload {...props} ><Button type="link"  style={{marginLeft:300, color: "#343557" ,fontSize:'1.5em'}}>
                     {<EditFilled/>}
                     </Button>
+                    </Upload> 
                     <img  style={{width:160,transform:'translateX(60%) translateY(-30%) '}}
                         src={loginImg} />
+                        
                     
                     
                      
@@ -113,7 +123,7 @@ function Promotions() {
                       </div>
 
                       <div className={'img-card'} style={{backgroundColor:'#D7DBFE'}}>
-                        <Image
+                        <img width={150}
                           src={promotion.promoImage ? promotion.promoImage:loginImg}
                         />
                       </div>

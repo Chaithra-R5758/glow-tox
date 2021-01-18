@@ -42,6 +42,10 @@
   color: white;
   cursor: pointer;
 }
+.promotions-screen .ant-modal-close-x {
+  margin-top: -10px;
+  margin-right: -10px;
+}
 .promotions-screen .btn-card:focus {
   background-color: #5d72e9;
   font-family: "Poppins", sans-serif;

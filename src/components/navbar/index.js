@@ -53,6 +53,18 @@ class NavBar extends React.Component {
     }
   }
 
+  componentWillUpdate(){
+    
+    const path = window.location.pathname
+    debugger
+    switch(path){
+      case '' : this.setState({ selectedNavOption: 1 })
+      break;
+      default : this.setState({ selectedNavOption: 2 })
+      break;
+    }
+  }
+
   toggleDrawer = (side, open) => event => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;

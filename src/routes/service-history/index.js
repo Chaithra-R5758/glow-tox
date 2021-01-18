@@ -170,9 +170,9 @@ function ServiceHistory() {
                 <Modal visible={isModalVisible} footer={null} onCancel={handleCancel} width={700} style={{ top: 180 }} >
           <div className="modal-title" style={{
             fontFamily: "Poppins, sans-serif",
-            fontWeight: ' bolder', fontSize: '18px'
+            fontWeight: ' bolder', fontSize: '18px',marginTop:20
           }}>Service History-View</div>
-          <Button className="save-btn" style={{ float: 'right', backgroundColor: '#5D72E9', color: 'white', borderRadius: '5px', padding: ' 0px 25px', marginTop: '-30px',marginRight:15 }} onClick={handleHistory}>Save</Button>
+          <Button className="save-btn" style={{ float: 'right', backgroundColor: '#5D72E9', color: 'white', borderRadius: '5px', padding: ' 0px 25px', marginTop: '-30px' }} onClick={handleHistory}>Save</Button>
 
           <div className="image-wrapper" style={{ display: 'flex', marginTop: 20 }}>
             <img width={90} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTChQdlYiED1Ot1XBsYrExnQlEPnuU55oXFXA&usqp=CAU" />
