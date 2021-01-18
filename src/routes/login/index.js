@@ -7,6 +7,7 @@ import Cookies from 'js-cookie';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 //import axios from '../../config/api/'
 import axios from 'axios';
+import {response} from './mock.js'
 
 class Login extends Component {
 

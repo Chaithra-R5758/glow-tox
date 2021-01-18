@@ -7,6 +7,7 @@ import React, { useState } from 'react';
 import { Modal, Button, Upload } from 'antd';
 import {BrowserRouter as Router,useHistory} from 'react-router-dom'
 import { response } from './mock.js'
+import { responseId } from './mock-id.js'
 const { TextArea } = Input;
 
 
@@ -107,13 +108,13 @@ function Promotions() {
         fontWeight:' bolder', fontSize:'15px'}}>
                        Promo Code
                        
-                       <Input style={{width:'80%',backgroundColor: ' #E2E2E2',blockSize:30,border:'0px',borderRadius:'5px',marginTop:'5px'}}/>
+                       <Input  value={responseId.promotion.promoCode || ''} style={{width:'80%',backgroundColor: ' #E2E2E2',blockSize:30,border:'0px',borderRadius:'5px',marginTop:'5px'}}/>
                     
                     </div>
                     <div className="modal-code" style={{fontFamily:"Poppins, sans-serif",
         fontWeight:' bolder', fontSize:'15px'}}>
                       Link to Services
-                    <Input style={{backgroundColor: ' #E2E2E2',blockSize:30,border:'0px',borderRadius:'5px',marginTop:'5px'}}/>
+                    <Input value={responseId.promotion.service || ''}  style={{backgroundColor: ' #E2E2E2',blockSize:30,border:'0px',borderRadius:'5px',marginTop:'5px'}}/>
                     </div>
                     </div>
 
