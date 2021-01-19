@@ -31,14 +31,14 @@ class App extends Component {
                 <switch>
                   <Route path="/dashboard" component={() => <Dashboard />} />
                   <Route path="/services" component={() => <Service />} />
-                  <Route exact path="/servicesadd" component={() => <ServiceAdd />} />
+                  {/* <Route exact path="/servicesadd" component={() => <ServiceAdd />} /> */}
                   <Route path="/giftcards" component={() => <GiftCard />} />
-                  <Route path="/giftcardscreate" component={() => <GiftCardCreate />} />
+                  {/* <Route path="/giftcardscreate" component={() => <GiftCardCreate />} /> */}
                   <Route path="/servicehistory" component={() => <ServiceHistory />} />
-                  <Route path="/servicehistoryview" component={() => <ServiceHistoryView />} />
+                  {/* <Route path="/servicehistoryview" component={() => <ServiceHistoryView />} /> */}
                   <Route path="/profile" component={() => <Profile />} />
                   <Route path="/promotions" component={() => <Promotions />} />
-                  <Route path="/promotionsedit" component={() => <PromotionsEdit />} />
+                  {/* <Route path="/promotionsedit" component={() => <PromotionsEdit />} /> */}
                   <Redirect to="/dashboard" /> 
                 </switch>
                 <Footer /> </div>
