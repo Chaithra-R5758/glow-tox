@@ -3,40 +3,46 @@ import './promotions.scss';
 import { Input, Card, Image,Skeleton } from 'antd';
 import loginImg from '../../assets/login-img.png'
 import { LinkOutlined, EditFilled,CloseOutlined  } from '@ant-design/icons';
-import React, { useState } from 'react';
 import { Modal, Button, Upload } from 'antd';
-import {BrowserRouter as Router,useHistory} from 'react-router-dom'
 import { response } from './mock.js'
 import { responseId } from './mock-id.js'
-const { TextArea } = Input;
+import { withRouter } from 'react-router-dom';
+import React, { Component } from 'react';
 
 
-function Promotions() {
-  const props = {
-    name: 'file',
-    action: 'https://www.mocky.io/v2/5cc8019d300000980a055e76',
-    headers: {
-      authorization: 'authorization-text',
-    }
-  }
-
-  const [isModalVisible, setIsModalVisible] = useState(false);
-
-  const showModal = () => {
-    setIsModalVisible(true);
+class Promotions extends React.Component {
+  state = {
+    loginImg
+     
   };
-  const handleCancel = () => {
-    setIsModalVisible(false);
-  };
-  const history = useHistory();
-  const handleHistory = () => {
-    history.push("/promotions" )
-  }
+  // state = { visible: true };
 
+  showModal = () => {
+    this.setState({
+      visible: true,
+    });
+  };
+
+  hideModal = () => {
+    this.setState({
+      visible: false,
+    });
+  };
+  imageHandler = e => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        this.setState({ loginImg: reader.result });
+      }
+    };
+    reader.readAsDataURL(e.target.files[0]);
+  };
+ render(){
+  const { loginImg } = this.state;
  
   return (
     
-    <Router>
+  
     <div className="promotions-screen">
       <div>
         <div className={'content-wrapper'}>
@@ -47,7 +53,7 @@ function Promotions() {
           <div className={"promotions-card"}>
           <Card>
           <div className={'content-body-wrapper'}>
-            <div className={'primary-btn '} onClick={showModal}>
+            <div className={'primary-btn '} onClick={this.showModal}>
             Add Promo
             </div>
               
@@ -71,30 +77,38 @@ function Promotions() {
                   <div className={'promo-card'}>
                     <Card bordered={true}>
                       <div className="edit-btn-card">
-                        <Button type="link" block style={{ textAlign: "right", color: "#343557" ,fontSize:'1.5em'}} onClick={showModal}>
+                        <Button type="link" block style={{ textAlign: "right", color: "#343557" ,fontSize:'1.5em'}} onClick={this.showModal}>
                           {<EditFilled/>}
                         </Button>
-                        <Modal   visible={isModalVisible} footer={null} onCancel={handleCancel} width={400 } style={{ top: 80}} >
+                        <Modal   
+          visible={this.state.visible}
+          onCancel={this.hideModal} footer={null} width={400 } style={{ top: 80}} >
                 <div className={'add-promo-card'}>
                     <div className="modal-title" style={{fontFamily:"Poppins, sans-serif",
         fontWeight:' bolder', fontSize:'18px',marginTop:20}}>Promotions Edit</div>
         
-        <Button className="save-btn" style={{float:'right', backgroundColor: '#5D72E9',color:'white',borderRadius:'5px',padding:' 0px 25px',marginTop:'-30px'}} onClick={handleHistory}>Save</Button>
+        <Button className="save-btn" style={{float:'right', backgroundColor: '#5D72E9',color:'white',borderRadius:'5px',padding:' 0px 25px',marginTop:'-30px'}}onClick={() => this.props.history.push('/promotions')}>Save</Button>
 
                     
                     
                     <div className={'modal-img-card'} style={{  backgroundColor: ' #E2E2E2',height:150,marginTop:20 ,marginBottom:10}}>
-                   <Upload {...props} ><Button type="link"  style={{marginLeft:300, color: "#343557" ,fontSize:'1.5em'}}>
+                    <label  htmlFor="input"><i type="link"  style={{marginLeft:300, color: "#343557" ,fontSize:'1.5em'}}>
                     {<EditFilled/>}
-                    </Button>
-                    </Upload> 
-                    <img  style={{width:160,transform:'translateX(60%) translateY(-30%) '}}
-                        src={loginImg} />
+                    </i>
+                    </label>
+                    <img  src={loginImg} alt="" id="img" className="img" style={{width: 160, height:130,objectFit:'cover', transform:'translateX(60%) translateY(-20%)'}}/>
+                        </div>
                         
-                    
+                        <input style={{display:'none'}}
+            type="file"
+            accept="image/*"
+            name="image-upload"
+            id="input"
+            onChange={this.imageHandler}
+          />
                     
                      
-                    </div>
+                    
                     <div className="modal-code" style={{fontFamily:"Poppins, sans-serif",
         fontWeight:' bolder', fontSize:'16px',marginBottom:'5px'}}> 
                     Description</div>
@@ -131,7 +145,7 @@ function Promotions() {
                       <div className={'desc-card'}>
                         {promotion.description ? promotion.description : 'No Description'}
                       </div>
-                        <Button className="btn-card" onClick={showModal} icon={<LinkOutlined />} >Link to Services </Button>
+                        <Button className="btn-card" onClick={this.showModal} icon={<LinkOutlined />} >Link to Services </Button>
 
                     </Card>
                   </div>
@@ -145,8 +159,8 @@ function Promotions() {
         </div>
       </div>
     </div>
-    </Router>
+    
   );
 }
-
-export default Promotions;
+}
+export default withRouter(Promotions);
