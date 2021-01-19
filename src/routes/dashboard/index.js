@@ -12,7 +12,7 @@ class Dashboard extends React.Component {
     switch (index) {
       case 0: this.props.history.push('/services')
         break;
-      case 1: this.props.history.push('/promotions2')
+      case 1: this.props.history.push('/promotions')
         break;
       case 2: this.props.history.push('/servicehistory')
         break;

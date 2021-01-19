@@ -1,22 +1,22 @@
 import { PageTitle } from '../../components/page-title'
 import './promotions.scss';
-import { Input, Card, Image,Skeleton } from 'antd';
+import { Input, Card,Skeleton } from 'antd';
 import loginImg from '../../assets/login-img.png'
-import { LinkOutlined, EditFilled,CloseOutlined  } from '@ant-design/icons';
-import { Modal, Button, Upload } from 'antd';
+import { LinkOutlined, EditFilled } from '@ant-design/icons';
+import { Modal, Button} from 'antd';
 import { response } from './mock.js'
 import { responseId } from './mock-id.js'
 import { withRouter } from 'react-router-dom';
-import React, { Component } from 'react';
+import React from 'react';
 
 
 class Promotions extends React.Component {
   state = {
-    loginImg
-     
+    loginImg,
+    loadings: [] 
   };
   // state = { visible: true };
-
+ 
   showModal = () => {
     this.setState({
       visible: true,
@@ -37,9 +37,29 @@ class Promotions extends React.Component {
     };
     reader.readAsDataURL(e.target.files[0]);
   };
+  enterLoading = index => {
+    this.setState(({ loadings }) => {
+      const newLoadings = [...loadings];
+      newLoadings[index] = true;
+
+      return {
+        loadings: newLoadings,
+      };
+    });
+    setTimeout(() => {
+      this.setState(({ loadings }) => {
+        const newLoadings = [...loadings];
+        newLoadings[index] = false;
+
+        return {
+          loadings: newLoadings,
+        };
+      });
+    }, 6000);
+  };
  render(){
   const { loginImg } = this.state;
- 
+  const { loadings } = this.state;
   return (
     
   
@@ -87,7 +107,9 @@ class Promotions extends React.Component {
                     <div className="modal-title" style={{fontFamily:"Poppins, sans-serif",
         fontWeight:' bolder', fontSize:'18px',marginTop:20}}>Promotions Edit</div>
         
-        <Button className="save-btn" style={{float:'right', backgroundColor: '#5D72E9',color:'white',borderRadius:'5px',padding:' 0px 25px',marginTop:'-30px'}}onClick={() => this.props.history.push('/promotions')}>Save</Button>
+        <Button loading={loadings[1]}
+          onClick={() => this.enterLoading(1)}
+        className="save-btn" style={{float:'right', backgroundColor: '#5D72E9',color:'white',borderRadius:'5px',padding:' 0px 25px',marginTop:'-30px'}}>Save</Button>
 
                     
                     

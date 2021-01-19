@@ -3,8 +3,8 @@ import { PageTitle } from '../../components/page-title/'
 import './gift-card.scss';
 import { SearchOutlined } from '@ant-design/icons'
 import { Card, Table, Tag, Input, Button, Modal } from 'antd';
-import {BrowserRouter as Router,useHistory} from 'react-router-dom'
-import {response} from './mock.js'
+import { withRouter } from 'react-router-dom';
+import { response } from './mock.js'
 
 const columns = [
   {
@@ -126,77 +126,105 @@ const data = [
   }
 ];
 
-function GiftCards() {
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const history = useHistory();
-  const handleHistory = () => {
-    history.push("/giftcards")
-  }
-  const showModal = () => {
-    setIsModalVisible(true);
+class GiftCards extends React.Component {
+  state = {
+    loadings: []
   };
-  const handleCancel = () => {
-    setIsModalVisible(false);
+  // state = { visible: true };
+
+  showModal = () => {
+    this.setState({
+      visible: true,
+    });
   };
 
-  return (
-   
-    <Router>
-    <div className="gift-card-screen">
-      <div className={'content-wrapper'}>
-        <PageTitle
-          title={'Gift Cards'}
-        />
-        <div className={"gift-card"}>
-          <Card>
-            <div className={'content-body-wrapper'}>
-              <div className={'gift-card-inner-wrapper'}>
-                <div className={'options-wrapper'}>
-                  <div className={'search-wrapper'}>
-                    <Input placeholder="Search..." prefix={<SearchOutlined />} />
-                  </div>
-                  <div className={'primary-btn '} onClick={showModal}>
-                    Create New
-                  </div>
-                </div>
-                <Modal visible={isModalVisible} footer={null} onCancel={handleCancel} width={700} style={{ top: 250 }} >
-                  <div className="modal-title" style={{
-                    fontFamily: "Poppins, sans-serif",
-                    fontWeight: ' bolder', fontSize: '18px',marginTop:20
-                  }}>Gift Cards-Create</div>
-                  <Button className="save-btn" style={{ float: 'right', backgroundColor: '#5D72E9', color: 'white', borderRadius: '5px', padding: '0px 25px 0px 25px', marginTop: '-30px' }} onClick={handleHistory}>Save</Button>
-                  <div className="create-wrapper" style={{ display: 'flex', marginTop: 20 }}>
-                    <Input value="Client Name" placeholder="Client Name" style={{ width: '70%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginRight: 10 }} />
-                    <Input value="Email Id" placeholder="Email Id" style={{ width: '70%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px' }} />
-                  </div>
-                  <div className={'create-row'} style={{ display: 'flex', marginTop: 20 }}>
-                    <Input value="Service Name" placeholder="Service Name" style={{ width: '70%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginRight: 10 }} />
-                    <Input
-                      value="Value"
-                      placeholder="Value"
-                      style={{ width: '37%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginRight: 10 }}
-                    />
-                    <div className={" select-wrapper"}  >
-                      <select style={{ width: 140, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px' }}>
+  hideModal = () => {
+    this.setState({
+      visible: false,
+    });
+  };
 
-                        <option value="" > </option>
-                        <option value="dollar" >$</option>
-                        <option value="percentage">%</option>
-                      </select>
+  enterLoading = index => {
+    this.setState(({ loadings }) => {
+      const newLoadings = [...loadings];
+      newLoadings[index] = true;
+
+      return {
+        loadings: newLoadings,
+      };
+    });
+    setTimeout(() => {
+      this.setState(({ loadings }) => {
+        const newLoadings = [...loadings];
+        newLoadings[index] = false;
+
+        return {
+          loadings: newLoadings,
+        };
+      });
+    }, 6000);
+  };
+  render() {
+    const { loadings } = this.state;
+    return (
+      <div className="gift-card-screen">
+        <div className={'content-wrapper'}>
+          <PageTitle
+            title={'Gift Cards'}
+          />
+          <div className={"gift-card"}>
+            <Card>
+              <div className={'content-body-wrapper'}>
+                <div className={'gift-card-inner-wrapper'}>
+                  <div className={'options-wrapper'}>
+                    <div className={'search-wrapper'}>
+                      <Input placeholder="Search..." prefix={<SearchOutlined />} />
                     </div>
+                    <div className={'primary-btn '} onClick={this.showModal}>
+                      Create New
                   </div>
-                </Modal>
-                <Table columns={columns} dataSource={data} />
+                  </div>
+                  <Modal
+                    visible={this.state.visible}
+                    onCancel={this.hideModal} footer={null} width={700} style={{ top: 250 }} >
+                    <div className="modal-title" style={{
+                      fontFamily: "Poppins, sans-serif",
+                      fontWeight: ' bolder', fontSize: '18px', marginTop: 20
+                    }}>Gift Cards-Create</div>
+                    <Button loading={loadings[1]}
+                      onClick={() => this.enterLoading(1)} className="save-btn" style={{ float: 'right', backgroundColor: '#5D72E9', color: 'white', borderRadius: '5px', padding: '0px 25px 0px 25px', marginTop: '-30px' }}>Save</Button>
+                    <div className="create-wrapper" style={{ display: 'flex', marginTop: 20 }}>
+                      <Input value="Client Name" placeholder="Client Name" style={{ width: '70%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginRight: 10 }} />
+                      <Input value="Email Id" placeholder="Email Id" style={{ width: '70%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px' }} />
+                    </div>
+                    <div className={'create-row'} style={{ display: 'flex', marginTop: 20 }}>
+                      <Input value="Service Name" placeholder="Service Name" style={{ width: '70%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginRight: 10 }} />
+                      <Input
+                        value="Value"
+                        placeholder="Value"
+                        style={{ width: '37%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginRight: 10 }}
+                      />
+                      <div className={" select-wrapper"}  >
+                        <select style={{ width: 140, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px' }}>
+
+                          <option value="" > </option>
+                          <option value="dollar" >$</option>
+                          <option value="percentage">%</option>
+                        </select>
+                      </div>
+                    </div>
+                  </Modal>
+                  <Table columns={columns} dataSource={data} />
+                </div>
               </div>
-            </div>
-          </Card>
+            </Card>
+          </div>
         </div>
       </div>
-    </div>
-    </Router>
-    
-  );
+
+
+    );
+  }
 }
 
-
-export default GiftCards
+export default withRouter(GiftCards);
