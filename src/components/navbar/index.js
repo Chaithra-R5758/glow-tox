@@ -37,6 +37,7 @@ class NavBar extends React.Component {
       //  screenName: 'Home',
       selectedNavOption: -1,
       visible: false,
+      pathname:'',
     }
   }
 
@@ -47,9 +48,30 @@ class NavBar extends React.Component {
   };
 
   componentWillMount() {
-    const userType = Cookies.get('userType')
-    if (userType) {
-      this.setState({ userType })
+    // const userType = Cookies.get('userType')
+    // if (userType) {
+    //   this.setState({ userType })
+    // }
+  }
+
+  getIndexForPath = (path) => {
+    switch(path){
+      case '/dashboard' : return 0;
+      case '/services' : return 1;
+      case '/promotions' : return 2;
+      case '/servicehistory' : return 3;
+      case '/giftcards' : return 4;
+      default :return 0;
+    }
+  }
+
+  componentWillUpdate(newProps,newState){
+    const path = window.location.pathname
+    const {pathname} = this.state
+    if(!pathname || pathname !== path){
+      this.setState({pathname:path},() => {
+        this.setState({ selectedNavOption: this.getIndexForPath(path) })
+      })
     }
   }
 
