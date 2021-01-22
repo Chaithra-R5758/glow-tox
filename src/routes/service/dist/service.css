@@ -1,6 +1,17 @@
 .service-screen {
   background-color: #f6f6f8;
 }
+.service-screen .service-title-empty {
+  margin: 10px 0;
+}
+.service-screen .service-title {
+  text-align: center;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
 .service-screen .ant-card-body {
   padding: 24px 24px 85px 24px;
 }
@@ -98,14 +109,12 @@
   width: 70%;
 }
 .service-screen .edit-btn {
-  background-color: #5D72E9;
+  background-color: #5d72e9;
   font-family: "Poppins", sans-serif;
-  /* padding: 8px 30px 6px 30px; */
   border-radius: 5px;
   color: white;
   text-align: center;
   align-self: flex-end;
-  /* margin: 10px 0 20px 0; */
   margin: 10px;
   padding: 6px 30px;
 }
@@ -114,7 +123,7 @@
   font-family: "Poppins", sans-serif;
 }
 .service-screen .primary-btn {
-  background-color: #5D72E9;
+  background-color: #5d72e9;
   font-family: "Poppins", sans-serif;
   border-radius: 5px;
   color: white;

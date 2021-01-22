@@ -1,11 +1,11 @@
 .service-screen {
      background-color: #f6f6f8;
 
-     .service-title-empty{
+     .service-title-empty {
           margin: 10px 0;
      }
 
-     .service-title{
+     .service-title {
           text-align: center;
           overflow: hidden;
           text-overflow: ellipsis;
@@ -14,7 +14,7 @@
           -webkit-box-orient: vertical;
      }
 
-     .ant-card-body{
+     .ant-card-body {
           padding: 24px 24px 85px 24px;
      }
 
@@ -116,31 +116,21 @@
           width: 70%;
      }
      .edit-btn {
-          background-color: #5D72E9;
+          background-color: #5d72e9;
           font-family: "Poppins", sans-serif;
-          /* padding: 8px 30px 6px 30px; */
           border-radius: 5px;
           color: white;
           text-align: center;
           align-self: flex-end;
-          /* margin: 10px 0 20px 0; */
           margin: 10px;
           padding: 6px 30px;
-          // background-color: #5D72E9;
-          // font-family: "Poppins", sans-serif;
-          // padding: 8px 30px 6px 30px;
-          // border-radius: 5px;
-          // color: white;
-          // text-align: center;
-          // align-self: flex-end;
-          // margin: 10px 0 20px 0;
      }
      .service-meta-data-wrapper {
           margin-top: -5px;
           font-family: "Poppins", sans-serif;
      }
      .primary-btn {
-          background-color: #5D72E9;
+          background-color: #5d72e9;
           font-family: "Poppins", sans-serif;
           border-radius: 5px;
           color: white;
@@ -163,5 +153,4 @@
                padding-left: 17px;
           }
      }
-     
 }

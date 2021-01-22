@@ -7,6 +7,7 @@ import { response } from './mock.js'
 import { responseId } from './mock-id.js'
 import { withRouter } from 'react-router-dom';
 
+
 const { Meta } = Card;
 const { TextArea } = Input;
 const { Link } = Anchor;
@@ -77,22 +78,24 @@ class Service extends React.Component {
                 <div className={'primary-btn'} onClick={this.showModal}>
                   Add New Service
             </div>
+            <div className={'modal-wrapper'}>
                 <Modal
                   visible={this.state.visible}
+                  wrapClassName={'update-panel'}
                   onCancel={this.hideModal} footer={null} width={800}
                   style={{ top: 100 }}>
-                  <div className="modal-title" style={{
-                    fontFamily: "Poppins, sans-serif",
+                  <div className={'modal-title'} style={{ fontFamily: "Poppins, sans-serif",
                     fontWeight: ' bolder', fontSize: '18px', marginTop: 20
+                   
                   }}>Service Add/Edit</div>
                   <Button loading={loadings[1]}
                     onClick={() => this.enterLoading(1)} className="save-btn" style={{ float: 'right', backgroundColor: '#5D72E9', color: 'white', borderRadius: '5px', padding: '0px 25px', marginTop: '-30px' }}>Save</Button>
                   <div className={'service-add-left-content'} style={{ display: 'flex', marginTop: 20 }}>
                     <img
-                      width={350} height={220}
+                      width={450} height={280}
                       className={'service-add-img'}
                       src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSb1vm2W-b2WQOKVn-OHECsVw0jGt9zY1SLeg&usqp=CAU" />
-                    <div className="create-wrapper" style={{ marginLeft: 30, width: 370, fontFamily: "Poppins,sans-serif", textShadow: '0.5px 0.5px yellow' }} >
+                    <div className="create-wrapper" style={{ marginLeft: 30,marginTop:-20, width: 370, fontFamily: "Poppins,sans-serif", textShadow: '0.5px 0.5px yellow' }} >
                       <Form
                         layout="vertical"
                         name="nest-messages">
@@ -119,10 +122,29 @@ class Service extends React.Component {
                       </Form>
                     </div>
                   </div>
-
-
-
+                  <div style={{marginTop:'-85px'}}>
+                  <div className="modal-title" style={{
+                    fontFamily: "Poppins, sans-serif",
+                    fontWeight: ' bolder', fontSize: '14px'
+                  }}>  Some Pics+ </div>
+                  
+                  <div className={'wrapper'} style={{marginTop:20,display:'flex',width:'50%',overflowX:'auto'}}>
+                <img width={60}src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSb1vm2W-b2WQOKVn-OHECsVw0jGt9zY1SLeg&usqp=CAU"/>
+                <img style={{marginRight:20}} width={60}src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSb1vm2W-b2WQOKVn-OHECsVw0jGt9zY1SLeg&usqp=CAU"/>
+                <img  width={60}src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSb1vm2W-b2WQOKVn-OHECsVw0jGt9zY1SLeg&usqp=CAU"/>
+                <img style={{marginRight:20}} width={60}src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSb1vm2W-b2WQOKVn-OHECsVw0jGt9zY1SLeg&usqp=CAU"/>
+                <img  width={60}src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSb1vm2W-b2WQOKVn-OHECsVw0jGt9zY1SLeg&usqp=CAU"/>
+                <img style={{marginRight:20}} width={60}src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSb1vm2W-b2WQOKVn-OHECsVw0jGt9zY1SLeg&usqp=CAU"/>
+                <img  width={60}src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSb1vm2W-b2WQOKVn-OHECsVw0jGt9zY1SLeg&usqp=CAU"/>
+                <img style={{marginRight:20}} width={60}src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSb1vm2W-b2WQOKVn-OHECsVw0jGt9zY1SLeg&usqp=CAU"/>
+                <img  width={60}src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSb1vm2W-b2WQOKVn-OHECsVw0jGt9zY1SLeg&usqp=CAU"/>
+                <img style={{marginRight:20}} width={60}src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSb1vm2W-b2WQOKVn-OHECsVw0jGt9zY1SLeg&usqp=CAU"/>
+                <img  width={60}src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSb1vm2W-b2WQOKVn-OHECsVw0jGt9zY1SLeg&usqp=CAU"/>
+                <img style={{marginRight:20}} width={60}src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSb1vm2W-b2WQOKVn-OHECsVw0jGt9zY1SLeg&usqp=CAU"/>
+                </div>
+                </div>
                 </Modal>
+                </div>
                 <div className={'dashboard-card-wrapper'}>
                   {/* {
               ["", "", "", "", ""].map(option =>
