@@ -42,7 +42,6 @@ class App extends Component {
                   </Switch><Footer /> </div> :
                   <Switch>
                     <Route path="/login" component={() => <Login />} />
-                    <Route path="/dashboard" component={() => <Dashboard />} />
                     <Redirect to="/login" />
                   </Switch>
               }

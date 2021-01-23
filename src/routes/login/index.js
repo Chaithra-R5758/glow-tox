@@ -7,7 +7,7 @@ import Cookies from 'js-cookie';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
 //import axios from '../../config/api/'
 import axios from 'axios';
-import {response} from './mock.js'
+import { response } from './mock.js'
 
 class Login extends Component {
 
@@ -26,12 +26,15 @@ class Login extends Component {
     return re.test(String(email).toLowerCase());
   }
 
+
+
+
   signInClicked = async () => {
 
     //  this.props.history.push('/dashboard')
     //  window.location.reload();
     const { password, userName } = this.state
-    
+
 
     // if (!password || !userName) {
     //   this.setState({ errorMsg: 'UserName/Password cannot be empty' })
@@ -43,47 +46,76 @@ class Login extends Component {
     //   this.setState({ errorMsg: 'Invalid password length' })
     // }
     // else 
-    {
-      this.setState({ isLoading: true })
-      const result = await axios.post('https://d9c6y9z297.execute-api.eu-west-1.amazonaws.com/prod/login',
-        {
-          emailId: "test@gmail.com",
-          password: "test1@1234",
-          userType: "Super Admin"
-        },
-        {
-          headers: {
-            "Content-Type": "application/json"
-          }
-        })
 
-      // axios({
-      //               method: 'POST',
-      //               headers: { 'content-type': 'application/json' },
-      //               data: {
-
-      //               },
-      //               url:'https://d9c6y9z297.execute-api.eu-west-1.amazonaws.com/prod/login',
-      //               });
-
-      
-
-
-
-
-
-
-
-      // const result = await axios.post('/login', {
-      //     "emailId": "test@gmail.com",
-      //     "password" : "test1@1234",
-      //     "userType": "Super Admin",
-      // })
-      this.setState({ isLoading: false })
-      // debugger
-      Cookies.set('accessToken', 'value');
-      // this.setState({ errorMsg:result.data.message })
+    let body = {
+      "emailId": "test@gmail.com",
+      "password": "test@1234",
+      "userType": "Super Admin"
     }
+    const baseURL = 'https://d9c6y9z297.execute-api.eu-west-1.amazonaws.com/dev'
+
+    //const r = Cookies.get('connect.sid')
+
+
+    //   const response2 = await axios.create({
+    //             baseURL: baseURL,
+    //         })
+    //         .get('/admin')
+    //         .then(function (response) {
+    //           debugger
+    //         //    console.log('Cookie: ',response.config.headers.Cookie);
+    //             console.log('Cookie:....... ',response.data);
+
+    //             return response.data;
+    //         })
+    //         .catch(function (error) {
+    //             console.log(error);
+    //         })
+    // console.log("response2 ",response2)
+
+
+
+    const response1 = await axios.post('https://d9c6y9z297.execute-api.eu-west-1.amazonaws.com/dev/login'
+      , body
+      // ,{withCredentials: true}
+    )
+      .then(function (response) {
+        console.log("response", response)
+        //debugger
+        console.log('Cookie: ', response.headers['set-cookie'][0]);
+        return response.data;
+      })
+      .catch(function (error) {
+        console.log(error);
+      });
+
+
+
+
+    // {
+    //   this.setState({ isLoading: true })
+    //   const result = await axios.post('https://d9c6y9z297.execute-api.eu-west-1.amazonaws.com/prod/login',
+    //     {
+    //       emailId: "test@gmail.com",
+    //       password : "test@1234",
+    //       userType : "Super Admin"
+    //     },
+    //     {
+    //       headers: {
+    //         "Content-Type": "application/json"
+    //       }
+    //     })
+    //   // const result = await axios.post('/login', {
+    //   //     "emailId": "test@gmail.com",
+    //   //     "password" : "test1@1234",
+    //   //     "userType": "Super Admin",
+    //   // })
+    //   this.setState({ isLoading: false })
+    //   debugger
+    //   console.log("test",result.headers['set-cookie'][0])
+    Cookies.set('accessToken', 's%3AHU73-2GOTmSrjEqcs7gWT2IS6QVxsK0F.CkY%2F48BZnDEu8oFUk3ZcLvDXo6iknsz5uQItNmn4O%2FE');
+    //   // this.setState({ errorMsg:result.data.message })
+    // }
   }
 
 
@@ -154,7 +186,7 @@ class Login extends Component {
                     loading={isLoading}
                     //type={'primary'}
                     type="primary"
-                    size="large"  className="login-btn" onClick={() => this.signInClicked()}>
+                    size="large" className="login-btn" onClick={() => this.signInClicked()}>
                     Sign in
                   </Button>
                 </Form.Item>
