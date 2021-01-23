@@ -135,7 +135,9 @@ class Promotions extends React.Component {
         fontWeight:' bolder', fontSize:'16px',marginBottom:'5px'}}> 
                     Description</div>
         <div className={'modal-desc-card'} style={{ padding:10,marginBottom: 10 ,backgroundColor:'#F6F6F8',borderRadius:'5px'}} >
-        {response.promotion.description ? response.promotion.description : 'No Description'}   
+                    The item is what you purchase from Envato Market. The end pro­­duct 
+                        is what you build with that item. Example: The item is a business 
+                      card template: the end product is th finalized business card.
                     </div>
                     <div className={"parent-class"} style={{display:'flex'}}>
                     <div className="modal-link" style={{fontFamily:"Poppins, sans-serif",

@@ -6,7 +6,7 @@ import React, { useState } from 'react';
 import { response } from './mock.js'
 import { responseId } from './mock-id.js'
 import { withRouter } from 'react-router-dom';
-import axios from '../../config/api/'
+
 
 const { Meta } = Card;
 const { TextArea } = Input;
@@ -24,26 +24,15 @@ class Service extends React.Component {
   //       // setLastName(name.last);
   //     });
   // }, []);
-  constructor(){
-    super()
-    this.state = {
-      service: {}
-    }
-  }
-
- async componentDidMount(){
-    const result = await axios.get('/admin/getAllAdminServices',)
- }
 
   state = {
     loadings: []
   };
   // state = { visible: true };
 
-  showModal = (service) => {
+  showModal = () => {
     this.setState({
       visible: true,
-      service,
     });
   };
 
@@ -73,8 +62,9 @@ class Service extends React.Component {
     }, 6000);
   };
 
+
   render() {
-    const { loadings, service, visible } = this.state;
+    const { loadings } = this.state;
     return (
 
       <div className="service-screen">
@@ -85,7 +75,7 @@ class Service extends React.Component {
           <div className={"service-card"}>
             <Card>
               <div className={'content-body-wrapper'}>
-                <div className={'primary-btn'} onClick={() => this.showModal()}>
+                <div className={'primary-btn'} onClick={this.showModal}>
                   Add New Service
             </div>
             <div className={'modal-wrapper'}>
@@ -98,7 +88,7 @@ class Service extends React.Component {
                     fontWeight: ' bolder', fontSize: '18px', marginTop: 20
                    
                   }}>Service Add/Edit</div>
-                  <Button loading={0}
+                  <Button loading={loadings[1]}
                     onClick={() => this.enterLoading(1)} className="save-btn" style={{ float: 'right', backgroundColor: '#5D72E9', color: 'white', borderRadius: '5px', padding: '0px 25px', marginTop: '-30px' }}>Save</Button>
                   <div className={'service-add-left-content'} style={{ display: 'flex', marginTop: 20 }}>
                     <img
@@ -111,22 +101,22 @@ class Service extends React.Component {
                         name="nest-messages">
                         <Form.Item
                           name={['user', 'name']}
-                          label={`Service Name`}
+                          label="Service Name" // rules={[{ required: true }]}
                         >
                           <Input
-                            value={service && service.serviceName || ''}
+                            value={responseId.service.serviceName || ''}
                             style={{ blockSize: 40, borderRadius: '5px' }} />
                         </Form.Item>
                         <Form.Item name={['user', 'email']} label="Email Id"
                           rules={[{ type: 'email' }]}>
                           <Input
-                            value={service && service.description || ''}
+                            value={responseId.service.serviceName || 'b'}
                             style={{ blockSize: 40, borderRadius: '5px' }} />
                         </Form.Item>
                         <Form.Item name={['user', 'email']} label="Description"
                           rules={[{ type: 'email' }]}>
                           <TextArea
-                            value={service && service.description || ''}
+                            value={responseId.service.description || ''}
                             rows={7} style={{ borderRadius: '5px' }} />
                         </Form.Item>
                       </Form>
@@ -167,7 +157,9 @@ class Service extends React.Component {
               )
             } */}
                   {
+
                     response.service.map(service =>
+
                       <div className={'dashboard-card'}>
                         <Card
                           hoverable
@@ -191,10 +183,7 @@ class Service extends React.Component {
                                 service.serviceName :
                                 "No-Title"
                               }</div>
-                              <div className={'edit-btn'} 
-                              onClick={() => this.showModal(service)}>
-                                Edit
-                                </div>
+                              <div className={'edit-btn'} onClick={this.showModal}>Edit</div>
                             </div>
                             <div>
                             </div>
