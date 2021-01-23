@@ -35,7 +35,7 @@ class Service extends React.Component {
   showModal = (service) => {
     this.setState({
       visible: true,
-      service,
+      service
     });
   };
 
@@ -65,8 +65,9 @@ class Service extends React.Component {
     }, 6000);
   };
 
+
   render() {
-    const { loadings, service, visible } = this.state;
+    const { loadings,service } = this.state;
     return (
 
       <div className="service-screen">
@@ -77,7 +78,7 @@ class Service extends React.Component {
           <div className={"service-card"}>
             <Card>
               <div className={'content-body-wrapper'}>
-                <div className={'primary-btn'} onClick={() => this.showModal()}>
+                <div className={'primary-btn'} onClick={this.showModal}>
                   Add New Service
             </div>
                 <div className={'modal-wrapper'}>
@@ -276,7 +277,9 @@ class Service extends React.Component {
               )
             } */}
                   {
+
                     response.service.map(service =>
+
                       <div className={'dashboard-card'}>
                         <Card
                           hoverable
