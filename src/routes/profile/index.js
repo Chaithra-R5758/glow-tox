@@ -70,7 +70,7 @@ class Profile extends React.Component {
                                                 <Input 
                                                     value={response.user.userName}
                                                     size="large" 
-                                                    style={{ borderRadius: '5px' }} 
+                                                    style={{ borderRadius: '5px'}} 
                                                 />
                                             </Form.Item>
                                             <Form.Item name={['user', 'email']} label="Email Id"

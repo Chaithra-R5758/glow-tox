@@ -19,7 +19,7 @@
   float: left;
   margin-top: 60px;
   margin-right: -40px;
-  margin-left: 20px;
+  margin-left: 10px;
 }
 .profile-screen .profile-img {
   display: inline;
@@ -52,7 +52,7 @@
   text-shadow: 0.5px 0.5px yellow;
 }
 .profile-screen .profile-card-body {
-  width: 225%;
+  width: 230%;
   margin-left: 10px;
 }
 .profile-screen .profile-card-pwd {
@@ -94,14 +94,8 @@
     flex-direction: column;
     margin: 10px 0px 20px 0px;
   }
-  .profile-screen .profile-screen .img-card {
-    width: 140px;
-    height: 140px;
-    position: relative;
-    overflow: hidden;
-    align-items: flex-start;
-    border-radius: 50%;
-    margin-top: 30px;
+  .profile-screen .img-card {
+    margin-left: 50px;
   }
   .profile-screen .profile-img {
     display: inline;
@@ -121,9 +115,9 @@
     width: 100%;
   }
   .profile-screen .profile-card-body {
-    width: 101%;
+    width: 115%;
   }
   .profile-screen .pwd-card-body {
-    width: 100%;
+    width: 115%;
   }
 }
