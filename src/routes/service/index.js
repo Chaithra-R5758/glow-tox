@@ -127,6 +127,7 @@ class Service extends React.Component {
                           alignSelf: 'center',
                           margin: '0 0 20px 0',
                           flexDirection: 'column',
+                          width:'50%'
                         }}
                       >
                         <img
@@ -144,28 +145,109 @@ class Service extends React.Component {
                         className={'thumnail-list-wrapper'}
                         style={{
                           display:'flex',
+                          overflowX: 'auto',
+                         // width: '40',
+                          margin: '0 15px'
                         }}
                         >
-                        <div style={{margin:'0 5px'}}>
+                        <div style={{margin:'0 5px', display:'flex' }}>
                           <img
                             width={60} 
+                            height={40}
                             className={'left'}
                             src={defaultImg} />
                           <img
                             width={60} 
+                            height={40}
                             className={'right'}
                             src={defaultImg} />
                         </div>
-                        <div style={{margin:'0 5px'}}>
+                        <div style={{margin:'0 5px', display:'flex'}}>
                           <img
                             width={60} 
+                            height={40}
                             className={'left'}
                             src={defaultImg} />
                           <img
                             width={60} 
+                            height={40}
                             className={'right'}
                             src={defaultImg} />
                         </div>
+                        <div style={{margin:'0 5px', display:'flex'}}>
+                          <img
+                            width={60} 
+                            height={40}
+                            className={'left'}
+                            src={defaultImg} />
+                          <img
+                            width={60} 
+                            height={40}
+                            className={'right'}
+                            src={defaultImg} />
+                        </div>
+                        <div style={{margin:'0 5px', display:'flex'}}>
+                          <img
+                            width={60} 
+                            height={40}
+                            className={'left'}
+                            src={defaultImg} />
+                          <img
+                            width={60} 
+                            height={40}
+                            className={'right'}
+                            src={defaultImg} />
+                        </div>
+                        
+                        <div style={{margin:'0 5px', display:'flex' }}>
+                          <img
+                            width={60} 
+                            height={40}
+                            className={'left'}
+                            src={defaultImg} />
+                          <img
+                            width={60} 
+                            height={40}
+                            className={'right'}
+                            src={defaultImg} />
+                        </div>
+                        <div style={{margin:'0 5px', display:'flex'}}>
+                          <img
+                            width={60} 
+                            height={40}
+                            className={'left'}
+                            src={defaultImg} />
+                          <img
+                            width={60} 
+                            height={40}
+                            className={'right'}
+                            src={defaultImg} />
+                        </div>
+                        <div style={{margin:'0 5px', display:'flex'}}>
+                          <img
+                            width={60} 
+                            height={40}
+                            className={'left'}
+                            src={defaultImg} />
+                          <img
+                            width={60} 
+                            height={40}
+                            className={'right'}
+                            src={defaultImg} />
+                        </div>
+                        <div style={{margin:'0 5px', display:'flex'}}>
+                          <img
+                            width={60} 
+                            height={40}
+                            className={'left'}
+                            src={defaultImg} />
+                          <img
+                            width={60} 
+                            height={40}
+                            className={'right'}
+                            src={defaultImg} />
+                        </div>
+                        
                       
                         </div>
                         
