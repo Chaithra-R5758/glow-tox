@@ -105,12 +105,7 @@ class Promotions extends React.Component {
           onCancel={this.hideModal} footer={null} width={400 } style={{ top: 80}} >
                 <div className={'add-promo-card'}>
                     <div className="modal-title" style={{fontFamily:"Poppins, sans-serif",
-        fontWeight:' bolder', fontSize:'18px',marginTop:-10}}>Promotions Edit</div>
-        
-       
-
-                    
-                    
+        fontWeight:' bolder', fontSize:'18px',marginTop:-10}}>Promotions Edit</div>   
                     <div className={'modal-img-card'} style={{  backgroundColor: ' #E2E2E2',height:150,marginTop:20 ,marginBottom:10}}>
                     <label  htmlFor="input"><i type="link"  style={{marginLeft:300, color: "#343557" ,fontSize:'1.5em'}}>
                     {<EditFilled/>}

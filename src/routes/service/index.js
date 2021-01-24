@@ -1,13 +1,14 @@
 import { PageTitle } from '../../components/page-title'
 import loginImg from '../../assets/login-img.png'
 import './service.scss';
-import { Card, Button, Modal, Skeleton, Anchor, Input, Image, Form } from 'antd';
+import { Card, Button, Modal, Skeleton, Anchor, Input, Image, PageHeader, Form } from 'antd';
 import React, { useState } from 'react';
 import { response } from './mock.js'
 import { responseId } from './mock-id.js'
 import { withRouter } from 'react-router-dom';
 import axios from '../../config/api/'
 import defaultImg from '../../assets/default.png'
+import { Error } from '../../components/error'
 
 const { Meta } = Card;
 const { TextArea } = Input;
@@ -15,22 +16,31 @@ const { Link } = Anchor;
 
 
 class Service extends React.Component {
-
   constructor() {
     super()
     this.state = {
-      service: {}
+      service: {},
+      response: {},
+      defaultImg,
+      loading: false,
+      error: false,
+      saveServiceLoading: false,
+
     }
   }
 
   async componentDidMount() {
     const result = await axios.get('/admin/getAllAdminServices',)
   }
-
-  state = {
-    loadings: []
+  imageHandler = e => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        this.setState({ defaultImg: reader.result });
+      }
+    };
+    reader.readAsDataURL(e.target.files[0]);
   };
-  // state = { visible: true };
 
   showModal = (service) => {
     this.setState({
@@ -44,32 +54,86 @@ class Service extends React.Component {
       visible: false,
     });
   };
-  enterLoading = index => {
-    this.setState(({ loadings }) => {
-      const newLoadings = [...loadings];
-      newLoadings[index] = true;
 
-      return {
-        loadings: newLoadings,
-      };
-    });
-    setTimeout(() => {
-      this.setState(({ loadings }) => {
-        const newLoadings = [...loadings];
-        newLoadings[index] = false;
+  servicesUI = () => {
+    const { loading, error } = this.state
+    if (loading) {
+      return (
+        ["", "", "", "", ""].map(option =>
+          <div className={'dashboard-card'}>
+            <Card
+              style={{ width: 240 }}>
+              <Skeleton paragraph={{ rows: 3 }} />
+            </Card>
+          </div>
+        ))
+    }
+    else if (error) { return <Error title="Something went wrong" /> }
+    else if (response
+      && response.service
+      && response.service.length === 0) {
+      return <Error title="0 Service exists" />
+    }
+    else if (response
+      && response.service
+      && response.service.length > 0) {
+      return (
+        response.service.map(service =>
+          <div className={'dashboard-card'}>
+            <Card
+              hoverable
+              style={{ width: '220px', height: '300px' }}
+              cover={<img
+                alt="example"
+                src={service.serviceImage ? service.serviceImage : loginImg}
+                style={{
+                  height: '200px',
+                  backgroundColor: '#EFF2F7',
+                  position: 'relative',
+                  objectFit: 'cover',
+                  borderRadius: '0 0 50% 50%/0 0 15% 15%',
+                  borderTopLeftRadius: '5px',
+                  borderTopRightRadius: '5px',
+                }}
+              />}>
+              <div className={'service-card-body-wrapper'}>
+                <div className={'service-meta-data-wrapper'}>
+                  <div className={'service-title'}>{service.serviceName ?
+                    service.serviceName :
+                    "No-Title"
+                  }</div>
+                  <div className={'edit-btn'}
+                    onClick={() => this.showModal(service)}>
+                    Edit
+                      </div>
+                </div>
+                <div>
+                </div>
+              </div>
+            </Card>
+          </div>
+        )
+      )
+    }
+  }
 
-        return {
-          loadings: newLoadings,
-        };
-      });
-    }, 6000);
-  };
+
+  saveService = async (service) => {
+    this.setState({
+      saveServiceLoading: true,
+    })
+    const saveService = await axios.get('/admin/saveService', service)
+    this.setState({
+      saveServiceLoading: false,
+    })
+  }
 
 
   render() {
-    const { loadings,service } = this.state;
-    return (
+    const { defaultImg } = this.state;
+    const { loadings, service, saveServiceLoading } = this.state
 
+    return (
       <div className="service-screen">
         <div className={'content-wrapper'}>
           <PageTitle
@@ -80,7 +144,7 @@ class Service extends React.Component {
               <div className={'content-body-wrapper'}>
                 <div className={'primary-btn'} onClick={this.showModal}>
                   Add New Service
-            </div>
+              </div>
                 <div className={'modal-wrapper'}>
                   <Modal
                     visible={this.state.visible}
@@ -127,130 +191,140 @@ class Service extends React.Component {
                           alignSelf: 'center',
                           margin: '0 0 20px 0',
                           flexDirection: 'column',
-                          width:'50%'
+                          width: '50%'
                         }}
                       >
-                        <img
-                          //width={450} height={280}
-                          style={{    margin: '10%'}}
-                          className={'service-add-img'}
-                          src={defaultImg} />
+                        <label htmlFor="input">
+                          <img
+                           src={defaultImg}
+                            id="img"
+                            className="img"
+                            style={{ margin: '10%', width: 270, height: 200 }}
+                          />
+                        </label>
+                        <input style={{ display: 'none' }}
+                          type="file"
+                          accept="image/*"
+                          name="image-upload"
+                          id="input"
+                          onChange={this.imageHandler}
+                        />
                         <div className="modal-title" style={{
-                            fontFamily: "Poppins, sans-serif",
-                            fontWeight: ' bolder', fontSize: '14px',
-                            marginBottom:'10px'
-                          }}>  Some Pics+ </div>
+                          fontFamily: "Poppins, sans-serif",
+                          fontWeight: ' bolder', fontSize: '14px',
+                          marginBottom: '10px'
+                        }}>  Some Pics+ </div>
 
                         <div
-                        className={'thumnail-list-wrapper'}
-                        style={{
-                          display:'flex',
-                          overflowX: 'auto',
-                         // width: '40',
-                          margin: '0 15px'
-                        }}
+                          className={'thumnail-list-wrapper'}
+                          style={{
+                            display: 'flex',
+                            overflowX: 'auto',
+                            // width: '40',
+                            margin: '0 15px'
+                          }}
                         >
-                        <div style={{margin:'0 5px', display:'flex' }}>
-                          <img
-                            width={60} 
-                            height={40}
-                            className={'left'}
-                            src={defaultImg} />
-                          <img
-                            width={60} 
-                            height={40}
-                            className={'right'}
-                            src={defaultImg} />
+                          <div style={{ margin: '0 5px', display: 'flex' }}>
+                            <img
+                              width={60}
+                              height={40}
+                              className={'left'}
+                              src={defaultImg} />
+                            <img
+                              width={60}
+                              height={40}
+                              className={'right'}
+                              src={defaultImg} />
+                          </div>
+                          <div style={{ margin: '0 5px', display: 'flex' }}>
+                            <img
+                              width={60}
+                              height={40}
+                              className={'left'}
+                              src={defaultImg} />
+                            <img
+                              width={60}
+                              height={40}
+                              className={'right'}
+                              src={defaultImg} />
+                          </div>
+                          <div style={{ margin: '0 5px', display: 'flex' }}>
+                            <img
+                              width={60}
+                              height={40}
+                              className={'left'}
+                              src={defaultImg} />
+                            <img
+                              width={60}
+                              height={40}
+                              className={'right'}
+                              src={defaultImg} />
+                          </div>
+                          <div style={{ margin: '0 5px', display: 'flex' }}>
+                            <img
+                              width={60}
+                              height={40}
+                              className={'left'}
+                              src={defaultImg} />
+                            <img
+                              width={60}
+                              height={40}
+                              className={'right'}
+                              src={defaultImg} />
+                          </div>
+
+                          <div style={{ margin: '0 5px', display: 'flex' }}>
+                            <img
+                              width={60}
+                              height={40}
+                              className={'left'}
+                              src={defaultImg} />
+                            <img
+                              width={60}
+                              height={40}
+                              className={'right'}
+                              src={defaultImg} />
+                          </div>
+                          <div style={{ margin: '0 5px', display: 'flex' }}>
+                            <img
+                              width={60}
+                              height={40}
+                              className={'left'}
+                              src={defaultImg} />
+                            <img
+                              width={60}
+                              height={40}
+                              className={'right'}
+                              src={defaultImg} />
+                          </div>
+                          <div style={{ margin: '0 5px', display: 'flex' }}>
+                            <img
+                              width={60}
+                              height={40}
+                              className={'left'}
+                              src={defaultImg} />
+                            <img
+                              width={60}
+                              height={40}
+                              className={'right'}
+                              src={defaultImg} />
+                          </div>
+                          <div style={{ margin: '0 5px', display: 'flex' }}>
+                            <img
+                              width={60}
+                              height={40}
+                              className={'left'}
+                              src={defaultImg} />
+                            <img
+                              width={60}
+                              height={40}
+                              className={'right'}
+                              src={defaultImg} />
+                          </div>
+
+
                         </div>
-                        <div style={{margin:'0 5px', display:'flex'}}>
-                          <img
-                            width={60} 
-                            height={40}
-                            className={'left'}
-                            src={defaultImg} />
-                          <img
-                            width={60} 
-                            height={40}
-                            className={'right'}
-                            src={defaultImg} />
-                        </div>
-                        <div style={{margin:'0 5px', display:'flex'}}>
-                          <img
-                            width={60} 
-                            height={40}
-                            className={'left'}
-                            src={defaultImg} />
-                          <img
-                            width={60} 
-                            height={40}
-                            className={'right'}
-                            src={defaultImg} />
-                        </div>
-                        <div style={{margin:'0 5px', display:'flex'}}>
-                          <img
-                            width={60} 
-                            height={40}
-                            className={'left'}
-                            src={defaultImg} />
-                          <img
-                            width={60} 
-                            height={40}
-                            className={'right'}
-                            src={defaultImg} />
-                        </div>
-                        
-                        <div style={{margin:'0 5px', display:'flex' }}>
-                          <img
-                            width={60} 
-                            height={40}
-                            className={'left'}
-                            src={defaultImg} />
-                          <img
-                            width={60} 
-                            height={40}
-                            className={'right'}
-                            src={defaultImg} />
-                        </div>
-                        <div style={{margin:'0 5px', display:'flex'}}>
-                          <img
-                            width={60} 
-                            height={40}
-                            className={'left'}
-                            src={defaultImg} />
-                          <img
-                            width={60} 
-                            height={40}
-                            className={'right'}
-                            src={defaultImg} />
-                        </div>
-                        <div style={{margin:'0 5px', display:'flex'}}>
-                          <img
-                            width={60} 
-                            height={40}
-                            className={'left'}
-                            src={defaultImg} />
-                          <img
-                            width={60} 
-                            height={40}
-                            className={'right'}
-                            src={defaultImg} />
-                        </div>
-                        <div style={{margin:'0 5px', display:'flex'}}>
-                          <img
-                            width={60} 
-                            height={40}
-                            className={'left'}
-                            src={defaultImg} />
-                          <img
-                            width={60} 
-                            height={40}
-                            className={'right'}
-                            src={defaultImg} />
-                        </div>
-                        
-                      
-                        </div>
-                        
+
                       </div>
                       <div
                         className={'modal-content-right-wrapper'}
@@ -259,7 +333,7 @@ class Service extends React.Component {
                           flex: 1,
                           flexDirection: 'column',
                         }}
-                        >
+                      >
                         <div style={{
 
                         }}>Service Name</div>
@@ -304,10 +378,10 @@ class Service extends React.Component {
                       style={{
                         display: 'flex',
                         justifyContent: 'flex-end',
-                      }}
-                    >
+                      }}>
                       <Button
-                        onClick={() => this.enterLoading(1)}
+                        loading={saveServiceLoading}
+                        onClick={() => this.saveService(service)}
                         className="save-btn"
                         style={{
                           backgroundColor: '#5D72E9',
@@ -315,96 +389,20 @@ class Service extends React.Component {
                           borderRadius: '5px',
                           padding: '0px 25px',
                           marginTop: '20px'
-                        }}
-                      >Save</Button>
-
-
+                        }}>Save</Button>
                     </div>
-
-
-                    {/* <div style={{marginTop:'-85px'}}>
-                  <div className="modal-title" style={{
-                    fontFamily: "Poppins, sans-serif",
-                    fontWeight: ' bolder', fontSize: '14px'
-                  }}>  Some Pics+ </div>
-                  
-                <div className={'wrapper'} style={{marginTop:20,display:'flex',width:'50%',overflowX:'auto'}}>
-                <img width={60}src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSb1vm2W-b2WQOKVn-OHECsVw0jGt9zY1SLeg&usqp=CAU"/>
-                <img style={{marginRight:20}} width={60}src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSb1vm2W-b2WQOKVn-OHECsVw0jGt9zY1SLeg&usqp=CAU"/>
-                <img  width={60}src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSb1vm2W-b2WQOKVn-OHECsVw0jGt9zY1SLeg&usqp=CAU"/>
-                <img style={{marginRight:20}} width={60}src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSb1vm2W-b2WQOKVn-OHECsVw0jGt9zY1SLeg&usqp=CAU"/>
-                <img  width={60}src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSb1vm2W-b2WQOKVn-OHECsVw0jGt9zY1SLeg&usqp=CAU"/>
-                <img style={{marginRight:20}} width={60}src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSb1vm2W-b2WQOKVn-OHECsVw0jGt9zY1SLeg&usqp=CAU"/>
-                <img  width={60}src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSb1vm2W-b2WQOKVn-OHECsVw0jGt9zY1SLeg&usqp=CAU"/>
-                <img style={{marginRight:20}} width={60}src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSb1vm2W-b2WQOKVn-OHECsVw0jGt9zY1SLeg&usqp=CAU"/>
-                <img  width={60}src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSb1vm2W-b2WQOKVn-OHECsVw0jGt9zY1SLeg&usqp=CAU"/>
-                <img style={{marginRight:20}} width={60}src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSb1vm2W-b2WQOKVn-OHECsVw0jGt9zY1SLeg&usqp=CAU"/>
-                <img  width={60}src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSb1vm2W-b2WQOKVn-OHECsVw0jGt9zY1SLeg&usqp=CAU"/>
-                <img style={{marginRight:20}} width={60}src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSb1vm2W-b2WQOKVn-OHECsVw0jGt9zY1SLeg&usqp=CAU"/>
-                </div>
-                 
-                </div>
-                  */}
                   </Modal>
                 </div>
                 <div className={'dashboard-card-wrapper'}>
-                  {/* {
-              ["", "", "", "", ""].map(option =>
-                <div className={'dashboard-card'}>
-                  <Card
-                    style={{ width: 240 }}>
-                    <Skeleton paragraph={{ rows: 3 }} />
-                  </Card>
-                </div>
-              )
-            } */}
-                  {
-
-                    response.service.map(service =>
-
-                      <div className={'dashboard-card'}>
-                        <Card
-                          hoverable
-                          style={{ width: '220px', height: '300px' }}
-                          cover={<img
-                            alt="example"
-                            src={service.serviceImage ? service.serviceImage : loginImg}
-                            style={{
-                              height: '200px',
-                              backgroundColor: '#EFF2F7',
-                              position: 'relative',
-                              objectFit: 'cover',
-                              borderRadius: '0 0 50% 50%/0 0 15% 15%',
-                              borderTopLeftRadius: '5px',
-                              borderTopRightRadius: '5px',
-                            }}
-                          />}>
-                          <div className={'service-card-body-wrapper'}>
-                            <div className={'service-meta-data-wrapper'}>
-                              <div className={'service-title'}>{service.serviceName ?
-                                service.serviceName :
-                                "No-Title"
-                              }</div>
-                              <div className={'edit-btn'}
-                                onClick={() => this.showModal(service)}>
-                                Edit
-                                </div>
-                            </div>
-                            <div>
-                            </div>
-                          </div>
-                        </Card>
-                      </div>
-                    )
-                  }
+                  {this.servicesUI()}
                 </div>
               </div>
             </Card>
           </div>
         </div>
       </div>
+    )
 
-    );
   }
 
 }
