@@ -158,18 +158,18 @@ class ServiceHistory extends React.Component {
       {
 
 
-            key: '5',
-            name: `John Brown`,
-            age: 32,
-            id: 5,
-            address: `New York No.1 Lake Park`,
-            tags: ['New'],
-            email: 'akash@gmail.com',
-            offer: '10% off',
-            service: `service 5`,
-            promoname: 'Promo Details',
-    
-         },
+        key: '5',
+        name: `John Brown`,
+        age: 32,
+        id: 5,
+        address: `New York No.1 Lake Park`,
+        tags: ['New'],
+        email: 'akash@gmail.com',
+        offer: '10% off',
+        service: `service 5`,
+        promoname: 'Promo Details',
+
+      },
     ];
     // for (let i = 5; i < 100; i++) {
     //   data.push({

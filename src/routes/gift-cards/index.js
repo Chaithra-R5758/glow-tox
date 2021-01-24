@@ -159,7 +159,7 @@ function GiftCards() {
         />
         <div className={"gift-card"}>
           <Card>
-            <div className={'content-body-wrapper'}>
+            <div className={'gift-card-wrapper'}>
               <div className={'gift-card-inner-wrapper'}>
                 <div className={'options-wrapper'}>
                   <div className={'search-wrapper'}>
