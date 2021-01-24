@@ -9,12 +9,14 @@ import { withRouter } from 'react-router-dom';
 import axios from '../../config/api/'
 import defaultImg from '../../assets/default.png'
 import { Error } from '../../components/error'
-
+import { BeforeAfter } from './before-after'
 const { Meta } = Card;
 const { TextArea } = Input;
 const { Link } = Anchor;
-
-
+const beforeAfterSet = {
+  before: {},
+  after: {},
+}
 class Service extends React.Component {
   constructor() {
     super()
@@ -25,13 +27,14 @@ class Service extends React.Component {
       loading: false,
       error: false,
       saveServiceLoading: false,
-
+      beforeAfterSets: []
     }
   }
 
   async componentDidMount() {
     const result = await axios.get('/admin/getAllAdminServices',)
   }
+
   imageHandler = e => {
     const reader = new FileReader();
     reader.onload = () => {
@@ -131,7 +134,7 @@ class Service extends React.Component {
 
   render() {
     const { defaultImg } = this.state;
-    const { loadings, service, saveServiceLoading } = this.state
+    const { beforeAfterSets, service, saveServiceLoading } = this.state
 
     return (
       <div className="service-screen">
@@ -174,8 +177,6 @@ class Service extends React.Component {
                         }}
                         >Save</Button> */}
                     </div>
-
-
                     <div
                       className={'modal-content-wrapper'}
                       style={{
@@ -192,14 +193,18 @@ class Service extends React.Component {
                           margin: '0 0 20px 0',
                           flexDirection: 'column',
                           width: '50%'
-                        }}
-                      >
+                        }}>
                         <label htmlFor="input">
                           <img
-                           src={defaultImg}
+                            src={service.serviceImage || defaultImg}
                             id="img"
                             className="img"
-                            style={{ margin: '10%', width: 270, height: 200 }}
+                            style={{
+                              margin: '10%',
+                              width: 270,
+                              height: 200,
+                              objectFit: 'contain'
+                            }}
                           />
                         </label>
                         <input style={{ display: 'none' }}
@@ -209,122 +214,29 @@ class Service extends React.Component {
                           id="input"
                           onChange={this.imageHandler}
                         />
-                        <div className="modal-title" style={{
-                          fontFamily: "Poppins, sans-serif",
-                          fontWeight: ' bolder', fontSize: '14px',
-                          marginBottom: '10px'
-                        }}>  Some Pics+ </div>
-
+                        <div className="modal-title"
+                          onClick={() => this.setState({
+                            beforeAfterSets: [...beforeAfterSets, beforeAfterSet]
+                          })}
+                          style={{
+                            fontFamily: "Poppins, sans-serif",
+                            fontWeight: ' bolder', fontSize: '14px',
+                            marginBottom: '10px', cursor: 'pointer',
+                          }}>  Some Pics+ </div>
                         <div
                           className={'thumnail-list-wrapper'}
                           style={{
                             display: 'flex',
                             overflowX: 'auto',
-                            // width: '40',
                             margin: '0 15px'
-                          }}
-                        >
-                          <div style={{ margin: '0 5px', display: 'flex' }}>
-                            <img
-                              width={60}
-                              height={40}
-                              className={'left'}
-                              src={defaultImg} />
-                            <img
-                              width={60}
-                              height={40}
-                              className={'right'}
-                              src={defaultImg} />
-                          </div>
-                          <div style={{ margin: '0 5px', display: 'flex' }}>
-                            <img
-                              width={60}
-                              height={40}
-                              className={'left'}
-                              src={defaultImg} />
-                            <img
-                              width={60}
-                              height={40}
-                              className={'right'}
-                              src={defaultImg} />
-                          </div>
-                          <div style={{ margin: '0 5px', display: 'flex' }}>
-                            <img
-                              width={60}
-                              height={40}
-                              className={'left'}
-                              src={defaultImg} />
-                            <img
-                              width={60}
-                              height={40}
-                              className={'right'}
-                              src={defaultImg} />
-                          </div>
-                          <div style={{ margin: '0 5px', display: 'flex' }}>
-                            <img
-                              width={60}
-                              height={40}
-                              className={'left'}
-                              src={defaultImg} />
-                            <img
-                              width={60}
-                              height={40}
-                              className={'right'}
-                              src={defaultImg} />
-                          </div>
-
-                          <div style={{ margin: '0 5px', display: 'flex' }}>
-                            <img
-                              width={60}
-                              height={40}
-                              className={'left'}
-                              src={defaultImg} />
-                            <img
-                              width={60}
-                              height={40}
-                              className={'right'}
-                              src={defaultImg} />
-                          </div>
-                          <div style={{ margin: '0 5px', display: 'flex' }}>
-                            <img
-                              width={60}
-                              height={40}
-                              className={'left'}
-                              src={defaultImg} />
-                            <img
-                              width={60}
-                              height={40}
-                              className={'right'}
-                              src={defaultImg} />
-                          </div>
-                          <div style={{ margin: '0 5px', display: 'flex' }}>
-                            <img
-                              width={60}
-                              height={40}
-                              className={'left'}
-                              src={defaultImg} />
-                            <img
-                              width={60}
-                              height={40}
-                              className={'right'}
-                              src={defaultImg} />
-                          </div>
-                          <div style={{ margin: '0 5px', display: 'flex' }}>
-                            <img
-                              width={60}
-                              height={40}
-                              className={'left'}
-                              src={defaultImg} />
-                            <img
-                              width={60}
-                              height={40}
-                              className={'right'}
-                              src={defaultImg} />
-                          </div>
-
-
+                          }}>
+                          {
+                            beforeAfterSets
+                              .map(beforeAfterSet => {
+                                return (<BeforeAfter beforeAfterSet />)
+                              })
+                          }
                         </div>
-
                       </div>
                       <div
                         className={'modal-content-right-wrapper'}

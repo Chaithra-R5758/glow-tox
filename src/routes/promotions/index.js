@@ -5,7 +5,6 @@ import loginImg from "../../assets/login-img.png";
 import { LinkOutlined, EditFilled } from "@ant-design/icons";
 import { Modal, Button } from "antd";
 import { response } from "./mock.js";
-import { responseId } from "./mock-id.js";
 import { withRouter } from "react-router-dom";
 import React from "react";
 import axios from "../../config/api/";
@@ -22,12 +21,18 @@ class Promotions extends React.Component {
       loadings: [],
       loading: false,
       error: false,
-      promoservice:"rec2qBN2cMoUIYCmJ",
     };
   }
-  handleServiceChange = e => {
-    this.setState({ promoservice : e.target.value});
+
+  onChangeLink = e => {
+    this.setState(prevState => ({
+      promotion: {
+        ...prevState.promotion,
+        service: e.target.value
+      }
+    }))
   }
+
   showModal = (promotion) => {
     this.setState({
       visible: true,
@@ -134,7 +139,7 @@ class Promotions extends React.Component {
 
   render() {
     const { loginImg } = this.state;
-    const { loadings, promotion,promoservice} = this.state;
+    const { loadings, promotion, promoservice } = this.state;
     return (
       <div className="promotions-screen">
         <div>
@@ -267,8 +272,8 @@ class Promotions extends React.Component {
                     >
                       Link to Services
                       <Input
-                       onChange={this.handleServiceChange}
-                        value={promoservice}
+                        onChange={this.onChangeLink}
+                        value={promotion && promotion.service || ''}
                         style={{
                           backgroundColor: " #E2E2E2",
                           blockSize: 30,
