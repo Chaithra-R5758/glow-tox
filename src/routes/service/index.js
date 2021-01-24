@@ -8,7 +8,7 @@ import { responseId } from './mock-id.js'
 import { withRouter } from 'react-router-dom';
 import axios from '../../config/api/'
 import defaultImg from '../../assets/default.png'
-import {Error} from '../../components/error'
+import { Error } from '../../components/error'
 
 const { Meta } = Card;
 const { TextArea } = Input;
@@ -16,15 +16,15 @@ const { Link } = Anchor;
 
 
 class Service extends React.Component {
-
   constructor() {
     super()
     this.state = {
       service: {},
       response: {},
+      defaultImg,
       loading: false,
       error: false,
-      saveServiceLoading:false,
+      saveServiceLoading: false,
 
     }
   }
@@ -32,6 +32,15 @@ class Service extends React.Component {
   async componentDidMount() {
     const result = await axios.get('/admin/getAllAdminServices',)
   }
+  imageHandler = e => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        this.setState({ defaultImg: reader.result });
+      }
+    };
+    reader.readAsDataURL(e.target.files[0]);
+  };
 
   showModal = (service) => {
     this.setState({
@@ -59,14 +68,14 @@ class Service extends React.Component {
           </div>
         ))
     }
-    else if (error) { return <Error title="Something went wrong"/> }
-    else if (response 
-      && response.service 
+    else if (error) { return <Error title="Something went wrong" /> }
+    else if (response
+      && response.service
       && response.service.length === 0) {
-      return <Error title="0 Service exists"/>
+      return <Error title="0 Service exists" />
     }
-    else if (response 
-      && response.service 
+    else if (response
+      && response.service
       && response.service.length > 0) {
       return (
         response.service.map(service =>
@@ -111,16 +120,17 @@ class Service extends React.Component {
 
   saveService = async (service) => {
     this.setState({
-      saveServiceLoading:true,
+      saveServiceLoading: true,
     })
-    const saveService = await axios.get('/admin/saveService',service)
+    const saveService = await axios.get('/admin/saveService', service)
     this.setState({
-      saveServiceLoading:false,
+      saveServiceLoading: false,
     })
   }
 
 
   render() {
+    const { defaultImg } = this.state;
     const { loadings, service, saveServiceLoading } = this.state
 
     return (
@@ -184,11 +194,21 @@ class Service extends React.Component {
                           width: '50%'
                         }}
                       >
-                        <img
-                          //width={450} height={280}
-                          style={{ margin: '10%' }}
-                          className={'service-add-img'}
-                          src={defaultImg} />
+                        <label htmlFor="input">
+                          <img
+                           src={defaultImg}
+                            id="img"
+                            className="img"
+                            style={{ margin: '10%', width: 270, height: 200 }}
+                          />
+                        </label>
+                        <input style={{ display: 'none' }}
+                          type="file"
+                          accept="image/*"
+                          name="image-upload"
+                          id="input"
+                          onChange={this.imageHandler}
+                        />
                         <div className="modal-title" style={{
                           fontFamily: "Poppins, sans-serif",
                           fontWeight: ' bolder', fontSize: '14px',
@@ -342,7 +362,7 @@ class Service extends React.Component {
 
                         }}>Description</div>
                         <TextArea
-                          defaultValue={service && service.description || ''}
+                          value={service && service.description || ''}
                           rows={7}
                           style={{
                             padding: '5px',
