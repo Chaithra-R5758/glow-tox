@@ -288,7 +288,7 @@ class Service extends React.Component {
 
                         }}>Description</div>
                         <TextArea
-                          defaultValue={service && service.description || ''}
+                          value={service && service.description || ''}
                           rows={7}
                           style={{
                             padding: '5px',
