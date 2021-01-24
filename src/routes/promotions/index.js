@@ -22,9 +22,12 @@ class Promotions extends React.Component {
       loadings: [],
       loading: false,
       error: false,
-    }
+      promoservice:"rec2qBN2cMoUIYCmJ",
+    };
   }
-
+  handleServiceChange = e => {
+    this.setState({ promoservice : e.target.value});
+  }
   showModal = (promotion) => {
     this.setState({
       visible: true,
@@ -131,7 +134,7 @@ class Promotions extends React.Component {
 
   render() {
     const { loginImg } = this.state;
-    const { loadings, promotion } = this.state;
+    const { loadings, promotion,promoservice} = this.state;
     return (
       <div className="promotions-screen">
         <div>
@@ -189,7 +192,7 @@ class Promotions extends React.Component {
                       </i>
                     </label>
                     <img
-                      src={promotion && promotion.promoImage || ''}
+                      src={promotion && promotion.promoImage || defaultImg}
                       alt=""
                       id="img"
                       className="img"
@@ -264,7 +267,8 @@ class Promotions extends React.Component {
                     >
                       Link to Services
                       <Input
-                        value={promotion && promotion.service || ''}
+                       onChange={this.handleServiceChange}
+                        value={promoservice}
                         style={{
                           backgroundColor: " #E2E2E2",
                           blockSize: 30,
