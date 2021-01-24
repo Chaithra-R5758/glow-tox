@@ -11,18 +11,24 @@ import React from "react";
 import axios from "../../config/api/";
 import defaultImg from "../../assets/default.png";
 import { Error } from "../../components/error";
+import TextArea from "antd/lib/input/TextArea";
 
 class Promotions extends React.Component {
-  state = {
-    loginImg,
-    loadings: [],
-    loading: false,
-    error: false,
-  };
+  constructor() {
+    super()
+    this.state = {
+      loginImg,
+      promotion: {},
+      loadings: [],
+      loading: false,
+      error: false,
+    }
+  }
 
-  showModal = () => {
+  showModal = (promotion) => {
     this.setState({
       visible: true,
+      promotion
     });
   };
 
@@ -46,18 +52,18 @@ class Promotions extends React.Component {
     const { loading, error } = this.state;
     if (loading) {
       return (
-      <div className={'promo-card-wrapper'}>
-        {
-          ["", "", "", "", ""].map(option =>
-            <div className={'promo-card'}>
-              <Card
-                style={{ width: 240 }}>
-                <Skeleton paragraph={{ rows: 3 }} />
-              </Card>
-            </div>
-          )
-        }
-      </div>
+        <div className={'promo-card-wrapper'}>
+          {
+            ["", "", "", "", ""].map(option =>
+              <div className={'promo-card'}>
+                <Card
+                  style={{ width: 240 }}>
+                  <Skeleton paragraph={{ rows: 3 }} />
+                </Card>
+              </div>
+            )
+          }
+        </div>
       )
     } else if (error) {
       return <Error title="Something went wrong" />;
@@ -84,10 +90,64 @@ class Promotions extends React.Component {
                   color: "#343557",
                   fontSize: "1.5em",
                 }}
-                onClick={this.showModal}
+                onClick={() => this.showModal(promotion)}
               >
                 {<EditFilled />}
               </Button>
+
+            </div>
+
+            <div className={"img-card"} style={{ backgroundColor: "#D7DBFE" }}>
+              <img
+                width={150}
+                src={promotion.promoImage ? promotion.promoImage : loginImg}
+              />
+            </div>
+            <div className={"desc-card"}>
+              {promotion.description ? promotion.description : "No Description"}
+            </div>
+            <Button
+              className="btn-card"
+              onClick={this.showModal}
+              icon={<LinkOutlined />}
+            >
+              Link to Services{" "}
+            </Button>
+          </Card>
+        </div>
+      ));
+    }
+  };
+
+  savePromotion = async (service) => {
+    this.setState({
+      saveServiceLoading: true,
+    });
+    const saveService = await axios.get("/admin/saveService", service);
+    this.setState({
+      saveServiceLoading: false,
+    });
+  };
+
+  render() {
+    const { loginImg } = this.state;
+    const { loadings, promotion } = this.state;
+    return (
+      <div className="promotions-screen">
+        <div>
+          <div className={"content-wrapper"}>
+            <PageTitle title={"Promotions"} />
+            <div className={"promotions-card"}>
+              <Card>
+                <div className={"content-body-wrapper"}>
+                  <div className={"primary-btn "} onClick={this.showModal}>
+                    Add Promo
+                  </div>
+                  <div className={"promo-card-wrapper"}>
+                    {this.promotionsUI()}
+                  </div>
+                </div>
+              </Card>
               <Modal
                 visible={this.state.visible}
                 onCancel={this.hideModal}
@@ -129,7 +189,7 @@ class Promotions extends React.Component {
                       </i>
                     </label>
                     <img
-                      src={loginImg}
+                      src={promotion && promotion.promoImage || ''}
                       alt=""
                       id="img"
                       className="img"
@@ -153,6 +213,7 @@ class Promotions extends React.Component {
 
                   <div
                     className="modal-code"
+
                     style={{
                       fontFamily: "Poppins, sans-serif",
                       fontWeight: " bolder",
@@ -162,20 +223,15 @@ class Promotions extends React.Component {
                   >
                     Description
                   </div>
-                  <div
-                    className={"modal-desc-card"}
+                  <TextArea
+                    value={promotion && promotion.description || ''}
                     style={{
                       padding: 10,
                       marginBottom: 10,
                       backgroundColor: "#F6F6F8",
                       borderRadius: "5px",
                     }}
-                  >
-                    The item is what you purchase from Envato Market. The end
-                    pro­­duct is what you build with that item. Example: The
-                    item is a business card template: the end product is th
-                    finalized business card.
-                  </div>
+                  />
                   <div className={"parent-class"} style={{ display: "flex" }}>
                     <div
                       className="modal-link"
@@ -187,7 +243,7 @@ class Promotions extends React.Component {
                     >
                       Promo Code
                       <Input
-                        value={responseId.promotion.promoCode || ""}
+                        value={promotion && promotion.promoCode || ''}
                         style={{
                           width: "80%",
                           backgroundColor: " #E2E2E2",
@@ -208,7 +264,7 @@ class Promotions extends React.Component {
                     >
                       Link to Services
                       <Input
-                        value={responseId.promotion.service || ""}
+                        value={promotion && promotion.service || ''}
                         style={{
                           backgroundColor: " #E2E2E2",
                           blockSize: 30,
@@ -236,59 +292,6 @@ class Promotions extends React.Component {
                   </div>
                 </div>
               </Modal>
-            </div>
-
-            <div className={"img-card"} style={{ backgroundColor: "#D7DBFE" }}>
-              <img
-                width={150}
-                src={promotion.promoImage ? promotion.promoImage : loginImg}
-              />
-            </div>
-            <div className={"desc-card"}>
-              {promotion.description ? promotion.description : "No Description"}
-            </div>
-            <Button
-              className="btn-card"
-              onClick={this.showModal}
-              icon={<LinkOutlined />}
-            >
-              Link to Services{" "}
-            </Button>
-          </Card>
-        </div>
-      ));
-    }
-  };
-
-  savePromotion = async (service) => {
-    this.setState({
-      saveServiceLoading: true,
-    });
-    const saveService = await axios.get("/admin/saveService", service);
-    this.setState({
-      saveServiceLoading: false,
-    });
-  };
-
-  render() {
-    const { loginImg } = this.state;
-    const { loadings } = this.state;
-    return (
-      <div className="promotions-screen">
-        <div>
-          <div className={"content-wrapper"}>
-            <PageTitle title={"Promotions"} />
-            <div className={"promotions-card"}>
-              <Card>
-                <div className={"content-body-wrapper"}>
-                  <div className={"primary-btn "} onClick={this.showModal}>
-                    Add Promo
-                  </div>
-                  <div className={"promo-card-wrapper"}>
-                    {this.promotionsUI()}
-                  </div>
-                </div>
-              </Card>
             </div>
           </div>
         </div>
