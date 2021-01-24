@@ -105,11 +105,9 @@ class Promotions extends React.Component {
           onCancel={this.hideModal} footer={null} width={400 } style={{ top: 80}} >
                 <div className={'add-promo-card'}>
                     <div className="modal-title" style={{fontFamily:"Poppins, sans-serif",
-        fontWeight:' bolder', fontSize:'18px',marginTop:20}}>Promotions Edit</div>
+        fontWeight:' bolder', fontSize:'18px',marginTop:-10}}>Promotions Edit</div>
         
-        <Button loading={loadings[1]}
-          onClick={() => this.enterLoading(1)}
-        className="save-btn" style={{float:'right', backgroundColor: '#5D72E9',color:'white',borderRadius:'5px',padding:' 0px 25px',marginTop:'-30px'}}>Save</Button>
+       
 
                     
                     
@@ -151,11 +149,13 @@ class Promotions extends React.Component {
         fontWeight:' bolder', fontSize:'15px'}}>
                       Link to Services
                     <Input value={responseId.promotion.service || ''}  style={{backgroundColor: ' #E2E2E2',blockSize:30,border:'0px',borderRadius:'5px',marginTop:'5px'}}/>
+                    <Button loading={loadings[1]}
+          onClick={() => this.enterLoading(1)}
+        className="save-btn" style={{float:'right', backgroundColor: '#5D72E9',color:'white',borderRadius:'5px',padding:' 0px 25px',marginTop:'20px'}}>Save</Button> </div>
                     </div>
-                    </div>
-
-                 
+               
                 </div>
+               
               </Modal>
                       </div>
 
