@@ -215,33 +215,33 @@ class ServiceHistory extends React.Component {
                     <Button loading={loadings[1]}
                       onClick={() => this.enterLoading(1)} className="save-btn" style={{ float: 'right', backgroundColor: '#5D72E9', color: 'white', borderRadius: '5px', padding: ' 0px 25px', marginTop: '-30px' }} >Save</Button>
 
-                    <div className="image-wrapper" style={{ display: 'flex', marginTop: 20 }}>
-                      <img width={90} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTChQdlYiED1Ot1XBsYrExnQlEPnuU55oXFXA&usqp=CAU" />
-                      <div className="create-wrapper" >
+                    <div className="image-wrapper" style={{ display: 'flex',marginTop: 20 }}>
+                      <img width={'90'} height={90} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTChQdlYiED1Ot1XBsYrExnQlEPnuU55oXFXA&usqp=CAU" />
+                      <div className="create-wrapper"  >
 
-                        <Input value="Full Name" placeholder="Full Name" style={{ width: 270, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
+                        <Input value="Full Name" placeholder="Full Name" style={{ width: '48%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
 
-                        <Input value="Loyality Points" placeholder="Loyality Points" style={{ width: 270, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10 }} />
+                        <Input value="Loyality Points" placeholder="Loyality Points" style={{ width: '48%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10,  marginBottom: 10 }} />
 
-                        <Input value="Email Id" placeholder="Email Id" style={{ width: 270, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10 }} />
+                        <Input value="Email Id" placeholder="Email Id" style={{ width: '48%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
 
-                        <Input value="Mobile Number" placeholder="Mobile Number" style={{ width: 270, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10 }} />
+                        <Input value="Mobile Number" placeholder="Mobile Number" style={{ width: '48%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
 
                       </div>
 
                     </div>
                     <div style={{ height: '1px', width: '100%', backgroundColor: '#E2E2E2', marginTop: 20 }} />
                     <div className="image-wrapper" style={{ display: 'flex', marginTop: 20 }}>
-                      <img width={90} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTChQdlYiED1Ot1XBsYrExnQlEPnuU55oXFXA&usqp=CAU" />
+                      <img width={90} height={90} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTChQdlYiED1Ot1XBsYrExnQlEPnuU55oXFXA&usqp=CAU" />
                       <div className="create-wrapper" >
 
-                        <Input value="Full Name" placeholder="Full Name" style={{ width: 270, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
+                        <Input value="Full Name" placeholder="Full Name" style={{ width: '48%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
 
-                        <Input value="Loyality Points" placeholder="Loyality Points" style={{ width: 270, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10 }} />
+                        <Input value="Loyality Points" placeholder="Loyality Points" style={{ width: '48%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
 
-                        <Input value="Email Id" placeholder="Email Id" style={{ width: 270, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10 }} />
+                        <Input value="Email Id" placeholder="Email Id" style={{ width: '48%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
 
-                        <Input value="Mobile Number" placeholder="Mobile Number" style={{ width: 270, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10 }} />
+                        <Input value="Mobile Number" placeholder="Mobile Number" style={{ width: '48%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10 , marginBottom: 10}} />
 
                       </div>
 
