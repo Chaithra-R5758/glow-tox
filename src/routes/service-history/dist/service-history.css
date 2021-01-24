@@ -60,4 +60,7 @@
     align-items: center;
     margin-top: 0px;
   }
+  .service-history-screen .ant-table {
+    overflow-x: scroll;
+  }
 }
