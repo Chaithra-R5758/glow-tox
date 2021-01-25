@@ -32,17 +32,17 @@ class Promotions extends React.Component {
       }
     }))
   }
-  onChangeCode = e =>{
+  onChangeCode = e => {
     this.setState(prevState => ({
-      promotion:{
+      promotion: {
         ...prevState.promotion,
         promoCode: e.target.value
       }
     }))
   }
-  onChangeDesc = e =>{
+  onChangeDesc = e => {
     this.setState(prevState => ({
-      promotion:{
+      promotion: {
         ...prevState.promotion,
         description: e.target.value
       }
@@ -65,12 +65,12 @@ class Promotions extends React.Component {
     const reader = new FileReader();
     reader.onload = () => {
       if (reader.readyState === 2) {
-        this.setState( prevState => ({ 
+        this.setState(prevState => ({
           promotion: {
-          ...prevState.promotion,
-          promoImage: reader.result 
-        }
-      }))
+            ...prevState.promotion,
+            promoImage: reader.result
+          }
+        }))
       }
     };
     reader.readAsDataURL(e.target.files[0]);
@@ -151,7 +151,7 @@ class Promotions extends React.Component {
     this.setState({
       savePromotionLoading: true,
     });
-    const savePromotion = await axios.get("/admin/savePromotion",promotion);
+    const savePromotion = await axios.get("/admin/savePromotion", promotion);
     this.setState({
       savePromotionLoading: false,
     });
@@ -217,7 +217,7 @@ class Promotions extends React.Component {
                       </i>
                     </label>
                     <img
-                    src={promotion && promotion.promoImage || defaultImg}
+                      src={promotion && promotion.promoImage || defaultImg}
                       alt=""
                       id="img"
                       className="img"
@@ -231,7 +231,7 @@ class Promotions extends React.Component {
                   </div>
 
                   <input
-                  
+
                     style={{ display: "none" }}
                     type="file"
                     accept="image/*"
@@ -253,7 +253,7 @@ class Promotions extends React.Component {
                     Description
                   </div>
                   <TextArea
-                   onChange={this.onChangeDesc}
+                    onChange={this.onChangeDesc}
                     value={promotion && promotion.description || ''}
                     style={{
                       padding: 10,
@@ -273,7 +273,7 @@ class Promotions extends React.Component {
                     >
                       Promo Code
                       <Input
-                      onChange={this.onChangeCode}
+                        onChange={this.onChangeCode}
                         value={promotion && promotion.promoCode || ''}
                         style={{
                           width: "80%",
@@ -306,8 +306,8 @@ class Promotions extends React.Component {
                         }}
                       />
                       <Button
-                      loading={savePromotionLoading}
-                      onClick={() => this.savePromotion(promotion)}
+                        loading={savePromotionLoading}
+                        onClick={() => this.savePromotion(promotion)}
                         className="save-btn"
                         style={{
                           float: "right",

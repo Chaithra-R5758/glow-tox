@@ -17,13 +17,13 @@ class GiftCards extends React.Component {
 }
 
   // state = { visible: true };
-  saveService = async (service) => {
+  saveGiftcard = async (giftcard) => {
     this.setState({
-      saveServiceLoading: true,
+      saveGiftcardLoading: true,
     })
-    const saveService = await axios.get('/admin/saveService', service)
+    const saveGiftcard = await axios.get('/admin/saveGiftcard', giftcard)
     this.setState({
-      saveServiceLoading: false,
+      saveGiftcardLoading: false,
     })
   }
 
@@ -60,7 +60,7 @@ class GiftCards extends React.Component {
     }, 6000);
   };
   render() {
-    const { service, saveServiceLoading } = this.state
+    const { giftcard, saveGiftcardLoading } = this.state
     const columns = [
       {
         title: 'Gift Card No',
@@ -227,8 +227,8 @@ class GiftCards extends React.Component {
                         </select>
                       </div>
                     </div>
-                    <Button loading={saveServiceLoading}
-                        onClick={() => this.saveService(service)} className="save-btn" style={{ float: 'right', backgroundColor: '#5D72E9', color: 'white', borderRadius: '5px', padding: '0px 25px 0px 25px', marginTop: '-20px' }}>Save</Button>
+                    <Button loading={saveGiftcardLoading}
+                        onClick={() => this.saveGiftcard(giftcard)} className="save-btn" style={{ float: 'right', backgroundColor: '#5D72E9', color: 'white', borderRadius: '5px', padding: '0px 25px 0px 25px', marginTop: '-20px' }}>Save</Button>
                   </Modal>
 
                 </div>

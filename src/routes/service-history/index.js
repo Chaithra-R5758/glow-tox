@@ -11,8 +11,8 @@ class ServiceHistory extends React.Component {
   constructor() {
     super()
     this.state = {
-      service: {},
-    saveServiceLoading: false,
+      giftcard: {},
+    saveGiftcardLoading: false,
   };
 }
   // state = { visible: true };
@@ -40,7 +40,6 @@ class ServiceHistory extends React.Component {
   }
   render() {
 
-    const { loadings } = this.state;
     const { service, saveServiceLoading } = this.state
     const columns = [
       {

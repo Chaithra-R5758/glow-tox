@@ -64,10 +64,11 @@
   box-shadow: 0 0px 12px #d2d2d2;
 }
 .profile-screen .pwd-card-body {
-  width: 145%;
+  margin-left: 10px;
+  width: 130%;
 }
 .profile-screen .profile-primary-btn {
-  background-color: #5D72E9;
+  background-color: #5d72e9;
   padding: 10px 15px;
   border-radius: 5px;
   color: white;
@@ -78,7 +79,7 @@
   cursor: pointer;
 }
 .profile-screen .profile-primary-pwd-btn {
-  background-color: #5D72E9;
+  background-color: #5d72e9;
   padding: 10px 15px;
   border-radius: 5px;
   color: white;
@@ -118,6 +119,7 @@
     width: 115%;
   }
   .profile-screen .pwd-card-body {
-    width: 115%;
+    margin-left: 15px;
+    width: 100%;
   }
 }
