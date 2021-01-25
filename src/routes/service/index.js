@@ -88,7 +88,7 @@ class Service extends React.Component {
               style={{ width: '220px', height: '300px' }}
               cover={<img
                 alt="example"
-                src={service.serviceImage ? service.serviceImage : loginImg}
+                src={service.serviceImage || loginImg}
                 style={{
                   height: '200px',
                   backgroundColor: '#EFF2F7',
@@ -101,10 +101,7 @@ class Service extends React.Component {
               />}>
               <div className={'service-card-body-wrapper'}>
                 <div className={'service-meta-data-wrapper'}>
-                  <div className={'service-title'}>{service.serviceName ?
-                    service.serviceName :
-                    "No-Title"
-                  }</div>
+                  <div className={'service-title'}>{ service.serviceName || "No-Title" }</div>
                   <div className={'edit-btn'}
                     onClick={() => this.showModal(service)}>
                     Edit
@@ -129,6 +126,33 @@ class Service extends React.Component {
     this.setState({
       saveServiceLoading: false,
     })
+  }
+
+  onChangeName = e => {
+    this.setState(prevState => ({
+      service: {
+        ...prevState.service,
+        serviceName: e.target.value
+      }
+    }))
+  }
+
+  onChangeEmail = e => {
+    this.setState(prevState => ({
+      service: {
+        ...prevState.service,
+        serviceEmail: e.target.value
+      }
+    }))
+  }
+
+  onChangeDesc = e => {
+    this.setState(prevState => ({
+      service: {
+        ...prevState.service,
+        description: e.target.value
+      }
+    }))
   }
 
 
@@ -250,7 +274,8 @@ class Service extends React.Component {
 
                         }}>Service Name</div>
                         <input
-                          value={service && service.serviceName || ''}
+                          value={service.serviceName}
+                          onChange={this.onChangeName}
                           style={{
                             padding: '5px',
                             margin: '5px 0',
@@ -262,7 +287,8 @@ class Service extends React.Component {
 
                         }}>Email Id</div>
                         <input
-                          value={service && service.email || ''}
+                          value={service.email}
+                          onChange={this.onChangeEmail}
                           style={{
                             padding: '5px',
                             margin: '5px 0',
@@ -274,7 +300,8 @@ class Service extends React.Component {
 
                         }}>Description</div>
                         <TextArea
-                          value={service && service.description || ''}
+                          value={service.description}
+                          onChange={this.onChangeDesc}
                           rows={7}
                           style={{
                             padding: '5px',
