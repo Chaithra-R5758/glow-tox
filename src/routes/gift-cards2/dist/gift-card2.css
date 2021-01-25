@@ -20,7 +20,7 @@
   margin-right: 20px;
 }
 .gift-card-screen .primary-btn {
-  background-color: #5D72E9;
+  background-color: #5d72e9;
   padding: 5px 20px 5px 20px;
   border-radius: 5px;
   color: white;
@@ -55,6 +55,15 @@
   font-weight: bold;
 }
 @media screen and (max-width: 720px) {
+  .gift-card-screen .gift-card .ant-card {
+    margin-right: 0;
+  }
+  .gift-card-screen .card-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0px;
+  }
   .gift-card-screen .ant-table {
     overflow-x: scroll;
   }

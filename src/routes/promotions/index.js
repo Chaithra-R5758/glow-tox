@@ -18,9 +18,9 @@ class Promotions extends React.Component {
     this.state = {
       loginImg,
       promotion: {},
-      loadings: [],
       loading: false,
       error: false,
+      savePromotionLoading: false,
     };
   }
 
@@ -32,7 +32,22 @@ class Promotions extends React.Component {
       }
     }))
   }
-
+  onChangeCode = e =>{
+    this.setState(prevState => ({
+      promotion:{
+        ...prevState.promotion,
+        promoCode: e.target.value
+      }
+    }))
+  }
+  onChangeDesc = e =>{
+    this.setState(prevState => ({
+      promotion:{
+        ...prevState.promotion,
+        description: e.target.value
+      }
+    }))
+  }
   showModal = (promotion) => {
     this.setState({
       visible: true,
@@ -50,7 +65,12 @@ class Promotions extends React.Component {
     const reader = new FileReader();
     reader.onload = () => {
       if (reader.readyState === 2) {
-        this.setState({ loginImg: reader.result });
+        this.setState( prevState => ({ 
+          promotion: {
+          ...prevState.promotion,
+          promoImage: reader.result 
+        }
+      }))
       }
     };
     reader.readAsDataURL(e.target.files[0]);
@@ -127,19 +147,19 @@ class Promotions extends React.Component {
     }
   };
 
-  savePromotion = async (service) => {
+  savePromotion = async (promotion) => {
     this.setState({
-      saveServiceLoading: true,
+      savePromotionLoading: true,
     });
-    const saveService = await axios.get("/admin/saveService", service);
+    const savePromotion = await axios.get("/admin/savePromotion",promotion);
     this.setState({
-      saveServiceLoading: false,
+      savePromotionLoading: false,
     });
   };
 
   render() {
     const { loginImg } = this.state;
-    const { loadings, promotion, promoservice } = this.state;
+    const { loadings, promotion, savePromotionLoading } = this.state;
     return (
       <div className="promotions-screen">
         <div>
@@ -197,7 +217,7 @@ class Promotions extends React.Component {
                       </i>
                     </label>
                     <img
-                      src={promotion && promotion.promoImage || defaultImg}
+                    src={promotion && promotion.promoImage || defaultImg}
                       alt=""
                       id="img"
                       className="img"
@@ -211,6 +231,7 @@ class Promotions extends React.Component {
                   </div>
 
                   <input
+                  
                     style={{ display: "none" }}
                     type="file"
                     accept="image/*"
@@ -232,6 +253,7 @@ class Promotions extends React.Component {
                     Description
                   </div>
                   <TextArea
+                   onChange={this.onChangeDesc}
                     value={promotion && promotion.description || ''}
                     style={{
                       padding: 10,
@@ -251,6 +273,7 @@ class Promotions extends React.Component {
                     >
                       Promo Code
                       <Input
+                      onChange={this.onChangeCode}
                         value={promotion && promotion.promoCode || ''}
                         style={{
                           width: "80%",
@@ -283,8 +306,8 @@ class Promotions extends React.Component {
                         }}
                       />
                       <Button
-                        loading={false}
-                        onClick={() => null}
+                      loading={savePromotionLoading}
+                      onClick={() => this.savePromotion(promotion)}
                         className="save-btn"
                         style={{
                           float: "right",

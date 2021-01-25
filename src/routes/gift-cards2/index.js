@@ -1,135 +1,16 @@
 import React, { useState } from 'react';
 import { PageTitle } from '../../components/page-title/'
-import './gift-card.scss';
+import './gift-card2.scss';
 import { SearchOutlined } from '@ant-design/icons'
 import { Card, Table, Tag, Input, Button, Modal } from 'antd';
 import { withRouter } from 'react-router-dom';
 import { response } from './mock.js'
 
-const columns = [
-  {
-    title: 'Gift Card No',
-    dataIndex: 'id',
-    key: 'id',
-    responsive: ['md'],
-  },
-  {
-    title: 'Client Name',
-    dataIndex: 'name',
-    key: 'name',
-    render: text => <a>{text}</a>,
-    responsive: ['md'],
-  },
-  {
-    title: 'Email Id',
-    dataIndex: 'email',
-    key: 'email',
-    responsive: ['md'],
-  },
-  {
-    title: 'Service',
-    dataIndex: 'service',
-    key: 'service',
-    responsive: ['lg'],
-
-  },
-  {
-    title: 'Offer',
-    dataIndex: 'offer',
-    key: 'offer',
-    responsive: ['lg'],
-  },
-  {
-    title: 'Status',
-    key: 'tags',
-    dataIndex: 'tags',
-    responsive: ['lg'],
-    render: tags => (
-      <>
-        {tags.map(tag => {
-          let color = tag.length > 5 ? 'geekblue' : 'green';
-          if (tag === 'Refund') {
-            color = 'volcano';
-          }
-          return (
-            <Tag color={color} key={tag}>
-              {tag.toUpperCase()}
-            </Tag>
-          );
-        })}
-      </>
-    ),
-  },
-];
-
-const data = [
-  {
-    key: '1',
-    name: 'John Brown',
-    age: 32,
-    id: 1,
-    address: 'New York No. 1 Lake Park',
-    tags: ['New'],
-    email: 'akash@gmail.com',
-    offer: '10% off',
-    service: 'service 1'
-  },
-  {
-    key: '2',
-    name: 'Jim Green',
-    age: 42,
-    id: 2,
-    address: 'London No. 1 Lake Park',
-    tags: ['Redeemed'],
-    email: 'hamse@gmail.com',
-    offer: '15% off',
-    service: 'service 1'
-
-
-  },
-  {
-    key: '3',
-    name: 'Jim Green',
-    age: 42,
-    id: 3,
-    address: 'London No. 1 Lake Park',
-    tags: ['Refund'],
-    email: 'hamse@gmail.com',
-    offer: '15% off',
-    service: 'service 1'
-
-
-  },
-  {
-    key: '4',
-    name: 'Jim Green',
-    age: 42,
-    id: 4,
-    address: 'London No. 1 Lake Park',
-    tags: ['Chargeback'],
-    email: 'hamse@gmail.com',
-    offer: '15% off',
-    service: 'service 1'
-
-
-  },
-  {
-    key: '5',
-    name: 'Joe Black',
-    age: 32,
-    id: 5,
-    address: 'Sidney No. 1 Lake Park',
-    tags: ['Redeemed',],
-    email: 'john@gmail.com',
-    offer: '20% off',
-    service: 'service 1'
-  }
-];
-
 class GiftCards extends React.Component {
   state = {
     loadings: []
   };
+
   // state = { visible: true };
 
   showModal = () => {
@@ -166,6 +47,125 @@ class GiftCards extends React.Component {
   };
   render() {
     const { loadings } = this.state;
+    const columns = [
+      {
+        title: 'Gift Card No',
+        dataIndex: 'id',
+        key: 'id',
+
+      },
+      {
+        title: 'Client Name',
+        dataIndex: 'name',
+        key: 'name',
+        render: text => <a>{text}</a>,
+
+      },
+      {
+        title: 'Email Id',
+        dataIndex: 'email',
+        key: 'email',
+
+      },
+      {
+        title: 'Service',
+        dataIndex: 'service',
+        key: 'service',
+
+      },
+      {
+        title: 'Offer',
+        dataIndex: 'offer',
+        key: 'offer',
+
+      },
+      {
+        title: 'Status',
+        key: 'tags',
+        dataIndex: 'tags',
+
+        render: tags => (
+          <>
+            {tags.map(tag => {
+              let color = tag.length > 5 ? 'geekblue' : 'green';
+              if (tag === 'Refund') {
+                color = 'volcano';
+              }
+              return (
+                <Tag color={color} key={tag}>
+                  {tag.toUpperCase()}
+                </Tag>
+              );
+            })}
+          </>
+        ),
+      },
+    ];
+
+    const data = [
+      {
+        key: '1',
+        name: 'John Brown',
+        age: 32,
+        id: 1,
+        address: 'New York No. 1 Lake Park',
+        tags: ['New'],
+        email: 'akash@gmail.com',
+        offer: '10% off',
+        service: 'service 1'
+      },
+      {
+        key: '2',
+        name: 'Jim Green',
+        age: 42,
+        id: 2,
+        address: 'London No. 1 Lake Park',
+        tags: ['Redeemed'],
+        email: 'hamse@gmail.com',
+        offer: '15% off',
+        service: 'service 1'
+
+
+      },
+      {
+        key: '3',
+        name: 'Jim Green',
+        age: 42,
+        id: 3,
+        address: 'London No. 1 Lake Park',
+        tags: ['Refund'],
+        email: 'hamse@gmail.com',
+        offer: '15% off',
+        service: 'service 1'
+
+
+      },
+      {
+        key: '4',
+        name: 'Jim Green',
+        age: 42,
+        id: 4,
+        address: 'London No. 1 Lake Park',
+        tags: ['Chargeback'],
+        email: 'hamse@gmail.com',
+        offer: '15% off',
+        service: 'service 1'
+
+
+      },
+      {
+        key: '5',
+        name: 'Joe Black',
+        age: 32,
+        id: 5,
+        address: 'Sidney No. 1 Lake Park',
+        tags: ['Redeemed',],
+        email: 'john@gmail.com',
+        offer: '20% off',
+        service: 'service 1'
+      }
+    ];
+
     return (
       <div className="gift-card-screen">
         <div className={'content-wrapper'}>
@@ -174,7 +174,7 @@ class GiftCards extends React.Component {
           />
           <div className={"gift-card"}>
             <Card>
-              <div className={'content-body-wrapper'}>
+              <div className={'gift-card-wrapper'}>
                 <div className={'gift-card-inner-wrapper'}>
                   <div className={'options-wrapper'}>
                     <div className={'search-wrapper'}>
@@ -184,6 +184,7 @@ class GiftCards extends React.Component {
                       Create New
                   </div>
                   </div>
+                  <Table dataSource={data} columns={columns} />
                   <Modal
                     visible={this.state.visible}
                     onCancel={this.hideModal} footer={null} width={700} style={{ top: 250 }} >
@@ -214,7 +215,7 @@ class GiftCards extends React.Component {
                       </div>
                     </div>
                   </Modal>
-                  <Table columns={columns} dataSource={data} />
+
                 </div>
               </div>
             </Card>

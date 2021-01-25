@@ -40,8 +40,9 @@
         flex-wrap: wrap;
         justify-content: center;
     }
+
     .view-btn {
-        background-color: #5D72E9;
+        background-color: #5d72e9;
         padding: 5px;
         border-radius: 5px;
         color: white;
@@ -55,11 +56,19 @@
         font-weight: bold;
     }
     @media screen and (max-width: 720px) {
+        .history-card {
+            .ant-card {
+                margin-right: 0px;
+            }
+        }
         .card-wrapper {
             display: flex;
             justify-content: center;
             align-items: center;
             margin-top: 0px;
+        }
+        .ant-table {
+            overflow-x: scroll;
         }
     }
 }
