@@ -208,7 +208,7 @@ class Promotions extends React.Component {
                       <i
                         type="link"
                         style={{
-                          marginLeft: 300,
+                          marginLeft: 260,
                           color: "#343557",
                           fontSize: "1.5em",
                         }}
