@@ -5,17 +5,15 @@ import loginImg from '../../assets/login-img.png'
 import './login.scss'
 import Cookies from 'js-cookie';
 import { UserOutlined, LockOutlined } from '@ant-design/icons';
-//import axios from '../../config/api/'
-import axios from 'axios';
-import { response } from './mock.js'
+import axios from '../../config/api/'
 
 class Login extends Component {
 
   constructor() {
     super();
     this.state = {
-      password: '',
-      userName: '',
+      password: 'test@1234',
+      userName: 'test@gmail.com',
       errorMsg: '',
       isLoading: false,
     }
@@ -27,95 +25,38 @@ class Login extends Component {
   }
 
   signInClicked = async () => {
-
-    //  this.props.history.push('/dashboard')
-    //  window.location.reload();
     const { password, userName } = this.state
-
-
-    // if (!password || !userName) {
-    //   this.setState({ errorMsg: 'UserName/Password cannot be empty' })
-    // }
-    // else if (!this.isEmailId(userName)) {
-    //   this.setState({ errorMsg: 'Invalid Email ID' })
-    // }
-    // else if (password.length <= 4) {
-    //   this.setState({ errorMsg: 'Invalid password length' })
-    // }
-    // else 
-
-    let body = {
-      "emailId": "test@gmail.com",
-      "password": "test@1234",
-      "userType": "Super Admin"
+    if (!password || !userName) {
+      this.setState({ errorMsg: 'UserName/Password cannot be empty' })
     }
-    const baseURL = 'https://d9c6y9z297.execute-api.eu-west-1.amazonaws.com/dev'
-
-    //const r = Cookies.get('connect.sid')
-
-
-    //   const response2 = await axios.create({
-    //             baseURL: baseURL,
-    //         })
-    //         .get('/admin')
-    //         .then(function (response) {
-    //           debugger
-    //         //    console.log('Cookie: ',response.config.headers.Cookie);
-    //             console.log('Cookie:....... ',response.data);
-
-    //             return response.data;
-    //         })
-    //         .catch(function (error) {
-    //             console.log(error);
-    //         })
-    // console.log("response2 ",response2)
-
-
-
-    const response1 = await axios.post('https://d9c6y9z297.execute-api.eu-west-1.amazonaws.com/dev/login'
-      , body)
-      .then(function (response) {
+    else if (!this.isEmailId(userName)) {
+      this.setState({ errorMsg: 'Invalid Email ID' })
+    }
+    else if (password.length <= 4) {
+      this.setState({ errorMsg: 'Invalid password length' })
+    }
+    else {
+      this.setState({ isLoading: true })
+      const response = await axios
+        .post('login', {
+          emailId: userName,
+          password: password,
+          userType: "Super Admin",
+        })
+      this.setState({ isLoading: false })
+      const auth = response.data && response.data.auth
+      if (auth) {
         Cookies.set('accessToken', response.data.auth);
-       // return response.data;
-      })
-      .catch(function (error) {
-        console.log(error);
-      });
+        //  this.props.history.push('/dashboard')
+        setTimeout(() => window.location.reload(), 1000)
+      } else {
+        this.setState({ errorMsg: 'Something went wrong! Try again' })
+      }
+    }
 
-
-
-
-    // {
-    //   this.setState({ isLoading: true })
-    //   const result = await axios.post('https://d9c6y9z297.execute-api.eu-west-1.amazonaws.com/prod/login',
-    //     {
-    //       emailId: "test@gmail.com",
-    //       password : "test@1234",
-    //       userType : "Super Admin"
-    //     },
-    //     {
-    //       headers: {
-    //         "Content-Type": "application/json"
-    //       }
-    //     })
-    //   // const result = await axios.post('/login', {
-    //   //     "emailId": "test@gmail.com",
-    //   //     "password" : "test1@1234",
-    //   //     "userType": "Super Admin",
-    //   // })
-    //   this.setState({ isLoading: false })
-    //   debugger
-    //   console.log("test",result.headers['set-cookie'][0])
-    //Cookies.set('accessToken', 's%3AHU73-2GOTmSrjEqcs7gWT2IS6QVxsK0F.CkY%2F48BZnDEu8oFUk3ZcLvDXo6iknsz5uQItNmn4O%2FE');
-    //   // this.setState({ errorMsg:result.data.message })
-    // }
   }
 
-
-
-
   render() {
-    const { isLoading } = this.state
     const layout = {
       labelCol: {
         span: 8,
@@ -124,14 +65,7 @@ class Login extends Component {
         span: 16,
       },
     };
-    const onFinish = (values) => {
-      console.log('Success:', values);
-    };
-
-    const onFinishFailed = (errorInfo) => {
-      console.log('Failed:', errorInfo);
-    };
-    const { errorMsg } = this.state
+    const { errorMsg, password, userName, isLoading } = this.state
     return (
       <div className={'login-screen'}>
         <div className={'login-wrapper'}>
@@ -144,8 +78,7 @@ class Login extends Component {
                 layout="vertical"
                 name="normal_login"
                 className="login-form"
-                initialValues={{ remember: true }}
-                onFinish={onFinish} >
+                initialValues={{ remember: true }}>
 
                 <div className={'login-brand-logo-wrapper'}>
                   <h1>GLOWTOX</h1>
@@ -156,6 +89,7 @@ class Login extends Component {
                   rules={[{ message: 'Please input your Username!' }]}>
                   <Input
                     size="large"
+                    defaultValue={userName}
                     style={{ borderRadius: '5px' }}
                     prefix={<UserOutlined className="site-form-item-icon" />}
                     onChange={(e) => this.setState({ userName: e.target.value })}
@@ -166,7 +100,10 @@ class Login extends Component {
                   name="password"
                   rules={[{ message: 'Please input your Password!' }]}
                 >
-                  <Input size="large" style={{ borderRadius: '5px' }}
+                  <Input 
+                    size="large" 
+                    style={{ borderRadius: '5px' }}
+                    defaultValue={password}
                     prefix={<LockOutlined className="site-form-item-icon" />}
                     type="password"
                     placeholder="Password"
