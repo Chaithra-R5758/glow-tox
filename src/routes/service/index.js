@@ -3,8 +3,6 @@ import loginImg from '../../assets/login-img.png'
 import './service.scss';
 import { Card, Button, Modal, Skeleton, Anchor, Input, Image, PageHeader, Form } from 'antd';
 import React, { useState } from 'react';
-import { response } from './mock.js'
-import { responseId } from './mock-id.js'
 import { withRouter } from 'react-router-dom';
 import axios from '../../config/api/'
 import defaultImg from '../../assets/default.png'
@@ -22,7 +20,8 @@ class Service extends React.Component {
     super()
     this.state = {
       service: {},
-      response: {},
+     // response: {},
+      services:[],
       defaultImg,
       loading: false,
       error: false,
@@ -32,7 +31,11 @@ class Service extends React.Component {
   }
 
   async componentDidMount() {
-    const result = await axios.get('/admin/getAllAdminServices',)
+    this.setState({loading:true})
+    const response = await axios.get('/admin/getAllAdminServices',)
+    const services = response.data && response.data.service
+    if(services)
+    this.setState({services, loading:false})
   }
 
   imageHandler = e => {
@@ -45,7 +48,7 @@ class Service extends React.Component {
     reader.readAsDataURL(e.target.files[0]);
   };
 
-  showModal = (service) => {
+  showModal = (service = {}) => {
     this.setState({
       visible: true,
       service
@@ -59,7 +62,7 @@ class Service extends React.Component {
   };
 
   servicesUI = () => {
-    const { loading, error } = this.state
+    const { loading, error, services } = this.state
     if (loading) {
       return (
         ["", "", "", "", ""].map(option =>
@@ -72,16 +75,13 @@ class Service extends React.Component {
         ))
     }
     else if (error) { return <Error title="Something went wrong" /> }
-    else if (response
-      && response.service
-      && response.service.length === 0) {
+    else if (services && services.length === 0) {
       return <Error title="0 Service exists" />
     }
-    else if (response
-      && response.service
-      && response.service.length > 0) {
+    else if (services
+      && services.length > 0) {
       return (
-        response.service.map(service =>
+        services.map(service =>
           <div className={'dashboard-card'}>
             <Card
               hoverable

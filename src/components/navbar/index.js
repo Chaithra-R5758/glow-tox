@@ -153,6 +153,12 @@ class NavBar extends React.Component {
     }
   }
 
+  logOutClicked = () => {
+    Cookies.remove('accessToken')
+    Cookies.remove('userType')
+    window.location.reload();
+  }
+
   getNavOptionsMob = () => {
     const grey3 = '#edf0f5';
     const navIconSize = '24px'
@@ -236,7 +242,7 @@ class NavBar extends React.Component {
           <div className={'nav-options-wrapper'} >
             {this.getNavOptions()}
 
-            <div className={'nav-option logout-option'} onClick={() => null}>
+            <div className={'nav-option logout-option'} onClick={this.logOutClicked}>
               <div>
                 <PoweroffOutlined style={{
                   fontSize: '16px',
