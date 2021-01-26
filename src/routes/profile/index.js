@@ -19,8 +19,6 @@ class Profile extends React.Component {
             isLoading: false,
             isError: false,
             userDetails: {},
-            //profileImg:
-            //    "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
         };
     }
 
@@ -31,13 +29,11 @@ class Profile extends React.Component {
             this.setState({
                 isLoading: false
             })
-            const userDetails = data && data.user
+            const userDetails = (data && data.user) || ''
             if (userDetails)
                 this.setState({ userDetails })
         } catch (e) {
-            this.setState({
-                isError: true
-            })
+            this.setState({ isError: true })
         }
     }
 
@@ -57,145 +53,144 @@ class Profile extends React.Component {
 
         } else if (isError) {
 
-        } else if (userDetails) {
-            return(
-            <div className={'content-body-wrapper'}>
-                <div className={'profile-card'} >
-                    <Card >
-                        <div className={'title-card'}>Personal Profile</div>
-                        <div className={'img-card'}>
-                            <img alt="" id="img" src={userDetails.profileImg}
-                                className={'profile-img'} />
-                        </div>
-                        <div className="edit-btn-card">
-                            <label className htmlFor="input">
-                                <i type="link" style={{ color: "#343557", fontSize: '1.5em' }}>
-                                    {<EditFilled />} </i>
-                            </label>
-                        </div>
-                        <input style={{ display: 'none' }}
-                            type="file"
-                            accept="image/*"
-                            name="image-upload"
-                            id="input"
-                            onChange={this.imageHandler}
-                        />
-
-                        <Space direction="vertical">
-                            <div className="profile-card-body" >
-                                <Form
-                                    layout="vertical"
-                                    name="nest-profile" >
-                                    <Form.Item name='name'
-                                        label="Full Name"
-                                        rules={[{ required: true, message: 'Please input your Username!' }]}>
-                                        <Input
-                                            defaultValue={userDetails.userName}
-                                            size="large"
-                                            style={{ borderRadius: '5px' }}
-                                        />
-                                    </Form.Item>
-                                    <Form.Item
-                                        name="email"
-                                        label="E-mail"
-                                        rules={[
-                                            {
-                                                type: 'email',
-                                                message: 'The input is not valid E-mail!',
-                                            },
-                                            {
-                                                required: true,
-                                                message: 'Please input your E-mail!',
-                                            },
-                                        ]}
-                                    >
-                                        <Input
-                                            defaultValue={userDetails.emailId}
-                                            size="large"
-                                            style={{ borderRadius: '5px' }} />
-                                    </Form.Item>
-                                    <Form.Item
-                                        name="phone"
-                                        label="Phone Number"
-                                        rules={[{ required: true, message: 'Please input your phone number!' }]}
-                                    >
-                                        <Input
-                                            size="large"
-                                            defaultValue={userDetails.phoneNumber}
-                                            style={{ borderRadius: '5px' }}
-                                        />
-                                    </Form.Item>
-                                </Form>
+        } else if (userDetails.userName) {
+            return (
+                <div className={'content-body-wrapper'}>
+                    <div className={'profile-card'} >
+                        <Card >
+                            <div className={'title-card'}>Personal Profile</div>
+                            <div className={'img-card'}>
+                                <img alt="" id="img" src={userDetails.profilePic}
+                                    className={'profile-img'} />
                             </div>
-                            <div
-                                className={'profile-primary-btn'}
-                                htmlType="submit"> Submit
+                            <div className="edit-btn-card">
+                                <label className htmlFor="input">
+                                    <i type="link" style={{ color: "#343557", fontSize: '1.5em' }}>
+                                        {<EditFilled />} </i>
+                                </label>
                             </div>
-                        </Space>
-                    </Card>
-                </div>
-                <div className={'profile-card-pwd'}>
-                    <Card>
-                        <div className={'title-card'}>
-                            Change Password
-                           </div>
-                        <Space direction="vertical" >
-                            <div className={'pwd-card-body'}  >
-                                <Form
-                                    layout="vertical"
-                                    name="nest-profile"  >
-                                    <Form.Item
+                            <input style={{ display: 'none' }}
+                                type="file"
+                                accept="image/*"
+                                name="image-upload"
+                                id="input"
+                                onChange={this.imageHandler}
+                            />
 
-                                        name="password"
-                                        label="Password"
-                                        rules={[
-                                            {
-                                                required: true,
-                                                message: 'Please input your password!',
-                                            },
-                                        ]}
-                                        hasFeedback
-                                    >
-                                        <Input.Password size="large" style={{ borderRadius: '5px' }} />
-                                    </Form.Item>
-                                    <Form.Item
-
-                                        name="confirm"
-                                        label="Confirm Password"
-                                        dependencies={['password']}
-                                        hasFeedback
-                                        rules={[
-                                            {
-                                                required: true,
-                                                message: 'Please confirm your password!',
-                                            },
-                                            ({ getFieldValue }) => ({
-                                                validator(_, value) {
-                                                    if (!value || getFieldValue('password') === value) {
-                                                        return Promise.resolve();
-                                                    }
-                                                    return Promise.reject(' two passwords entered do not match!');
+                            <Space direction="vertical">
+                                <div className="profile-card-body" >
+                                    <Form
+                                        layout="vertical"
+                                        name="nest-profile" >
+                                        <Form.Item name='name'
+                                            label="Full Name"
+                                            rules={[{ required: true, message: 'Please input your Username!' }]}>
+                                            <Input
+                                                defaultValue={userDetails.userName}
+                                                size="large"
+                                                style={{ borderRadius: '5px' }}
+                                            />
+                                        </Form.Item>
+                                        <Form.Item
+                                            name="email"
+                                            label="E-mail"
+                                            rules={[
+                                                {
+                                                    type: 'email',
+                                                    message: 'The input is not valid E-mail!',
                                                 },
-                                            }),
-                                        ]}
-                                    >
-                                        <Input.Password size="large" style={{ borderRadius: '5px' }} />
-                                    </Form.Item>
-                                </Form>
+                                                {
+                                                    required: true,
+                                                    message: 'Please input your E-mail!',
+                                                },
+                                            ]}
+                                        >
+                                            <Input
+                                                defaultValue={userDetails.emailId}
+                                                size="large"
+                                                style={{ borderRadius: '5px' }} />
+                                        </Form.Item>
+                                        <Form.Item
+                                            name="phone"
+                                            label="Phone Number"
+                                            rules={[{ required: true, message: 'Please input your phone number!' }]}
+                                        >
+                                            <Input
+                                                size="large"
+                                                defaultValue={userDetails.phoneNumber}
+                                                style={{ borderRadius: '5px' }}
+                                            />
+                                        </Form.Item>
+                                    </Form>
+                                </div>
+                                <div
+                                    className={'profile-primary-btn'}
+                                    htmlType="submit"> Submit
                             </div>
-                            <div className={'profile-primary-pwd-btn'} htmlType="">
-                                Submit
+                            </Space>
+                        </Card>
+                    </div>
+                    <div className={'profile-card-pwd'}>
+                        <Card>
+                            <div className={'title-card'}>
+                                Change Password
+                           </div>
+                            <Space direction="vertical" >
+                                <div className={'pwd-card-body'}  >
+                                    <Form
+                                        layout="vertical"
+                                        name="nest-profile"  >
+                                        <Form.Item
+
+                                            name="password"
+                                            label="Password"
+                                            rules={[
+                                                {
+                                                    required: true,
+                                                    message: 'Please input your password!',
+                                                },
+                                            ]}
+                                            hasFeedback
+                                        >
+                                            <Input.Password size="large" style={{ borderRadius: '5px' }} />
+                                        </Form.Item>
+                                        <Form.Item
+
+                                            name="confirm"
+                                            label="Confirm Password"
+                                            dependencies={['password']}
+                                            hasFeedback
+                                            rules={[
+                                                {
+                                                    required: true,
+                                                    message: 'Please confirm your password!',
+                                                },
+                                                ({ getFieldValue }) => ({
+                                                    validator(_, value) {
+                                                        if (!value || getFieldValue('password') === value) {
+                                                            return Promise.resolve();
+                                                        }
+                                                        return Promise.reject(' two passwords entered do not match!');
+                                                    },
+                                                }),
+                                            ]}
+                                        >
+                                            <Input.Password size="large" style={{ borderRadius: '5px' }} />
+                                        </Form.Item>
+                                    </Form>
+                                </div>
+                                <div className={'profile-primary-pwd-btn'} htmlType="">
+                                    Submit
                                         </div>
-                        </Space>
-                    </Card>
+                            </Space>
+                        </Card>
+                    </div>
                 </div>
-            </div>
             )
         }
     }
 
     render() {
-        const { profileImg, userDetails } = this.state;
         return (
             <div className="profile-screen">
                 <div>

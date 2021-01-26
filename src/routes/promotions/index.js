@@ -158,7 +158,7 @@ class Promotions extends React.Component {
     this.setState({
       savePromotionLoading: true,
     });
-    const savePromotion = await axios.get("/admin/savePromotion", promotion);
+    const savePromotion = await axios.post("/admin/savePromotion", promotion);
     this.setState({
       savePromotionLoading: false,
     });

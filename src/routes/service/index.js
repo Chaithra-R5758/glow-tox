@@ -117,12 +117,11 @@ class Service extends React.Component {
     }
   }
 
-
   saveService = async (service) => {
     this.setState({
       saveServiceLoading: true,
     })
-    const saveService = await axios.get('/admin/saveService', service)
+    const saveService = await axios.post('/admin/saveService', service)
     this.setState({
       saveServiceLoading: false,
     })
