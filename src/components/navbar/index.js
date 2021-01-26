@@ -37,7 +37,7 @@ class NavBar extends React.Component {
       //  screenName: 'Home',
       selectedNavOption: -1,
       visible: false,
-      pathname:'',
+      pathname: '',
     }
   }
 
@@ -48,35 +48,38 @@ class NavBar extends React.Component {
   };
 
   componentWillMount() {
-    // const userType = Cookies.get('userType')
-    // if (userType) {
-    //   this.setState({ userType })
-    // }
-  }
-
-  getIndexForPath = (path) => {
-    switch(path){
-      case '/dashboard' : return 0;
-      case '/services' : return 1;
-      case '/promotions' : return 2;
-      case '/servicehistory' : return 3;
-      case '/giftcards' : return 4;
-      default :return 0;
+    const path = window.location.pathname
+    const { selectedNavOption } = this.state
+    if (selectedNavOption === -1) {
+      this.setState({
+        selectedNavOption: this.getIndexForPath(path)
+      })
     }
   }
 
-  componentWillUpdate(newProps,newState){
+  getIndexForPath = (path) => {
+    switch (path) {
+      case '/dashboard': return 0;
+      case '/services': return 1;
+      case '/promotions': return 2;
+      case '/servicehistory': return 3;
+      case '/giftcards': return 4;
+      default: return 0;
+    }
+  }
+
+  componentWillUpdate(newProps, newState) {
     const path = window.location.pathname
-    const {pathname} = this.state
-    if(!pathname || pathname !== path){
-      this.setState({pathname:path},() => {
+    const { pathname } = this.state
+    if (!pathname || pathname !== path) {
+      this.setState({ pathname: path }, () => {
         this.setState({ selectedNavOption: this.getIndexForPath(path) })
       })
     }
   }
 
   // componentWillUpdate(){
-    
+
   //   const path = window.location.pathname
   //   debugger
   //   switch(path){
@@ -108,22 +111,22 @@ class NavBar extends React.Component {
         fontSize: navIconSize,
         color: selectedNavOption === index ? white : grey3
       }}
-      
+
       />
-      
+
       // <AppstoreFilled style={{
       //   fontSize: navIconSize,
       //   color: selectedNavOption === index ? white : grey3
       // }} />
       //<img src={home} style={{width:'30px'}}/> 
-        
-      
-      
+
+
+
       case 'Services': return <DribbbleCircleFilled style={{
         fontSize: navIconSize,
         color: selectedNavOption === index ? white : grey3
       }} />
-      
+
       // <ExperimentFilled style={{
       //   fontSize: navIconSize,
       //   color: selectedNavOption === index ? white : grey3
@@ -135,7 +138,7 @@ class NavBar extends React.Component {
       case 'Service History': return <FileTextFilled style={{
         fontSize: navIconSize,
         color: selectedNavOption === index ? white : grey3
-      }}/>
+      }} />
       // <HistoryOutlined style={{
       //   fontSize: navIconSize,
       //   color: selectedNavOption === index ? white : grey3
@@ -143,8 +146,8 @@ class NavBar extends React.Component {
       case 'Gift Cards': return <GiftFilled style={{
         fontSize: navIconSize,
         color: selectedNavOption === index ? white : grey3
-      }}/>
-      
+      }} />
+
       // <GiftFilled style={{
       //   fontSize: navIconSize,
       //   color: selectedNavOption === index ? white : grey3
@@ -155,6 +158,8 @@ class NavBar extends React.Component {
 
   logOutClicked = () => {
     Cookies.remove('accessToken')
+    Cookies.remove('recId')
+    Cookies.remove('userId')
     Cookies.remove('userType')
     window.location.reload();
   }

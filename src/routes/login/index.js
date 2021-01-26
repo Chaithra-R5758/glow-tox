@@ -45,9 +45,11 @@ class Login extends Component {
         })
       this.setState({ isLoading: false })
       const auth = response.data && response.data.auth
-      if (auth) {
-        Cookies.set('accessToken', response.data.auth);
-        //  this.props.history.push('/dashboard')
+      const user = response.data && response.data.user
+      if (auth && user) {
+        Cookies.set('accessToken', auth || '');
+        Cookies.set('userId', user.userId || '');
+        Cookies.set('recId', user.recId || '');
         setTimeout(() => window.location.reload(), 1000)
       } else {
         this.setState({ errorMsg: 'Something went wrong! Try again' })

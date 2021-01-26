@@ -4,10 +4,33 @@ import './service.scss';
 import { Card, Button, Modal, Skeleton, Anchor, Input, Image, PageHeader, Form } from 'antd';
 import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
+import { getUserId, getRecId } from '../../config/helpers/'
 import axios from '../../config/api/'
 import defaultImg from '../../assets/default.png'
 import { Error } from '../../components/error'
 import { BeforeAfter } from './before-after'
+
+// category: null
+// categoryName: ["Botulinum toxin’s Full-Face services"]
+// cost: 199.9
+// description: "Botox - Full face + Test123"
+// isActive: true
+// recId: "recA1OgdrCiDsbqi1"
+// serviceId: "SR004"
+// serviceName: "Botox - Full face + Test"
+// userId: "GLX00002"
+
+// {
+//   "recId" : "",
+//   "userId" : "",
+//    "serviceName" : "",
+//    "categoryName" : "",
+//    "description" : "",
+//    "serviceImage" : "",
+//    "cost" : "",
+//    "isActive" : ""
+// }
+
 const { Meta } = Card;
 const { TextArea } = Input;
 const { Link } = Anchor;
@@ -20,8 +43,8 @@ class Service extends React.Component {
     super()
     this.state = {
       service: {},
-     // response: {},
-      services:[],
+      // response: {},
+      services: [],
       defaultImg,
       loading: false,
       error: false,
@@ -31,11 +54,11 @@ class Service extends React.Component {
   }
 
   async componentDidMount() {
-    this.setState({loading:true})
+    this.setState({ loading: true })
     const response = await axios.get('/admin/getAllAdminServices',)
     const services = response.data && response.data.service
-    if(services)
-    this.setState({services, loading:false})
+    if (services)
+      this.setState({ services, loading: false })
   }
 
   imageHandler = e => {
@@ -57,6 +80,7 @@ class Service extends React.Component {
 
   hideModal = () => {
     this.setState({
+      service:{},
       visible: false,
     });
   };
@@ -117,14 +141,39 @@ class Service extends React.Component {
     }
   }
 
+  createService = async (service) => {
+    this.setState({ saveServiceLoading: true })
+    try {
+      const saveService = await axios.post('/admin/createService', {
+        ...service,
+        userId: getUserId(),
+        recId: getRecId(),
+        serviceImage: ''
+      })
+    }
+    catch (e) {
+      this.setState({ saveServiceLoading: false })
+    }
+  }
+
   saveService = async (service) => {
     this.setState({
       saveServiceLoading: true,
     })
-    const saveService = await axios.post('/admin/saveService', service)
-    this.setState({
-      saveServiceLoading: false,
-    })
+
+    try {
+      const saveService = await axios.post('/admin/saveService', {
+        ...service,
+        userId: getUserId(),
+        recId: getRecId(),
+        serviceImage: ''
+      })
+    }
+    catch (e) {
+      this.setState({
+        saveServiceLoading: false,
+      })
+    }
   }
 
   onChangeName = e => {
@@ -154,41 +203,27 @@ class Service extends React.Component {
     }))
   }
 
-
-  render() {
-    const { defaultImg } = this.state;
-    const { beforeAfterSets, service, saveServiceLoading } = this.state
-
+  modalUI = () => {
+    const { defaultImg, beforeAfterSets, service, saveServiceLoading } = this.state
+    console.log("service",service)
     return (
-      <div className="service-screen">
-        <div className={'content-wrapper'}>
-          <PageTitle
-            title={'Service'}
-          />
-          <div className={"service-card"}>
-            <Card>
-              <div className={'content-body-wrapper'}>
-                <div className={'primary-btn'} onClick={this.showModal}>
-                  Add New Service
-              </div>
-                <div className={'modal-wrapper'}>
-                  <Modal
-                    visible={this.state.visible}
-                    wrapClassName={'update-panel'}
-                    onCancel={this.hideModal} footer={null} width={800}
-                    style={{ top: 100 }}>
+      <Modal
+        visible={this.state.visible}
+        wrapClassName={'update-panel'}
+        onCancel={this.hideModal} footer={null} width={800}
+        style={{ top: 100 }}>
 
-                    <div style={{ display: 'flex' }}>
-                      <div className={'modal-title'} style={{
-                        flex: '1',
-                        ontFamily: "Poppins, sans-serif",
-                        fontWeight: ' bolder',
-                        fontSize: '18px',
-                        // marginTop: 20
-                      }}>
-                        Service Add/Edit
+        <div style={{ display: 'flex' }}>
+          <div className={'modal-title'} style={{
+            flex: '1',
+            ontFamily: "Poppins, sans-serif",
+            fontWeight: ' bolder',
+            fontSize: '18px',
+            // marginTop: 20
+          }}>
+            Service Add/Edit
                       </div>
-                      {/* <Button 
+          {/* <Button 
                         onClick={() => this.enterLoading(1)} 
                         className="save-btn"
                         style={{
@@ -199,137 +234,150 @@ class Service extends React.Component {
                           marginTop: '20px' 
                         }}
                         >Save</Button> */}
-                    </div>
-                    <div
-                      className={'modal-content-wrapper'}
-                      style={{
-                        display: 'flex',
-                        flexWrap: 'wrap',
-                      }}
-                    >
-                      <div className={'modal-content-left-wrapper'}
-                        style={{
-                          display: 'flex',
-                          flex: '1',
-                          justifyContent: 'center',
-                          alignSelf: 'center',
-                          margin: '0 0 20px 0',
-                          flexDirection: 'column',
-                          width: '50%'
-                        }}>
-                        <label htmlFor="input">
-                          <img
-                            src={service.serviceImage || defaultImg}
-                            id="img"
-                            className="img"
-                            style={{
-                              margin: '10%',
-                              width: 270,
-                              height: 200,
-                              objectFit: 'contain'
-                            }}
-                          />
-                        </label>
-                        <input style={{ display: 'none' }}
-                          type="file"
-                          accept="image/*"
-                          name="image-upload"
-                          id="input"
-                          onChange={this.imageHandler}
-                        />
-                        <div className="modal-title"
-                          onClick={() => this.setState({
-                            beforeAfterSets: [...beforeAfterSets, beforeAfterSet]
-                          })}
-                          style={{
-                            fontFamily: "Poppins, sans-serif",
-                            fontWeight: ' bolder', fontSize: '14px',
-                            marginBottom: '10px', cursor: 'pointer',
-                          }}>  Some Pics+ </div>
-                        <div
-                          className={'thumnail-list-wrapper'}
-                          style={{
-                            display: 'flex',
-                            overflowX: 'auto',
-                            margin: '0 15px'
-                          }}>
-                          {
-                            beforeAfterSets
-                              .map(beforeAfterSet => {
-                                return (<BeforeAfter beforeAfterSet />)
-                              })
-                          }
-                        </div>
-                      </div>
-                      <div
-                        className={'modal-content-right-wrapper'}
-                        style={{
-                          display: 'flex',
-                          flex: 1,
-                          flexDirection: 'column',
-                        }}
-                      >
-                        <div style={{
+        </div>
+        <div
+          className={'modal-content-wrapper'}
+          style={{
+            display: 'flex',
+            flexWrap: 'wrap',
+          }}
+        >
+          <div className={'modal-content-left-wrapper'}
+            style={{
+              display: 'flex',
+              flex: '1',
+              justifyContent: 'center',
+              alignSelf: 'center',
+              margin: '0 0 20px 0',
+              flexDirection: 'column',
+              width: '50%'
+            }}>
+            <label htmlFor="input">
+              <img
+                src={service.serviceImage || defaultImg}
+                id="img"
+                className="img"
+                style={{
+                  margin: '10%',
+                  width: 270,
+                  height: 200,
+                  objectFit: 'contain'
+                }}
+              />
+            </label>
+            <input style={{ display: 'none' }}
+              type="file"
+              accept="image/*"
+              name="image-upload"
+              id="input"
+              onChange={this.imageHandler}
+            />
+            <div className="modal-title"
+              onClick={() => this.setState({
+                beforeAfterSets: [...beforeAfterSets, beforeAfterSet]
+              })}
+              style={{
+                fontFamily: "Poppins, sans-serif",
+                fontWeight: ' bolder', fontSize: '14px',
+                marginBottom: '10px', cursor: 'pointer',
+              }}>  Some Pics+ </div>
+            <div
+              className={'thumnail-list-wrapper'}
+              style={{
+                display: 'flex',
+                overflowX: 'auto',
+                margin: '0 15px'
+              }}>
+              {
+                beforeAfterSets
+                  .map(beforeAfterSet => {
+                    return (<BeforeAfter beforeAfterSet />)
+                  })
+              }
+            </div>
+          </div>
+          <div
+            className={'modal-content-right-wrapper'}
+            style={{
+              display: 'flex',
+              flex: 1,
+              flexDirection: 'column',
+            }}
+          >
+            {service.serviceName}
+            <div>Service Name</div>
+            <input
+              value={service.serviceName}
+              onChange={this.onChangeName}
+              style={{
+                padding: '5px',
+                margin: '5px 0',
+                borderRadius: '5px',
+                border: '1px solid #d9d9d9',
+              }}
+            />
+            <div>Email Id</div>
+            <input
+              value={service.email}
+              onChange={this.onChangeEmail}
+              style={{
+                padding: '5px',
+                margin: '5px 0',
+                borderRadius: '5px',
+                border: '1px solid #d9d9d9',
+              }}
+            />
+            <div>Description</div>
+            <TextArea
+              value={service.description}
+              onChange={this.onChangeDesc}
+              rows={7}
+              style={{
+                padding: '5px',
+                margin: '5px 0',
+                borderRadius: '5px',
+                border: '1px solid #d9d9d9',
+              }}
+            />
+          </div>
+        </div>
 
-                        }}>Service Name</div>
-                        <input
-                          value={service.serviceName}
-                          onChange={this.onChangeName}
-                          style={{
-                            padding: '5px',
-                            margin: '5px 0',
-                            borderRadius: '5px',
-                            border: '1px solid #d9d9d9',
-                          }}
-                        />
-                        <div style={{
+        <div
+          style={{
+            display: 'flex',
+            justifyContent: 'flex-end',
+          }}>
+          <Button
+            loading={saveServiceLoading}
+            onClick={() => this.saveService(service)}
+            className="save-btn"
+            style={{
+              backgroundColor: '#5D72E9',
+              color: 'white',
+              borderRadius: '5px',
+              padding: '0px 25px',
+              marginTop: '20px'
+            }}>Save</Button>
+        </div>
+      </Modal>
+    )
+  }
 
-                        }}>Email Id</div>
-                        <input
-                          value={service.email}
-                          onChange={this.onChangeEmail}
-                          style={{
-                            padding: '5px',
-                            margin: '5px 0',
-                            borderRadius: '5px',
-                            border: '1px solid #d9d9d9',
-                          }}
-                        />
-                        <div style={{
-
-                        }}>Description</div>
-                        <TextArea
-                          value={service.description}
-                          onChange={this.onChangeDesc}
-                          rows={7}
-                          style={{
-                            padding: '5px',
-                            margin: '5px 0',
-                            borderRadius: '5px',
-                            border: '1px solid #d9d9d9',
-                          }}
-                        />
-                      </div>
-                    </div>
-
-                    <div
-                      style={{
-                        display: 'flex',
-                        justifyContent: 'flex-end',
-                      }}>
-                      <Button
-                        loading={saveServiceLoading}
-                        onClick={() => this.saveService(service)}
-                        className="save-btn"
-                        style={{
-                          backgroundColor: '#5D72E9',
-                          color: 'white',
-                          borderRadius: '5px',
-                          padding: '0px 25px',
-                          marginTop: '20px'
-                        }}>Save</Button>
-                    </div>
-                  </Modal>
+  render() {
+    return (
+      <div className="service-screen">
+        <div className={'content-wrapper'}>
+          <PageTitle
+            title={'Service'}
+          />
+          <div className={"service-card"}>
+            <Card>
+              <div className={'content-body-wrapper'}>
+                <div className={'primary-btn'} onClick={() => this.showModal()}>
+                  Add New Service
+              </div>
+                <div className={'modal-wrapper'}>
+                  {this.modalUI()}
                 </div>
                 <div className={'dashboard-card-wrapper'}>
                   {this.servicesUI()}
@@ -340,8 +388,6 @@ class Service extends React.Component {
         </div>
       </div>
     )
-
   }
-
 }
 export default withRouter(Service);

@@ -6,6 +6,7 @@ import { EditFilled } from '@ant-design/icons'
 import axios from '../../config/api/'
 import { withRouter } from 'react-router-dom';
 import React, { Component } from 'react';
+import { refeshUI } from '../../config/helpers'
 
 const layout = {
     labelCol: { span: 8 },
@@ -17,6 +18,7 @@ class Profile extends React.Component {
         super()
         this.state = {
             isLoading: false,
+            isChangePasswordLoading:false,
             isError: false,
             userDetails: {},
         };
@@ -124,6 +126,7 @@ class Profile extends React.Component {
                                     </Form>
                                 </div>
                                 <div
+                                    onClick={()=>this.saveUserDetails()}
                                     className={'profile-primary-btn'}
                                     htmlType="submit"> Submit
                             </div>
@@ -132,7 +135,9 @@ class Profile extends React.Component {
                     </div>
                     <div className={'profile-card-pwd'}>
                         <Card>
-                            <div className={'title-card'}>
+                            <div
+                                onClick={()=>this.changePassword()}
+                                className={'title-card'}>
                                 Change Password
                            </div>
                             <Space direction="vertical" >
@@ -187,6 +192,26 @@ class Profile extends React.Component {
                     </div>
                 </div>
             )
+        }
+    }
+
+    saveUserDetails = () => {
+
+    }
+
+    changePassword = async () => {
+        this.setState({ isChangePasswordLoading: true })
+        try {
+            const { data } = await axios.get('admin/updateUserProfile')
+            this.setState({
+                isChangePasswordLoading: false
+            })
+            refeshUI()
+            // const userDetails = (data && data.user) || ''
+            // if (userDetails)
+            //     this.setState({ userDetails })
+        } catch (e) {
+            this.setState({ isChangePasswordError: true })
         }
     }
 
