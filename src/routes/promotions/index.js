@@ -18,12 +18,20 @@ class Promotions extends React.Component {
     this.state = {
       loginImg,
       promotion: {},
+      promotions: [] ,
       loading: false,
       error: false,
       savePromotionLoading: false,
     };
   }
 
+  async componentDidMount() {
+    this.setState({loading:true})
+    const response = await axios.get('/admin/getAllPromotionForSuperAdmin',)
+    const promotions = response.data && response.data.promotion
+    if(promotions)
+    this.setState({promotions, loading:false})
+  }
   onChangeLink = e => {
     this.setState(prevState => ({
       promotion: {
@@ -48,7 +56,7 @@ class Promotions extends React.Component {
       }
     }))
   }
-  showModal = (promotion) => {
+  showModal = (promotion = {}) => {
     this.setState({
       visible: true,
       promotion
@@ -77,7 +85,7 @@ class Promotions extends React.Component {
   };
 
   promotionsUI = () => {
-    const { loading, error } = this.state;
+    const { loading, error,promotions } = this.state;
     if (loading) {
       return (
         <div className={'promo-card-wrapper'}>
@@ -97,16 +105,16 @@ class Promotions extends React.Component {
       return <Error title="Something went wrong" />;
     } else if (
       response &&
-      response.promotion &&
-      response.promotion.length === 0
+      response.promotions &&
+      response.promotions.length === 0
     ) {
       return <Error title="0 Service exists" />;
     } else if (
       response &&
-      response.promotion &&
-      response.promotion.length > 0
+      response.promotions &&
+      response.promotions.length > 0
     ) {
-      return response.promotion.map((promotion) => (
+      return response.promotions.map((promotion) => (
         <div className={"promo-card"}>
           <Card bordered={true}>
             <div className="edit-btn-card">
@@ -143,7 +151,8 @@ class Promotions extends React.Component {
             </Button>
           </Card>
         </div>
-      ));
+      )
+      )
     }
   };
 
