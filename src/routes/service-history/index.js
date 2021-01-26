@@ -3,6 +3,7 @@ import './service-history.scss';
 import { Card, Table, Tag, Button, Input, Skeleton, Modal, Image } from 'antd';
 import React, { useState } from 'react';
 import axios from '../../config/api/'
+import { Error } from '../../components/error'
 import { withRouter } from 'react-router-dom';
 import { SearchOutlined } from '@ant-design/icons'
 
@@ -11,11 +12,31 @@ class ServiceHistory extends React.Component {
   constructor() {
     super()
     this.state = {
+      isError: false,
+      userDetails: {},
+      isLoading: false,
       giftcard: {},
-    saveGiftcardLoading: false,
-  };
-}
+      saveGiftcardLoading: false,
+    };
+  }
   // state = { visible: true };
+  async componentDidMount() {
+    this.setState({ isLoading: true })
+    try {
+      const { table } = await axios.get('/admin/getAllServiceTransactionForAdmin',)
+      this.setState({
+        isLoading: false
+      })
+      const userDetails = (table && table.service) || ''
+      if (userDetails)
+        this.setState({ userDetails })
+
+    } catch (e) {
+      this.setState({ isError: true })
+    }
+  }
+
+
 
   showModal = () => {
     this.setState({
@@ -28,19 +49,8 @@ class ServiceHistory extends React.Component {
       visible: false,
     });
   };
+  servicesUI = () => {
 
-  saveService = async (service) => {
-    this.setState({
-      saveServiceLoading: true,
-    })
-    const saveService = await axios.get('/admin/saveService', service)
-    this.setState({
-      saveServiceLoading: false,
-    })
-  }
-  render() {
-
-    const { service, saveServiceLoading } = this.state
     const columns = [
       {
         title: 'Transaction Id',
@@ -164,6 +174,7 @@ class ServiceHistory extends React.Component {
 
       },
     ];
+
     // for (let i = 5; i < 100; i++) {
     //   data.push({
 
@@ -182,6 +193,39 @@ class ServiceHistory extends React.Component {
     //   });
     // }
 
+    const { isLoading, isError } = this.state
+    if (isLoading) {
+      return (
+
+        <div className={'history-card'}>
+          <Skeleton paragraph={{ rows: 10 }} />
+
+        </div>
+      )
+    }
+    return (
+      <div className={'history-card'}>
+        <Table dataSource={data} columns={columns} />
+      </div>
+    )
+
+  }
+
+  saveService = async (service) => {
+    this.setState({
+      saveServiceLoading: true,
+    })
+    const saveService = await axios.get('/admin/saveService', service)
+    this.setState({
+      saveServiceLoading: false,
+    })
+  }
+
+
+
+  render() {
+
+    const { service, saveServiceLoading } = this.state
 
     return (
 
@@ -197,7 +241,7 @@ class ServiceHistory extends React.Component {
                   <div className={'search-wrapper'} >
                     <Input placeholder="Search..." prefix={<SearchOutlined />} />
                   </div>
-                  <Table dataSource={data} columns={columns} />
+                  {this.servicesUI()}
                   <Modal
                     visible={this.state.visible}
                     onCancel={this.hideModal} footer={null} width={600} style={{ top: 180 }} >
@@ -205,15 +249,15 @@ class ServiceHistory extends React.Component {
                       fontFamily: "Poppins, sans-serif",
                       fontWeight: ' bolder', fontSize: '18px', marginTop: -10
                     }}>Service History-View</div>
-                   
 
-                    <div className="image-wrapper" style={{ display: 'flex',marginTop: 20 }}>
+
+                    <div className="image-wrapper" style={{ display: 'flex', marginTop: 20 }}>
                       <img width={'90'} height={90} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTChQdlYiED1Ot1XBsYrExnQlEPnuU55oXFXA&usqp=CAU" />
                       <div className="create-wrapper"  >
 
                         <Input value="Full Name" placeholder="Full Name" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
 
-                        <Input value="Loyality Points" placeholder="Loyality Points" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10,  marginBottom: 10 }} />
+                        <Input value="Loyality Points" placeholder="Loyality Points" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
 
                         <Input value="Email Id" placeholder="Email Id" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
 
@@ -233,13 +277,13 @@ class ServiceHistory extends React.Component {
 
                         <Input value="Email Id" placeholder="Email Id" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
 
-                        <Input value="Mobile Number" placeholder="Mobile Number" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10 , marginBottom: 30}} />
+                        <Input value="Mobile Number" placeholder="Mobile Number" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 30 }} />
 
                       </div>
-                     
+
                     </div>
                     <Button loading={saveServiceLoading}
-                        onClick={() => this.saveService(service)}className="save-btn" style={{ float: 'right', backgroundColor: '#5D72E9', color: 'white', borderRadius: '5px', padding: ' 0px 25px',marginTop:-20 }} >Save</Button>
+                      onClick={() => this.saveService(service)} className="save-btn" style={{ float: 'right', backgroundColor: '#5D72E9', color: 'white', borderRadius: '5px', padding: ' 0px 25px', marginTop: -20 }} >Save</Button>
 
                   </Modal>
                 </div>

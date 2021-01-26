@@ -3,7 +3,7 @@ import { PageTitle } from '../../components/page-title/'
 import './gift-card2.scss';
 import axios from '../../config/api/'
 import { SearchOutlined } from '@ant-design/icons'
-import { Card, Table, Tag, Input, Button, Modal } from 'antd';
+import { Card, Table, Tag, Input, Button, Modal, Skeleton } from 'antd';
 import { withRouter } from 'react-router-dom';
 import { response } from './mock.js'
 
@@ -11,12 +11,29 @@ class GiftCards extends React.Component {
   constructor() {
     super()
     this.state = {
-      service: {},
-    saveServiceLoading: false,
-  };
-}
+      isError: false,
+      userDetails: {},
+      isLoading: false,
+      saveServiceLoading: false,
+    };
+  }
 
   // state = { visible: true };
+  async componentDidMount() {
+    this.setState({ isLoading: true })
+    try {
+      const { table } = await axios.get('/admin/getAllGiftCardsForAdmin',)
+      this.setState({
+        isLoading: false
+      })
+      const userDetails = (table && table.giftcards) || ''
+      if (userDetails)
+        this.setState({ userDetails })
+
+    } catch (e) {
+      this.setState({ isError: true })
+    }
+  }
   saveGiftcard = async (giftcard) => {
     this.setState({
       saveGiftcardLoading: true,
@@ -39,28 +56,9 @@ class GiftCards extends React.Component {
     });
   };
 
-  enterLoading = index => {
-    this.setState(({ loadings }) => {
-      const newLoadings = [...loadings];
-      newLoadings[index] = true;
 
-      return {
-        loadings: newLoadings,
-      };
-    });
-    setTimeout(() => {
-      this.setState(({ loadings }) => {
-        const newLoadings = [...loadings];
-        newLoadings[index] = false;
 
-        return {
-          loadings: newLoadings,
-        };
-      });
-    }, 6000);
-  };
-  render() {
-    const { giftcard, saveGiftcardLoading } = this.state
+  giftcardUI = () => {
     const columns = [
       {
         title: 'Gift Card No',
@@ -179,6 +177,26 @@ class GiftCards extends React.Component {
         service: 'service 1'
       }
     ];
+    const { isLoading, isError } = this.state
+    if (isLoading) {
+      return (
+
+        <div className={'gift-card'}>
+          <Skeleton paragraph={{ rows: 10 }} />
+
+        </div>
+      )
+    }
+    return (
+      <div className={'gift-card'}>
+        <Table dataSource={data} columns={columns} />
+      </div>
+    )
+
+  }
+
+  render() {
+    const { giftcard, saveGiftcardLoading } = this.state
 
     return (
       <div className="gift-card-screen">
@@ -198,7 +216,7 @@ class GiftCards extends React.Component {
                       Create New
                   </div>
                   </div>
-                  <Table dataSource={data} columns={columns} />
+                  {this.giftcardUI()}
                   <Modal
                     visible={this.state.visible}
                     onCancel={this.hideModal} footer={null} width={700} style={{ top: 250 }} >
@@ -206,7 +224,7 @@ class GiftCards extends React.Component {
                       fontFamily: "Poppins, sans-serif",
                       fontWeight: ' bolder', fontSize: '18px', marginTop: -10
                     }}>Gift Cards-Create</div>
-                   
+
                     <div className="create-wrapper" style={{ display: 'flex', marginTop: 20 }}>
                       <Input value="Client Name" placeholder="Client Name" style={{ width: '70%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginRight: 10 }} />
                       <Input value="Email Id" placeholder="Email Id" style={{ width: '70%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px' }} />
@@ -219,7 +237,7 @@ class GiftCards extends React.Component {
                         style={{ width: '37%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginRight: 10 }}
                       />
                       <div className={" select-wrapper"}  >
-                        <select style={{ width: 140, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px',marginBottom: 30 }}>
+                        <select style={{ width: 140, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginBottom: 30 }}>
 
                           <option value="" > </option>
                           <option value="dollar" >$</option>
@@ -228,7 +246,7 @@ class GiftCards extends React.Component {
                       </div>
                     </div>
                     <Button loading={saveGiftcardLoading}
-                        onClick={() => this.saveGiftcard(giftcard)} className="save-btn" style={{ float: 'right', backgroundColor: '#5D72E9', color: 'white', borderRadius: '5px', padding: '0px 25px 0px 25px', marginTop: '-20px' }}>Save</Button>
+                      onClick={() => this.saveGiftcard(giftcard)} className="save-btn" style={{ float: 'right', backgroundColor: '#5D72E9', color: 'white', borderRadius: '5px', padding: '0px 25px 0px 25px', marginTop: '-20px' }}>Save</Button>
                   </Modal>
 
                 </div>
