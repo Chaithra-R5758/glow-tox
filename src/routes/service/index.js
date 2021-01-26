@@ -101,7 +101,7 @@ class Service extends React.Component {
               />}>
               <div className={'service-card-body-wrapper'}>
                 <div className={'service-meta-data-wrapper'}>
-                  <div className={'service-title'}>{ service.serviceName || "No-Title" }</div>
+                  <div className={'service-title'}>{service.serviceName || "No-Title"}</div>
                   <div className={'edit-btn'}
                     onClick={() => this.showModal(service)}>
                     Edit

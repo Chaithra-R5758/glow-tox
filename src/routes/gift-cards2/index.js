@@ -1,17 +1,31 @@
 import React, { useState } from 'react';
 import { PageTitle } from '../../components/page-title/'
 import './gift-card2.scss';
+import axios from '../../config/api/'
 import { SearchOutlined } from '@ant-design/icons'
 import { Card, Table, Tag, Input, Button, Modal } from 'antd';
 import { withRouter } from 'react-router-dom';
 import { response } from './mock.js'
 
 class GiftCards extends React.Component {
-  state = {
-    loadings: []
+  constructor() {
+    super()
+    this.state = {
+      service: {},
+    saveServiceLoading: false,
   };
+}
 
   // state = { visible: true };
+  saveGiftcard = async (giftcard) => {
+    this.setState({
+      saveGiftcardLoading: true,
+    })
+    const saveGiftcard = await axios.get('/admin/saveGiftcard', giftcard)
+    this.setState({
+      saveGiftcardLoading: false,
+    })
+  }
 
   showModal = () => {
     this.setState({
@@ -46,7 +60,7 @@ class GiftCards extends React.Component {
     }, 6000);
   };
   render() {
-    const { loadings } = this.state;
+    const { giftcard, saveGiftcardLoading } = this.state
     const columns = [
       {
         title: 'Gift Card No',
@@ -190,10 +204,9 @@ class GiftCards extends React.Component {
                     onCancel={this.hideModal} footer={null} width={700} style={{ top: 250 }} >
                     <div className="modal-title" style={{
                       fontFamily: "Poppins, sans-serif",
-                      fontWeight: ' bolder', fontSize: '18px', marginTop: 20
+                      fontWeight: ' bolder', fontSize: '18px', marginTop: -10
                     }}>Gift Cards-Create</div>
-                    <Button loading={loadings[1]}
-                      onClick={() => this.enterLoading(1)} className="save-btn" style={{ float: 'right', backgroundColor: '#5D72E9', color: 'white', borderRadius: '5px', padding: '0px 25px 0px 25px', marginTop: '-30px' }}>Save</Button>
+                   
                     <div className="create-wrapper" style={{ display: 'flex', marginTop: 20 }}>
                       <Input value="Client Name" placeholder="Client Name" style={{ width: '70%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginRight: 10 }} />
                       <Input value="Email Id" placeholder="Email Id" style={{ width: '70%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px' }} />
@@ -206,7 +219,7 @@ class GiftCards extends React.Component {
                         style={{ width: '37%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginRight: 10 }}
                       />
                       <div className={" select-wrapper"}  >
-                        <select style={{ width: 140, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px' }}>
+                        <select style={{ width: 140, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px',marginBottom: 30 }}>
 
                           <option value="" > </option>
                           <option value="dollar" >$</option>
@@ -214,6 +227,8 @@ class GiftCards extends React.Component {
                         </select>
                       </div>
                     </div>
+                    <Button loading={saveGiftcardLoading}
+                        onClick={() => this.saveGiftcard(giftcard)} className="save-btn" style={{ float: 'right', backgroundColor: '#5D72E9', color: 'white', borderRadius: '5px', padding: '0px 25px 0px 25px', marginTop: '-20px' }}>Save</Button>
                   </Modal>
 
                 </div>

@@ -64,10 +64,11 @@
         }
     }
     .pwd-card-body {
-        width: 145%;
+        margin-left: 10px;
+        width: 130%;
     }
     .profile-primary-btn {
-        background-color: #5D72E9;
+        background-color: #5d72e9;
         padding: 10px 15px;
         border-radius: 5px;
         color: white;
@@ -78,7 +79,7 @@
         cursor: pointer;
     }
     .profile-primary-pwd-btn {
-        background-color: #5D72E9;
+        background-color: #5d72e9;
         padding: 10px 15px;
         border-radius: 5px;
         color: white;
@@ -95,9 +96,8 @@
             flex-direction: column;
             margin: 10px 0px 20px 0px;
         }
-         .img-card {
-           margin-left: 50px;
-           
+        .img-card {
+            margin-left: 50px;
         }
         .profile-img {
             display: inline;
@@ -121,7 +121,8 @@
             width: 115%;
         }
         .pwd-card-body {
-            width: 115%;
+            margin-left: 15px;
+            width: 100%;
         }
     }
 }

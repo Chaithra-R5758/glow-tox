@@ -2,14 +2,19 @@ import { PageTitle } from '../../components/page-title'
 import './service-history.scss';
 import { Card, Table, Tag, Button, Input, Skeleton, Modal, Image } from 'antd';
 import React, { useState } from 'react';
+import axios from '../../config/api/'
 import { withRouter } from 'react-router-dom';
 import { SearchOutlined } from '@ant-design/icons'
 
 
 class ServiceHistory extends React.Component {
-  state = {
-    loadings: []
+  constructor() {
+    super()
+    this.state = {
+      giftcard: {},
+    saveGiftcardLoading: false,
   };
+}
   // state = { visible: true };
 
   showModal = () => {
@@ -24,30 +29,18 @@ class ServiceHistory extends React.Component {
     });
   };
 
-  enterLoading = index => {
-    this.setState(({ loadings }) => {
-      const newLoadings = [...loadings];
-      newLoadings[index] = true;
-
-      return {
-        loadings: newLoadings,
-      };
-    });
-    setTimeout(() => {
-      this.setState(({ loadings }) => {
-        const newLoadings = [...loadings];
-        newLoadings[index] = false;
-
-        return {
-          loadings: newLoadings,
-        };
-      });
-    }, 6000);
-  };
+  saveService = async (service) => {
+    this.setState({
+      saveServiceLoading: true,
+    })
+    const saveService = await axios.get('/admin/saveService', service)
+    this.setState({
+      saveServiceLoading: false,
+    })
+  }
   render() {
 
-    const { loadings } = this.state;
-
+    const { service, saveServiceLoading } = this.state
     const columns = [
       {
         title: 'Transaction Id',
@@ -207,25 +200,24 @@ class ServiceHistory extends React.Component {
                   <Table dataSource={data} columns={columns} />
                   <Modal
                     visible={this.state.visible}
-                    onCancel={this.hideModal} footer={null} width={700} style={{ top: 180 }} >
+                    onCancel={this.hideModal} footer={null} width={600} style={{ top: 180 }} >
                     <div className="modal-title" style={{
                       fontFamily: "Poppins, sans-serif",
-                      fontWeight: ' bolder', fontSize: '18px', marginTop: 20
+                      fontWeight: ' bolder', fontSize: '18px', marginTop: -10
                     }}>Service History-View</div>
-                    <Button loading={loadings[1]}
-                      onClick={() => this.enterLoading(1)} className="save-btn" style={{ float: 'right', backgroundColor: '#5D72E9', color: 'white', borderRadius: '5px', padding: ' 0px 25px', marginTop: '-30px' }} >Save</Button>
+                   
 
                     <div className="image-wrapper" style={{ display: 'flex',marginTop: 20 }}>
                       <img width={'90'} height={90} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTChQdlYiED1Ot1XBsYrExnQlEPnuU55oXFXA&usqp=CAU" />
                       <div className="create-wrapper"  >
 
-                        <Input value="Full Name" placeholder="Full Name" style={{ width: '48%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
+                        <Input value="Full Name" placeholder="Full Name" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
 
-                        <Input value="Loyality Points" placeholder="Loyality Points" style={{ width: '48%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10,  marginBottom: 10 }} />
+                        <Input value="Loyality Points" placeholder="Loyality Points" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10,  marginBottom: 10 }} />
 
-                        <Input value="Email Id" placeholder="Email Id" style={{ width: '48%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
+                        <Input value="Email Id" placeholder="Email Id" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
 
-                        <Input value="Mobile Number" placeholder="Mobile Number" style={{ width: '48%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
+                        <Input value="Mobile Number" placeholder="Mobile Number" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
 
                       </div>
 
@@ -235,18 +227,19 @@ class ServiceHistory extends React.Component {
                       <img width={90} height={90} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTChQdlYiED1Ot1XBsYrExnQlEPnuU55oXFXA&usqp=CAU" />
                       <div className="create-wrapper" >
 
-                        <Input value="Full Name" placeholder="Full Name" style={{ width: '48%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
+                        <Input value="Full Name" placeholder="Full Name" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
 
-                        <Input value="Loyality Points" placeholder="Loyality Points" style={{ width: '48%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
+                        <Input value="Loyality Points" placeholder="Loyality Points" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
 
-                        <Input value="Email Id" placeholder="Email Id" style={{ width: '48%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
+                        <Input value="Email Id" placeholder="Email Id" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
 
-                        <Input value="Mobile Number" placeholder="Mobile Number" style={{ width: '48%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10 , marginBottom: 10}} />
+                        <Input value="Mobile Number" placeholder="Mobile Number" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10 , marginBottom: 30}} />
 
                       </div>
-
+                     
                     </div>
-
+                    <Button loading={saveServiceLoading}
+                        onClick={() => this.saveService(service)}className="save-btn" style={{ float: 'right', backgroundColor: '#5D72E9', color: 'white', borderRadius: '5px', padding: ' 0px 25px',marginTop:-20 }} >Save</Button>
 
                   </Modal>
                 </div>
