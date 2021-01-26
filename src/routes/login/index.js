@@ -26,9 +26,6 @@ class Login extends Component {
     return re.test(String(email).toLowerCase());
   }
 
-
-
-
   signInClicked = async () => {
 
     //  this.props.history.push('/dashboard')
@@ -76,14 +73,10 @@ class Login extends Component {
 
 
     const response1 = await axios.post('https://d9c6y9z297.execute-api.eu-west-1.amazonaws.com/dev/login'
-      , body
-      // ,{withCredentials: true}
-    )
+      , body)
       .then(function (response) {
-        console.log("response", response)
-        //debugger
-        console.log('Cookie: ', response.headers['set-cookie'][0]);
-        return response.data;
+        Cookies.set('accessToken', response.data.auth);
+       // return response.data;
       })
       .catch(function (error) {
         console.log(error);
@@ -113,7 +106,7 @@ class Login extends Component {
     //   this.setState({ isLoading: false })
     //   debugger
     //   console.log("test",result.headers['set-cookie'][0])
-    Cookies.set('accessToken', 's%3AHU73-2GOTmSrjEqcs7gWT2IS6QVxsK0F.CkY%2F48BZnDEu8oFUk3ZcLvDXo6iknsz5uQItNmn4O%2FE');
+    //Cookies.set('accessToken', 's%3AHU73-2GOTmSrjEqcs7gWT2IS6QVxsK0F.CkY%2F48BZnDEu8oFUk3ZcLvDXo6iknsz5uQItNmn4O%2FE');
     //   // this.setState({ errorMsg:result.data.message })
     // }
   }
