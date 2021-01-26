@@ -104,17 +104,15 @@ class Promotions extends React.Component {
     } else if (error) {
       return <Error title="Something went wrong" />;
     } else if (
-      response &&
-      response.promotions &&
-      response.promotions.length === 0
+      promotions &&
+      promotions.length === 0
     ) {
       return <Error title="0 Service exists" />;
     } else if (
-      response &&
-      response.promotions &&
-      response.promotions.length > 0
+      promotions &&
+      promotions.length > 0
     ) {
-      return response.promotions.map((promotion) => (
+      return promotions.map((promotion) => (
         <div className={"promo-card"}>
           <Card bordered={true}>
             <div className="edit-btn-card">
