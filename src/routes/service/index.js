@@ -162,10 +162,10 @@ class Service extends React.Component {
     })
 
     try {
-      const saveService = await axios.post('/admin/saveService', {
+      const saveService = await axios.post('/admin/updateService', {
         ...service,
         userId: getUserId(),
-        recId: getRecId(),
+       // recId: getRecId(),
         serviceImage: ''
       })
     }
