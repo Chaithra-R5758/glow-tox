@@ -160,19 +160,24 @@ class Promotions extends React.Component {
     this.setState({
       savePromotionLoading: true,
     });
+    try{
     const savePromotion = await axios.post("/admin/updatePromotion", 
       {...promotion,
         userId: getUserId(),
         //recId: getRecId(),
       });
+    }
+    catch(e){
     this.setState({
-      savePromotionLoading: false,
+      savePromotionLoading: false
     });
   };
+}
   addPromo = async (promo) => {
     this.setState({
       savePromotionLoading: true,
     });
+    try{
     const addPromo = await axios.post("/admin/createPromotion",
     {...promo,
       promoName : getPromoName(),
@@ -183,10 +188,13 @@ class Promotions extends React.Component {
     offer : getOffer(),
     promoCode : getPromoCode(),
     });
+  }
+  catch(e){
     this.setState({
-      savePromotionLoading: false,
+      savePromotionLoading: false
     });
   };
+}
 
   render() {
     const { loginImg } = this.state;

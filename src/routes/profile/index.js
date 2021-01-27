@@ -22,6 +22,7 @@ class Profile extends React.Component {
             isError: false,
             userDetails: {},
             profile: {},
+            profilePic:'',
             password:{},
         };
     }
@@ -45,28 +46,33 @@ class Profile extends React.Component {
         const reader = new FileReader();
         reader.onload = () => {
             if (reader.readyState === 2) {
-                this.setState({ profileImg: reader.result });
+                this.setState({ profilePic: reader.result });
             }
         };
         reader.readAsDataURL(e.target.files[0]);
     };
    userPassword = async (password) => {
         this.setState({
-          isLoading: true,
+          isLoading: true
         });
+        try{
         const userPassword = await axios.post("/admin/updateUserPassword",
         {...password,
             userId : getUserId(),
             newPassword : getNewPassword(),
         });
+    }
+    catch(e){
         this.setState({
-          isLoading: false,
+          isLoading: false
         });
       };
+    }
       userProfile = async (profile) => {
         this.setState({
-          isLoading: true,
+          isLoading: true
         });
+        try{
         const userPassword = await axios.post("/admin/updateUserProfile",
         {...profile,
             recId : getRecId(),
@@ -74,13 +80,16 @@ class Profile extends React.Component {
     name : getName(),
     phoneNumber : getPhoneNumber(),
         });
+    }
+    catch(e){
         this.setState({
-          isLoading: false,
+          isLoading: false
         });
-      };
+      }
+    }
 
     profileUI = () => {
-        const { userDetails, isLoading, isError,password,profile } = this.state
+        const { userDetails, isLoading, isError,password,profile ,profilePic} = this.state
         if (isLoading) {
 
         } else if (isError) {
