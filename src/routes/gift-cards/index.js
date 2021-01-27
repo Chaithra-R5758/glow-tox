@@ -5,6 +5,7 @@ import axios from '../../config/api/'
 import { SearchOutlined } from '@ant-design/icons'
 import { Card, Table, Tag, Input, Button, Modal, Skeleton } from 'antd';
 import { withRouter } from 'react-router-dom';
+import { getClientName,getIsActive,getOffer,getServiceId ,getEmailId,getStatus} from '../../config/helpers' 
 //import { response } from './mock.js'
 
 class GiftCards extends React.Component {
@@ -15,6 +16,7 @@ class GiftCards extends React.Component {
       userDetails: {},
       isLoading: false,
       saveServiceLoading: false,
+      giftcard:{},
       giftCards: [],
     };
   }
@@ -40,12 +42,21 @@ class GiftCards extends React.Component {
     this.setState({
       saveGiftcardLoading: true,
     })
-    const saveGiftcard = await axios.get('/admin/saveGiftcard', giftcard)
+    const saveGiftcard = await axios.post('/admin/createGiftCardsByAdmin', 
+    {...giftcard,
+clientName: getClientName(),
+emailId:getEmailId(),
+serviceId:getServiceId(),
+isActive : getIsActive(),
+offer : getOffer(),
+status: getStatus()
+    });
     this.setState({
       saveGiftcardLoading: false,
-    })
-  }
-
+    });
+  };
+  
+   
   showModal = () => {
     this.setState({
       visible: true,
@@ -165,7 +176,7 @@ class GiftCards extends React.Component {
                     <div className={'search-wrapper'}>
                       <Input placeholder="Search..." prefix={<SearchOutlined />} />
                     </div>
-                    <div className={'primary-btn '} onClick={this.showModal}>
+                    <div className={'primary-btn '}  onClick={() => this.showModal(giftcard)}>
                       Create New
                   </div>
                   </div>
@@ -179,22 +190,22 @@ class GiftCards extends React.Component {
                     }}>Gift Cards-Create</div>
 
                     <div className="create-wrapper" style={{ display: 'flex', marginTop: 20 }}>
-                      <Input value="Client Name" placeholder="Client Name" style={{ width: '70%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginRight: 10 }} />
-                      <Input value="Email Id" placeholder="Email Id" style={{ width: '70%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px' }} />
+                      <Input placeholder="Client Name" style={{ width: '70%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginRight: 10 }} />
+                      <Input  placeholder="Email Id" style={{ width: '70%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px' }} />
                     </div>
                     <div className={'create-row'} style={{ display: 'flex', marginTop: 20 }}>
-                      <Input value="Service Name" placeholder="Service Name" style={{ width: '70%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginRight: 10 }} />
+                      <Input  placeholder="Service Name" style={{ width: '70%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginRight: 10 }} />
                       <Input
-                        value="Value"
+                       
                         placeholder="Value"
                         style={{ width: '37%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginRight: 10 }}
                       />
                       <div className={" select-wrapper"}  >
-                        <select style={{ width: 140, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginBottom: 30 }}>
-                          <option value="" > </option>
-                          <option value="dollar" >$</option>
-                          <option value="percentage">%</option>
-                        </select>
+                        <input type="text" list="option" style={{ width: 140, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginBottom: 30 }}/>
+                       <datalist id="option" >
+                          <option  >$</option>
+                          <option >%</option>
+                        </datalist>
                       </div>
                     </div>
                     <Button loading={saveGiftcardLoading}
