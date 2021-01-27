@@ -11,7 +11,7 @@ import axios from "../../config/api/";
 import defaultImg from "../../assets/default.png";
 import { Error } from "../../components/error";
 import TextArea from "antd/lib/input/TextArea";
-import { getUserId } from '../../config/helpers' 
+import { getUserId,getIsActive,getDescription,getOffer,getPromoCode,getPromoName,getPromoPic,getService } from '../../config/helpers' 
 
 class Promotions extends React.Component {
   constructor() {
@@ -22,6 +22,7 @@ class Promotions extends React.Component {
       promotions: [] ,
       loading: false,
       error: false,
+      promo:{},
       savePromotionLoading: false,
     };
   }
@@ -57,10 +58,10 @@ class Promotions extends React.Component {
       }
     }))
   }
-  showModal = (promotion = {}) => {
+  showModal = (promotion = {} ) => {
     this.setState({
       visible: true,
-      promotion
+      promotion,
     });
   };
 
@@ -168,10 +169,28 @@ class Promotions extends React.Component {
       savePromotionLoading: false,
     });
   };
+  addPromo = async (promo) => {
+    this.setState({
+      savePromotionLoading: true,
+    });
+    const addPromo = await axios.post("/admin/createPromotion",
+    {...promo,
+      promoName : getPromoName(),
+    description : getDescription(),
+    promoPic :getPromoPic(),
+    service : getService(),
+    isActive : getIsActive(),
+    offer : getOffer(),
+    promoCode : getPromoCode(),
+    });
+    this.setState({
+      savePromotionLoading: false,
+    });
+  };
 
   render() {
     const { loginImg } = this.state;
-    const { loadings, promotion, savePromotionLoading } = this.state;
+    const { loadings, promotion, savePromotionLoading,promo} = this.state;
     return (
       <div className="promotions-screen">
         <div>
@@ -180,7 +199,7 @@ class Promotions extends React.Component {
             <div className={"promotions-card"}>
               <Card>
                 <div className={"content-body-wrapper"}>
-                  <div className={"primary-btn "} onClick={this.showModal}>
+                  <div className={"primary-btn "} onClick={() => this.showModal(promo)}>
                     Add Promo
                   </div>
                   <div className={"promo-card-wrapper"}>
@@ -319,7 +338,8 @@ class Promotions extends React.Component {
                       />
                       <Button
                         loading={savePromotionLoading}
-                        onClick={() => this.savePromotion(promotion)}
+                        onClick={() => this.savePromotion(promotion),() => this.addPromo(promo)}
+
                         className="save-btn"
                         style={{
                           float: "right",
