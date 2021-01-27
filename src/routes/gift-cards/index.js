@@ -31,8 +31,6 @@ class GiftCards extends React.Component {
       if (giftCards){
         this.setState({ giftCards })
       }
-        
-
     } catch (e) {
       this.setState({ isError: true })
     }
@@ -94,7 +92,12 @@ class GiftCards extends React.Component {
         title: 'Status',
         key: 'status',
         dataIndex: 'status',
-        render: text => <a>{text}</a>
+        render: status => //{
+          //const color = 'green'
+          (<Tag color={'green'} key={status}>{status}</Tag>)
+        //}
+
+        //<a>{text}</a>
         // render: tags => (
         //   <>
         //     {tags.map(tag => {
