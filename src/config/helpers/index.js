@@ -45,3 +45,16 @@ export const  getEmailId= ()=> {
 export const  getServiceId= ()=> {
     return Cookies.get('service')
 }
+export const  getNewPassword= ()=> {
+    return Cookies.get('newPassword')
+}
+export const  getProfilePic= ()=> {
+    return Cookies.get('profilePic')
+}
+export const  getName= ()=> {
+    return Cookies.get('name')
+}
+export const  getPhoneNumber= ()=> {
+    return Cookies.get('phoneNumber')
+}
+

@@ -6,7 +6,7 @@ import { EditFilled } from '@ant-design/icons'
 import axios from '../../config/api/'
 import { withRouter } from 'react-router-dom';
 import React, { Component } from 'react';
-import { refeshUI } from '../../config/helpers'
+import { getUserId, refeshUI ,getNewPassword, getRecId,getProfilePic,getName,getPhoneNumber} from '../../config/helpers'
 
 const layout = {
     labelCol: { span: 8 },
@@ -21,6 +21,8 @@ class Profile extends React.Component {
             isChangePasswordLoading:false,
             isError: false,
             userDetails: {},
+            profile: {},
+            password:{},
         };
     }
 
@@ -48,9 +50,37 @@ class Profile extends React.Component {
         };
         reader.readAsDataURL(e.target.files[0]);
     };
+   userPassword = async (password) => {
+        this.setState({
+          isLoading: true,
+        });
+        const userPassword = await axios.post("/admin/updateUserPassword",
+        {...password,
+            userId : getUserId(),
+            newPassword : getNewPassword(),
+        });
+        this.setState({
+          isLoading: false,
+        });
+      };
+      userProfile = async (profile) => {
+        this.setState({
+          isLoading: true,
+        });
+        const userPassword = await axios.post("/admin/updateUserProfile",
+        {...profile,
+            recId : getRecId(),
+    profilePic : getProfilePic(),
+    name : getName(),
+    phoneNumber : getPhoneNumber(),
+        });
+        this.setState({
+          isLoading: false,
+        });
+      };
 
     profileUI = () => {
-        const { userDetails, isLoading, isError } = this.state
+        const { userDetails, isLoading, isError,password,profile } = this.state
         if (isLoading) {
 
         } else if (isError) {
@@ -128,7 +158,7 @@ class Profile extends React.Component {
                                 <div
                                     onClick={()=>this.saveUserDetails()}
                                     className={'profile-primary-btn'}
-                                    htmlType="submit"> Submit
+                                    htmlType="submit" loading={isLoading} onClick={() => this.userProfile(profile)}> Submit
                             </div>
                             </Space>
                         </Card>
@@ -184,7 +214,7 @@ class Profile extends React.Component {
                                         </Form.Item>
                                     </Form>
                                 </div>
-                                <div className={'profile-primary-pwd-btn'} htmlType="">
+                                <div className={'profile-primary-pwd-btn'} loading={isLoading} onClick={() => this.userPassword(password)}> 
                                     Submit
                                         </div>
                             </Space>
