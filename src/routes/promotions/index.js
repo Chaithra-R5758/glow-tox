@@ -11,6 +11,7 @@ import axios from "../../config/api/";
 import defaultImg from "../../assets/default.png";
 import { Error } from "../../components/error";
 import TextArea from "antd/lib/input/TextArea";
+import { getRecId } from '../../config/helpers' 
 
 class Promotions extends React.Component {
   constructor() {
@@ -158,7 +159,11 @@ class Promotions extends React.Component {
     this.setState({
       savePromotionLoading: true,
     });
-    const savePromotion = await axios.post("/admin/savePromotion", promotion);
+    const savePromotion = await axios.post("/admin/savePromotion", 
+      {...promotion,
+        //userId: getUserId(),
+        recId: getRecId(),
+      });
     this.setState({
       savePromotionLoading: false,
     });

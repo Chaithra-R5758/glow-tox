@@ -5,7 +5,7 @@ import axios from '../../config/api/'
 import { SearchOutlined } from '@ant-design/icons'
 import { Card, Table, Tag, Input, Button, Modal, Skeleton } from 'antd';
 import { withRouter } from 'react-router-dom';
-import { response } from './mock.js'
+//import { response } from './mock.js'
 
 class GiftCards extends React.Component {
   constructor() {
@@ -15,6 +15,7 @@ class GiftCards extends React.Component {
       userDetails: {},
       isLoading: false,
       saveServiceLoading: false,
+      giftCards: [],
     };
   }
 
@@ -22,18 +23,21 @@ class GiftCards extends React.Component {
   async componentDidMount() {
     this.setState({ isLoading: true })
     try {
-      const { table } = await axios.get('/admin/getAllGiftCardsForAdmin',)
+      const {data} = await axios.get('/admin/getAllGiftCardsForAdmin',)
       this.setState({
         isLoading: false
       })
-      const userDetails = (table && table.giftcards) || ''
-      if (userDetails)
-        this.setState({ userDetails })
+      const giftCards = (data && data.giftcards) || ''
+      if (giftCards){
+        this.setState({ giftCards })
+      }
+        
 
     } catch (e) {
       this.setState({ isError: true })
     }
   }
+
   saveGiftcard = async (giftcard) => {
     this.setState({
       saveGiftcardLoading: true,
@@ -56,61 +60,56 @@ class GiftCards extends React.Component {
     });
   };
 
-
-
   giftcardUI = () => {
     const columns = [
       {
         title: 'Gift Card No',
-        dataIndex: 'id',
-        key: 'id',
-
+        dataIndex: 'giftCardId',
+        key: 'giftCardId',
       },
       {
         title: 'Client Name',
-        dataIndex: 'name',
-        key: 'name',
+        dataIndex: 'createdBy',
+        key: 'createdBy',
         render: text => <a>{text}</a>,
-
       },
       {
         title: 'Email Id',
-        dataIndex: 'email',
-        key: 'email',
+        dataIndex: 'clientEmail',
+        key: 'clientEmail',
 
       },
       {
         title: 'Service',
-        dataIndex: 'service',
-        key: 'service',
+        dataIndex: 'serviceName',
+        key: 'serviceName',
 
       },
       {
         title: 'Offer',
         dataIndex: 'offer',
         key: 'offer',
-
       },
       {
         title: 'Status',
-        key: 'tags',
-        dataIndex: 'tags',
-
-        render: tags => (
-          <>
-            {tags.map(tag => {
-              let color = tag.length > 5 ? 'geekblue' : 'green';
-              if (tag === 'Refund') {
-                color = 'volcano';
-              }
-              return (
-                <Tag color={color} key={tag}>
-                  {tag.toUpperCase()}
-                </Tag>
-              );
-            })}
-          </>
-        ),
+        key: 'status',
+        dataIndex: 'status',
+        render: text => <a>{text}</a>
+        // render: tags => (
+        //   <>
+        //     {tags.map(tag => {
+        //       let color = tag.length > 5 ? 'geekblue' : 'green';
+        //       if (tag === 'Refund') {
+        //         color = 'volcano';
+        //       }
+        //       return (
+        //         <Tag color={color} key={tag}>
+        //           {tag.toUpperCase()}
+        //         </Tag>
+        //       );
+        //     })}
+        //   </>
+        // ),
       },
     ];
 
@@ -126,78 +125,29 @@ class GiftCards extends React.Component {
         offer: '10% off',
         service: 'service 1'
       },
-      {
-        key: '2',
-        name: 'Jim Green',
-        age: 42,
-        id: 2,
-        address: 'London No. 1 Lake Park',
-        tags: ['Redeemed'],
-        email: 'hamse@gmail.com',
-        offer: '15% off',
-        service: 'service 1'
-
-
-      },
-      {
-        key: '3',
-        name: 'Jim Green',
-        age: 42,
-        id: 3,
-        address: 'London No. 1 Lake Park',
-        tags: ['Refund'],
-        email: 'hamse@gmail.com',
-        offer: '15% off',
-        service: 'service 1'
-
-
-      },
-      {
-        key: '4',
-        name: 'Jim Green',
-        age: 42,
-        id: 4,
-        address: 'London No. 1 Lake Park',
-        tags: ['Chargeback'],
-        email: 'hamse@gmail.com',
-        offer: '15% off',
-        service: 'service 1'
-
-
-      },
-      {
-        key: '5',
-        name: 'Joe Black',
-        age: 32,
-        id: 5,
-        address: 'Sidney No. 1 Lake Park',
-        tags: ['Redeemed',],
-        email: 'john@gmail.com',
-        offer: '20% off',
-        service: 'service 1'
-      }
     ];
-    const { isLoading, isError } = this.state
+    const { isLoading, isError, giftCards } = this.state
+
     if (isLoading) {
       return (
-
         <div className={'gift-card'}>
           <Skeleton paragraph={{ rows: 10 }} />
-
         </div>
       )
     }
-    return (
-      <div className={'gift-card'}>
-        <Table dataSource={data} columns={columns} />
-      </div>
-    )
+    else if (isError) {
 
+    } else {
+      return (
+        <div className={'gift-card'}>
+          <Table dataSource={giftCards} columns={columns} />
+        </div>
+      )
+    }
   }
 
   render() {
-    const { giftcard, saveGiftcardLoading } = this.state
-
+    const { giftCards, giftcard, saveGiftcardLoading } = this.state
     return (
       <div className="gift-card-screen">
         <div className={'content-wrapper'}>
@@ -238,7 +188,6 @@ class GiftCards extends React.Component {
                       />
                       <div className={" select-wrapper"}  >
                         <select style={{ width: 140, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginBottom: 30 }}>
-
                           <option value="" > </option>
                           <option value="dollar" >$</option>
                           <option value="percentage">%</option>
@@ -248,15 +197,12 @@ class GiftCards extends React.Component {
                     <Button loading={saveGiftcardLoading}
                       onClick={() => this.saveGiftcard(giftcard)} className="save-btn" style={{ float: 'right', backgroundColor: '#5D72E9', color: 'white', borderRadius: '5px', padding: '0px 25px 0px 25px', marginTop: '-20px' }}>Save</Button>
                   </Modal>
-
                 </div>
               </div>
             </Card>
           </div>
         </div>
       </div>
-
-
     );
   }
 }

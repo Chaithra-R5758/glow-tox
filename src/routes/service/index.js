@@ -148,7 +148,7 @@ class Service extends React.Component {
         ...service,
         userId: getUserId(),
         recId: getRecId(),
-        serviceImage: ''
+        serviceImage: '',
       })
     }
     catch (e) {
