@@ -302,12 +302,10 @@ class Service extends React.Component {
               display: 'flex',
               flex: 1,
               flexDirection: 'column',
-            }}
-          >
-            {service.serviceName}
+            }}>
             <div>Service Name</div>
             <input
-              value={service.serviceName}
+              value={service.serviceName || ''}
               onChange={this.onChangeName}
               style={{
                 padding: '5px',
