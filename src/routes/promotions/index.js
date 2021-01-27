@@ -173,13 +173,13 @@ class Promotions extends React.Component {
     });
   };
 }
-  addPromo = async (promo) => {
+  addPromo = async (promotion) => {
     this.setState({
       savePromotionLoading: true,
     });
     try{
-    const addPromo = await axios.post("/admin/createPromotion",
-    {...promo,
+    const savePromotion = await axios.post("/admin/createPromotion",
+    {...promotion,
       promoName : getPromoName(),
     description : getDescription(),
     promoPic :getPromoPic(),
@@ -198,7 +198,7 @@ class Promotions extends React.Component {
 
   render() {
     const { loginImg } = this.state;
-    const { loadings, promotion, savePromotionLoading,promo} = this.state;
+    const { loadings, promotion, savePromotionLoading} = this.state;
     return (
       <div className="promotions-screen">
         <div>
@@ -207,7 +207,7 @@ class Promotions extends React.Component {
             <div className={"promotions-card"}>
               <Card>
                 <div className={"content-body-wrapper"}>
-                  <div className={"primary-btn "} onClick={() => this.showModal(promo)}>
+                  <div className={"primary-btn "} onClick={() => this.showModal(promotion)}>
                     Add Promo
                   </div>
                   <div className={"promo-card-wrapper"}>
@@ -346,7 +346,7 @@ class Promotions extends React.Component {
                       />
                       <Button
                         loading={savePromotionLoading}
-                        onClick={() => this.savePromotion(promotion),() => this.addPromo(promo)}
+                        onClick={() => this.savePromotion(promotion)}
 
                         className="save-btn"
                         style={{
