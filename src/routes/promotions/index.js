@@ -32,7 +32,7 @@ class Promotions extends React.Component {
     this.setState({ loading: true })
     const response = await axios.get('/admin/getAllPromotionForSuperAdmin',)
     const promotions = response.data && response.data.promotion
-    if (promotions.length > 0)
+    if (promotions && promotions.length > 0)
       this.setState({ promotions, loading: false })
   }
 
@@ -193,24 +193,31 @@ class Promotions extends React.Component {
     this.setState({
       savePromotionLoading: true,
     });
-    const { description, promoCode, promoImage, service } = promotion
-    const addPromo = await axios.post("/admin/createPromotion", {
-      ...promotion,
-      promoName: "",
-      description,
-      promoPic: promoImage,
-      serviceId: service,
-      isActive: "",
-      offer: "",
-      promoCode,
-    });
-    this.setState({
-      savePromotionLoading: false,
-    }, () => {
-      this.hideModal()
-      this.getAllPromotions()
-    })
-  };
+    try {
+      const { description, promoCode, promoImage, service } = promotion
+      const addPromo = await axios.post("/admin/createPromotion", {
+        ...promotion,
+        promoName: "",
+        description,
+        promoPic: promoImage,
+        serviceId: service,
+        isActive: "",
+        offer: "",
+        promoCode,
+      });
+      this.setState({
+        savePromotionLoading: false,
+      }, () => {
+        this.hideModal()
+        this.getAllPromotions()
+      })
+    }
+    catch (e) {
+      this.setState({
+        savePromotionLoading: false,
+      })
+    };
+  }
 
   addNewPromo = () => {
     this.setState({
