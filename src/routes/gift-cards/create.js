@@ -1,4 +1,4 @@
-import { PageTitle } from '../../components/page-title/'
+import { PageTitle } from '../../components/page-title'
 import './gift-card.scss';
 import React, { Component, Suspense } from 'react';
 import { withRouter } from "react-router-dom";

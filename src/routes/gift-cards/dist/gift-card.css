@@ -6,11 +6,6 @@
   display: flex;
   flex-direction: column;
 }
-.gift-card-screen .gift-card .ant-card {
-  border-radius: 5px;
-  box-shadow: 0 0px 12px #d2d2d2;
-  margin-right: 20px;
-}
 .gift-card-screen .search-wrapper {
   padding: 10px 15px;
   border-radius: 25px;
@@ -18,6 +13,11 @@
   text-align: center;
   align-self: flex-end;
   margin: -10px 0 5px 0;
+}
+.gift-card-screen .gift-card .ant-card {
+  border-radius: 5px;
+  box-shadow: 0 0px 12px #d2d2d2;
+  margin-right: 20px;
 }
 .gift-card-screen .primary-btn {
   background-color: #5D72E9;
@@ -36,10 +36,7 @@
   flex-wrap: wrap;
 }
 .gift-card-screen .card-wrapper {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin-top: 20px;
+  margin-top: 10px;
 }
 .gift-card-screen .primary-btn {
   margin-bottom: 15px;
@@ -58,16 +55,7 @@
   font-weight: bold;
 }
 @media screen and (max-width: 720px) {
-  .gift-card-screen .gift-card-create-row-wrapper {
-    display: block;
-  }
-  .gift-card-screen .gift-card-create-row {
-    margin: 0px;
-  }
-  .gift-card-screen .card-wrapper {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-top: 0px;
+  .gift-card-screen .ant-table {
+    overflow-x: scroll;
   }
 }

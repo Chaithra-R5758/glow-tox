@@ -8,7 +8,7 @@ import './App.css';
 import Login from './routes/login/'
 import Dashboard from './routes/dashboard/';
 import Service from './routes/service';
-import GiftCard from './routes/gift-cards2';
+import GiftCard from './routes/gift-cards';
 import ServiceHistory from './routes/service-history';
 import Header from './Header';
 import Footer from './components/footer/';
