@@ -15,7 +15,7 @@ class ServiceHistory extends React.Component {
       isError: false,
       userDetails: {},
       isLoading: false,
-      giftcard: {},
+      serviceHistory: [],
       saveGiftcardLoading: false,
     };
   }
@@ -23,13 +23,13 @@ class ServiceHistory extends React.Component {
   async componentDidMount() {
     this.setState({ isLoading: true })
     try {
-      const { table } = await axios.get('/admin/getAllServiceTransactionForAdmin',)
+      const { data } = await axios.get('/admin/getAllServiceTransactionForAdmin',)
       this.setState({
         isLoading: false
       })
-      const userDetails = (table && table.service) || ''
-      if (userDetails)
-        this.setState({ userDetails })
+      const serviceHistory = (data && data.serviceHistory) || ''
+      if (serviceHistory)
+        this.setState({ serviceHistory })
 
     } catch (e) {
       this.setState({ isError: true })
@@ -193,7 +193,7 @@ class ServiceHistory extends React.Component {
     //   });
     // }
 
-    const { isLoading, isError } = this.state
+    const { serviceHistory , isLoading, isError } = this.state
     if (isLoading) {
       return (
 
@@ -203,12 +203,15 @@ class ServiceHistory extends React.Component {
         </div>
       )
     }
+    else if (isError) {
+
+    } else {
     return (
       <div className={'history-card'}>
-        <Table dataSource={data} columns={columns} />
+        <Table dataSource={serviceHistory} columns={columns} />
       </div>
     )
-
+    }
   }
 
   saveService = async (service) => {
@@ -225,7 +228,7 @@ class ServiceHistory extends React.Component {
 
   render() {
 
-    const { service, saveServiceLoading } = this.state
+    const { service, saveServiceLoading ,serviceHistory} = this.state
 
     return (
 
