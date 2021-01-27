@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.getServiceId = exports.getEmailId = exports.getStatus = exports.getClientName = exports.getPromoCode = exports.getOffer = exports.getIsActive = exports.getService = exports.getPromoPic = exports.getDescription = exports.getPromoName = exports.getRecId = exports.getUserId = exports.refeshUI = void 0;
+exports.getPhoneNumber = exports.getName = exports.getProfilePic = exports.getNewPassword = exports.getServiceId = exports.getEmailId = exports.getStatus = exports.getClientName = exports.getPromoCode = exports.getOffer = exports.getIsActive = exports.getService = exports.getPromoPic = exports.getDescription = exports.getPromoName = exports.getRecId = exports.getUserId = exports.refeshUI = void 0;
 
 var _jsCookie = _interopRequireDefault(require("js-cookie"));
 
@@ -92,3 +92,27 @@ var getServiceId = function getServiceId() {
 };
 
 exports.getServiceId = getServiceId;
+
+var getNewPassword = function getNewPassword() {
+  return _jsCookie["default"].get('newPassword');
+};
+
+exports.getNewPassword = getNewPassword;
+
+var getProfilePic = function getProfilePic() {
+  return _jsCookie["default"].get('profilePic');
+};
+
+exports.getProfilePic = getProfilePic;
+
+var getName = function getName() {
+  return _jsCookie["default"].get('name');
+};
+
+exports.getName = getName;
+
+var getPhoneNumber = function getPhoneNumber() {
+  return _jsCookie["default"].get('phoneNumber');
+};
+
+exports.getPhoneNumber = getPhoneNumber;
