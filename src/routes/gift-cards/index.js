@@ -19,8 +19,7 @@ class GiftCards extends React.Component {
     };
   }
 
-  // state = { visible: true };
-  async componentDidMount() {
+  getAllGiftCards = async () => {
     this.setState({ isLoading: true })
     try {
       const { data } = await axios.get('/admin/getAllGiftCardsForAdmin',)
@@ -36,18 +35,31 @@ class GiftCards extends React.Component {
     }
   }
 
-  saveGiftcard = async (giftcard) => {
+  async componentDidMount() {
+    this.getAllGiftCards()
+  }
+
+  saveGiftcard = async () => {
+    const {
+      clientName,
+      emailId,
+      offer,
+      serviceId,
+    } = this.state
     this.setState({
       saveGiftcardLoading: true,
     })
     try {
       const saveGiftcard = await axios.post('/admin/createGiftCardsByAdmin',
         {
-          ...giftcard,
+          clientName,
+          emailId,
+          offer,
+          serviceId,
         });
-        this.setState({
-          saveGiftcardLoading: false
-        });
+      this.setState({ saveGiftcardLoading: false });
+      this.hideModal()
+      this.getAllGiftCards()
     }
     catch (e) {
       this.setState({
@@ -60,6 +72,10 @@ class GiftCards extends React.Component {
   showModal = () => {
     this.setState({
       visible: true,
+      clientName:'',
+      emailId:'',
+      offer:'',
+      serviceId:'',
     });
   };
 
@@ -161,7 +177,18 @@ class GiftCards extends React.Component {
   }
 
   render() {
-    const { giftCards, giftcard, saveGiftcardLoading } = this.state
+    const {
+      giftCards,
+      giftcard,
+      saveGiftcardLoading,
+
+    } = this.state
+    const {
+      serviceId,
+      clientName,
+      emailId,
+      offer
+    } = giftcard
     return (
       <div className="gift-card-screen">
         <div className={'content-wrapper'}>
@@ -190,13 +217,34 @@ class GiftCards extends React.Component {
                     }}>Gift Cards-Create</div>
 
                     <div className="create-wrapper" style={{ display: 'flex', marginTop: 20 }}>
-                      <Input placeholder="Client Name" style={{ width: '70%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginRight: 10 }} />
-                      <Input placeholder="Email Id" style={{ width: '70%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px' }} />
+                      <Input
+                        placeholder="Client Name"
+                        defaultValue={clientName}
+                        onChange={e => this.setState({ clientName: e.target.value })}
+                        style={{
+                          width: '70%',
+                          backgroundColor: ' #E2E2E2',
+                          blockSize: 40, border: '0px',
+                          borderRadius: '5px',
+                          marginRight: 10
+                        }}
+                      />
+                      <Input
+                        placeholder="Email Id"
+                        defaultValue={emailId}
+                        onChange={e => this.setState({ emailId: e.target.value })}
+                        style={{ width: '70%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px' }} />
                     </div>
                     <div className={'create-row'} style={{ display: 'flex', marginTop: 20 }}>
-                      <Input placeholder="Service Name" style={{ width: '70%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginRight: 10 }} />
+                      <Input
+                        placeholder="Service Name"
+                        defaultValue={serviceId}
+                        onChange={e => this.setState({ serviceId: e.target.value })}
+                        style={{ width: '70%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginRight: 10 }} />
                       <Input
                         placeholder="Value"
+                        defaultValue={offer}
+                        onChange={e => this.setState({ offer: e.target.value })}
                         style={{ width: '37%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginRight: 10 }}
                       />
                       <div className={" select-wrapper"}  >
@@ -208,7 +256,7 @@ class GiftCards extends React.Component {
                       </div>
                     </div>
                     <Button loading={saveGiftcardLoading}
-                      onClick={() => this.saveGiftcard(giftcard)} className="save-btn" style={{ float: 'right', backgroundColor: '#5D72E9', color: 'white', borderRadius: '5px', padding: '0px 25px 0px 25px', marginTop: '-20px' }}>Save</Button>
+                      onClick={() => this.saveGiftcard()} className="save-btn" style={{ float: 'right', backgroundColor: '#5D72E9', color: 'white', borderRadius: '5px', padding: '0px 25px 0px 25px', marginTop: '-20px' }}>Save</Button>
                   </Modal>
                 </div>
               </div>
@@ -219,5 +267,4 @@ class GiftCards extends React.Component {
     );
   }
 }
-
 export default withRouter(GiftCards);
