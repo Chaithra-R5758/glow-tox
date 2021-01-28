@@ -11,7 +11,7 @@ import axios from "../../config/api/";
 import defaultImg from "../../assets/default.png";
 import { Error } from "../../components/error";
 import TextArea from "antd/lib/input/TextArea";
-import { refeshUI, getUserId, getIsActive, getDescription, getOffer, getPromoCode, getPromoName, getPromoPic, getService } from '../../config/helpers'
+import { getUserId } from '../../config/helpers'
 
 class Promotions extends React.Component {
   constructor() {

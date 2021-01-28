@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
 import { PageTitle } from '../../components/page-title/'
-import './gift-card2.scss';
+import './gift-card.scss';
 import axios from '../../config/api/'
 import { SearchOutlined } from '@ant-design/icons'
 import { Card, Table, Tag, Input, Button, Modal, Skeleton } from 'antd';
 import { withRouter } from 'react-router-dom';
-import { getClientName,getIsActive,getOffer,getServiceId ,getEmailId,getStatus} from '../../config/helpers' 
-//import { response } from './mock.js'
 
 class GiftCards extends React.Component {
   constructor() {
@@ -16,7 +14,7 @@ class GiftCards extends React.Component {
       userDetails: {},
       isLoading: false,
       saveServiceLoading: false,
-      giftcard:{},
+      giftcard: {},
       giftCards: [],
     };
   }
@@ -25,12 +23,12 @@ class GiftCards extends React.Component {
   async componentDidMount() {
     this.setState({ isLoading: true })
     try {
-      const {data} = await axios.get('/admin/getAllGiftCardsForAdmin',)
+      const { data } = await axios.get('/admin/getAllGiftCardsForAdmin',)
       this.setState({
         isLoading: false
       })
       const giftCards = (data && data.giftcards) || ''
-      if (giftCards){
+      if (giftCards) {
         this.setState({ giftCards })
       }
     } catch (e) {
@@ -42,25 +40,26 @@ class GiftCards extends React.Component {
     this.setState({
       saveGiftcardLoading: true,
     })
-    try{
-    const saveGiftcard = await axios.post('/admin/createGiftCardsByAdmin', 
-    {...giftcard,
-clientName: getClientName(),
-emailId:getEmailId(),
-serviceId:getServiceId(),
-isActive : getIsActive(),
-offer : getOffer(),
-status: getStatus()
-    });
+    try {
+      const saveGiftcard = await axios.post('/admin/createGiftCardsByAdmin',
+        {
+          ...giftcard,
+          // clientName: getClientName(),
+          // emailId: getEmailId(),
+          // serviceId: getServiceId(),
+          // isActive: getIsActive(),
+          // offer: getOffer(),
+          // status: getStatus()
+        });
+    }
+    catch (e) {
+      this.setState({
+        saveGiftcardLoading: false
+      });
+    };
   }
-  catch(e){
-    this.setState({
-      saveGiftcardLoading: false
-    });
-  };
-}
-  
-   
+
+
   showModal = () => {
     this.setState({
       visible: true,
@@ -180,7 +179,7 @@ status: getStatus()
                     <div className={'search-wrapper'}>
                       <Input placeholder="Search..." prefix={<SearchOutlined />} />
                     </div>
-                    <div className={'primary-btn '}  onClick={() => this.showModal(giftcard)}>
+                    <div className={'primary-btn '} onClick={() => this.showModal(giftcard)}>
                       Create New
                   </div>
                   </div>
@@ -195,18 +194,18 @@ status: getStatus()
 
                     <div className="create-wrapper" style={{ display: 'flex', marginTop: 20 }}>
                       <Input placeholder="Client Name" style={{ width: '70%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginRight: 10 }} />
-                      <Input  placeholder="Email Id" style={{ width: '70%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px' }} />
+                      <Input placeholder="Email Id" style={{ width: '70%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px' }} />
                     </div>
                     <div className={'create-row'} style={{ display: 'flex', marginTop: 20 }}>
-                      <Input  placeholder="Service Name" style={{ width: '70%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginRight: 10 }} />
+                      <Input placeholder="Service Name" style={{ width: '70%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginRight: 10 }} />
                       <Input
-                       
+
                         placeholder="Value"
                         style={{ width: '37%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginRight: 10 }}
                       />
                       <div className={" select-wrapper"}  >
-                        <input type="text" list="option" style={{ width: 140, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginBottom: 30 }}/>
-                       <datalist id="option" >
+                        <input type="text" list="option" style={{ width: 140, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginBottom: 30 }} />
+                        <datalist id="option" >
                           <option  >$</option>
                           <option >%</option>
                         </datalist>

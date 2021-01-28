@@ -33,10 +33,7 @@ class Dashboard extends Component {
                   </Card>
                         </div> */}
                             <div className={'card-wrapper'}>
-                                <Card
-                                    
-                                >
-
+                                <Card>
                                     <Form
                                         {...layout}
                                         name="nest-messages"
@@ -91,7 +88,6 @@ class Dashboard extends Component {
             </div>
         );
     }
-
 }
 
 export default withRouter(Dashboard);

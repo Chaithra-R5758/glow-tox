@@ -49,16 +49,21 @@ class Service extends React.Component {
       loading: false,
       error: false,
       saveServiceLoading: false,
-      beforeAfterSets: []
+      beforeAfterSets: [],
+      newService: false,
     }
   }
 
-  async componentDidMount() {
+  getAllServices = async () => {
     this.setState({ loading: true })
     const response = await axios.get('/admin/getAllAdminServices',)
     const services = response.data && response.data.service
     if (services)
       this.setState({ services, loading: false })
+  }
+
+  componentDidMount() {
+    this.getAllServices()
   }
 
   imageHandler = e => {
@@ -80,8 +85,9 @@ class Service extends React.Component {
 
   hideModal = () => {
     this.setState({
-      service:{},
+      service: {},
       visible: false,
+      newService: false,
     });
   };
 
@@ -150,6 +156,9 @@ class Service extends React.Component {
         recId: getRecId(),
         serviceImage: '',
       })
+      this.setState({ saveServiceLoading: false })
+      this.hideModal()
+      this.getAllServices()
     }
     catch (e) {
       this.setState({ saveServiceLoading: false })
@@ -157,22 +166,32 @@ class Service extends React.Component {
   }
 
   saveService = async (service) => {
-    this.setState({
-      saveServiceLoading: true,
-    })
-
-    try {
-      const saveService = await axios.post('/admin/updateService', {
-        ...service,
-        userId: getUserId(),
-       // recId: getRecId(),
-        serviceImage: ''
-      })
-    }
-    catch (e) {
+    const { newService } = this.state
+    if (newService) {
+      this.createService()
+    } else {
       this.setState({
-        saveServiceLoading: false,
+        saveServiceLoading: true,
       })
+
+      try {
+        const saveService = await axios.post('/admin/updateService', {
+          ...service,
+          userId: getUserId(),
+          // recId: getRecId(),
+          serviceImage: ''
+        })
+        this.setState({
+          saveServiceLoading: false,
+        })
+        this.hideModal()
+        this.getAllServices()
+      }
+      catch (e) {
+        this.setState({
+          saveServiceLoading: false,
+        })
+      }
     }
   }
 
@@ -205,7 +224,7 @@ class Service extends React.Component {
 
   modalUI = () => {
     const { defaultImg, beforeAfterSets, service, saveServiceLoading } = this.state
-    console.log("service",service)
+    console.log("service", service)
     return (
       <Modal
         visible={this.state.visible}
@@ -361,6 +380,13 @@ class Service extends React.Component {
     )
   }
 
+  addNewService = () => {
+    this.setState({
+      newService: true
+    })
+    this.showModal()
+  }
+
   render() {
     return (
       <div className="service-screen">
@@ -371,7 +397,7 @@ class Service extends React.Component {
           <div className={"service-card"}>
             <Card>
               <div className={'content-body-wrapper'}>
-                <div className={'primary-btn'} onClick={() => this.showModal()}>
+                <div className={'primary-btn'} onClick={() => this.addNewService()}>
                   Add New Service
               </div>
                 <div className={'modal-wrapper'}>
