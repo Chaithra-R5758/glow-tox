@@ -44,12 +44,9 @@ class GiftCards extends React.Component {
       const saveGiftcard = await axios.post('/admin/createGiftCardsByAdmin',
         {
           ...giftcard,
-          // clientName: getClientName(),
-          // emailId: getEmailId(),
-          // serviceId: getServiceId(),
-          // isActive: getIsActive(),
-          // offer: getOffer(),
-          // status: getStatus()
+        });
+        this.setState({
+          saveGiftcardLoading: false
         });
     }
     catch (e) {
@@ -199,15 +196,14 @@ class GiftCards extends React.Component {
                     <div className={'create-row'} style={{ display: 'flex', marginTop: 20 }}>
                       <Input placeholder="Service Name" style={{ width: '70%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginRight: 10 }} />
                       <Input
-
                         placeholder="Value"
                         style={{ width: '37%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginRight: 10 }}
                       />
                       <div className={" select-wrapper"}  >
                         <input type="text" list="option" style={{ width: 140, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginBottom: 30 }} />
                         <datalist id="option" >
-                          <option  >$</option>
-                          <option >%</option>
+                          <option>$</option>
+                          <option>%</option>
                         </datalist>
                       </div>
                     </div>

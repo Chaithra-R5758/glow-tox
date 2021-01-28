@@ -91,6 +91,12 @@ class Service extends React.Component {
     });
   };
 
+  // editService = (service) => {
+  //   const { serviceId } = service
+  //   this.getServiceForID(serviceId)
+  //   this.showModal() 
+  // }
+
   servicesUI = () => {
     const { loading, error, services } = this.state
     if (loading) {
@@ -133,9 +139,7 @@ class Service extends React.Component {
                 <div className={'service-meta-data-wrapper'}>
                   <div className={'service-title'}>{service.serviceName || "No-Title"}</div>
                   <div className={'edit-btn'}
-                    onClick={() => this.showModal(service)}>
-                    Edit
-                      </div>
+                    onClick={() => this.showModal(service)}>Edit</div>
                 </div>
                 <div>
                 </div>
@@ -147,13 +151,30 @@ class Service extends React.Component {
     }
   }
 
+  getServiceForID = async (id) => {
+  //  https://d9c6y9z297.execute-api.eu-west-1.amazonaws.com/prod/admin/getServiceById?serviceId=SR004
+   // this.setState({ saveServiceLoading: true })
+    try {
+      const service = await axios.get(`/admin/getServiceById?serviceId=${id}`)
+      this.setState({ 
+        service,
+        saveServiceLoading: false 
+      })
+     // this.hideModal()
+     // this.getAllServices()
+    }
+    catch (e) {
+     // this.setState({ saveServiceLoading: false })
+    }
+  }
+
   createService = async (service) => {
     this.setState({ saveServiceLoading: true })
     try {
       const saveService = await axios.post('/admin/createService', {
         ...service,
-        userId: getUserId(),
-        recId: getRecId(),
+       // userId: getUserId(),
+       // recId: getRecId(),
         serviceImage: '',
       })
       this.setState({ saveServiceLoading: false })
@@ -382,7 +403,8 @@ class Service extends React.Component {
 
   addNewService = () => {
     this.setState({
-      newService: true
+      newService: true,
+      service:{},
     })
     this.showModal()
   }
