@@ -49,21 +49,24 @@
     }
     @media screen and (max-width: 720px) {
         .profile-name{
-            display: none;
+           // display: none;
         }
     }
-    .profile-icon{
-        // display: flex;
-    
-        //  width: 25px;
-        //  height: 25px;
-        //  position: relative;
-        //  overflow: hidden;
-        //  border-radius: 50%;
-        //  margin-top: 5px;
-        // justify-content: center;
-        // align-items: center;
+    .header-title{
+        margin-right: 50px;
     }
+    // .profile-icon{
+    //     display: flex;
+    
+    //      width: 25px;
+    //      height: 25px;
+    //      position: relative;
+    //      overflow: hidden;
+    //      border-radius: 50%;
+    //      margin-top: 5px;
+    //     justify-content: center;
+    //     align-items: center;
+    // }
     .profile-icon-img{
         background-size: 32px 32px;
         border: 0;

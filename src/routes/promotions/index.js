@@ -1,6 +1,6 @@
 import { PageTitle } from "../../components/page-title";
 import "./promotions.scss";
-import { Input, Card, Skeleton } from "antd";
+import { Input, Card, Skeleton,message } from "antd";
 import loginImg from "../../assets/login-img.png";
 import { LinkOutlined, EditFilled } from "@ant-design/icons";
 import { Modal, Button } from "antd";
@@ -11,8 +11,18 @@ import axios from "../../config/api/";
 import defaultImg from "../../assets/default.png";
 import { Error } from "../../components/error";
 import TextArea from "antd/lib/input/TextArea";
+<<<<<<< HEAD
+import { getUserId,getIsActive,getDescription,getOffer,getPromoCode,getPromoName,getPromoPic,getService } from '../../config/helpers' 
+const success = () => {
+  message.success('Card added successfully!');
+};
+const error = () => {
+  message.error('Error Occurred!');
+};
+=======
 import { getUserId } from '../../config/helpers'
 
+>>>>>>> cff2db256877e0c3e56b746cf7786bbadb08de0b
 class Promotions extends React.Component {
   constructor() {
     super()
@@ -187,6 +197,32 @@ class Promotions extends React.Component {
       //refeshUI()
     }
   };
+<<<<<<< HEAD
+}
+  addPromo = async (promo) => {
+    this.setState({
+      savePromotionLoading: true,
+    })
+   
+    const addPromo = await axios.post("/admin/createPromotion",
+    {...promo,
+      promoName : getPromoName(),
+    description : getDescription(),
+    promoPic :getPromoPic(),
+    service : getService(),
+    isActive : getIsActive(),
+    offer : getOffer(),
+    promoCode : getPromoCode(),
+    })
+    .then(success)
+    .catch(error)
+   
+    } 
+
+  render() {
+    const { loginImg } = this.state;
+    const { loadings, promotion, savePromotionLoading,promo} = this.state;
+=======
 
   addPromo = async () => {
     const { promotion } = this.state
@@ -229,6 +265,7 @@ class Promotions extends React.Component {
   render() {
     const { loginImg } = this.state;
     const { loadings, promotion, savePromotionLoading, promo } = this.state;
+>>>>>>> cff2db256877e0c3e56b746cf7786bbadb08de0b
     return (
       <div className="promotions-screen">
         <div>
@@ -371,7 +408,12 @@ class Promotions extends React.Component {
                       />
                       <Button
                         loading={savePromotionLoading}
+<<<<<<< HEAD
+                        onClick={() => this.addPromo(promo)}
+
+=======
                         onClick={() => this.savePromotion(promotion)}
+>>>>>>> cff2db256877e0c3e56b746cf7786bbadb08de0b
                         className="save-btn"
                         style={{
                           float: "right",

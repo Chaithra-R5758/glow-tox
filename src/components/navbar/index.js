@@ -107,7 +107,7 @@ class NavBar extends React.Component {
     const grey3 = '#ccd4f8';
     const white = '#fff';
     switch (navOption) {
-      case 'Dashboard': return <HomeFilled style={{
+      case 'Dashboard': return <HomeFilled style={{ cursor:'pointer',
         fontSize: navIconSize,
         color: selectedNavOption === index ? white : grey3
       }}
@@ -122,7 +122,7 @@ class NavBar extends React.Component {
 
 
 
-      case 'Services': return <DribbbleCircleFilled style={{
+      case 'Services': return <DribbbleCircleFilled style={{ cursor:'pointer',
         fontSize: navIconSize,
         color: selectedNavOption === index ? white : grey3
       }} />
@@ -131,11 +131,11 @@ class NavBar extends React.Component {
       //   fontSize: navIconSize,
       //   color: selectedNavOption === index ? white : grey3
       // }} />
-      case 'Promotions': return <FundFilled style={{
+      case 'Promotions': return <FundFilled style={{ cursor:'pointer',
         fontSize: navIconSize,
         color: selectedNavOption === index ? white : grey3
       }} />
-      case 'Service History': return <FileTextFilled style={{
+      case 'Service History': return <FileTextFilled style={{ cursor:'pointer',
         fontSize: navIconSize,
         color: selectedNavOption === index ? white : grey3
       }} />
@@ -143,7 +143,7 @@ class NavBar extends React.Component {
       //   fontSize: navIconSize,
       //   color: selectedNavOption === index ? white : grey3
       // }} />
-      case 'Gift Cards': return <GiftFilled style={{
+      case 'Gift Cards': return <GiftFilled style={{ cursor:'pointer',
         fontSize: navIconSize,
         color: selectedNavOption === index ? white : grey3
       }} />
@@ -176,6 +176,20 @@ class NavBar extends React.Component {
           {/* {selectedNavOption === index &&
               <span className={'caret-icon'}><CaretLeftOutlined style={{ color: grey3 }} /></span>
             }           */}
+            <div className={'nav-option logout-option-mob'} 
+            style={{display:'flex', 
+            bottom:20,
+            position:'absolute',
+            width:'100%'}} 
+            onClick={this.logOutClicked}>
+              <div>
+                <PoweroffOutlined style={{ cursor:'pointer',
+                  fontSize: '20px',
+                  color: '#b1b1b1',
+                }} />
+              </div>
+              <div className={0 ? 'nav-option-title-selected' : 'nav-option-title'} style={{color: '#fff', margin: '0 10px'}}>Logout</div>
+            </div>
         </div>
       )
     })
@@ -249,7 +263,7 @@ class NavBar extends React.Component {
 
             <div className={'nav-option logout-option'} onClick={this.logOutClicked}>
               <div>
-                <PoweroffOutlined style={{
+                <PoweroffOutlined style={{ cursor:'pointer',
                   fontSize: '16px',
                   color: '#b1b1b1'
                 }} />
@@ -283,6 +297,8 @@ class NavBar extends React.Component {
           <div className={'nav-options-wrapper-mob'} >
             {this.getNavOptionsMob()}
           </div>
+          
+          
         </Drawer>
       </div >
     )
