@@ -5,18 +5,13 @@ import axios from '../../config/api/'
 import { SearchOutlined } from '@ant-design/icons'
 import { Card, Table, Tag, Input, Button, Modal, Skeleton,message } from 'antd';
 import { withRouter } from 'react-router-dom';
-<<<<<<< HEAD
-import { getClientName,getIsActive,getOffer,getServiceId ,getEmailId,getStatus} from '../../config/helpers' 
-//import { response } from './mock.js'
 const success = () => {
   message.success('Data added successfully!');
 };
 const error = () => {
   message.error('Error Occurred!');
 }; 
-=======
 
->>>>>>> cff2db256877e0c3e56b746cf7786bbadb08de0b
 class GiftCards extends React.Component {
   constructor() {
     super()
@@ -60,22 +55,7 @@ class GiftCards extends React.Component {
     this.setState({
       saveGiftcardLoading: true,
     })
-<<<<<<< HEAD
     
-    const saveGiftcard = await axios.post('/admin/createGiftCardsByAdmin', 
-    {...giftcard,
-clientName: getClientName(),
-emailId:getEmailId(),
-serviceId:getServiceId(),
-isActive : getIsActive(),
-offer : getOffer(),
-status: getStatus()
-    })
-  .then(success)
-  .catch(error)
-
-  } 
-=======
     try {
       const saveGiftcard = await axios.post('/admin/createGiftCardsByAdmin',
         {
@@ -96,7 +76,6 @@ status: getStatus()
   }
 
 
->>>>>>> cff2db256877e0c3e56b746cf7786bbadb08de0b
   showModal = () => {
     this.setState({
       visible: true,
@@ -285,13 +264,8 @@ status: getStatus()
                         </datalist>
                       </div>
                     </div>
-<<<<<<< HEAD
                     <Button loading={saveGiftcardLoading} 
                       onClick={() => this.saveGiftcard(giftcard)}className="save-btn" style={{ float: 'right', backgroundColor: '#5D72E9', color: 'white', borderRadius: '5px', padding: '0px 25px 0px 25px', marginTop: '-20px' }}>Save</Button>
-=======
-                    <Button loading={saveGiftcardLoading}
-                      onClick={() => this.saveGiftcard()} className="save-btn" style={{ float: 'right', backgroundColor: '#5D72E9', color: 'white', borderRadius: '5px', padding: '0px 25px 0px 25px', marginTop: '-20px' }}>Save</Button>
->>>>>>> cff2db256877e0c3e56b746cf7786bbadb08de0b
                   </Modal>
                 </div>
               </div>
