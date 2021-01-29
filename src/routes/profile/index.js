@@ -1,7 +1,7 @@
 import { PageTitle } from '../../components/page-title/'
 import { Form, Select } from 'antd';
 import './profile.scss';
-import { Card, Input, Space, Image,Skeleton, Button, Anchor } from 'antd';
+import { Card, Input, Space, Image, Skeleton, Button, Anchor } from 'antd';
 import { EditFilled } from '@ant-design/icons'
 import axios from '../../config/api/'
 import { withRouter } from 'react-router-dom';
@@ -53,15 +53,15 @@ class Profile extends React.Component {
     };
 
     userPassword = async (password) => {
+        const { newPassword } = this.state
         this.setState({
             isLoading: true
         });
         try {
             const userPassword = await axios.post("/admin/updateUserPassword",
                 {
-                    ...password,
-                   // userId: getUserId(),
-                   // newPassword: getNewPassword(),
+                    userId: getUserId(),
+                    newPassword,
                 });
         }
         catch (e) {
@@ -75,15 +75,11 @@ class Profile extends React.Component {
         this.setState({
             isLoading: true
         });
+        const { userDetails } = this.state
         try {
             const userPassword = await axios.post("/admin/updateUserProfile",
-                {
-                    ...profile,
-                    // recId: getRecId(),
-                    // profilePic: getProfilePic(),
-                    // name: getName(),
-                    // phoneNumber: getPhoneNumber(),
-                });
+                { ...userDetails, name: userDetails.userName }
+            );
         }
         catch (e) {
             this.setState({
@@ -92,29 +88,53 @@ class Profile extends React.Component {
         }
     }
 
+    userNameChanged = (userName) => {
+        this.setState(prevState => ({
+            userDetails: {
+                ...prevState.userDetails,
+                userName
+            }
+        }))
+    }
+
+    emailChanged = (emailId) => {
+        this.setState(prevState => ({
+            userDetails: {
+                ...prevState.userDetails,
+                emailId
+            }
+        }))
+    }
+
+    phNumberChanged = (phoneNumber) => {
+        this.setState(prevState => ({
+            userDetails: {
+                ...prevState.userDetails,
+                phoneNumber
+            }
+        }))
+    }
+
     profileUI = () => {
         const { userDetails, isLoading, isError, password, profile, profilePic } = this.state
-       
-        if (isLoading) {
 
+        if (isLoading) {
             return (
                 <div className={'content-body-wrapper'}>
-                      <div className={'profile-card'}  >
+                    <div className={'profile-card'}  >
                         <Card
-                          style={{ width: '100%'}}>
-                          <Skeleton paragraph={{ rows:10}} />
+                            style={{ width: '100%' }}>
+                            <Skeleton paragraph={{ rows: 10 }} />
                         </Card>
-                      </div>
-                      <div className={'profile-card-pwd'}>
+                    </div>
+                    <div className={'profile-card-pwd'}>
                         <Card
-                        style={{ width:'100%'}}>
-                          <Skeleton paragraph={{ rows:8 }} />
-                            </Card>
-                            </div>
-                      </div>
-                    )
-                
-            
+                            style={{ width: '100%' }}>
+                            <Skeleton paragraph={{ rows: 8 }} />
+                        </Card>
+                    </div>
+                </div>
+            )
         } else if (isError) {
 
         } else if (userDetails.userName) {
@@ -148,9 +168,11 @@ class Profile extends React.Component {
                                         name="nest-profile" >
                                         <Form.Item name='name'
                                             label="Full Name"
-                                            rules={[{ required: true, message: 'Please input your Username!' }]}>
+                                        //rules={[{ required: true, message: 'Please input your Username!' }]}
+                                        >
                                             <Input
                                                 defaultValue={userDetails.userName}
+                                                onChange={e => this.userNameChanged(e.target.value)}
                                                 size="large"
                                                 style={{ borderRadius: '5px' }}
                                             />
@@ -171,6 +193,7 @@ class Profile extends React.Component {
                                         >
                                             <Input
                                                 defaultValue={userDetails.emailId}
+                                                onChange={e => this.emailChanged(e.target.value)}
                                                 size="large"
                                                 style={{ borderRadius: '5px' }} />
                                         </Form.Item>
@@ -182,6 +205,7 @@ class Profile extends React.Component {
                                             <Input
                                                 size="large"
                                                 defaultValue={userDetails.phoneNumber}
+                                                onChange={e => this.phNumberChanged(e.target.value)}
                                                 style={{ borderRadius: '5px' }}
                                             />
                                         </Form.Item>
@@ -219,7 +243,10 @@ class Profile extends React.Component {
                                             ]}
                                             hasFeedback
                                         >
-                                            <Input.Password size="large" style={{ borderRadius: '5px' }} />
+                                            <Input.Password
+                                                onChange={e => this.setState({ newPassword: e.target.value })}
+                                                size="large"
+                                                style={{ borderRadius: '5px' }} />
                                         </Form.Item>
                                         <Form.Item
 
@@ -242,7 +269,10 @@ class Profile extends React.Component {
                                                 }),
                                             ]}
                                         >
-                                            <Input.Password size="large" style={{ borderRadius: '5px' }} />
+                                            <Input.Password
+                                                onChange={e => this.setState({ reEnterPassword: e.target.value })}
+                                                size="large"
+                                                style={{ borderRadius: '5px' }} />
                                         </Form.Item>
                                     </Form>
                                 </div>
@@ -257,21 +287,19 @@ class Profile extends React.Component {
         }
     }
 
-    saveUserDetails = () => {
-
-    }
-
     changePassword = async () => {
+        const { newPassword } = this.state
         this.setState({ isChangePasswordLoading: true })
         try {
-            const { data } = await axios.get('admin/updateUserPassword')
+            const { data } = await axios.get('admin/updateUserPassword',
+                {
+                    userId: getUserId(),
+                    newPassword,
+                }
+            )
             this.setState({
                 isChangePasswordLoading: false
             })
-            // refeshUI()
-            // const userDetails = (data && data.user) || ''
-            // if (userDetails)
-            //     this.setState({ userDetails })
         } catch (e) {
             this.setState({ isChangePasswordError: true })
         }
