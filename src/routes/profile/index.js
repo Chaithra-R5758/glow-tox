@@ -6,7 +6,7 @@ import { EditFilled } from '@ant-design/icons'
 import axios from '../../config/api/'
 import { withRouter } from 'react-router-dom';
 import React, { Component } from 'react';
-import { getUserId, refeshUI } from '../../config/helpers'
+import { getUserId } from '../../config/helpers'
 
 const layout = {
     labelCol: { span: 8 },
@@ -18,12 +18,12 @@ class Profile extends React.Component {
         super()
         this.state = {
             isLoading: false,
-            isChangePasswordLoading:false,
+            isChangePasswordLoading: false,
             isError: false,
             userDetails: {},
             profile: {},
-            profilePic:'',
-            password:{},
+            profilePic: '',
+            password: {},
         };
     }
 
@@ -51,45 +51,49 @@ class Profile extends React.Component {
         };
         reader.readAsDataURL(e.target.files[0]);
     };
-   userPassword = async (password) => {
+
+    userPassword = async (password) => {
         this.setState({
-          isLoading: true
+            isLoading: true
         });
-        try{
-        const userPassword = await axios.post("/admin/updateUserPassword",
-        {...password,
-            userId : getUserId(),
-            newPassword : getNewPassword(),
-        });
+        try {
+            const userPassword = await axios.post("/admin/updateUserPassword",
+                {
+                    ...password,
+                   // userId: getUserId(),
+                   // newPassword: getNewPassword(),
+                });
+        }
+        catch (e) {
+            this.setState({
+                isLoading: false
+            });
+        };
     }
-    catch(e){
+
+    userProfile = async (profile) => {
         this.setState({
-          isLoading: false
+            isLoading: true
         });
-      };
-    }
-      userProfile = async (profile) => {
-        this.setState({
-          isLoading: true
-        });
-        try{
-        const userPassword = await axios.post("/admin/updateUserProfile",
-        {...profile,
-            recId : getRecId(),
-    profilePic : getProfilePic(),
-    name : getName(),
-    phoneNumber : getPhoneNumber(),
-        });
-    }
-    catch(e){
-        this.setState({
-          isLoading: false
-        });
-      }
+        try {
+            const userPassword = await axios.post("/admin/updateUserProfile",
+                {
+                    ...profile,
+                    // recId: getRecId(),
+                    // profilePic: getProfilePic(),
+                    // name: getName(),
+                    // phoneNumber: getPhoneNumber(),
+                });
+        }
+        catch (e) {
+            this.setState({
+                isLoading: false
+            });
+        }
     }
 
     profileUI = () => {
-        const { userDetails, isLoading, isError,password,profile ,profilePic} = this.state
+        const { userDetails, isLoading, isError, password, profile, profilePic } = this.state
         if (isLoading) {
 
         } else if (isError) {
@@ -165,7 +169,7 @@ class Profile extends React.Component {
                                     </Form>
                                 </div>
                                 <div
-                                    onClick={()=>this.saveUserDetails()}
+                                    onClick={() => this.saveUserDetails()}
                                     className={'profile-primary-btn'}
                                     htmlType="submit" loading={isLoading} onClick={() => this.userProfile(profile)}> Submit
                             </div>
@@ -175,7 +179,7 @@ class Profile extends React.Component {
                     <div className={'profile-card-pwd'}>
                         <Card>
                             <div
-                                onClick={()=>this.changePassword()}
+                                onClick={() => this.changePassword()}
                                 className={'title-card'}>
                                 Change Password
                            </div>
@@ -223,7 +227,7 @@ class Profile extends React.Component {
                                         </Form.Item>
                                     </Form>
                                 </div>
-                                <div className={'profile-primary-pwd-btn'} loading={isLoading} onClick={() => this.userPassword(password)}> 
+                                <div className={'profile-primary-pwd-btn'} loading={isLoading} onClick={() => this.userPassword(password)}>
                                     Submit
                                         </div>
                             </Space>
@@ -241,11 +245,11 @@ class Profile extends React.Component {
     changePassword = async () => {
         this.setState({ isChangePasswordLoading: true })
         try {
-            const { data } = await axios.get('admin/updateUserProfile')
+            const { data } = await axios.get('admin/updateUserPassword')
             this.setState({
                 isChangePasswordLoading: false
             })
-            refeshUI()
+            // refeshUI()
             // const userDetails = (data && data.user) || ''
             // if (userDetails)
             //     this.setState({ userDetails })
