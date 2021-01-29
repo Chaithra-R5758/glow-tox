@@ -1,7 +1,7 @@
 import { PageTitle } from '../../components/page-title/'
 import { Form, Select } from 'antd';
 import './profile.scss';
-import { Card, Input, Space, Image, Button, Anchor } from 'antd';
+import { Card, Input, Space, Image,Skeleton, Button, Anchor } from 'antd';
 import { EditFilled } from '@ant-design/icons'
 import axios from '../../config/api/'
 import { withRouter } from 'react-router-dom';
@@ -90,8 +90,27 @@ class Profile extends React.Component {
 
     profileUI = () => {
         const { userDetails, isLoading, isError,password,profile ,profilePic} = this.state
+       
         if (isLoading) {
 
+            return (
+                <div className={'content-body-wrapper'}>
+                      <div className={'profile-card'}  >
+                        <Card
+                          style={{ width: '100%'}}>
+                          <Skeleton paragraph={{ rows:10}} />
+                        </Card>
+                      </div>
+                      <div className={'profile-card-pwd'}>
+                        <Card
+                        style={{ width:'100%'}}>
+                          <Skeleton paragraph={{ rows:8 }} />
+                            </Card>
+                            </div>
+                      </div>
+                    )
+                
+            
         } else if (isError) {
 
         } else if (userDetails.userName) {

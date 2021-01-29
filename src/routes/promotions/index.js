@@ -1,6 +1,6 @@
 import { PageTitle } from "../../components/page-title";
 import "./promotions.scss";
-import { Input, Card, Skeleton } from "antd";
+import { Input, Card, Skeleton,message } from "antd";
 import loginImg from "../../assets/login-img.png";
 import { LinkOutlined, EditFilled } from "@ant-design/icons";
 import { Modal, Button } from "antd";
@@ -12,7 +12,12 @@ import defaultImg from "../../assets/default.png";
 import { Error } from "../../components/error";
 import TextArea from "antd/lib/input/TextArea";
 import { getUserId,getIsActive,getDescription,getOffer,getPromoCode,getPromoName,getPromoPic,getService } from '../../config/helpers' 
-
+const success = () => {
+  message.success('Card added successfully!');
+};
+const error = () => {
+  message.error('Error Occurred!');
+};
 class Promotions extends React.Component {
   constructor() {
     super()
@@ -173,13 +178,13 @@ class Promotions extends React.Component {
     });
   };
 }
-  addPromo = async (promotion) => {
+  addPromo = async (promo) => {
     this.setState({
       savePromotionLoading: true,
-    });
-    try{
-    const savePromotion = await axios.post("/admin/createPromotion",
-    {...promotion,
+    })
+   
+    const addPromo = await axios.post("/admin/createPromotion",
+    {...promo,
       promoName : getPromoName(),
     description : getDescription(),
     promoPic :getPromoPic(),
@@ -187,18 +192,15 @@ class Promotions extends React.Component {
     isActive : getIsActive(),
     offer : getOffer(),
     promoCode : getPromoCode(),
-    });
-  }
-  catch(e){
-    this.setState({
-      savePromotionLoading: false
-    });
-  };
-}
+    })
+    .then(success)
+    .catch(error)
+   
+    } 
 
   render() {
     const { loginImg } = this.state;
-    const { loadings, promotion, savePromotionLoading} = this.state;
+    const { loadings, promotion, savePromotionLoading,promo} = this.state;
     return (
       <div className="promotions-screen">
         <div>
@@ -346,7 +348,7 @@ class Promotions extends React.Component {
                       />
                       <Button
                         loading={savePromotionLoading}
-                        onClick={() => this.savePromotion(promotion)}
+                        onClick={() => this.addPromo(promo)}
 
                         className="save-btn"
                         style={{

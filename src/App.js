@@ -16,6 +16,7 @@ import Navbar from './components/navbar/';
 import Profile from './routes/profile/';
 import Promotions from './routes/promotions/';
 import Cookies from 'js-cookie';
+import PageNotFound from './routes/404-page/';
 
 
 class App extends Component {
@@ -38,6 +39,7 @@ class App extends Component {
                   <Route path="/servicehistory" component={() => <ServiceHistory />} />
                   <Route path="/profile" component={() => <Profile />} />
                   <Route path="/promotions" component={() => <Promotions />} />
+                  <Route path="/pagenotfound" component={() => <PageNotFound/>} />
                   <Redirect to="/dashboard" /> 
                   </Switch><Footer /> </div> :
                   <Switch>
