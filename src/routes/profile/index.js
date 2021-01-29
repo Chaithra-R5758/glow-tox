@@ -6,7 +6,7 @@ import { EditFilled } from '@ant-design/icons'
 import axios from '../../config/api/'
 import { withRouter } from 'react-router-dom';
 import React, { Component } from 'react';
-import { getUserId, refeshUI ,getNewPassword, getRecId,getProfilePic,getName,getPhoneNumber} from '../../config/helpers'
+import { getUserId, refeshUI } from '../../config/helpers'
 
 const layout = {
     labelCol: { span: 8 },

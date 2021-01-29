@@ -49,16 +49,21 @@ class Service extends React.Component {
       loading: false,
       error: false,
       saveServiceLoading: false,
-      beforeAfterSets: []
+      beforeAfterSets: [],
+      newService: false,
     }
   }
 
-  async componentDidMount() {
+  getAllServices = async () => {
     this.setState({ loading: true })
     const response = await axios.get('/admin/getAllAdminServices',)
     const services = response.data && response.data.service
     if (services)
       this.setState({ services, loading: false })
+  }
+
+  componentDidMount() {
+    this.getAllServices()
   }
 
   imageHandler = e => {
@@ -80,10 +85,17 @@ class Service extends React.Component {
 
   hideModal = () => {
     this.setState({
-      service:{},
+      service: {},
       visible: false,
+      newService: false,
     });
   };
+
+  // editService = (service) => {
+  //   const { serviceId } = service
+  //   this.getServiceForID(serviceId)
+  //   this.showModal() 
+  // }
 
   servicesUI = () => {
     const { loading, error, services } = this.state
@@ -127,9 +139,7 @@ class Service extends React.Component {
                 <div className={'service-meta-data-wrapper'}>
                   <div className={'service-title'}>{service.serviceName || "No-Title"}</div>
                   <div className={'edit-btn'}
-                    onClick={() => this.showModal(service)}>
-                    Edit
-                      </div>
+                    onClick={() => this.showModal(service)}>Edit</div>
                 </div>
                 <div>
                 </div>
@@ -141,15 +151,35 @@ class Service extends React.Component {
     }
   }
 
+  getServiceForID = async (id) => {
+  //  https://d9c6y9z297.execute-api.eu-west-1.amazonaws.com/prod/admin/getServiceById?serviceId=SR004
+   // this.setState({ saveServiceLoading: true })
+    try {
+      const service = await axios.get(`/admin/getServiceById?serviceId=${id}`)
+      this.setState({ 
+        service,
+        saveServiceLoading: false 
+      })
+     // this.hideModal()
+     // this.getAllServices()
+    }
+    catch (e) {
+     // this.setState({ saveServiceLoading: false })
+    }
+  }
+
   createService = async (service) => {
     this.setState({ saveServiceLoading: true })
     try {
       const saveService = await axios.post('/admin/createService', {
         ...service,
-        userId: getUserId(),
-        recId: getRecId(),
+       // userId: getUserId(),
+       // recId: getRecId(),
         serviceImage: '',
       })
+      this.setState({ saveServiceLoading: false })
+      this.hideModal()
+      this.getAllServices()
     }
     catch (e) {
       this.setState({ saveServiceLoading: false })
@@ -157,22 +187,32 @@ class Service extends React.Component {
   }
 
   saveService = async (service) => {
-    this.setState({
-      saveServiceLoading: true,
-    })
-
-    try {
-      const saveService = await axios.post('/admin/updateService', {
-        ...service,
-        userId: getUserId(),
-       // recId: getRecId(),
-        serviceImage: ''
-      })
-    }
-    catch (e) {
+    const { newService } = this.state
+    if (newService) {
+      this.createService()
+    } else {
       this.setState({
-        saveServiceLoading: false,
+        saveServiceLoading: true,
       })
+
+      try {
+        const saveService = await axios.post('/admin/updateService', {
+          ...service,
+          userId: getUserId(),
+          // recId: getRecId(),
+          serviceImage: ''
+        })
+        this.setState({
+          saveServiceLoading: false,
+        })
+        this.hideModal()
+        this.getAllServices()
+      }
+      catch (e) {
+        this.setState({
+          saveServiceLoading: false,
+        })
+      }
     }
   }
 
@@ -205,7 +245,7 @@ class Service extends React.Component {
 
   modalUI = () => {
     const { defaultImg, beforeAfterSets, service, saveServiceLoading } = this.state
-    console.log("service",service)
+    console.log("service", service)
     return (
       <Modal
         visible={this.state.visible}
@@ -302,12 +342,10 @@ class Service extends React.Component {
               display: 'flex',
               flex: 1,
               flexDirection: 'column',
-            }}
-          >
-            {service.serviceName}
+            }}>
             <div>Service Name</div>
             <input
-              value={service.serviceName}
+              value={service.serviceName || ''}
               onChange={this.onChangeName}
               style={{
                 padding: '5px',
@@ -363,6 +401,14 @@ class Service extends React.Component {
     )
   }
 
+  addNewService = () => {
+    this.setState({
+      newService: true,
+      service:{},
+    })
+    this.showModal()
+  }
+
   render() {
     return (
       <div className="service-screen">
@@ -373,7 +419,7 @@ class Service extends React.Component {
           <div className={"service-card"}>
             <Card>
               <div className={'content-body-wrapper'}>
-                <div className={'primary-btn'} onClick={() => this.showModal()}>
+                <div className={'primary-btn'} onClick={() => this.addNewService()}>
                   Add New Service
               </div>
                 <div className={'modal-wrapper'}>

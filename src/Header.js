@@ -12,6 +12,8 @@ import Cookies from 'js-cookie';
 import { UserOutlined } from '@ant-design/icons';
 import { Anchor, Image } from 'antd';
 import brandLogo from '../src/assets/propic.png'
+import axios from './config/api/'
+
 
 const { Link } = Anchor;
 class Header extends React.Component {
@@ -23,7 +25,9 @@ class Header extends React.Component {
     }
   }
 
+
   componentDidMount() {
+    const { userDetails } = this.state
     const userType = Cookies.get('userType')
     if (userType) {
       this.setState({ userType })
@@ -37,7 +41,6 @@ class Header extends React.Component {
   }
 
   render() {
-
     return (
       <div className={'header'}>
         <div className={'header-wrapper'}>
@@ -46,11 +49,14 @@ class Header extends React.Component {
           <div className={'profile-name'}>
             <div className={'profile-inner-wrapper'} onClick={() => this.props.history.push('/profile')}>
               <div className={'profile-icon'}>
-                <img 
-                className={'profile-icon-img'}
-                src={'https://lh3.googleusercontent.com/ogw/ADGmqu8O8PGfR1MiMeaUyOfc7EvwnENHHbMADvGh_-d9Tw=s32-c-mo'} />
+                {
+                  
+                  <img
+                  className={'profile-icon-img'}
+                  src={'https://pbs.twimg.com/profile_images/1227540838596562944/bs5ZQkrs.jpg'} />
+                }
               </div>
-              <div className={'profile-text'}> Akash hamse </div>
+              <div className={'profile-text'}> {'Suneet Patil'}</div>
             </div>
           </div>
         </div>

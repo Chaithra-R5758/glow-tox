@@ -11,6 +11,7 @@ import axios from "../../config/api/";
 import defaultImg from "../../assets/default.png";
 import { Error } from "../../components/error";
 import TextArea from "antd/lib/input/TextArea";
+<<<<<<< HEAD
 import { getUserId,getIsActive,getDescription,getOffer,getPromoCode,getPromoName,getPromoPic,getService } from '../../config/helpers' 
 const success = () => {
   message.success('Card added successfully!');
@@ -18,27 +19,37 @@ const success = () => {
 const error = () => {
   message.error('Error Occurred!');
 };
+=======
+import { getUserId } from '../../config/helpers'
+
+>>>>>>> cff2db256877e0c3e56b746cf7786bbadb08de0b
 class Promotions extends React.Component {
   constructor() {
     super()
     this.state = {
       loginImg,
       promotion: {},
-      promotions: [] ,
+      promotions: [],
       loading: false,
       error: false,
-      promo:{},
+      promo: {},
       savePromotionLoading: false,
+      newPromo: false,
     };
   }
 
-  async componentDidMount() {
-    this.setState({loading:true})
+  getAllPromotions = async () => {
+    this.setState({ loading: true })
     const response = await axios.get('/admin/getAllPromotionForSuperAdmin',)
     const promotions = response.data && response.data.promotion
-    if(promotions)
-    this.setState({promotions, loading:false})
+    if (promotions && promotions.length > 0)
+      this.setState({ promotions, loading: false })
   }
+
+  async componentDidMount() {
+    this.getAllPromotions()
+  }
+
   onChangeLink = e => {
     this.setState(prevState => ({
       promotion: {
@@ -47,6 +58,7 @@ class Promotions extends React.Component {
       }
     }))
   }
+
   onChangeCode = e => {
     this.setState(prevState => ({
       promotion: {
@@ -55,6 +67,7 @@ class Promotions extends React.Component {
       }
     }))
   }
+
   onChangeDesc = e => {
     this.setState(prevState => ({
       promotion: {
@@ -63,7 +76,8 @@ class Promotions extends React.Component {
       }
     }))
   }
-  showModal = (promotion = {} ) => {
+
+  showModal = (promotion = {}) => {
     this.setState({
       visible: true,
       promotion,
@@ -73,6 +87,7 @@ class Promotions extends React.Component {
   hideModal = () => {
     this.setState({
       visible: false,
+      newPromo: false,
     });
   };
 
@@ -92,7 +107,7 @@ class Promotions extends React.Component {
   };
 
   promotionsUI = () => {
-    const { loading, error,promotions } = this.state;
+    const { loading, error, promotions } = this.state;
     if (loading) {
       return (
         <div className={'promo-card-wrapper'}>
@@ -135,9 +150,7 @@ class Promotions extends React.Component {
               >
                 {<EditFilled />}
               </Button>
-
             </div>
-
             <div className={"img-card"} style={{ backgroundColor: "#D7DBFE" }}>
               <img
                 width={150}
@@ -162,21 +175,29 @@ class Promotions extends React.Component {
   };
 
   savePromotion = async (promotion) => {
-    this.setState({
-      savePromotionLoading: true,
-    });
-    try{
-    const savePromotion = await axios.post("/admin/updatePromotion", 
-      {...promotion,
-        userId: getUserId(),
-        //recId: getRecId(),
-      });
+    const { newPromo } = this.state
+    if (newPromo) {
+      this.addPromo()
     }
-    catch(e){
-    this.setState({
-      savePromotionLoading: false
-    });
+    else {
+      this.setState({
+        savePromotionLoading: true,
+      });
+      const savePromotion = await axios.post("/admin/updatePromotion",
+        {
+          ...promotion,
+          userId: getUserId(),
+          //recId: getRecId(),
+        });
+      this.setState({
+        savePromotionLoading: false,
+      });
+      this.hideModal()
+      this.getAllPromotions()
+      //refeshUI()
+    }
   };
+<<<<<<< HEAD
 }
   addPromo = async (promo) => {
     this.setState({
@@ -201,6 +222,50 @@ class Promotions extends React.Component {
   render() {
     const { loginImg } = this.state;
     const { loadings, promotion, savePromotionLoading,promo} = this.state;
+=======
+
+  addPromo = async () => {
+    const { promotion } = this.state
+    this.setState({
+      savePromotionLoading: true,
+    });
+    try {
+      const { description, promoCode, promoImage, service } = promotion
+      const addPromo = await axios.post("/admin/createPromotion", {
+        ...promotion,
+        promoName: "",
+        description,
+        promoPic: promoImage,
+        serviceId: service,
+        isActive: "",
+        offer: "",
+        promoCode,
+      });
+      this.setState({
+        savePromotionLoading: false,
+      }, () => {
+        this.hideModal()
+        this.getAllPromotions()
+      })
+    }
+    catch (e) {
+      this.setState({
+        savePromotionLoading: false,
+      })
+    };
+  }
+
+  addNewPromo = () => {
+    this.setState({
+      newPromo: true
+    })
+    this.showModal()
+  }
+
+  render() {
+    const { loginImg } = this.state;
+    const { loadings, promotion, savePromotionLoading, promo } = this.state;
+>>>>>>> cff2db256877e0c3e56b746cf7786bbadb08de0b
     return (
       <div className="promotions-screen">
         <div>
@@ -209,7 +274,7 @@ class Promotions extends React.Component {
             <div className={"promotions-card"}>
               <Card>
                 <div className={"content-body-wrapper"}>
-                  <div className={"primary-btn "} onClick={() => this.showModal(promotion)}>
+                  <div className={"primary-btn "} onClick={() => this.addNewPromo()}>
                     Add Promo
                   </div>
                   <div className={"promo-card-wrapper"}>
@@ -270,9 +335,7 @@ class Promotions extends React.Component {
                       }}
                     />
                   </div>
-
                   <input
-
                     style={{ display: "none" }}
                     type="file"
                     accept="image/*"
@@ -280,17 +343,14 @@ class Promotions extends React.Component {
                     id="input"
                     onChange={this.imageHandler}
                   />
-
                   <div
                     className="modal-code"
-
                     style={{
                       fontFamily: "Poppins, sans-serif",
                       fontWeight: " bolder",
                       fontSize: "16px",
                       marginBottom: "5px",
-                    }}
-                  >
+                    }}>
                     Description
                   </div>
                   <TextArea
@@ -348,8 +408,12 @@ class Promotions extends React.Component {
                       />
                       <Button
                         loading={savePromotionLoading}
+<<<<<<< HEAD
                         onClick={() => this.addPromo(promo)}
 
+=======
+                        onClick={() => this.savePromotion(promotion)}
+>>>>>>> cff2db256877e0c3e56b746cf7786bbadb08de0b
                         className="save-btn"
                         style={{
                           float: "right",
@@ -361,7 +425,7 @@ class Promotions extends React.Component {
                         }}
                       >
                         Save
-                      </Button>{" "}
+                      </Button>
                     </div>
                   </div>
                 </div>

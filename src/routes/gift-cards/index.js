@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import { PageTitle } from '../../components/page-title/'
-import './gift-card2.scss';
+import './gift-card.scss';
 import axios from '../../config/api/'
 import { SearchOutlined } from '@ant-design/icons'
 import { Card, Table, Tag, Input, Button, Modal, Skeleton,message } from 'antd';
 import { withRouter } from 'react-router-dom';
+<<<<<<< HEAD
 import { getClientName,getIsActive,getOffer,getServiceId ,getEmailId,getStatus} from '../../config/helpers' 
 //import { response } from './mock.js'
 const success = () => {
@@ -13,6 +14,9 @@ const success = () => {
 const error = () => {
   message.error('Error Occurred!');
 }; 
+=======
+
+>>>>>>> cff2db256877e0c3e56b746cf7786bbadb08de0b
 class GiftCards extends React.Component {
   constructor() {
     super()
@@ -21,21 +25,20 @@ class GiftCards extends React.Component {
       userDetails: {},
       isLoading: false,
       saveServiceLoading: false,
-      giftcard:{},
+      giftcard: {},
       giftCards: [],
     };
   }
 
-  // state = { visible: true };
-  async componentDidMount() {
+  getAllGiftCards = async () => {
     this.setState({ isLoading: true })
     try {
-      const {data} = await axios.get('/admin/getAllGiftCardsForAdmin',)
+      const { data } = await axios.get('/admin/getAllGiftCardsForAdmin',)
       this.setState({
         isLoading: false
       })
       const giftCards = (data && data.giftcards) || ''
-      if (giftCards){
+      if (giftCards) {
         this.setState({ giftCards })
       }
     } catch (e) {
@@ -43,10 +46,21 @@ class GiftCards extends React.Component {
     }
   }
 
-  saveGiftcard = async (giftcard) => {
+  async componentDidMount() {
+    this.getAllGiftCards()
+  }
+
+  saveGiftcard = async () => {
+    const {
+      clientName,
+      emailId,
+      offer,
+      serviceId,
+    } = this.state
     this.setState({
       saveGiftcardLoading: true,
     })
+<<<<<<< HEAD
     
     const saveGiftcard = await axios.post('/admin/createGiftCardsByAdmin', 
     {...giftcard,
@@ -61,9 +75,35 @@ status: getStatus()
   .catch(error)
 
   } 
+=======
+    try {
+      const saveGiftcard = await axios.post('/admin/createGiftCardsByAdmin',
+        {
+          clientName,
+          emailId,
+          offer,
+          serviceId,
+        });
+      this.setState({ saveGiftcardLoading: false });
+      this.hideModal()
+      this.getAllGiftCards()
+    }
+    catch (e) {
+      this.setState({
+        saveGiftcardLoading: false
+      });
+    };
+  }
+
+
+>>>>>>> cff2db256877e0c3e56b746cf7786bbadb08de0b
   showModal = () => {
     this.setState({
       visible: true,
+      clientName:'',
+      emailId:'',
+      offer:'',
+      serviceId:'',
     });
   };
 
@@ -165,7 +205,18 @@ status: getStatus()
   }
 
   render() {
-    const { giftCards, giftcard, saveGiftcardLoading } = this.state
+    const {
+      giftCards,
+      giftcard,
+      saveGiftcardLoading,
+
+    } = this.state
+    const {
+      serviceId,
+      clientName,
+      emailId,
+      offer
+    } = giftcard
     return (
      
       <div className="gift-card-screen">
@@ -182,7 +233,7 @@ status: getStatus()
                     <div className={'search-wrapper'}>
                       <Input placeholder="Search..." prefix={<SearchOutlined />} />
                     </div>
-                    <div className={'primary-btn '}  onClick={() => this.showModal(giftcard)}>
+                    <div className={'primary-btn '} onClick={() => this.showModal(giftcard)}>
                       Create New
                   </div>
                   </div>
@@ -196,26 +247,51 @@ status: getStatus()
                     }}>Gift Cards-Create</div>
 
                     <div className="create-wrapper" style={{ display: 'flex', marginTop: 20 }}>
-                      <Input placeholder="Client Name" style={{ width: '70%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginRight: 10 }} />
-                      <Input  placeholder="Email Id" style={{ width: '70%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px' }} />
+                      <Input
+                        placeholder="Client Name"
+                        defaultValue={clientName}
+                        onChange={e => this.setState({ clientName: e.target.value })}
+                        style={{
+                          width: '70%',
+                          backgroundColor: ' #E2E2E2',
+                          blockSize: 40, border: '0px',
+                          borderRadius: '5px',
+                          marginRight: 10
+                        }}
+                      />
+                      <Input
+                        placeholder="Email Id"
+                        defaultValue={emailId}
+                        onChange={e => this.setState({ emailId: e.target.value })}
+                        style={{ width: '70%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px' }} />
                     </div>
                     <div className={'create-row'} style={{ display: 'flex', marginTop: 20 }}>
-                      <Input  placeholder="Service Name" style={{ width: '70%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginRight: 10 }} />
                       <Input
-                       
+                        placeholder="Service Name"
+                        defaultValue={serviceId}
+                        onChange={e => this.setState({ serviceId: e.target.value })}
+                        style={{ width: '70%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginRight: 10 }} />
+                      <Input
                         placeholder="Value"
+                        defaultValue={offer}
+                        onChange={e => this.setState({ offer: e.target.value })}
                         style={{ width: '37%', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginRight: 10 }}
                       />
                       <div className={" select-wrapper"}  >
-                        <input type="text" list="option" style={{ width: 140, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginBottom: 30 }}/>
-                       <datalist id="option" >
-                          <option  >$</option>
-                          <option >%</option>
+                        <input type="text" list="option" style={{ width: 140, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginBottom: 30 }} />
+                        <datalist id="option" >
+                          <option>$</option>
+                          <option>%</option>
                         </datalist>
                       </div>
                     </div>
+<<<<<<< HEAD
                     <Button loading={saveGiftcardLoading} 
                       onClick={() => this.saveGiftcard(giftcard)}className="save-btn" style={{ float: 'right', backgroundColor: '#5D72E9', color: 'white', borderRadius: '5px', padding: '0px 25px 0px 25px', marginTop: '-20px' }}>Save</Button>
+=======
+                    <Button loading={saveGiftcardLoading}
+                      onClick={() => this.saveGiftcard()} className="save-btn" style={{ float: 'right', backgroundColor: '#5D72E9', color: 'white', borderRadius: '5px', padding: '0px 25px 0px 25px', marginTop: '-20px' }}>Save</Button>
+>>>>>>> cff2db256877e0c3e56b746cf7786bbadb08de0b
                   </Modal>
                 </div>
               </div>
@@ -226,5 +302,4 @@ status: getStatus()
     );
   }
 }
-
 export default withRouter(GiftCards);
