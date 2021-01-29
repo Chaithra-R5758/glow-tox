@@ -19,7 +19,6 @@ class ServiceHistory extends React.Component {
       saveGiftcardLoading: false,
     };
   }
-  // state = { visible: true };
   async componentDidMount() {
     this.setState({ isLoading: true })
     try {
@@ -175,25 +174,7 @@ class ServiceHistory extends React.Component {
       },
     ];
 
-    // for (let i = 5; i < 100; i++) {
-    //   data.push({
-
-
-    //     key: 'i',
-    //     name: `John Brown ${i}`,
-    //     age: 32,
-    //     id: i,
-    //     address: `New York No.${i} Lake Park`,
-    //     tags: ['New'],
-    //     email: 'akash@gmail.com',
-    //     offer: '10% off',
-    //     service: `service ${i}`,
-    //     promoname: 'Promo Details',
-
-    //   });
-    // }
-
-    const { serviceHistory , isLoading, isError } = this.state
+    const { serviceHistory, isLoading, isError } = this.state
     if (isLoading) {
       return (
 
@@ -206,11 +187,11 @@ class ServiceHistory extends React.Component {
     else if (isError) {
 
     } else {
-    return (
-      <div className={'history-card'}>
-        <Table dataSource={serviceHistory} columns={columns} />
-      </div>
-    )
+      return (
+        <div className={'history-card'}>
+          <Table dataSource={serviceHistory} columns={columns} />
+        </div>
+      )
     }
   }
 
@@ -228,7 +209,7 @@ class ServiceHistory extends React.Component {
 
   render() {
 
-    const { service, saveServiceLoading ,serviceHistory} = this.state
+    const { service, saveServiceLoading, serviceHistory } = this.state
 
     return (
 

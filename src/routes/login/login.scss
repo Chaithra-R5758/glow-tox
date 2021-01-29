@@ -1,19 +1,18 @@
-
-body{
-    background-color: #CDD4E1 !important;
-    background-image: url('../../assets/login-bgk.jpg');
+body {
+    background-color: #cdd4e1 !important;
+    background-image: url("../../assets/login-bgk.jpg");
     background-repeat: no-repeat;
     background-attachment: fixed;
     background-size: cover;
 }
-.login-screen{
-    .error-msg{
+.login-screen {
+    .error-msg {
         color: red;
         text-align: center;
         margin: -10px 0px 10px 0px;
     }
-   .login-wrapper{
-        font-family:'Poppins', sans-serif;
+    .login-wrapper {
+        font-family: "Poppins", sans-serif;
         left: 50%;
         top: 50%;
         position: absolute;
@@ -22,33 +21,31 @@ body{
         transform: translate3d(-50%, -50%, 0);
         padding: 25px;
     }
-    .login-card{
-        
+    .login-card {
         display: flex;
         justify-content: center;
     }
-    .login-brand{
+    .login-brand {
         height: 60px;
         margin: auto;
         display: flex;
     }
-    .login-username{
+    .login-username {
         margin-top: 20px;
     }
-    h1{
-       text-align: center;
-       font-family: "Poppins", sans-serif ;
-       font-size: 30px;
-       font-weight: 800;
-       color: #5D72E9;
-       text-shadow: 0.5px 0.5px  gray;
+    h1 {
+        text-align: center;
+        font-family: "Poppins", sans-serif;
+        font-size: 30px;
+        font-weight: 800;
+        color: #5d72e9;
+        text-shadow: 0.5px 0.5px gray;
     }
-    .login-form-forgot{
-        color: #5D72E9;
-        
+    .login-form-forgot {
+        color: #5d72e9;
     }
-    .login-btn{
-        background-color: #5B71E8;
+    .login-btn {
+        background-color: #5b71e8;
         border-radius: 5px;
         color: white;
         text-align: center;
@@ -56,37 +53,35 @@ body{
         cursor: pointer;
     }
     .login-btn:hover {
-        background-color: #5D72E9;
+        background-color: #5d72e9;
         color: white;
-        border:1px solid #5D72E9;
+        border: 1px solid #5d72e9;
     }
     .login-btn:active {
-        background-color: #5D72E9;
+        background-color: #5d72e9;
         color: white;
-        border:1px solid #5D72E9;
+        border: 1px solid #5d72e9;
     }
     .login-btn:focus {
-        background-color: #5D72E9;
+        background-color: #5d72e9;
         color: white;
-        border:1px solid #5D72E9;
+        border: 1px solid #5d72e9;
     }
     @media screen and (max-width: 720px) {
-        .login-wrapper{
-        border: 0px solid #d9d9d9;
-        display: flex;
-        flex: 1;
-        justify-content: center;
-        align-items: center;
-            
-    }
-    .image-card{
-        display: none;
-    }
-    
-    .login-btn{
-        width:240px;
-        text-align: center;
-    }
-}
-}
+        .login-wrapper {
+            border: 0px solid #d9d9d9;
+            display: flex;
+            flex: 1;
+            justify-content: center;
+            align-items: center;
+        }
+        .image-card {
+            display: none;
+        }
 
+        .login-btn {
+            width: 240px;
+            text-align: center;
+        }
+    }
+}

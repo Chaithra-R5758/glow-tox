@@ -52,10 +52,10 @@ class Login extends Component {
         Cookies.set('recId', user.recId || '');
         setTimeout(() => window.location.reload(), 1000)
       } else {
-        const errorMsg = response 
-        && response.data 
-        && response.data.message 
-        || 'Something went wrong! Try again'
+        const errorMsg = response
+          && response.data
+          && response.data.message
+          || 'Something went wrong! Try again'
         this.setState({ errorMsg })
       }
     }
@@ -98,7 +98,7 @@ class Login extends Component {
                     defaultValue={userName}
                     style={{ borderRadius: '5px' }}
                     prefix={<UserOutlined className="site-form-item-icon" />}
-                    onChange={(e) => this.setState({ userName: e.target.value, errorMsg:'' })}
+                    onChange={(e) => this.setState({ userName: e.target.value, errorMsg: '' })}
                     placeholder="Username" />
                 </Form.Item>
                 <Form.Item
@@ -106,14 +106,14 @@ class Login extends Component {
                   name="password"
                   rules={[{ message: 'Please input your Password!' }]}
                 >
-                  <Input 
-                    size="large" 
+                  <Input.Password
+                    size="large"
                     style={{ borderRadius: '5px' }}
                     defaultValue={password}
                     prefix={<LockOutlined className="site-form-item-icon" />}
                     type="password"
                     placeholder="Password"
-                    onChange={(e) => this.setState({ password: e.target.value, errorMsg:''  })}
+                    onChange={(e) => this.setState({ password: e.target.value, errorMsg: '' })}
                   />
                 </Form.Item>
                 <div className={'error-msg'}>{errorMsg}</div>

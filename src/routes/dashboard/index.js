@@ -26,22 +26,22 @@ class Dashboard extends React.Component {
     return (
       <div className="dashboard-screen">
         <div className={'content-wrapper'}>
-          <PageTitle 
+          <PageTitle
             title={'Dashboard'}
           />
           <div
             className={'content-body-wrapper'}>
             {
               DASHBOARD_OPTIONS.map((option, index) =>
-                <div className={'dashboard-card'} 
+                <div className={'dashboard-card'}
                   onClick={() => this.itemClicked(index)} >
-                  <Card 
-                    hoverable style={option.color} 
+                  <Card
+                    hoverable style={option.color}
                   >
-                    {option.img} 
-                    <Meta  
-                   title={option.title} 
-                      description={option.desc}/>
+                    {option.img}
+                    <Meta
+                      title={option.title}
+                      description={option.desc} />
                   </Card>
                 </div>
               )

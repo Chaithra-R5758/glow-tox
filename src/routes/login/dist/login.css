@@ -1,51 +1,85 @@
+body {
+  background-color: #cdd4e1 !important;
+  background-image: url("../../assets/login-bgk.jpg");
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+
+.login-screen .error-msg {
+  color: red;
+  text-align: center;
+  margin: -10px 0px 10px 0px;
+}
 .login-screen .login-wrapper {
+  font-family: "Poppins", sans-serif;
   left: 50%;
   top: 50%;
   position: absolute;
   -webkit-transform: translate3d(-50%, -50%, 0);
   -moz-transform: translate3d(-50%, -50%, 0);
   transform: translate3d(-50%, -50%, 0);
-  border: 1px solid #d9d9d9;
   padding: 25px;
+}
+.login-screen .login-card {
+  display: flex;
+  justify-content: center;
 }
 .login-screen .login-brand {
   height: 60px;
   margin: auto;
-  /* text-align: center; */
   display: flex;
 }
 .login-screen .login-username {
   margin-top: 20px;
 }
-.login-screen .login-brand-logo-wrapper {
-  margin: 0 15px 35px 15px;
+.login-screen h1 {
+  text-align: center;
+  font-family: "Poppins", sans-serif;
+  font-size: 30px;
+  font-weight: 800;
+  color: #5d72e9;
+  text-shadow: 0.5px 0.5px gray;
+}
+.login-screen .login-form-forgot {
+  color: #5d72e9;
 }
 .login-screen .login-btn {
-  background-color: #343557;
-  padding: 10px 15px 12px 15px;
-  border-radius: 25px;
+  background-color: #5b71e8;
+  border-radius: 5px;
   color: white;
   text-align: center;
-  align-self: flex-end;
-  margin: -10px 0 0 0;
-  width: 150px;
-  margin: auto;
-  margin-top: 40px;
+  width: 330px;
   cursor: pointer;
 }
-@media screen and (max-width: 570px) {
-  .login-screen .login-wrapper {
-    border: 1px solid #d9d9d9;
-    padding: 15px;
-    margin: 25px;
-    margin-top: 30%;
-    left: 0;
-    top: 0;
-    position: inherit;
-    transform: none;
-  }
+.login-screen .login-btn:hover {
+  background-color: #5d72e9;
+  color: white;
+  border: 1px solid #5d72e9;
 }
-
-body {
-  background-color: #fff !important;
+.login-screen .login-btn:active {
+  background-color: #5d72e9;
+  color: white;
+  border: 1px solid #5d72e9;
+}
+.login-screen .login-btn:focus {
+  background-color: #5d72e9;
+  color: white;
+  border: 1px solid #5d72e9;
+}
+@media screen and (max-width: 720px) {
+  .login-screen .login-wrapper {
+    border: 0px solid #d9d9d9;
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+  }
+  .login-screen .image-card {
+    display: none;
+  }
+  .login-screen .login-btn {
+    width: 240px;
+    text-align: center;
+  }
 }

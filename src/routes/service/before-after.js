@@ -4,12 +4,12 @@ export const BeforeAfter = (props) => {
     const imageHandler = e => {
         const reader = new FileReader();
         reader.onload = () => {
-          if (reader.readyState === 2) {
-            this.setState({ defaultImg: reader.result });
-          }
+            if (reader.readyState === 2) {
+                this.setState({ defaultImg: reader.result });
+            }
         };
         reader.readAsDataURL(e.target.files[0]);
-      };
+    };
     return (
         <div style={{ margin: '0 5px', display: 'flex' }}>
             <label htmlFor="input">
@@ -24,7 +24,7 @@ export const BeforeAfter = (props) => {
                 accept="image/*"
                 name="image-upload"
                 id="input"
-               // onChange={this.imageHandler}
+            // onChange={this.imageHandler}
             />
             <label htmlFor="input">
                 <img
@@ -38,7 +38,6 @@ export const BeforeAfter = (props) => {
                 accept="image/*"
                 name="image-upload"
                 id="input"
-               // onChange={this.imageHandler}
             />
         </div>
     )

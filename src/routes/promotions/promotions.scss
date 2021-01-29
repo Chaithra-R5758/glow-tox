@@ -58,7 +58,8 @@
         border-radius: 5px;
         color: white;
         cursor: pointer;
-    }.btn-card :active{
+    }
+    .btn-card :active {
         background-color: #5d72e9;
         font-family: "Poppins", sans-serif;
         border-radius: 5px;
@@ -84,10 +85,10 @@
         justify-content: center;
         align-items: center;
     }
-    body{
-        background-color: #f6f6f8;  
+    body {
+        background-color: #f6f6f8;
     }
-    
+
     @media screen and (max-width: 720px) {
         .promotions-card {
             margin-right: -10px;

@@ -1,6 +1,6 @@
 import { PageTitle } from "../../components/page-title";
 import "./promotions.scss";
-import { Input, Card, Skeleton,message } from "antd";
+import { Input, Card, Skeleton, message } from "antd";
 import loginImg from "../../assets/login-img.png";
 import { LinkOutlined, EditFilled } from "@ant-design/icons";
 import { Modal, Button } from "antd";

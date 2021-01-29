@@ -10,26 +10,7 @@ import defaultImg from '../../assets/default.png'
 import { Error } from '../../components/error'
 import { BeforeAfter } from './before-after'
 
-// category: null
-// categoryName: ["Botulinum toxin’s Full-Face services"]
-// cost: 199.9
-// description: "Botox - Full face + Test123"
-// isActive: true
-// recId: "recA1OgdrCiDsbqi1"
-// serviceId: "SR004"
-// serviceName: "Botox - Full face + Test"
-// userId: "GLX00002"
 
-// {
-//   "recId" : "",
-//   "userId" : "",
-//    "serviceName" : "",
-//    "categoryName" : "",
-//    "description" : "",
-//    "serviceImage" : "",
-//    "cost" : "",
-//    "isActive" : ""
-// }
 
 const { Meta } = Card;
 const { TextArea } = Input;
@@ -43,7 +24,6 @@ class Service extends React.Component {
     super()
     this.state = {
       service: {},
-      // response: {},
       services: [],
       defaultImg,
       loading: false,
@@ -90,12 +70,6 @@ class Service extends React.Component {
       newService: false,
     });
   };
-
-  // editService = (service) => {
-  //   const { serviceId } = service
-  //   this.getServiceForID(serviceId)
-  //   this.showModal() 
-  // }
 
   servicesUI = () => {
     const { loading, error, services } = this.state
@@ -152,29 +126,22 @@ class Service extends React.Component {
   }
 
   getServiceForID = async (id) => {
-  //  https://d9c6y9z297.execute-api.eu-west-1.amazonaws.com/prod/admin/getServiceById?serviceId=SR004
-   // this.setState({ saveServiceLoading: true })
+
     try {
       const service = await axios.get(`/admin/getServiceById?serviceId=${id}`)
-      this.setState({ 
+      this.setState({
         service,
-        saveServiceLoading: false 
+        saveServiceLoading: false
       })
-     // this.hideModal()
-     // this.getAllServices()
     }
     catch (e) {
-     // this.setState({ saveServiceLoading: false })
     }
   }
-
   createService = async (service) => {
     this.setState({ saveServiceLoading: true })
     try {
       const saveService = await axios.post('/admin/createService', {
         ...service,
-       // userId: getUserId(),
-       // recId: getRecId(),
         serviceImage: '',
       })
       this.setState({ saveServiceLoading: false })
@@ -199,7 +166,6 @@ class Service extends React.Component {
         const saveService = await axios.post('/admin/updateService', {
           ...service,
           userId: getUserId(),
-          // recId: getRecId(),
           serviceImage: ''
         })
         this.setState({
@@ -259,21 +225,9 @@ class Service extends React.Component {
             ontFamily: "Poppins, sans-serif",
             fontWeight: ' bolder',
             fontSize: '18px',
-            // marginTop: 20
           }}>
             Service Add/Edit
                       </div>
-          {/* <Button 
-                        onClick={() => this.enterLoading(1)} 
-                        className="save-btn"
-                        style={{
-                          backgroundColor: '#5D72E9', 
-                          color: 'white', 
-                          borderRadius: '5px', 
-                          padding: '0px 25px', 
-                          marginTop: '20px' 
-                        }}
-                        >Save</Button> */}
         </div>
         <div
           className={'modal-content-wrapper'}
@@ -404,7 +358,7 @@ class Service extends React.Component {
   addNewService = () => {
     this.setState({
       newService: true,
-      service:{},
+      service: {},
     })
     this.showModal()
   }
