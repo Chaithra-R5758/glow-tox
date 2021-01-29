@@ -23,7 +23,7 @@ class App extends Component {
 
   render() {
     const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
-    const userLoggedIn = 1
+    const userLoggedIn = Cookies.get('accessToken')
     return (
       <Provider store={store}>
         <Router>

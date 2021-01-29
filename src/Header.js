@@ -50,7 +50,6 @@ class Header extends React.Component {
             <div className={'profile-inner-wrapper'} onClick={() => this.props.history.push('/profile')}>
               <div className={'profile-icon'}>
                 {
-                  
                   <img
                   className={'profile-icon-img'}
                   src={'https://pbs.twimg.com/profile_images/1227540838596562944/bs5ZQkrs.jpg'} />
