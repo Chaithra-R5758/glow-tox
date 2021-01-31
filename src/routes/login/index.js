@@ -12,8 +12,8 @@ class Login extends Component {
   constructor() {
     super();
     this.state = {
-      password: 'test@1234',
-      userName: 'test@gmail.com',
+      password: '',
+      userName: '',
       errorMsg: '',
       isLoading: false,
     }
@@ -32,7 +32,7 @@ class Login extends Component {
     else if (!this.isEmailId(userName)) {
       this.setState({ errorMsg: 'Invalid Email ID' })
     }
-    else if (password.length <= 4) {
+    else if (password.length <= 2) {
       this.setState({ errorMsg: 'Invalid password length' })
     }
     else {
