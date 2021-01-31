@@ -1,6 +1,6 @@
 import { withRouter, } from "react-router-dom";
 import React, { Component, Suspense } from 'react';
-import { Form, Input, Button, Checkbox, Card, Image } from 'antd';
+import { Form, Input, Button, message, Card, Image } from 'antd';
 import loginImg from '../../assets/login-img.png'
 import './login.scss'
 import Cookies from 'js-cookie';
@@ -32,7 +32,7 @@ class Login extends Component {
     else if (!this.isEmailId(userName)) {
       this.setState({ errorMsg: 'Invalid Email ID' })
     }
-    else if (password.length <= 2) {
+    else if (password.length <= 5) {
       this.setState({ errorMsg: 'Invalid password length' })
     }
     else {
@@ -56,10 +56,11 @@ class Login extends Component {
           && response.data
           && response.data.message
           || 'Something went wrong! Try again'
-        this.setState({ errorMsg })
+        this.setState({ errorMsg }) 
+       
       }
     }
-
+    
   }
 
   render() {

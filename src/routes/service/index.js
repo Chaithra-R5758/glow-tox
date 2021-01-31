@@ -1,7 +1,7 @@
 import { PageTitle } from '../../components/page-title'
 import loginImg from '../../assets/login-img.png'
 import './service.scss';
-import { Card, Button, Modal, Skeleton, Anchor, Input, Image, PageHeader, Form } from 'antd';
+import { Card, Button, Modal, Skeleton, Anchor, Input, message, PageHeader, Form } from 'antd';
 import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import { getUserId, getRecId } from '../../config/helpers/'
@@ -9,7 +9,12 @@ import axios from '../../config/api/'
 import defaultImg from '../../assets/default.png'
 import { Error } from '../../components/error'
 import { BeforeAfter } from './before-after'
-
+const success = () => {
+  message.success('Data updated successfully!');
+};
+const error = () => {
+  message.error('Error Occurred!');
+};
 
 
 const { Meta } = Card;
@@ -137,9 +142,10 @@ class Service extends React.Component {
     catch (e) {
     }
   }
-  createService = async (service) => {
+  createService = async () => {
+    const {service} = this.state
     this.setState({ saveServiceLoading: true })
-    try {
+   
       const saveService = await axios.post('/admin/createService', {
         ...service,
         serviceImage: '',
@@ -147,38 +153,34 @@ class Service extends React.Component {
       this.setState({ saveServiceLoading: false })
       this.hideModal()
       this.getAllServices()
-    }
-    catch (e) {
+   .then(success)
+    .catch (error) 
       this.setState({ saveServiceLoading: false })
-    }
+    
   }
 
-  saveService = async (service) => {
-    const { newService } = this.state
+  saveService = async () => {
+    const { newService ,service} = this.state
     if (newService) {
       this.createService()
     } else {
       this.setState({
         saveServiceLoading: true,
       })
-
-      try {
         const saveService = await axios.post('/admin/updateService', {
           ...service,
           userId: getUserId(),
           serviceImage: ''
         })
-        this.setState({
-          saveServiceLoading: false,
-        })
+       
         this.hideModal()
         this.getAllServices()
-      }
-      catch (e) {
+        
+        .then(success)
+        .catch (error) 
         this.setState({
           saveServiceLoading: false,
         })
-      }
     }
   }
 

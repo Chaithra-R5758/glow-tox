@@ -1,7 +1,7 @@
 import { PageTitle } from '../../components/page-title/'
 import { Form, Select } from 'antd';
 import './profile.scss';
-import { Card, Input, Space, Image, Skeleton, Button, Anchor } from 'antd';
+import { Card, Input, Space, message, Skeleton, Button } from 'antd';
 import { EditFilled } from '@ant-design/icons'
 import axios from '../../config/api/'
 import { withRouter } from 'react-router-dom';
@@ -12,13 +12,22 @@ const layout = {
     labelCol: { span: 8 },
     wrapperCol: { span: 16 },
 };
+const success = () => {
+    message.success('Updated Successfully');
+  };
+  
+  const error = () => {
+    message.error('Error while Updating!');
+  };
 
 class Profile extends React.Component {
     constructor() {
         super()
         this.state = {
-            isLoading: false,
+            submitLoading: false,
+            saveLoading: false,
             isChangePasswordLoading: false,
+            loading: false,
             isError: false,
             userDetails: {},
             profile: {},
@@ -27,12 +36,13 @@ class Profile extends React.Component {
         };
     }
 
+
     async componentDidMount() {
-        this.setState({ isLoading: true })
+        this.setState({ loading: true })
         try {
             const { data } = await axios.get('admin')
             this.setState({
-                isLoading: false
+                loading: false
             })
             const userDetails = (data && data.user) || ''
             if (userDetails)
@@ -55,37 +65,31 @@ class Profile extends React.Component {
     userPassword = async (password) => {
         const { newPassword } = this.state
         this.setState({
-            isLoading: true
+            submitLoading: true
         });
-        try {
+       
             const userPassword = await axios.post("/admin/updateUserPassword",
                 {
                     userId: getUserId(),
                     newPassword,
-                });
-        }
-        catch (e) {
-            this.setState({
-                isLoading: false
-            });
-        };
-    }
+                })
+                .then(success)
+                .catch(error)
+                this.setState({submitLoading:false});
+            }
 
     userProfile = async (profile) => {
         this.setState({
-            isLoading: true
+            saveLoading: true
         });
         const { userDetails } = this.state
-        try {
+       
             const userPassword = await axios.post("/admin/updateUserProfile",
                 { ...userDetails, name: userDetails.userName }
-            );
-        }
-        catch (e) {
-            this.setState({
-                isLoading: false
-            });
-        }
+            )
+            .then(success)
+        .catch(error)
+        this.setState({saveLoading:false});
     }
 
     userNameChanged = (userName) => {
@@ -107,6 +111,7 @@ class Profile extends React.Component {
     }
 
     phNumberChanged = (phoneNumber) => {
+
         this.setState(prevState => ({
             userDetails: {
                 ...prevState.userDetails,
@@ -116,11 +121,12 @@ class Profile extends React.Component {
     }
 
     profileUI = () => {
-        const { userDetails, isLoading, isError, password, profile, profilePic } = this.state
+        const { userDetails, saveLoading, isError, password, profile, loading, submitLoading } = this.state
 
-        if (isLoading) {
+        if (loading) {
             return (
                 <div className={'content-body-wrapper'}>
+
                     <div className={'profile-card'}  >
                         <Card
                             style={{ width: '100%' }}>
@@ -133,10 +139,10 @@ class Profile extends React.Component {
                             <Skeleton paragraph={{ rows: 8 }} />
                         </Card>
                     </div>
+
                 </div>
             )
         } else if (isError) {
-
         } else if (userDetails.userName) {
             return (
                 <div className={'content-body-wrapper'}>
@@ -168,7 +174,7 @@ class Profile extends React.Component {
                                         name="nest-profile" >
                                         <Form.Item name='name'
                                             label="Full Name"
-                                        //rules={[{ required: true, message: 'Please input your Username!' }]}
+                                            rules={[{ required: true, message: 'Please input your Username!' }]}
                                         >
                                             <Input
                                                 defaultValue={userDetails.userName}
@@ -200,22 +206,28 @@ class Profile extends React.Component {
                                         <Form.Item
                                             name="phone"
                                             label="Phone Number"
-                                            rules={[{ required: true, message: 'Please input your phone number!' }]}
+                                            rules={[{
+                                                required: true,
+                                                message: 'Please input your phone number!'
+                                            }]}
                                         >
                                             <Input
+                                                type='tel'
                                                 size="large"
+                                                pattern="[+][0-9]{2}-[0-9]{10}" required
                                                 defaultValue={userDetails.phoneNumber}
                                                 onChange={e => this.phNumberChanged(e.target.value)}
                                                 style={{ borderRadius: '5px' }}
+                                                maxLength={14}
                                             />
                                         </Form.Item>
                                     </Form>
                                 </div>
-                                <div
-                                    onClick={() => this.saveUserDetails()}
+                                <Button
                                     className={'profile-primary-btn'}
-                                    htmlType="submit" loading={isLoading} onClick={() => this.userProfile(profile)}> Submit
-                            </div>
+                                    onClick={() => this.saveUserDetails()}
+                                    htmlType="submit" loading={saveLoading} onClick={() => this.userProfile(profile)}> Submit
+                            </Button>
                             </Space>
                         </Card>
                     </div>
@@ -232,18 +244,27 @@ class Profile extends React.Component {
                                         layout="vertical"
                                         name="nest-profile"  >
                                         <Form.Item
-
                                             name="password"
                                             label="Password"
+                                            hasFeedback
                                             rules={[
                                                 {
                                                     required: true,
                                                     message: 'Please input your password!',
                                                 },
+                                                ({ getFieldValue }) => ({
+                                                    validator(__, value) {
+                                                        if (!value || getFieldValue('password').length >= 5) {
+                                                            return Promise.resolve();
+                                                        }
+                                                        return Promise.reject('Invalid password length');
+                                                    },
+                                                }),
                                             ]}
-                                            hasFeedback
+
                                         >
                                             <Input.Password
+                                                type='password'
                                                 onChange={e => this.setState({ newPassword: e.target.value })}
                                                 size="large"
                                                 style={{ borderRadius: '5px' }} />
@@ -252,7 +273,6 @@ class Profile extends React.Component {
 
                                             name="confirm"
                                             label="Confirm Password"
-                                            dependencies={['password']}
                                             hasFeedback
                                             rules={[
                                                 {
@@ -270,15 +290,16 @@ class Profile extends React.Component {
                                             ]}
                                         >
                                             <Input.Password
+                                                type="password"
                                                 onChange={e => this.setState({ reEnterPassword: e.target.value })}
                                                 size="large"
                                                 style={{ borderRadius: '5px' }} />
                                         </Form.Item>
                                     </Form>
                                 </div>
-                                <div className={'profile-primary-pwd-btn'} loading={isLoading} onClick={() => this.userPassword(password)}>
+                                <Button className={'profile-primary-pwd-btn'} loading={submitLoading} onClick={() => this.userPassword(password)}>
                                     Submit
-                                        </div>
+                                        </Button>
                             </Space>
                         </Card>
                     </div>

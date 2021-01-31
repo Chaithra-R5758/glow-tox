@@ -1,6 +1,6 @@
 import { BrowserRouter as Router, Route, Redirect, Switch } from "react-router-dom";
 import React, { Component, Suspense } from 'react';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, $CombinedState } from 'redux';
 import { Provider } from 'react-redux'
 import ReduxThunk from 'redux-thunk';
 import reducers from './reducers/index';
@@ -17,6 +17,7 @@ import Profile from './routes/profile/';
 import Promotions from './routes/promotions/';
 import Cookies from 'js-cookie';
 import PageNotFound from './routes/404-page/';
+import LoadingScreen from "./components/loading-screen";
 
 
 class App extends Component {
@@ -24,10 +25,12 @@ class App extends Component {
   render() {
     const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
     const userLoggedIn = Cookies.get('accessToken')
+   
     return (
       <Provider store={store}>
+       
         <Router>
-          <Suspense fallback={(<div className="full-width full-height flex-center"></div>)}>
+       
               { userLoggedIn ?
                 <div>
                 <Header />
@@ -39,16 +42,17 @@ class App extends Component {
                   <Route path="/servicehistory" component={() => <ServiceHistory />} />
                   <Route path="/profile" component={() => <Profile />} />
                   <Route path="/promotions" component={() => <Promotions />} />
-                  <Route path="/pagenotfound" component={() => <PageNotFound/>} />
+                  
                   <Redirect to="/dashboard" /> 
                   </Switch><Footer /> </div> :
                   <Switch>
+                    <Route path="/pagenotfound" component={() => <PageNotFound/>} />
                     <Route path="/login" component={() => <Login />} />
                     <Redirect to="/login" />
                   </Switch>
+                
               }
-          
-          </Suspense>
+         
         </Router>
       </Provider>
     );

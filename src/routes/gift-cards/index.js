@@ -56,24 +56,23 @@ class GiftCards extends React.Component {
       saveGiftcardLoading: true,
     })
 
-    try {
-      const saveGiftcard = await axios.post('/admin/createGiftCardsByAdmin',
-        {
-          clientName,
-          emailId,
-          offer,
-          serviceId,
-        });
-      this.setState({ saveGiftcardLoading: false });
-      this.hideModal()
-      this.getAllGiftCards()
-    }
-    catch (e) {
-      this.setState({
-        saveGiftcardLoading: false
-      });
-    };
+
+    const saveGiftcard = await axios.post('/admin/createGiftCardsByAdmin',
+      {
+        clientName,
+        emailId,
+        offer,
+        serviceId,
+      })
+    this.setState({ saveGiftcardLoading: false });
+    this.hideModal()
+    this.getAllGiftCards()
+      .then(success)
+      .catch(error)
+
   }
+
+
 
 
   showModal = () => {

@@ -1,8 +1,15 @@
 import { Spin } from 'antd';
-import './loding.scss'
-export const LoadingScreen= () => {
+import { Component } from 'react';
+import './loading.scss'
+class  LoadingScreen extends Component {
+  render(){
     return (
+      <div className="loading">
         <div className="example">
-    <Spin />
+    <Spin tip="Loading..." size='large'  />
+    
+  </div>
   </div>
     )}
+}
+export default LoadingScreen;

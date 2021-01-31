@@ -12,6 +12,12 @@ import defaultImg from "../../assets/default.png";
 import { Error } from "../../components/error";
 import TextArea from "antd/lib/input/TextArea";
 import { getUserId } from '../../config/helpers'
+const success = () => {
+  message.success('Data updated successfully!');
+};
+const error = () => {
+  message.error('Error Occurred!');
+};
 
 class Promotions extends React.Component {
   constructor() {
@@ -163,8 +169,8 @@ class Promotions extends React.Component {
     }
   };
 
-  savePromotion = async (promotion) => {
-    const { newPromo } = this.state
+  savePromotion = async () => {
+    const { newPromo,promotion } = this.state
     if (newPromo) {
       this.addPromo()
     }
@@ -177,13 +183,16 @@ class Promotions extends React.Component {
           ...promotion,
           userId: getUserId(),
           //recId: getRecId(),
-        });
+        })
+      
+     
+      this.hideModal()
+      this.getAllPromotions()
+      .then(success)
+      .catch(error)
       this.setState({
         savePromotionLoading: false,
       });
-      this.hideModal()
-      this.getAllPromotions()
-      //refeshUI()
     }
   };
 
@@ -192,7 +201,6 @@ class Promotions extends React.Component {
     this.setState({
       savePromotionLoading: true,
     });
-    try {
       const { description, promoCode, promoImage, service } = promotion
       const addPromo = await axios.post("/admin/createPromotion", {
         ...promotion,
@@ -204,21 +212,18 @@ class Promotions extends React.Component {
         offer: "",
         promoCode,
       });
-      this.setState({
-        savePromotionLoading: false,
-      }, () => {
+     
         this.hideModal()
         this.getAllPromotions()
-      })
+        .then(success)
+        .catch(error)
+        this.setState({
+          savePromotionLoading: false,
+        }
+      )
     }
-    catch (e) {
-      this.setState({
-        savePromotionLoading: false,
-      })
-    };
-  }
-
-  addNewPromo = () => {
+    
+   addNewPromo = () => {
     this.setState({
       newPromo: true
     })

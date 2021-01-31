@@ -69,25 +69,51 @@
 }
 .profile-screen .profile-primary-btn {
   background-color: #5d72e9;
-  padding: 10px 15px;
+  width: 180px;
+  height: 40px;
   border-radius: 5px;
   color: white;
-  text-align: center;
-  align-items: center;
-  text-shadow: none;
-  margin: -10px 40px 0px 10px;
+  margin-left: 10px;
   cursor: pointer;
+}
+.profile-screen .profile-primary-btn:hover {
+  background-color: #5d72e9;
+  color: white;
+  border: 1px solid #5d72e9;
+}
+.profile-screen .profile-primary-btn:active {
+  background-color: #5d72e9;
+  color: white;
+  border: 1px solid #5d72e9;
+}
+.profile-screen .profile-primary-btn:focus {
+  background-color: #5d72e9;
+  color: white;
+  border: 1px solid #5d72e9;
 }
 .profile-screen .profile-primary-pwd-btn {
   background-color: #5d72e9;
-  padding: 10px 15px;
+  width: 150px;
+  height: 40px;
   border-radius: 5px;
   color: white;
-  text-align: center;
-  align-items: center;
-  text-shadow: none;
-  margin: -10px 60px 0px 0px;
+  margin-left: 10px;
   cursor: pointer;
+}
+.profile-screen .profile-primary-pwd-btn:hover {
+  background-color: #5d72e9;
+  color: white;
+  border: 1px solid #5d72e9;
+}
+.profile-screen .profile-primary-pwd-btn:active {
+  background-color: #5d72e9;
+  color: white;
+  border: 1px solid #5d72e9;
+}
+.profile-screen .profile-primary-pwd-btn:focus {
+  background-color: #5d72e9;
+  color: white;
+  border: 1px solid #5d72e9;
 }
 @media screen and (max-width: 720px) {
   .profile-screen .content-body-wrapper {
