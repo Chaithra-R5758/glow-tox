@@ -12,8 +12,8 @@ class Login extends Component {
   constructor() {
     super();
     this.state = {
-      password: '',
-      userName: '',
+      userName: 'test@gmail.com',
+      password: 'test@1234',
       errorMsg: '',
       isLoading: false,
     }
@@ -38,7 +38,7 @@ class Login extends Component {
     else {
       this.setState({ isLoading: true })
       const response = await axios
-        .post('login', {
+        .post('user/login', {
           emailId: userName,
           password: password,
           userType: "Super Admin",
