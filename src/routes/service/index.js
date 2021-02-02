@@ -55,7 +55,12 @@ class Service extends React.Component {
     const reader = new FileReader();
     reader.onload = () => {
       if (reader.readyState === 2) {
-        this.setState({ defaultImg: reader.result });
+        this.setState(prevState => ({
+          service: {
+            ...prevState.Service,
+            serviceImage: reader.result
+          }
+        }));
       }
     };
     reader.readAsDataURL(e.target.files[0]);
@@ -143,44 +148,44 @@ class Service extends React.Component {
     }
   }
   createService = async () => {
-    const {service} = this.state
+    const { service } = this.state
     this.setState({ saveServiceLoading: true })
-   
-      const saveService = await axios.post('/admin/createService', {
-        ...service,
-        serviceImage: '',
-      })
-      this.setState({ saveServiceLoading: false })
-      this.hideModal()
-      this.getAllServices()
-   .then(success)
-    .catch (error) 
-      this.setState({ saveServiceLoading: false })
-    
+
+    const saveService = await axios.post('/admin/createService', {
+      ...service,
+      serviceImage: '',
+    })
+    this.setState({ saveServiceLoading: false })
+    this.hideModal()
+    this.getAllServices()
+      .then(success)
+      .catch(error)
+    this.setState({ saveServiceLoading: false })
+
   }
 
   saveService = async () => {
-    const { newService ,service} = this.state
+    const { newService, service } = this.state
     if (newService) {
       this.createService()
     } else {
       this.setState({
         saveServiceLoading: true,
       })
-        const saveService = await axios.post('/admin/updateService', {
-          ...service,
-          userId: getUserId(),
-          serviceImage: ''
-        })
-       
-        this.hideModal()
-        this.getAllServices()
-        
+      const saveService = await axios.post('/admin/updateService', {
+        ...service,
+        userId: getUserId(),
+        serviceImage: ''
+      })
+
+      this.hideModal()
+      this.getAllServices()
+
         .then(success)
-        .catch (error) 
-        this.setState({
-          saveServiceLoading: false,
-        })
+        .catch(error)
+      this.setState({
+        saveServiceLoading: false,
+      })
     }
   }
 
@@ -192,7 +197,6 @@ class Service extends React.Component {
       }
     }))
   }
-
   onChangeEmail = e => {
     this.setState(prevState => ({
       service: {
@@ -299,40 +303,64 @@ class Service extends React.Component {
               flex: 1,
               flexDirection: 'column',
             }}>
-            <div>Service Name</div>
-            <input
-              value={service.serviceName || ''}
-              onChange={this.onChangeName}
-              style={{
-                padding: '5px',
-                margin: '5px 0',
-                borderRadius: '5px',
-                border: '1px solid #d9d9d9',
-              }}
-            />
-            <div>Email Id</div>
-            <input
-              value={service.email}
-              onChange={this.onChangeEmail}
-              style={{
-                padding: '5px',
-                margin: '5px 0',
-                borderRadius: '5px',
-                border: '1px solid #d9d9d9',
-              }}
-            />
-            <div>Description</div>
-            <TextArea
-              value={service.description}
-              onChange={this.onChangeDesc}
-              rows={7}
-              style={{
-                padding: '5px',
-                margin: '5px 0',
-                borderRadius: '5px',
-                border: '1px solid #d9d9d9',
-              }}
-            />
+            <Form
+              layout="vertical"
+              name="nest-profile" >
+              <Form.Item name="name"
+                label="Service Name"
+                rules={[{required:true, message: 'Please input Service Name!' }]}>
+                <Input
+                  value={service.serviceName || ''}
+                  onChange={this.onChangeName}
+                  style={{
+                    padding: '5px',
+                   marginBottom:-10,
+                   blockSize:40,
+                    borderRadius: '5px',
+                    border: '1px solid #d9d9d9',
+                  }}
+                /></Form.Item>
+              {/* <div>Email Id</div> */}
+              <Form.Item name="email"
+                label="E-mail"
+                rules={[
+                  {
+                    type: 'email',
+                    message: 'The input is not valid E-mail!',
+                  },
+                  {
+                    required:true,
+                    message: 'Please input your E-mail!',
+                  },
+                ]}>
+                <Input
+                  type="email"
+                  value={service.email}
+                  onChange={this.onChangeEmail}
+                  style={{
+                    blockSize:40,
+                    padding: '5px',
+                    margin: '-5px 0',
+                    borderRadius: '5px',
+                    border: '1px solid #d9d9d9',
+                  }}
+                /></Form.Item>
+              {/* <div>Description</div> */}
+              <Form.Item name="Description"
+                label="Description">
+                <TextArea
+                  value={service.description}
+                  onChange={this.onChangeDesc}
+                  rows={6}
+                  style={{
+                    padding: '5px',
+                    margin: '5px 0',
+                    borderRadius: '5px',
+                    border: '1px solid #d9d9d9',
+                  }}
+                />
+              </Form.Item>
+            </Form>
           </div>
         </div>
 
@@ -342,6 +370,7 @@ class Service extends React.Component {
             justifyContent: 'flex-end',
           }}>
           <Button
+           htmlType="submit"
             loading={saveServiceLoading}
             onClick={() => this.saveService(service)}
             className="save-btn"

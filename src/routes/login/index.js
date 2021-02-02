@@ -38,11 +38,12 @@ class Login extends Component {
     else {
       this.setState({ isLoading: true })
       const response = await axios
-        .post('login', {
+        .post('/user/login', {
           emailId: userName,
           password: password,
           userType: "Super Admin",
         })
+
       this.setState({ isLoading: false })
       const auth = response.data && response.data.auth
       const user = response.data && response.data.user
@@ -56,13 +57,10 @@ class Login extends Component {
           && response.data
           && response.data.message
           || 'Something went wrong! Try again'
-        this.setState({ errorMsg }) 
-       
+        this.setState({ errorMsg })
       }
     }
-    
   }
-
   render() {
     const layout = {
       labelCol: {
