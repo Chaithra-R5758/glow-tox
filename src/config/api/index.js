@@ -7,7 +7,7 @@ const api = axios.create({
     baseURL: baseURL,//"https://glowtox/",//process.env.REACT_APP_ANALYTICS_URL,
     headers: {
         'Content-Type': 'application/json',
-        'Authorization': auth ? `Basic ${auth}`:'',
+        'Authorization': auth ? `Bearer ${auth}`:'',
     }
 });
 

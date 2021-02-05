@@ -12,8 +12,8 @@ class Login extends Component {
   constructor() {
     super();
     this.state = {
-      password: '',
-      userName: '',
+      userName: 'test@gmail.com',
+      password: 'test@1234',
       errorMsg: '',
       isLoading: false,
     }
@@ -38,7 +38,7 @@ class Login extends Component {
     else {
       this.setState({ isLoading: true })
       const response = await axios
-        .post('/user/login', {
+        .post('user/login', {
           emailId: userName,
           password: password,
           userType: "Super Admin",
@@ -76,7 +76,7 @@ class Login extends Component {
         <div className={'login-wrapper'}>
           <div className={'login-card'}>
             <Card className={'image-card'} style={{ backgroundColor: '#EFF2F7', border: '0px', boxShadow: '0 0px 12px #d2d2d2' }} >
-              <Image width={350} src={loginImg} />
+              <img width={350} src={loginImg} />
             </Card>
             <Card style={{ border: '0px', boxShadow: '0 0px  12px  #d2d2d2' }}>
               <Form

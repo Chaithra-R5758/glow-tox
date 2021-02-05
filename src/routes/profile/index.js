@@ -4,6 +4,7 @@ import './profile.scss';
 import { Card, Input, Space, message, Skeleton, Button } from 'antd';
 import { EditFilled } from '@ant-design/icons'
 import axios from '../../config/api/'
+import toBase64 from "../../utils/base64"
 import { withRouter } from 'react-router-dom';
 import React, { Component } from 'react';
 import { getUserId } from '../../config/helpers'
@@ -14,11 +15,11 @@ const layout = {
 };
 const success = () => {
     message.success('Updated Successfully');
-  };
-  
-  const error = () => {
+};
+
+const error = () => {
     message.error('Error while Updating!');
-  };
+};
 
 class Profile extends React.Component {
     constructor() {
@@ -52,14 +53,20 @@ class Profile extends React.Component {
         }
     }
 
-    imageHandler = e => {
+    imageHandler = async (e) => {
         const reader = new FileReader();
+        const file = e.target.files[0];
+        const base64 = await toBase64(file);
         reader.onload = () => {
-            if (reader.readyState === 2) {
-                this.setState({ profilePic: reader.result });
-            }
+            this.setState(prevState => ({
+                userDetails: {
+                    ...prevState.userDetails,
+                    profilePic: base64
+                }
+            }));
         };
-        reader.readAsDataURL(e.target.files[0]);
+
+        reader.readAsDataURL(file);
     };
 
     userPassword = async (password) => {
@@ -67,29 +74,29 @@ class Profile extends React.Component {
         this.setState({
             submitLoading: true
         });
-       
-            const userPassword = await axios.post("/admin/updateUserPassword",
-                {
-                    userId: getUserId(),
-                    newPassword,
-                })
-                .then(success)
-                .catch(error)
-                this.setState({submitLoading:false});
-            }
+
+        const userPassword = await axios.post("/admin/updateUserPassword",
+            {
+                userId: getUserId(),
+                newPassword,
+            })
+            .then(success)
+            .catch(error)
+        this.setState({ submitLoading: false });
+    }
 
     userProfile = async (profile) => {
         this.setState({
             saveLoading: true
         });
         const { userDetails } = this.state
-       
-            const userPassword = await axios.post("/admin/updateUserProfile",
-                { ...userDetails, name: userDetails.userName }
-            )
+
+        const userPassword = await axios.post("/admin/updateUserProfile",
+            { ...userDetails, name: userDetails.userName }
+        )
             .then(success)
-        .catch(error)
-        this.setState({saveLoading:false});
+            .catch(error)
+        this.setState({ saveLoading: false });
     }
 
     userNameChanged = (userName) => {
@@ -122,7 +129,7 @@ class Profile extends React.Component {
 
     profileUI = () => {
         const { userDetails, saveLoading, isError, password, profile, loading, submitLoading } = this.state
-
+        console.log("Profile", userDetails)
         if (loading) {
             return (
                 <div className={'content-body-wrapper'}>
@@ -164,7 +171,7 @@ class Profile extends React.Component {
                                 accept="image/*"
                                 name="image-upload"
                                 id="input"
-                                onChange={this.imageHandler}
+                                onChange={(e) => this.imageHandler(e)}
                             />
 
                             <Space direction="vertical">

@@ -1,18 +1,18 @@
-import { Card } from 'antd'
+import { Result, Button } from 'antd';
 import React from 'react'
-import { Button } from 'antd'
-//import pagenotfoundImg from "../../assets/pagenotfound.jpg";
-import './404-page.scss'
-const PageNotFound = () => {
-    return (
+class  PageNotFound extends React.Component {
+render()
+{
+return(
 
-        <div className="wrapper" style={{ left: '40%',position: 'absolute',
-        top: '40%',justifyContent:'center'}}>
-           
-       <div className={'title'}>  404 <br/>Page Not Found </div>
-   <div className={'error-btn'}> <Button style={{backgroundColor: '#5b71e8',color:'white'}}><a href="/login">Login</a></Button></div>
-        </div >
-    )
+  <Result
+    status="404"
+    title="404"
+    style={{top:'10%',left:'40%',position:'absolute'}}
+    subTitle="Sorry, the page you visited does not exist."
+    extra={<Button type="primary"><a href="/login">Back Home</a></Button>}
+  />
+);
 }
-
-export default PageNotFound
+}
+export default PageNotFound;

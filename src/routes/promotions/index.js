@@ -6,6 +6,7 @@ import { LinkOutlined, EditFilled } from "@ant-design/icons";
 import { Modal, Button } from "antd";
 import { response } from "./mock.js";
 import { withRouter } from "react-router-dom";
+import toBase64 from "../../utils/base64"
 import React from "react";
 import axios from "../../config/api/";
 import defaultImg from "../../assets/default.png";
@@ -87,23 +88,26 @@ class Promotions extends React.Component {
     });
   };
 
-  imageHandler = (e) => {
-    const reader = new FileReader();
+  imageHandler  = async (e) => {
+    const reader= new FileReader();
+    const file = e.target.files[0];
+    const base64 = await toBase64(file);
     reader.onload = () => {
       if (reader.readyState === 2) {
         this.setState(prevState => ({
           promotion: {
             ...prevState.promotion,
-            promoImage: reader.result
+            promoImage: base64
           }
-        }))
+        }));
       }
     };
-    reader.readAsDataURL(e.target.files[0]);
-  };
+  reader.readAsDataURL(file);
+   };
 
   promotionsUI = () => {
-    const { loading, error, promotions } = this.state;
+    const { loading, error, promotions,promotion } = this.state;
+    console.log("promotion", promotion)
     if (loading) {
       return (
         <div className={'promo-card-wrapper'}>
@@ -307,7 +311,7 @@ class Promotions extends React.Component {
                     accept="image/*"
                     name="image-upload"
                     id="input"
-                    onChange={this.imageHandler}
+                    onChange={(e)=>this.imageHandler(e)}
                   />
                   <div
                     className="modal-code"

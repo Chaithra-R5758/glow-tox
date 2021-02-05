@@ -3,6 +3,7 @@ import loginImg from '../../assets/login-img.png'
 import './service.scss';
 import { Card, Button, Modal, Skeleton, Anchor, Input, message, PageHeader, Form } from 'antd';
 import React, { useState } from 'react';
+import toBase64 from "../../utils/base64"
 import { withRouter } from 'react-router-dom';
 import { getUserId, getRecId } from '../../config/helpers/'
 import axios from '../../config/api/'
@@ -51,19 +52,20 @@ class Service extends React.Component {
     this.getAllServices()
   }
 
-  imageHandler = e => {
+  imageHandler = async (e) => {
     const reader = new FileReader();
+    const file = e.target.files[0];
+    const base64 = await toBase64(file);
     reader.onload = () => {
       if (reader.readyState === 2) {
         this.setState(prevState => ({
           service: {
-            ...prevState.Service,
-            serviceImage: reader.result
+            ...prevState.service, serviceImage: base64
           }
         }));
       }
     };
-    reader.readAsDataURL(e.target.files[0]);
+    reader.readAsDataURL(file);
   };
 
   showModal = (service = {}) => {
@@ -197,6 +199,7 @@ class Service extends React.Component {
       }
     }))
   }
+
   onChangeEmail = e => {
     this.setState(prevState => ({
       service: {
@@ -270,7 +273,7 @@ class Service extends React.Component {
               accept="image/*"
               name="image-upload"
               id="input"
-              onChange={this.imageHandler}
+              onChange={(e) => this.imageHandler(e)}
             />
             <div className="modal-title"
               onClick={() => this.setState({
@@ -303,55 +306,26 @@ class Service extends React.Component {
               flex: 1,
               flexDirection: 'column',
             }}>
-            <Form
-              layout="vertical"
-              name="nest-profile" >
-              <Form.Item name="name"
-                label="Service Name"
-                rules={[{required:true, message: 'Please input Service Name!' }]}>
+            <div>Service Name</div>
+            <Input
+
+              value={service.serviceName || ''}
+              onChange={this.onChangeName}
+              style={{
+                padding: '5px',
+                margin: '5px 0',
+                borderRadius: '5px',
+                border: '1px solid #d9d9d9',
+              }}
+            />
+            <div>Email Id
+            </div>
+            <Form layout="vertical">
+              <Form.Item name='email' rules={[{ type: 'email' }]}>
                 <Input
-                  value={service.serviceName || ''}
-                  onChange={this.onChangeName}
-                  style={{
-                    padding: '5px',
-                   marginBottom:-10,
-                   blockSize:40,
-                    borderRadius: '5px',
-                    border: '1px solid #d9d9d9',
-                  }}
-                /></Form.Item>
-              {/* <div>Email Id</div> */}
-              <Form.Item name="email"
-                label="E-mail"
-                rules={[
-                  {
-                    type: 'email',
-                    message: 'The input is not valid E-mail!',
-                  },
-                  {
-                    required:true,
-                    message: 'Please input your E-mail!',
-                  },
-                ]}>
-                <Input
-                  type="email"
+                  type='email'
                   value={service.email}
                   onChange={this.onChangeEmail}
-                  style={{
-                    blockSize:40,
-                    padding: '5px',
-                    margin: '-5px 0',
-                    borderRadius: '5px',
-                    border: '1px solid #d9d9d9',
-                  }}
-                /></Form.Item>
-              {/* <div>Description</div> */}
-              <Form.Item name="Description"
-                label="Description">
-                <TextArea
-                  value={service.description}
-                  onChange={this.onChangeDesc}
-                  rows={6}
                   style={{
                     padding: '5px',
                     margin: '5px 0',
@@ -361,6 +335,18 @@ class Service extends React.Component {
                 />
               </Form.Item>
             </Form>
+            <div>Description</div>
+            <TextArea
+              value={service.description}
+              onChange={this.onChangeDesc}
+              rows={7}
+              style={{
+                padding: '5px',
+                margin: '5px 0',
+                borderRadius: '5px',
+                border: '1px solid #d9d9d9',
+              }}
+            />
           </div>
         </div>
 
@@ -370,7 +356,6 @@ class Service extends React.Component {
             justifyContent: 'flex-end',
           }}>
           <Button
-           htmlType="submit"
             loading={saveServiceLoading}
             onClick={() => this.saveService(service)}
             className="save-btn"
