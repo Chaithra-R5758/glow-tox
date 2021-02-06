@@ -1,7 +1,7 @@
 import { PageHeader } from 'antd';
 import './error.scss'
 
-export const Error = (props) => {
+const Error = (props) => {
     return (
         <div
             className={'error-component-wrapper'}>
@@ -13,3 +13,4 @@ export const Error = (props) => {
         </div>
     )
 }
+export default Error
