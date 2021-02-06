@@ -4,7 +4,6 @@ import './profile.scss';
 import { Card, Input, Space, message, Skeleton, Button } from 'antd';
 import { EditFilled } from '@ant-design/icons'
 import axios from '../../config/api/'
-import toBase64 from "../../utils/base64"
 import { withRouter } from 'react-router-dom';
 import React, { Component } from 'react';
 import { imageToBase64, getUserId } from '../../utils/'

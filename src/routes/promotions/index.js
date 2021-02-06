@@ -6,7 +6,6 @@ import { LinkOutlined, EditFilled } from "@ant-design/icons";
 import { Modal, Button } from "antd";
 import { response } from "./mock.js";
 import { withRouter } from "react-router-dom";
-import toBase64 from "../../utils/base64"
 import React from "react";
 import axios from "../../config/api/";
 import defaultImg from "../../assets/default.png";

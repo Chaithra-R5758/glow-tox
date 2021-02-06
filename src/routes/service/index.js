@@ -3,7 +3,6 @@ import loginImg from '../../assets/login-img.png'
 import './service.scss';
 import { Card, Button, Modal, Skeleton, Anchor, Input, message, PageHeader, Form } from 'antd';
 import React, { useState } from 'react';
-import toBase64 from "../../utils/base64"
 import { withRouter } from 'react-router-dom';
 import { imageToBase64, getUserId } from '../../utils/'
 import axios from '../../config/api/'
