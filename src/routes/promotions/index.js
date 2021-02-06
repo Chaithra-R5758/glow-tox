@@ -10,7 +10,7 @@ import toBase64 from "../../utils/base64"
 import React from "react";
 import axios from "../../config/api/";
 import defaultImg from "../../assets/default.png";
-import { Error } from "../../components/error";
+import Error from "../../components/error";
 import TextArea from "antd/lib/input/TextArea";
 import { getUserId } from '../../config/helpers'
 const success = () => {

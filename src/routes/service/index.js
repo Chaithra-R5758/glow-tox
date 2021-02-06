@@ -8,7 +8,7 @@ import { withRouter } from 'react-router-dom';
 import { getUserId, getRecId } from '../../config/helpers/'
 import axios from '../../config/api/'
 import defaultImg from '../../assets/default.png'
-import { Error } from '../../components/error'
+import Error from '../../components/error'
 import { BeforeAfter } from './before-after'
 const success = () => {
   message.success('Data updated successfully!');
