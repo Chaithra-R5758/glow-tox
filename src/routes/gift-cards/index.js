@@ -168,7 +168,7 @@ class GiftCards extends React.Component {
 
   searchTextChanged = (searchText) => {
     const { giftCards } = this.state
-    const giftCardSearchResult = giftCards.filter(giftcard => giftcard.giftCardId.toLowerCase().includes(searchText))
+    const giftCardSearchResult = giftCards.filter(giftcard => giftcard.toLowerCase().giftCardId.toLowerCase().includes(searchText))
     this.setState({ searchText, giftCardSearchResult })
   }
 

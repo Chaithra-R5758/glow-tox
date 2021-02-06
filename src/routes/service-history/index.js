@@ -16,7 +16,10 @@ class ServiceHistory extends React.Component {
       userDetails: {},
       isLoading: false,
       serviceHistory: [],
+      service: {},
       saveGiftcardLoading: false,
+      searchText:'',
+      serviceHistorySearchResult:[],
     };
   }
   async componentDidMount() {
@@ -53,8 +56,8 @@ class ServiceHistory extends React.Component {
     const columns = [
       {
         title: 'Transaction Id',
-        dataIndex: 'id',
-        key: 'id',
+        dataIndex: 'TransactionId',
+        key: 'TransactionId',
       },
       {
         title: 'Client Name',
@@ -113,7 +116,7 @@ class ServiceHistory extends React.Component {
         key: '1',
         name: 'John Brown',
         age: 32,
-        id: 1,
+        TransactionId: 1,
         address: 'New York No. 1 Lake Park',
         tags: ['paid',],
         email: 'akash@gmail.com',
@@ -121,60 +124,10 @@ class ServiceHistory extends React.Component {
         service: 'service 1',
         promoname: 'No',
       },
-      {
-        key: '2',
-        name: 'Jim Green',
-        age: 42,
-        id: 2,
-        address: 'London No. 1 Lake Park',
-        tags: ['chargeback'],
-        email: 'hamse@gmail.com',
-        offer: '15% off',
-        service: 'service 2',
-        promoname: 'Promo Details',
-      },
-      {
-        key: '3',
-        name: 'Joe Black',
-        age: 32,
-        id: 3,
-        address: 'Sidney No. 1 Lake Park',
-        tags: ['Refund'],
-        email: 'john@gmail.com',
-        offer: '20% off',
-        service: 'service 3',
-        promoname: 'Promo Details',
-      },
-      {
-        key: '4',
-        name: 'Ronald Taylo',
-        age: 32,
-        id: 4,
-        address: 'Sidney No. 1 Lake Park',
-        tags: ['paid'],
-        email: 'ronald@gmail.com',
-        offer: '20% off',
-        service: 'service 4',
-        promoname: 'Promo Details',
-      },
-      {
-
-
-        key: '5',
-        name: `John Brown`,
-        age: 32,
-        id: 5,
-        address: `New York No.1 Lake Park`,
-        tags: ['New'],
-        email: 'akash@gmail.com',
-        offer: '10% off',
-        service: `service 5`,
-        promoname: 'Promo Details',
-
-      },
+      
     ];
 
-    const { serviceHistory, isLoading, isError } = this.state
+    const { serviceHistory, isLoading, isError ,serviceHistorySearchResult} = this.state
     if (isLoading) {
       return (
 
@@ -189,7 +142,7 @@ class ServiceHistory extends React.Component {
     } else {
       return (
         <div className={'history-card'}>
-          <Table dataSource={serviceHistory} columns={columns} />
+          <Table dataSource={serviceHistorySearchResult.length ? serviceHistorySearchResult :serviceHistory } columns={columns} />
         </div>
       )
     }
@@ -205,11 +158,16 @@ class ServiceHistory extends React.Component {
     })
   }
 
-
+  searchTextChanged = (searchText) => {
+    const { serviceHistory } = this.state
+    const serviceHistorySearchResult =  serviceHistory.filter(service => service.TransactionId.toLowerCase().includes(searchText))
+    this.setState({searchText, serviceHistorySearchResult})
+  }
 
   render() {
 
-    const { service, saveServiceLoading, serviceHistory } = this.state
+    const { service, saveServiceLoading, searchText, } = this.state
+    
 
     return (
 
@@ -223,7 +181,8 @@ class ServiceHistory extends React.Component {
               <div className={'service-history-wrapper'}>
                 <div className={'gift-card-inner-wrapper'}>
                   <div className={'search-wrapper'} >
-                    <Input placeholder="Search..." prefix={<SearchOutlined />} />
+                    <Input placeholder="Search..." prefix={<SearchOutlined />}  value={searchText}
+                        onChange={e => this.searchTextChanged(e.target.value)}/>
                   </div>
                   {this.servicesUI()}
                   <Modal

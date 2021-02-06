@@ -262,7 +262,7 @@ class Profile extends React.Component {
                                                 },
                                                 ({ getFieldValue }) => ({
                                                     validator(__, value) {
-                                                        if (!value || getFieldValue('password').length >= 5) {
+                                                        if (!value || getFieldValue('password').length > 5) {
                                                             return Promise.resolve();
                                                         }
                                                         return Promise.reject('Invalid password length');
