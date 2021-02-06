@@ -7,7 +7,8 @@ import axios from '../../config/api/'
 import toBase64 from "../../utils/base64"
 import { withRouter } from 'react-router-dom';
 import React, { Component } from 'react';
-import { getUserId } from '../../config/helpers'
+import { getUserId,  } from '../../config/helpers'
+import { imageToBase64 } from '../../utils/'
 
 const layout = {
     labelCol: { span: 8 },
@@ -56,7 +57,7 @@ class Profile extends React.Component {
     imageHandler = async (e) => {
         const reader = new FileReader();
         const file = e.target.files[0];
-        const base64 = await toBase64(file);
+        const base64 = await imageToBase64(file);
         reader.onload = () => {
             this.setState(prevState => ({
                 userDetails: {

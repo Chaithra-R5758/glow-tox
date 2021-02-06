@@ -13,6 +13,8 @@ import defaultImg from "../../assets/default.png";
 import Error from "../../components/error";
 import TextArea from "antd/lib/input/TextArea";
 import { getUserId } from '../../config/helpers'
+import { imageToBase64 } from '../../utils/'
+
 const success = () => {
   message.success('Data updated successfully!');
 };
@@ -91,7 +93,7 @@ class Promotions extends React.Component {
   imageHandler  = async (e) => {
     const reader= new FileReader();
     const file = e.target.files[0];
-    const base64 = await toBase64(file);
+    const base64 = await imageToBase64(file);
     reader.onload = () => {
       if (reader.readyState === 2) {
         this.setState(prevState => ({

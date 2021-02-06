@@ -5,11 +5,13 @@ import { Card, Button, Modal, Skeleton, Anchor, Input, message, PageHeader, Form
 import React, { useState } from 'react';
 import toBase64 from "../../utils/base64"
 import { withRouter } from 'react-router-dom';
-import { getUserId, getRecId } from '../../config/helpers/'
+import { getUserId, } from '../../config/helpers/'
+import { imageToBase64 } from '../../utils/'
 import axios from '../../config/api/'
 import defaultImg from '../../assets/default.png'
 import Error from '../../components/error'
 import { BeforeAfter } from './before-after'
+
 const success = () => {
   message.success('Data updated successfully!');
 };
@@ -55,7 +57,7 @@ class Service extends React.Component {
   imageHandler = async (e) => {
     const reader = new FileReader();
     const file = e.target.files[0];
-    const base64 = await toBase64(file);
+    const base64 = await imageToBase64(file);
     reader.onload = () => {
       if (reader.readyState === 2) {
         this.setState(prevState => ({
