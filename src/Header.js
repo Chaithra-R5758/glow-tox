@@ -1,21 +1,10 @@
 import React from 'react';
 import { withRouter, } from "react-router-dom";
 import './header.scss';
-//import Divider from '@material-ui/core/Divider';
-//import AccountCircleIcon from '@material-ui/icons/AccountCircle';
-//import { withStyles, makeStyles } from '@material-ui/core/styles';
-//import { HEADER_TITLE } from './constants/';
-//import { capitalize } from '../../utils/';
-//import { withRouter, } from "react-router-dom";
 import Cookies from 'js-cookie';
-//import Button from '@material-ui/core/Button';
-import { UserOutlined } from '@ant-design/icons';
 import { Anchor, Image } from 'antd';
-import brandLogo from '../src/assets/propic.png'
-import axios from './config/api/'
-
-
 const { Link } = Anchor;
+
 class Header extends React.Component {
 
   constructor() {
@@ -24,7 +13,6 @@ class Header extends React.Component {
       userType: '',
     }
   }
-
 
   componentDidMount() {
     const { userDetails } = this.state
@@ -44,7 +32,6 @@ class Header extends React.Component {
     return (
       <div className={'header'}>
         <div className={'header-wrapper'}>
-          {/* <img src={brandLogo} style={{height:'28px',position:'absolute'}}/> */}
           <span className={'header-title'}>Glow Tox</span>
           <div className={'profile-name'}>
             <div className={'profile-inner-wrapper'} onClick={() => this.props.history.push('/profile')}>
