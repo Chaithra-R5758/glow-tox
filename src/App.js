@@ -10,7 +10,7 @@ import Dashboard from './routes/dashboard/';
 import Service from './routes/service';
 import GiftCard from './routes/gift-cards';
 import ServiceHistory from './routes/service-history';
-import Header from './Header';
+import Header from './components/header/';
 import Footer from './components/footer/';
 import Navbar from './components/navbar/';
 import Profile from './routes/profile/';
