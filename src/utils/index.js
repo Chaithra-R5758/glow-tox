@@ -25,3 +25,11 @@ export const imageToBase64 = (file) => {
         };
     });
 };
+
+export const refeshUI = () => {
+    window.location.reload()
+}
+
+export const getUserId = () => {
+    return Cookies.get('userId')
+}

@@ -7,8 +7,7 @@ import axios from '../../config/api/'
 import toBase64 from "../../utils/base64"
 import { withRouter } from 'react-router-dom';
 import React, { Component } from 'react';
-import { getUserId,  } from '../../config/helpers'
-import { imageToBase64 } from '../../utils/'
+import { imageToBase64, getUserId } from '../../utils/'
 
 const layout = {
     labelCol: { span: 8 },

@@ -19,18 +19,14 @@ import Cookies from 'js-cookie';
 import PageNotFound from './routes/404-page/';
 import LoadingScreen from "./components/loading-screen";
 
-
 class App extends Component {
 
   render() {
     const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
     const userLoggedIn = Cookies.get('accessToken')
-   
     return (
       <Provider store={store}>
-       
         <Router>
-       
               { userLoggedIn ?
                 <div>
                 <Header />
@@ -42,7 +38,6 @@ class App extends Component {
                   <Route path="/servicehistory" component={() => <ServiceHistory />} />
                   <Route path="/profile" component={() => <Profile />} />
                   <Route path="/promotions" component={() => <Promotions />} />
-                  
                   <Redirect to="/dashboard" /> 
                   </Switch><Footer /> </div> :
                   <Switch>
@@ -50,9 +45,7 @@ class App extends Component {
                     <Route path="/login" component={() => <Login />} />
                     <Redirect to="/login" />
                   </Switch>
-                
               }
-         
         </Router>
       </Provider>
     );

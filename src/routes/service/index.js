@@ -5,8 +5,7 @@ import { Card, Button, Modal, Skeleton, Anchor, Input, message, PageHeader, Form
 import React, { useState } from 'react';
 import toBase64 from "../../utils/base64"
 import { withRouter } from 'react-router-dom';
-import { getUserId, } from '../../config/helpers/'
-import { imageToBase64 } from '../../utils/'
+import { imageToBase64, getUserId } from '../../utils/'
 import axios from '../../config/api/'
 import defaultImg from '../../assets/default.png'
 import Error from '../../components/error'

@@ -12,8 +12,7 @@ import axios from "../../config/api/";
 import defaultImg from "../../assets/default.png";
 import Error from "../../components/error";
 import TextArea from "antd/lib/input/TextArea";
-import { getUserId } from '../../config/helpers'
-import { imageToBase64 } from '../../utils/'
+import { imageToBase64, getUserId } from '../../utils/'
 
 const success = () => {
   message.success('Data updated successfully!');
