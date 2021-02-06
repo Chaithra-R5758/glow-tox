@@ -5,6 +5,7 @@ import axios from '../../config/api/'
 import { SearchOutlined } from '@ant-design/icons'
 import { Card, Table, Tag, Input, Button, Modal, Skeleton, message } from 'antd';
 import { withRouter } from 'react-router-dom';
+
 const success = () => {
   message.success('Data added successfully!');
 };
@@ -22,8 +23,8 @@ class GiftCards extends React.Component {
       saveServiceLoading: false,
       giftcard: {},
       giftCards: [],
-      searchText:'',
-      giftCardSearchResult:[],
+      searchText: '',
+      giftCardSearchResult: [],
     };
   }
 
@@ -159,7 +160,7 @@ class GiftCards extends React.Component {
     } else {
       return (
         <div className={'gift-card'}>
-          <Table dataSource={giftCardSearchResult.length ? giftCardSearchResult : giftCards } columns={columns} />
+          <Table dataSource={giftCardSearchResult.length ? giftCardSearchResult : giftCards} columns={columns} />
         </div>
       )
     }
@@ -167,8 +168,8 @@ class GiftCards extends React.Component {
 
   searchTextChanged = (searchText) => {
     const { giftCards } = this.state
-    const giftCardSearchResult =  giftCards.filter(giftcard => giftcard.giftCardId.toLowerCase().includes(searchText))
-    this.setState({searchText, giftCardSearchResult})
+    const giftCardSearchResult = giftCards.filter(giftcard => giftcard.giftCardId.toLowerCase().includes(searchText))
+    this.setState({ searchText, giftCardSearchResult })
   }
 
   render() {
@@ -197,7 +198,7 @@ class GiftCards extends React.Component {
                 <div className={'gift-card-inner-wrapper'}>
                   <div className={'options-wrapper'}>
                     <div className={'search-wrapper'}>
-                      <Input placeholder="Search..." 
+                      <Input placeholder="Search..."
                         prefix={<SearchOutlined />}
                         value={searchText}
                         onChange={e => this.searchTextChanged(e.target.value)} />

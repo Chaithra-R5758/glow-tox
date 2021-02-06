@@ -1,5 +1,5 @@
-import React from 'react';
-import { withRouter, } from "react-router-dom";
+import React, { useState, useEffect } from 'react';
+import { withRouter, useHistory } from "react-router-dom";
 import Icon from '@ant-design/icons';
 import './navbar.scss';
 import { NAV_OPTIONS, HEADER_TITLE } from '../../constants/';
@@ -24,40 +24,51 @@ import Cookies from 'js-cookie';
 import { Drawer, Button, Radio, Space } from 'antd';
 import home from '../../assets/home.jpg'
 
-class NavBar extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      top: false,
-      left: false,
-      bottom: false,
-      right: false,
-      selectedOption: '',
-      userType: '',
-      //  screenName: 'Home',
-      selectedNavOption: -1,
-      visible: false,
-      pathname: '',
-    }
-  }
+const NavBar = () => {
 
-  showDrawer = () => {
-    this.setState({
-      visible: true,
-    });
+  const [selectedOption, setSelectedOption] = useState('')
+  const [userType, setUserType] = useState('')
+  const [selectedNavOption, setSelectedNavOption] = useState(-1)
+  const [visible, setVisible] = useState(false)
+  const [pathname, setPathname] = useState('')
+
+  const history = useHistory();
+
+  const showDrawer = () => {
+    setVisible(true)
   };
 
-  componentWillMount() {
+  // Similar to componentDidMount and componentDidUpdate:
+  useEffect(() => {
     const path = window.location.pathname
-    const { selectedNavOption } = this.state
     if (selectedNavOption === -1) {
-      this.setState({
-        selectedNavOption: this.getIndexForPath(path)
-      })
+      setSelectedNavOption(getIndexForPath(path))
     }
-  }
+  });
 
-  getIndexForPath = (path) => {
+  //useEffect
+  // componentWillMount() {
+  //   const path = window.location.pathname
+  //   const { selectedNavOption } = state
+  //   if (selectedNavOption === -1) {
+  //     setState({
+  //       selectedNavOption: getIndexForPath(path)
+  //     })
+  //   }
+  // }
+
+  //useEffect
+  // componentWillUpdate(newProps, newState) {
+  //   const path = window.location.pathname
+  //   const { pathname } = state
+  //   if (!pathname || pathname !== path) {
+  //     setState({ pathname: path }, () => {
+  //       setState({ selectedNavOption: getIndexForPath(path) })
+  //     })
+  //   }
+  // }
+
+  const getIndexForPath = (path) => {
     switch (path) {
       case '/dashboard': return 0;
       case '/services': return 1;
@@ -68,95 +79,57 @@ class NavBar extends React.Component {
     }
   }
 
-  componentWillUpdate(newProps, newState) {
-    const path = window.location.pathname
-    const { pathname } = this.state
-    if (!pathname || pathname !== path) {
-      this.setState({ pathname: path }, () => {
-        this.setState({ selectedNavOption: this.getIndexForPath(path) })
-      })
-    }
-  }
-
-  // componentWillUpdate(){
-
-  //   const path = window.location.pathname
-  //   debugger
-  //   switch(path){
-  //     case '' : this.setState({ selectedNavOption: 1 })
-  //     break;
-  //     default : this.setState({ selectedNavOption: 2 })
-  //     break;
-  //   }
-  // }
-
-  toggleDrawer = (side, open) => event => {
+  const toggleDrawer = (side, open) => event => {
     if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
       return;
     }
-    this.setState({ left: open });
   };
 
-  navItemClicked = (screenName, index) => {
-    this.props.history.push(getRouteName(screenName))
-    this.setState({ selectedNavOption: index, visible: false })
+  const navItemClicked = (screenName, index) => {
+    history.push({ pathname: getRouteName(screenName) });
+    setSelectedNavOption(index)
+    setVisible(false)
   }
 
-  getIcon = (navOption, index, selectedNavOption, navIconSize) => {
-    //const iconSize = '18px';
+  const getIcon = (navOption, index, selectedNavOption, navIconSize) => {
     const grey3 = '#ccd4f8';
     const white = '#fff';
     switch (navOption) {
-      case 'Dashboard': return <HomeFilled style={{ cursor:'pointer',
+      case 'Dashboard': return <HomeFilled style={{
+        cursor: 'pointer',
         fontSize: navIconSize,
         color: selectedNavOption === index ? white : grey3
       }}
-
       />
 
-      // <AppstoreFilled style={{
-      //   fontSize: navIconSize,
-      //   color: selectedNavOption === index ? white : grey3
-      // }} />
-      //<img src={home} style={{width:'30px'}}/> 
-
-
-
-      case 'Services': return <DribbbleCircleFilled style={{ cursor:'pointer',
+      case 'Services': return <DribbbleCircleFilled style={{
+        cursor: 'pointer',
         fontSize: navIconSize,
         color: selectedNavOption === index ? white : grey3
       }} />
 
-      // <ExperimentFilled style={{
-      //   fontSize: navIconSize,
-      //   color: selectedNavOption === index ? white : grey3
-      // }} />
-      case 'Promotions': return <FundFilled style={{ cursor:'pointer',
-        fontSize: navIconSize,
-        color: selectedNavOption === index ? white : grey3
-      }} />
-      case 'Service History': return <FileTextFilled style={{ cursor:'pointer',
-        fontSize: navIconSize,
-        color: selectedNavOption === index ? white : grey3
-      }} />
-      // <HistoryOutlined style={{
-      //   fontSize: navIconSize,
-      //   color: selectedNavOption === index ? white : grey3
-      // }} />
-      case 'Gift Cards': return <GiftFilled style={{ cursor:'pointer',
+      case 'Promotions': return <FundFilled style={{
+        cursor: 'pointer',
         fontSize: navIconSize,
         color: selectedNavOption === index ? white : grey3
       }} />
 
-      // <GiftFilled style={{
-      //   fontSize: navIconSize,
-      //   color: selectedNavOption === index ? white : grey3
-      // }} />
+      case 'Service History': return <FileTextFilled style={{
+        cursor: 'pointer',
+        fontSize: navIconSize,
+        color: selectedNavOption === index ? white : grey3
+      }} />
+
+      case 'Gift Cards': return <GiftFilled style={{
+        cursor: 'pointer',
+        fontSize: navIconSize,
+        color: selectedNavOption === index ? white : grey3
+      }} />
       default: return
     }
   }
 
-  logOutClicked = () => {
+  const logOutClicked = () => {
     Cookies.remove('accessToken')
     Cookies.remove('recId')
     Cookies.remove('userId')
@@ -164,47 +137,49 @@ class NavBar extends React.Component {
     window.location.reload();
   }
 
-  getNavOptionsMob = () => {
+  const getNavOptionsMob = () => {
     const grey3 = '#edf0f5';
     const navIconSize = '24px'
-    const { selectedNavOption } = this.state
     const result = NAV_OPTIONS.map((navOption, index) => {
       return (
-        <div className={'nav-option'} style={{ display: 'flex', margin: '20px 0' }} onClick={() => this.navItemClicked(navOption, index)}>
-          {this.getIcon(navOption, index, selectedNavOption, navIconSize)}
+        <div className={'nav-option'} style={{ display: 'flex', margin: '20px 0' }} onClick={() => navItemClicked(navOption, index)}>
+          {getIcon(navOption, index, selectedNavOption, navIconSize)}
           <div style={{ color: '#fff', margin: '0 10px' }} className={'nav-option-title-selected'}> {navOption} </div>
           {/* {selectedNavOption === index &&
               <span className={'caret-icon'}><CaretLeftOutlined style={{ color: grey3 }} /></span>
             }           */}
-            <div className={'nav-option logout-option-mob'} 
-            style={{display:'flex', 
-            bottom:20,
-            position:'absolute',
-            width:'100%'}} 
-            onClick={this.logOutClicked}>
-              <div>
-                <PoweroffOutlined style={{ cursor:'pointer',
-                  fontSize: '20px',
-                  color: '#b1b1b1',
-                }} />
-              </div>
-              <div className={0 ? 'nav-option-title-selected' : 'nav-option-title'} style={{color: '#fff', margin: '0 10px'}}>Logout</div>
+          <div className={'nav-option logout-option-mob'}
+            style={{
+              display: 'flex',
+              bottom: 20,
+              position: 'absolute',
+              width: '100%'
+            }}
+            onClick={logOutClicked}>
+            <div>
+              <PoweroffOutlined style={{
+                cursor: 'pointer',
+                fontSize: '20px',
+                color: '#b1b1b1',
+              }} />
             </div>
+            <div className={0 ? 'nav-option-title-selected' : 'nav-option-title'} style={{ color: '#fff', margin: '0 10px' }}>Logout</div>
+          </div>
         </div>
       )
     })
     return result
   }
 
-  getNavOptions = () => {
+  const getNavOptions = () => {
     const grey3 = '#edf0f5';
     const navIconSize = '18px'
-    const { selectedNavOption } = this.state
+    //const { selectedNavOption } = state
     const result = NAV_OPTIONS.map((navOption, index) => {
       return (
-        <div className={'nav-option'} onClick={() => this.navItemClicked(navOption, index)}>
+        <div className={'nav-option'} onClick={() => navItemClicked(navOption, index)}>
           <div>
-            {this.getIcon(navOption, index, selectedNavOption, navIconSize)}
+            {getIcon(navOption, index, selectedNavOption, navIconSize)}
             {selectedNavOption === index &&
               <span className={'caret-icon'}><CaretLeftOutlined style={{ color: grey3 }} /></span>
             }
@@ -216,92 +191,77 @@ class NavBar extends React.Component {
     return result
   }
 
-  sideList = (side, options) => (
+  const sideList = (side, options) => (
     <div
       className={''}
       style={{}}
       role="presentation"
-      onClick={this.toggleDrawer(side, false)}
-      onKeyDown={this.toggleDrawer(side, false)}>
+      onClick={toggleDrawer(side, false)}
+      onKeyDown={toggleDrawer(side, false)}>
       <div className={'nav-title'}>{HEADER_TITLE}</div>
       <div className={'nav-option-outer-wrapper'}>
         {options.map((text, index) => (
           <div
             className={'nav-option-wrapper'}
             key={text}
-            onClick={() => this.navItemClicked(text)}>
-            <span className={text === this.state.selectedOption ? 'nav-option-icon option-selected' : 'nav-option-icon'}>{this.getIcon(text)}</span>
-            <span className={text === this.state.selectedOption ? 'option-selected nav-option-title' : 'nav-option-title'}>{text}</span>
+            onClick={() => navItemClicked(text)}>
+            <span className={text === selectedOption ? 'nav-option-icon option-selected' : 'nav-option-icon'}>{getIcon(text)}</span>
+            <span className={text === selectedOption ? 'option-selected nav-option-title' : 'nav-option-title'}>{text}</span>
           </div>
         ))}
       </div>
     </div>
   );
 
-
-
-  render() {
-    //const { loginReducers } = this.props
-    const { visible, selectedOption, userType, selectedNavOption } = this.state
-
-
-
-    // if (window.location.pathname === '/login' || window.location.pathname === '/')
-    //   return null
-    const iconSize = '18px';
-    const grey3 = '#b1b1b1';
-    return (
-      <div className={'nav-screen'}>
-        <div className={'navbar'} >
-
-          {/* <div className={'nav-title'}
-            onClick={this.toggleDrawer('left', true)}>
+  const iconSize = '18px';
+  const grey3 = '#b1b1b1';
+  return (
+    <div className={'nav-screen'}>
+      <div className={'navbar'} >
+        {/* <div className={'nav-title'}
+            onClick={toggleDrawer('left', true)}>
              <DehazeIcon /> 
           </div> */}
-          <div className={'nav-options-wrapper'} >
-            {this.getNavOptions()}
+        <div className={'nav-options-wrapper'} >
+          {getNavOptions()}
 
-            <div className={'nav-option logout-option'} onClick={this.logOutClicked}>
-              <div>
-                <PoweroffOutlined style={{ cursor:'pointer',
-                  fontSize: '16px',
-                  color: '#b1b1b1'
-                }} />
-              </div>
-              <div className={0 ? 'nav-option-title-selected' : 'nav-option-title'}>Logout</div>
+          <div className={'nav-option logout-option'} onClick={logOutClicked}>
+            <div>
+              <PoweroffOutlined style={{
+                cursor: 'pointer',
+                fontSize: '16px',
+                color: '#b1b1b1'
+              }} />
             </div>
+            <div className={0 ? 'nav-option-title-selected' : 'nav-option-title'}>Logout</div>
           </div>
-          {/* {userType && this.getNavOptions().map((text, index) => (
-            
+        </div>
+        {/* {userType && getNavOptions().map((text, index) => (
             <div
               className={text === selectedOption ? 'nav-options option-selected' : 'nav-options'}
-              onClick={() => this.navItemClicked(text)}>
-              {this.getIcon(text)}
+              onClick={() => navItemClicked(text)}>
+              {getIcon(text)}
             </div>
-            
           ))} */}
-        </div >
-        <div className={'nav-bar-mob-wrapper'}>
-          <MenuOutlined onClick={this.showDrawer} />
-        </div>
-        <Drawer
-          title="Basic Drawer"
-          placement={'left'}
-          closable={false}
-          onClose={() => this.setState({ visible: false })}
-          visible={visible}
-          title={<div style={{ color: '#fff' }}>Glow Tox</div>}
-          headerStyle={{ backgroundColor: '#5C72E9', color: '#fff' }}
-          bodyStyle={{ backgroundColor: '#5C72E9' }}
-          key={'left'}>
-          <div className={'nav-options-wrapper-mob'} >
-            {this.getNavOptionsMob()}
-          </div>
-          
-          
-        </Drawer>
       </div >
-    )
-  }
+      <div className={'nav-bar-mob-wrapper'}>
+        <MenuOutlined onClick={showDrawer} />
+      </div>
+      <Drawer
+        title="Basic Drawer"
+        placement={'left'}
+        closable={false}
+        onClose={() => setVisible(false)}
+        visible={visible}
+        title={<div style={{ color: '#fff' }}>Glow Tox</div>}
+        headerStyle={{ backgroundColor: '#5C72E9', color: '#fff' }}
+        bodyStyle={{ backgroundColor: '#5C72E9' }}
+        key={'left'}>
+        <div className={'nav-options-wrapper-mob'} >
+          {getNavOptionsMob()}
+        </div>
+      </Drawer>
+    </div >
+  )
 }
-export default withRouter(NavBar)
+export default NavBar
