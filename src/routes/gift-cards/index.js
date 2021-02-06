@@ -22,6 +22,8 @@ class GiftCards extends React.Component {
       saveServiceLoading: false,
       giftcard: {},
       giftCards: [],
+      searchText:'',
+      giftCardSearchResult:[],
     };
   }
 
@@ -143,7 +145,7 @@ class GiftCards extends React.Component {
         service: 'service 1'
       },
     ];
-    const { isLoading, isError, giftCards } = this.state
+    const { isLoading, isError, giftCards, giftCardSearchResult } = this.state
 
     if (isLoading) {
       return (
@@ -157,10 +159,16 @@ class GiftCards extends React.Component {
     } else {
       return (
         <div className={'gift-card'}>
-          <Table dataSource={giftCards} columns={columns} />
+          <Table dataSource={giftCardSearchResult.length ? giftCardSearchResult : giftCards } columns={columns} />
         </div>
       )
     }
+  }
+
+  searchTextChanged = (searchText) => {
+    const { giftCards } = this.state
+    const giftCardSearchResult =  giftCards.filter(giftcard => giftcard.giftCardId.toLowerCase().includes(searchText))
+    this.setState({searchText, giftCardSearchResult})
   }
 
   render() {
@@ -168,7 +176,7 @@ class GiftCards extends React.Component {
       giftCards,
       giftcard,
       saveGiftcardLoading,
-
+      searchText,
     } = this.state
     const {
       serviceId,
@@ -185,12 +193,14 @@ class GiftCards extends React.Component {
           />
           <div className={"gift-card"}>
             <Card>
-
               <div className={'gift-card-wrapper'}>
                 <div className={'gift-card-inner-wrapper'}>
                   <div className={'options-wrapper'}>
                     <div className={'search-wrapper'}>
-                      <Input placeholder="Search..." prefix={<SearchOutlined />} />
+                      <Input placeholder="Search..." 
+                        prefix={<SearchOutlined />}
+                        value={searchText}
+                        onChange={e => this.searchTextChanged(e.target.value)} />
                     </div>
                     <div className={'primary-btn '} onClick={() => this.showModal(giftcard)}>
                       Create New
