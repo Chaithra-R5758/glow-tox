@@ -10,7 +10,7 @@ const Header = () => {
   useEffect(() => {
     async function getUserDetails() {
       try {
-        const { data } = await axios.get('admin')
+        const { data } = await axios.get('user/me')
         const userDetails = (data && data.user) || ''
         if (userDetails)
           setUserDetails(userDetails)

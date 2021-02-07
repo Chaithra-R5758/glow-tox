@@ -32,13 +32,14 @@ class Promotions extends React.Component {
       promo: {},
       savePromotionLoading: false,
       newPromo: false,
+      showError: false
     };
   }
 
   getAllPromotions = async () => {
     this.setState({ loading: true })
-    const response = await axios.get('/admin/getAllPromotionForSuperAdmin',)
-    const promotions = response.data && response.data.promotion
+    const response = await axios.get('promo/getAllPromo',)
+    const promotions = response.data && response.data.promo
     if (promotions && promotions.length > 0)
       this.setState({ promotions, loading: false })
   }
@@ -52,7 +53,8 @@ class Promotions extends React.Component {
       promotion: {
         ...prevState.promotion,
         service: e.target.value
-      }
+      },
+      showError: false
     }))
   }
 
@@ -61,7 +63,8 @@ class Promotions extends React.Component {
       promotion: {
         ...prevState.promotion,
         promoCode: e.target.value
-      }
+      },
+      showError: false
     }))
   }
 
@@ -70,7 +73,8 @@ class Promotions extends React.Component {
       promotion: {
         ...prevState.promotion,
         description: e.target.value
-      }
+      },
+      showError: false
     }))
   }
 
@@ -88,25 +92,28 @@ class Promotions extends React.Component {
     });
   };
 
-  imageHandler  = async (e) => {
-    const reader= new FileReader();
+  imageHandler = async (e) => {
+    const reader = new FileReader();
     const file = e.target.files[0];
+    const promoImageFormat = file.type
     const base64 = await imageToBase64(file);
     reader.onload = () => {
       if (reader.readyState === 2) {
         this.setState(prevState => ({
           promotion: {
             ...prevState.promotion,
-            promoImage: base64
-          }
+            promoImage: base64,
+            promoImageFormat
+          },
+          showError: false
         }));
       }
     };
-  reader.readAsDataURL(file);
-   };
+    reader.readAsDataURL(file);
+  };
 
   promotionsUI = () => {
-    const { loading, error, promotions,promotion } = this.state;
+    const { loading, error, promotions, promotion } = this.state;
     console.log("promotion", promotion)
     if (loading) {
       return (
@@ -174,7 +181,7 @@ class Promotions extends React.Component {
   };
 
   savePromotion = async () => {
-    const { newPromo,promotion } = this.state
+    const { newPromo, promotion } = this.state
     if (newPromo) {
       this.addPromo()
     }
@@ -182,18 +189,16 @@ class Promotions extends React.Component {
       this.setState({
         savePromotionLoading: true,
       });
-      const savePromotion = await axios.post("/admin/updatePromotion",
+      const savePromotion = await axios.post("promo/savePromo",
         {
           ...promotion,
           userId: getUserId(),
           //recId: getRecId(),
         })
-      
-     
       this.hideModal()
       this.getAllPromotions()
-      .then(success)
-      .catch(error)
+        .then(success)
+        .catch(error)
       this.setState({
         savePromotionLoading: false,
       });
@@ -202,32 +207,43 @@ class Promotions extends React.Component {
 
   addPromo = async () => {
     const { promotion } = this.state
-    this.setState({
-      savePromotionLoading: true,
-    });
-      const { description, promoCode, promoImage, service } = promotion
-      const addPromo = await axios.post("/admin/createPromotion", {
-        ...promotion,
-        promoName: "",
-        description,
-        promoPic: promoImage,
-        serviceId: service,
-        isActive: "",
-        offer: "",
-        promoCode,
+    const { description, promoCode, promoImage, service } = promotion
+    if (description && promoCode && promoImage && service) {
+      this.setState({
+        savePromotionLoading: true,
       });
-     
-        this.hideModal()
-        this.getAllPromotions()
-        .then(success)
-        .catch(error)
-        this.setState({
-          savePromotionLoading: false,
-        }
-      )
+      try {
+        const addPromo = await axios.post("promo/savePromo", {
+          ...promotion,
+          promoCode,
+          promoName: "",
+          description,
+          serviceId: service,
+          offer: "",
+          promoImage,
+          //promoImageFormat:'.png'
+        });
+        message.success('Data updated successfully!');
+      } catch (e) {
+        message.error('Error Occurred!');
+      }
+
+      this.setState({
+        savePromotionLoading: false,
+      })
+      this.hideModal()
+      this.getAllPromotions()
+      // .then(success)
+      // .catch(error)
     }
-    
-   addNewPromo = () => {
+    else {
+      this.setState({
+        showError: true
+      })
+    }
+  }
+
+  addNewPromo = () => {
     this.setState({
       newPromo: true
     })
@@ -235,7 +251,7 @@ class Promotions extends React.Component {
   }
 
   render() {
-    const { loginImg, loadings, promotion, savePromotionLoading, promo } = this.state;
+    const { loginImg, loadings, promotion, savePromotionLoading, promo, showError } = this.state;
     return (
       <div className="promotions-screen">
         <div>
@@ -311,7 +327,7 @@ class Promotions extends React.Component {
                     accept="image/*"
                     name="image-upload"
                     id="input"
-                    onChange={(e)=>this.imageHandler(e)}
+                    onChange={(e) => this.imageHandler(e)}
                   />
                   <div
                     className="modal-code"
@@ -395,6 +411,11 @@ class Promotions extends React.Component {
                     </div>
                   </div>
                 </div>
+                {showError && <div style={{
+                  color: 'red',
+                  textAlign: 'center',
+                  margin: '5px 0 -15px 0'
+                }}>All the fields are mandatory</div>}
               </Modal>
             </div>
           </div>
