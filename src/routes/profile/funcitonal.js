@@ -5,134 +5,132 @@ import { Card, Input, Space, message, Skeleton, Button } from 'antd';
 import { EditFilled } from '@ant-design/icons'
 import axios from '../../config/api/'
 import { withRouter } from 'react-router-dom';
-import React, { Component } from 'react';
+import React, { Component, useState, useEffect } from 'react';
 import { imageToBase64, getUserId } from '../../utils/'
 
 const layout = {
     labelCol: { span: 8 },
     wrapperCol: { span: 16 },
 };
+const success = () => {
+    message.success('Updated Successfully');
+};
 
-class Profile extends React.Component {
-    constructor() {
-        super()
-        this.state = {
-            submitLoading: false,
-            saveLoading: false,
-            isChangePasswordLoading: false,
-            loading: false,
-            isError: false,
-            userDetails: {},
-            profile: {},
-            profilePic: '',
-            password: {},
-        };
-    }
+const error = () => {
+    message.error('Error while Updating!');
+};
 
+const Profile = () => {
 
-    async componentDidMount() {
-        this.setState({ loading: true })
-        try {
-            const { data } = await axios.get('user/me')
-            this.setState({
-                loading: false
-            })
-            const userDetails = (data && data.user) || ''
-            if (userDetails)
-                this.setState({ userDetails })
-        } catch (e) {
-            this.setState({ isError: true })
+    const [submitLoading, setSubmitLoading] = useState(false)
+    const [saveLoading, setSaveLoading] = useState(false)
+    const [isChangePasswordLoading, setIsChangePasswordLoading] = useState(false)
+    const [loading, setLoading] = useState(false)
+    const [isError, setIsError] = useState(false)
+    const [userDetails, setUserDetails] = useState({})
+    const [profile, setProfile] = useState({})
+    const [profilePic, setProfilePic] = useState('')
+    const [password, setPassword] = useState({})
+    const [newPassword,setNewPassword] = useState('')
+
+    useEffect(() => {
+        async function getUserDetails() {
+            setLoading(true)
+            try {
+                const { data } = await axios.get('user/me')
+                setLoading(false)
+                const userDetails = (data && data.user) || ''
+                if (userDetails)
+                    setUserDetails(userDetails)
+            } catch (e) {
+                setLoading(false)
+                setIsError(true)
+            }
         }
-    }
+        getUserDetails()
+    }, [])
 
-    imageHandler = async (e) => {
+    const imageHandler = async (e) => {
         const reader = new FileReader();
         const file = e.target.files[0];
-        const promoImageFormat = file.type
         const base64 = await imageToBase64(file);
         reader.onload = () => {
-            this.setState(prevState => ({
-                userDetails: {
-                    ...prevState.userDetails,
-                    profilePic: base64,
-                    promoImageFormat
-                }
-            }));
+            // setState(prevState => ({
+            //     userDetails: {
+            //         ...prevState.userDetails,
+            //         profilePic: base64
+            //     }
+            // }));
         };
 
         reader.readAsDataURL(file);
     };
 
-    userPassword = async (password) => {
-        const { newPassword } = this.state
-        this.setState({
-            submitLoading: true
-        });
-try{
+    const userPassword = async (password) => {
+        //const { newPassword } = state
+        setSubmitLoading(true)
+        // setState({
+        //     submitLoading: true
+        // });
         const userPassword = await axios.post("user/updatePassword",
             {
                 userId: getUserId(),
                 newPassword,
             })
-            
-            message.success('Updated Successfully');
-      } catch (e) {
-        message.error('Error while Updating!');
-      }
-        this.setState({ submitLoading: false });
+            .then(success)
+            .catch(error)
+        setSubmitLoading(false)
+        //setState({ submitLoading: false });
     }
 
-    userProfile = async (profile) => {
-        this.setState({
-            saveLoading: true
-        });
-        try{
-        const { userDetails } = this.state
-
+    const userProfile = async (profile) => {
+        setSaveLoading(true)
+        // setState({
+        //     saveLoading: true
+        // });
+        //const { userDetails } = state
         const userPassword = await axios.post("user/updateUserProfile",
-            { ...userDetails, profilePicFormat: userDetails.userName })
-            message.success('Updated Successfully');
-        } catch (e) {
-          message.error('Error while Updating!');
-        }
-        this.setState({ saveLoading: false });
+            { ...userDetails, name: userDetails.userName }
+        )
+            .then(success)
+            .catch(error)
+        setSaveLoading(false)
+        // setState({ saveLoading: false });
     }
 
-    userNameChanged = (userName) => {
-        this.setState(prevState => ({
-            userDetails: {
-                ...prevState.userDetails,
-                userName
-            }
-        }))
+    const userNameChanged = (userName) => {
+        // setState(prevState => ({
+        //     userDetails: {
+        //         ...prevState.userDetails,
+        //         userName
+        //     }
+        // }))
     }
 
-    emailChanged = (emailId) => {
-        this.setState(prevState => ({
-            userDetails: {
-                ...prevState.userDetails,
-                emailId
-            }
-        }))
+    const emailChanged = (emailId) => {
+        // setState(prevState => ({
+        //     userDetails: {
+        //         ...prevState.userDetails,
+        //         emailId
+        //     }
+        // }))
     }
 
-    phNumberChanged = (phoneNumber) => {
-
-        this.setState(prevState => ({
-            userDetails: {
-                ...prevState.userDetails,
-                phoneNumber
-            }
-        }))
+    const phNumberChanged = (phoneNumber) => {
+        // setState(prevState => ({
+        //     userDetails: {
+        //         ...prevState.userDetails,
+        //         phoneNumber
+        //     }
+        // }))
     }
 
-    profileUI = () => {
-        const { userDetails, saveLoading, isError, password, profile, loading, submitLoading } = this.state
-        console.log("Profile", userDetails)
+    const profileUI = () => {
+        //const { userDetails, saveLoading, isError, password, profile, loading, submitLoading } = state
+        //console.log("Profile", userDetails)
         if (loading) {
             return (
                 <div className={'content-body-wrapper'}>
-
                     <div className={'profile-card'}  >
                         <Card
                             style={{ width: '100%' }}>
@@ -170,9 +168,8 @@ try{
                                 accept="image/*"
                                 name="image-upload"
                                 id="input"
-                                onChange={(e) => this.imageHandler(e)}
+                                onChange={(e) => imageHandler(e)}
                             />
-
                             <Space direction="vertical">
                                 <div className="profile-card-body" >
                                     <Form
@@ -184,7 +181,7 @@ try{
                                         >
                                             <Input
                                                 defaultValue={userDetails.userName}
-                                                onChange={e => this.userNameChanged(e.target.value)}
+                                                onChange={e => userNameChanged(e.target.value)}
                                                 size="large"
                                                 style={{ borderRadius: '5px' }}
                                             />
@@ -205,7 +202,7 @@ try{
                                         >
                                             <Input
                                                 defaultValue={userDetails.emailId}
-                                                onChange={e => this.emailChanged(e.target.value)}
+                                                onChange={e => emailChanged(e.target.value)}
                                                 size="large"
                                                 style={{ borderRadius: '5px' }} />
                                         </Form.Item>
@@ -223,7 +220,7 @@ try{
                                                 title="Please Input Number"
                                                 pattern="[+][0-9]{2}-[0-9]{10}" required
                                                 defaultValue={userDetails.phoneNumber}
-                                                onChange={e => this.phNumberChanged(e.target.value)}
+                                                onChange={e => phNumberChanged(e.target.value)}
                                                 style={{ borderRadius: '5px' }}
                                                 maxLength={14}
                                             />
@@ -232,8 +229,10 @@ try{
                                 </div>
                                 <Button
                                     className={'profile-primary-btn'}
-                                    onClick={() => this.saveUserDetails()}
-                                    htmlType="submit" loading={saveLoading} onClick={() => this.userProfile(profile)}> Submit
+                                    //onClick={() => saveUserDetails()}
+                                    htmlType="submit" 
+                                    loading={saveLoading} 
+                                    onClick={() => userProfile(profile)}> Submit
                             </Button>
                             </Space>
                         </Card>
@@ -241,7 +240,7 @@ try{
                     <div className={'profile-card-pwd'}>
                         <Card>
                             <div
-                                onClick={() => this.changePassword()}
+                                onClick={() => changePassword()}
                                 className={'title-card'}>
                                 Change Password
                            </div>
@@ -261,7 +260,7 @@ try{
                                                 },
                                                 ({ getFieldValue }) => ({
                                                     validator(__, value) {
-                                                        if (!value || getFieldValue('password').length > 5) {
+                                                        if (!value || getFieldValue('password').length >= 5) {
                                                             return Promise.resolve();
                                                         }
                                                         return Promise.reject('Invalid password length');
@@ -272,12 +271,11 @@ try{
                                         >
                                             <Input.Password
                                                 type='password'
-                                                onChange={e => this.setState({ newPassword: e.target.value })}
+                                                onChange={e => setNewPassword(e.target.value)}
                                                 size="large"
                                                 style={{ borderRadius: '5px' }} />
                                         </Form.Item>
                                         <Form.Item
-
                                             name="confirm"
                                             label="Confirm Password"
                                             hasFeedback
@@ -298,13 +296,13 @@ try{
                                         >
                                             <Input.Password
                                                 type="password"
-                                                onChange={e => this.setState({ reEnterPassword: e.target.value })}
+                                                onChange={e => setNewPassword(e.target.value)}
                                                 size="large"
                                                 style={{ borderRadius: '5px' }} />
                                         </Form.Item>
                                     </Form>
                                 </div>
-                                <Button className={'profile-primary-pwd-btn'} loading={submitLoading} onClick={() => this.userPassword(password)}>
+                                <Button className={'profile-primary-pwd-btn'} loading={submitLoading} onClick={() => userPassword(password)}>
                                     Submit
                                         </Button>
                             </Space>
@@ -315,9 +313,10 @@ try{
         }
     }
 
-    changePassword = async () => {
-        const { newPassword } = this.state
-        this.setState({ isChangePasswordLoading: true })
+    const changePassword = async () => {
+        //const { newPassword } = state
+        //setState({ isChangePasswordLoading: true })
+        setIsChangePasswordLoading(true)
         try {
             const { data } = await axios.get('admin/updateUserPassword',
                 {
@@ -325,27 +324,28 @@ try{
                     newPassword,
                 }
             )
-            this.setState({
-                isChangePasswordLoading: false
-            })
+            setIsChangePasswordLoading(false)
+            // setState({
+            //     isChangePasswordLoading: false
+            // })
         } catch (e) {
-            this.setState({ isChangePasswordError: true })
+            //setIsChangePasswordError(true)
+            //setState({ isChangePasswordError: true })
         }
     }
 
-    render() {
-        return (
-            <div className="profile-screen">
-                <div>
-                    <div className={'content-wrapper'}>
-                        <PageTitle
-                            title={'Profile'}
-                        />
-                        {this.profileUI()}
-                    </div>
+    return (
+        <div className="profile-screen">
+            <div>
+                <div className={'content-wrapper'}>
+                    <PageTitle
+                        title={'Profile'}
+                    />
+                    {profileUI()}
                 </div>
             </div>
-        );
-    }
+        </div>
+    );
+
 }
-export default withRouter(Profile);
+export default Profile

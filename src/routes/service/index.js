@@ -3,20 +3,12 @@ import loginImg from '../../assets/login-img.png'
 import './service.scss';
 import { Card, Button, Modal, Skeleton, Anchor, Input, message, PageHeader, Form } from 'antd';
 import React, { useState } from 'react';
-import toBase64 from "../../utils/base64"
 import { withRouter } from 'react-router-dom';
-import { getUserId, getRecId } from '../../config/helpers/'
+import { imageToBase64, getUserId } from '../../utils/'
 import axios from '../../config/api/'
 import defaultImg from '../../assets/default.png'
 import Error from '../../components/error'
 import { BeforeAfter } from './before-after'
-const success = () => {
-  message.success('Data updated successfully!');
-};
-const error = () => {
-  message.error('Error Occurred!');
-};
-
 
 const { Meta } = Card;
 const { TextArea } = Input;
@@ -34,6 +26,7 @@ class Service extends React.Component {
       defaultImg,
       loading: false,
       error: false,
+      showError:false,
       saveServiceLoading: false,
       beforeAfterSets: [],
       newService: false,
@@ -55,13 +48,13 @@ class Service extends React.Component {
   imageHandler = async (e) => {
     const reader = new FileReader();
     const file = e.target.files[0];
-    const base64 = await toBase64(file);
+    const base64 = await imageToBase64(file);
     reader.onload = () => {
       if (reader.readyState === 2) {
         this.setState(prevState => ({
           service: {
             ...prevState.service, serviceImage: base64
-          }
+          },showError: false
         }));
       }
     };
@@ -151,21 +144,27 @@ class Service extends React.Component {
   }
   createService = async () => {
     const { service } = this.state
-    this.setState({ saveServiceLoading: true })
-
+    const { serviceEmail, description, serviceImage, serviceName } = service
+    if (serviceEmail && description && serviceImage && serviceName) { 
+    this.setState({ saveServiceLoading: true });
+try{
     const saveService = await axios.post('/admin/createService', {
       ...service,
       serviceImage: '',
     })
+    message.success('Data updated successfully!');
+  } catch (e) {
+    message.error('Error Occurred!');
+  }
     this.setState({ saveServiceLoading: false })
     this.hideModal()
     this.getAllServices()
-      .then(success)
-      .catch(error)
-    this.setState({ saveServiceLoading: false })
-
+}else{
+    this.setState({ 
+      showError: true
+    })
   }
-
+  }
   saveService = async () => {
     const { newService, service } = this.state
     if (newService) {
@@ -174,20 +173,25 @@ class Service extends React.Component {
       this.setState({
         saveServiceLoading: true,
       })
+      try{
       const saveService = await axios.post('/admin/updateService', {
         ...service,
         userId: getUserId(),
         serviceImage: ''
       })
-
+      message.success('Data updated successfully!');
+    } catch (e) {
+      message.error('Error Occurred!');
+    }
+    this.setState({
+      saveServiceLoading: false,
+    })
       this.hideModal()
       this.getAllServices()
-
-        .then(success)
-        .catch(error)
       this.setState({
-        saveServiceLoading: false,
+        showError: true
       })
+  
     }
   }
 
@@ -196,7 +200,8 @@ class Service extends React.Component {
       service: {
         ...prevState.service,
         serviceName: e.target.value
-      }
+      },
+      showError: false
     }))
   }
 
@@ -205,7 +210,8 @@ class Service extends React.Component {
       service: {
         ...prevState.service,
         serviceEmail: e.target.value
-      }
+        },
+      showError: false
     }))
   }
 
@@ -214,12 +220,13 @@ class Service extends React.Component {
       service: {
         ...prevState.service,
         description: e.target.value
-      }
+      },
+      showError: false
     }))
   }
 
   modalUI = () => {
-    const { defaultImg, beforeAfterSets, service, saveServiceLoading } = this.state
+    const { defaultImg, beforeAfterSets, service, saveServiceLoading,showError } = this.state
     console.log("service", service)
     return (
       <Modal
@@ -367,6 +374,11 @@ class Service extends React.Component {
               marginTop: '20px'
             }}>Save</Button>
         </div>
+        {showError && <div style={{
+          color: 'red',
+          textAlign: 'center',
+          margin: '5px 0 -15px 0'
+        }}>All the fields are mandatory</div>}
       </Modal>
     )
   }

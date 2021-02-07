@@ -10,7 +10,7 @@ import Dashboard from './routes/dashboard/';
 import Service from './routes/service';
 import GiftCard from './routes/gift-cards';
 import ServiceHistory from './routes/service-history';
-import Header from './Header';
+import Header from './components/header/';
 import Footer from './components/footer/';
 import Navbar from './components/navbar/';
 import Profile from './routes/profile/';
@@ -19,18 +19,14 @@ import Cookies from 'js-cookie';
 import PageNotFound from './routes/404-page/';
 import LoadingScreen from "./components/loading-screen";
 
-
 class App extends Component {
 
   render() {
     const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
     const userLoggedIn = Cookies.get('accessToken')
-   
     return (
       <Provider store={store}>
-       
         <Router>
-       
               { userLoggedIn ?
                 <div>
                 <Header />
@@ -42,7 +38,6 @@ class App extends Component {
                   <Route path="/servicehistory" component={() => <ServiceHistory />} />
                   <Route path="/profile" component={() => <Profile />} />
                   <Route path="/promotions" component={() => <Promotions />} />
-                  
                   <Redirect to="/dashboard" /> 
                   </Switch><Footer /> </div> :
                   <Switch>
@@ -50,9 +45,7 @@ class App extends Component {
                     <Route path="/login" component={() => <Login />} />
                     <Redirect to="/login" />
                   </Switch>
-                
               }
-         
         </Router>
       </Provider>
     );

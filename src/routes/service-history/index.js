@@ -160,7 +160,7 @@ class ServiceHistory extends React.Component {
 
   searchTextChanged = (searchText) => {
     const { serviceHistory } = this.state
-    const serviceHistorySearchResult =  serviceHistory.filter(service => service.TransactionId.toLowerCase().includes(searchText))
+    const serviceHistorySearchResult =  serviceHistory.filter(service => service.TransactionId.toLowerCase().includes(searchText.toLowerCase()))
     this.setState({searchText, serviceHistorySearchResult})
   }
 
