@@ -146,8 +146,8 @@ class Service extends React.Component {
     const { service } = this.state
     const { serviceEmail, description, serviceImage, serviceName } = service
     if (serviceEmail && description && serviceImage && serviceName) { 
-    this.setState({ saveServiceLoading: true });
-try{
+    this.setState({ saveServiceLoading: true })
+     try{
     const saveService = await axios.post('/admin/createService', {
       ...service,
       serviceImage: '',
@@ -178,7 +178,7 @@ try{
         ...service,
         userId: getUserId(),
         serviceImage: ''
-      })
+      });
       message.success('Data updated successfully!');
     } catch (e) {
       message.error('Error Occurred!');

@@ -24,9 +24,9 @@ const GiftCards = () => {
   const getAllGiftCards = async () => {
     setIsLoading(true)
     try {
-      const { data } = await axios.get('/admin/getAllGiftCardsForAdmin',)
+      const { data } = await axios.get('gift/getAllGift',)
       setIsLoading(false)
-      const giftCards = (data && data.giftcards) || ''
+      const giftCards = (data && data.gift) || ''
       if (giftCards.length >= 0) {
         setGiftCards(giftCards)
       }
@@ -44,10 +44,10 @@ const GiftCards = () => {
     if(clientName && emailId && offer && serviceId) {
     setSaveGiftcardLoading(true)
    try{
-    const saveGiftcard = await axios.post('/admin/createGiftCardsByAdmin',
+    const saveGiftcard = await axios.post('gift/saveGift',
       {
         clientName,
-        emailId,
+        clientEmailId:emailId,
         offer,
         serviceId,
       });
@@ -75,7 +75,6 @@ const GiftCards = () => {
 
   const hideModal = () => {
     setVisible(false)
-   
   };
 
   const giftcardUI = () => {
@@ -93,8 +92,8 @@ const GiftCards = () => {
       },
       {
         title: 'Email Id',
-        dataIndex: 'clientEmail',
-        key: 'clientEmail',
+        dataIndex: 'clientEmailId',
+        key: 'clientEmailId',
 
       },
       {
@@ -226,7 +225,7 @@ const GiftCards = () => {
                   </div>
                   <Button loading={saveGiftcardLoading}
                     onClick={() => saveGiftcard(giftcard)} className="save-btn" style={{ float: 'right', backgroundColor: '#5D72E9', color: 'white', borderRadius: '5px', padding: '0px 25px 0px 25px', marginTop: '-20px' }}>Save</Button>
-                 {showError && <div style={{
+                {showError && <div style={{
           color: 'red',
           textAlign: 'center',
           margin: '5px 0px -15px 0'

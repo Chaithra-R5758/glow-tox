@@ -10,7 +10,8 @@ import axios from "../../config/api/";
 import defaultImg from "../../assets/default.png";
 import Error from "../../components/error";
 import TextArea from "antd/lib/input/TextArea";
-import { imageToBase64, getUserId } from '../../utils/'
+import { imageToBase64, getUserId, urltoBase64, getExtensionFromUrl } from '../../utils/'
+
 class Promotions extends React.Component {
   constructor() {
     super()
@@ -86,7 +87,7 @@ class Promotions extends React.Component {
   imageHandler = async (e) => {
     const reader = new FileReader();
     const file = e.target.files[0];
-    const promoImageFormat = file.type
+    const promoImageFormat = '.' + file.type.split('/')[1]
     const base64 = await imageToBase64(file);
     reader.onload = () => {
       if (reader.readyState === 2) {
@@ -180,24 +181,47 @@ class Promotions extends React.Component {
       this.setState({
         savePromotionLoading: true,
       });
+      const { 
+        recId, 
+        isActive,
+        promoName,
+        description,
+        promoImage,
+        promoImageFormat } = promotion
+
+      let params = {}
+      if (!promoImageFormat) {
+        //image has not been changed
+        params = {
+          recId, 
+          isActive,
+          promoName,
+          description,
+        }
+      }
+      else {
+        params = {
+          recId, 
+          isActive,
+          promoName,
+          description,
+          promoImage,
+          promoImageFormat
+        }
+      }
       try {
-      const savePromotion = await axios.post("promo/savePromo",
-        {
-          ...promotion,
-          userId: getUserId(),
-          //recId: getRecId(),
-        });
+        const savePromotion = await axios.post("promo/savePromo", params);
         message.success('Data updated successfully!');
       } catch (e) {
         message.error('Error Occurred!');
       }
+      this.hideModal()
+      this.getAllPromotions()
       this.setState({
         savePromotionLoading: false,
       });
-      this.hideModal()
-      this.getAllPromotions()
     }
-  };
+  }
 
   addPromo = async () => {
     const { promotion } = this.state
@@ -207,16 +231,26 @@ class Promotions extends React.Component {
         savePromotionLoading: true,
       });
       try {
-        const addPromo = await axios.post("promo/savePromo", {
-          ...promotion,
+        const {
           promoCode,
-          promoName: "",
+          promoName,
+          description,
+          service,
+          offer,
+          promoImage,
+          promoImageFormat,
+        } = promotion
+
+        const params = {
+          promoCode,
+          promoName: promoCode,
+          offer: '10%',
           description,
           serviceId: service,
-          offer: "",
           promoImage,
-
-        });
+          promoImageFormat,
+        }
+        const addPromo = await axios.post("promo/savePromo", params);
         message.success('Data updated successfully!');
       } catch (e) {
         message.error('Error Occurred!');

@@ -28,10 +28,40 @@ export const imageToBase64 = (file) => {
     });
 };
 
+export const URItobase64 = async (d) => {
+    var reader = new FileReader();    /* https://developer.mozilla.org/en-US/docs/Web/API/FileReader */
+    reader.readAsDataURL(d);          /* https://developer.mozilla.org/en-US/docs/Web/API/FileReader/readAsDataURL */
+    return new Promise((res,rej)=> {  /* https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise */
+      reader.onload = (e) => {        /* https://developer.mozilla.org/en-US/docs/Web/API/FileReader/onload */
+        res(e.target.result)
+      }
+    })
+  } 
+  
+  export const urltoBase64 = async (url) => {
+    var res = await fetch(url);
+    var blob = await res.blob();
+    var uri = await URItobase64(blob);
+    return uri;
+  }
+  
 export const refeshUI = () => {
     window.location.reload()
 }
 
 export const getUserId = () => {
     return Cookies.get('userId')
+}
+
+export const getExtensionFromUrl = ( url ) => {
+    return url.split(/[#?]/)[0].split('.').pop().trim();
+}
+
+export const isBase64 = (str) => {
+    if (str ==='' || str.trim() ===''){ return false; }
+    try {
+        return btoa(atob(str)) == str;
+    } catch (err) {
+        return false;
+    }
 }

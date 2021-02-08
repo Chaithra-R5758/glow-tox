@@ -6,7 +6,7 @@ import { EditFilled } from '@ant-design/icons'
 import axios from '../../config/api/'
 import { withRouter } from 'react-router-dom';
 import React, { Component } from 'react';
-import { imageToBase64, getUserId } from '../../utils/'
+import { imageToBase64, getUserId, isBase64 } from '../../utils/'
 
 const layout = {
     labelCol: { span: 8 },
@@ -48,14 +48,14 @@ class Profile extends React.Component {
     imageHandler = async (e) => {
         const reader = new FileReader();
         const file = e.target.files[0];
-        const promoImageFormat = file.type
+        const profilePicFormat = '.' + file.type.split('/')[1]
         const base64 = await imageToBase64(file);
         reader.onload = () => {
             this.setState(prevState => ({
                 userDetails: {
                     ...prevState.userDetails,
                     profilePic: base64,
-                    promoImageFormat
+                    profilePicFormat
                 }
             }));
         };
@@ -68,19 +68,18 @@ class Profile extends React.Component {
         this.setState({
             submitLoading: true
         });
-try{
+       try{
         const userPassword = await axios.post("user/updatePassword",
             {
                 userId: getUserId(),
                 newPassword,
-            })
-            
+            });
             message.success('Updated Successfully');
-      } catch (e) {
-        message.error('Error while Updating!');
+        } catch (e) {
+          message.error('Error while Updating!');
+        }
+          this.setState({ submitLoading: false });
       }
-        this.setState({ submitLoading: false });
-    }
 
     userProfile = async (profile) => {
         this.setState({
@@ -88,15 +87,38 @@ try{
         });
         try{
         const { userDetails } = this.state
-
-        const userPassword = await axios.post("user/updateUserProfile",
-            { ...userDetails, profilePicFormat: userDetails.userName })
-            message.success('Updated Successfully');
+        const { 
+            recId, 
+            userName, 
+            phoneNumber, 
+            profilePic, 
+            profilePicFormat,
+            emailId, } = userDetails
+        let params = {}
+        if (profilePicFormat) {
+            params = {
+                recId,
+                userName,
+                phoneNumber,
+                profilePic,
+                profilePicFormat,
+            }
+        } else {
+            params = {
+                recId,
+                userName,
+                phoneNumber,
+                emailId
+            }
+        }
+        const userPassword = await axios.post("user/updateUserProfile", params)
+        message.success('Updated Successfully');
         } catch (e) {
           message.error('Error while Updating!');
         }
         this.setState({ saveLoading: false });
     }
+
 
     userNameChanged = (userName) => {
         this.setState(prevState => ({

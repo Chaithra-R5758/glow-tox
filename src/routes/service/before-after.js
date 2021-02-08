@@ -1,7 +1,6 @@
 import defaultImg from '../../assets/default.png'
+
 export const BeforeAfter = (props) => {
-
-
     const imageHandler = e => {
         const reader = new FileReader();
         reader.onload = () => {
