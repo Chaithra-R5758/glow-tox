@@ -74,9 +74,9 @@ class Profile extends React.Component {
                 userId: getUserId(),
                 newPassword,
             });
-            message.success('Updated Successfully');
+            message.success('Password Updated Successfully');
         } catch (e) {
-          message.error('Error while Updating!');
+          message.error('There was a problem updating the password');
         }
           this.setState({ submitLoading: false });
       }
@@ -313,7 +313,7 @@ class Profile extends React.Component {
                                                         if (!value || getFieldValue('password') === value) {
                                                             return Promise.resolve();
                                                         }
-                                                        return Promise.reject(' two passwords entered do not match!');
+                                                        return Promise.reject(' Two passwords entered do not match!');
                                                     },
                                                 }),
                                             ]}
