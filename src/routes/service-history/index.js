@@ -25,11 +25,11 @@ class ServiceHistory extends React.Component {
   async componentDidMount() {
     this.setState({ isLoading: true })
     try {
-      const { data } = await axios.get('/admin/getAllServiceTransactionForAdmin',)
+      const { data } = await axios.get('transaction/getAllTransaction',)
       this.setState({
         isLoading: false
       })
-      const serviceHistory = (data && data.serviceHistory) || ''
+      const serviceHistory = (data && data.transaction) || ''
       if (serviceHistory)
         this.setState({ serviceHistory })
 
@@ -56,58 +56,62 @@ class ServiceHistory extends React.Component {
     const columns = [
       {
         title: 'Transaction Id',
-        dataIndex: 'TransactionId',
-        key: 'TransactionId',
+        dataIndex: 'transactionId',
+        key: 'transactionId',
       },
       {
         title: 'Client Name',
-        dataIndex: 'name',
-        key: 'name',
+        dataIndex: 'clientName',
+        key: 'clientName',
         render: text => <a>{text}</a>,
       },
       {
         title: 'Email Id',
-        dataIndex: 'email',
-        key: 'email',
+        dataIndex: 'clientEmailId',
+        key: 'clientEmailId',
       },
       {
         title: 'Service',
-        dataIndex: 'service',
-        key: 'service',
+        dataIndex: 'serviceId',
+        key: 'serviceId',
       },
       {
         title: 'Promo Name',
-        dataIndex: 'promoname',
-        key: 'promoname',
+        dataIndex: 'promoCode',
+        key: 'promoCode',
       },
       {
         title: 'Status',
-        key: 'tags',
-        dataIndex: 'tags',
-        render: tags => (
-          <>
-            {tags.map(tag => {
-              let color = tag.length > 5 ? 'geekblue' : 'green';
-              if (tag === 'Refund') {
-                color = 'orange';
-              } else if (tag === 'chargeback') {
-                color = 'red';
-              }
-              return (
-                <Tag color={color} key={tag}>
-                  {tag.toUpperCase()}
-                </Tag>
-              );
-            })}
-          </>
-        ),
+        key: 'status',
+        dataIndex: 'status',
+        render: status => (<Tag color={'green'} key={''}>
+          {status.toUpperCase()}
+        </Tag>)
+
+          // <>
+          //   {
+          //     const color = 'green'
+          //   //status.length > 0 && status.map(tag => {
+          //     let color = status.length > 5 ? 'geekblue' : 'green';
+          //     if (tag === 'Refund') {
+          //       color = 'orange';
+          //     } else if (tag === 'chargeback') {
+          //       color = 'red';
+          //     }
+          //     return (
+          //       <Tag color={color} key={tag}>
+          //         {tag.toUpperCase()}
+          //       </Tag>
+          //     );
+          //   })}
+          // </>
+       // ),
       },
       {
         title: '',
         dataIndex: 'btn',
         key: 'btn',
         render: text => <div className="view-btn" onClick={this.showModal}>View</div>
-
       }
     ];
 

@@ -8,8 +8,8 @@ import axios from '../../config/api/'
 
 const Login = () => {
 
-  const [userName, setUserName] = useState('test@gmail.com');
-  const [password, setPassword] = useState('test@1234');
+  const [userName, setUserName] = useState('');
+  const [password, setPassword] = useState('');
   const [errorMsg, setErrorMsg] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 
@@ -130,11 +130,11 @@ const Login = () => {
                   Sign in
                   </Button>
               </Form.Item>
-              <Form.Item style={{ textAlign: 'center', marginTop: '-10px' }}>
+              {/* <Form.Item style={{ textAlign: 'center', marginTop: '-10px' }}>
                 <a className="login-form-forgot" href="" >
                   Forgot password
                   </a>
-              </Form.Item>
+              </Form.Item> */}
             </Form>
           </Card>
         </div>

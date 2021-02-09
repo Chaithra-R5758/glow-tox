@@ -157,14 +157,19 @@ class Promotions extends React.Component {
               />
             </div>
             <div className={"desc-card"}>
-              {promotion.description ? promotion.description : "No Description"}
-            </div>
-            <Button
+              <div style={{flex: '1',
+    alignItems: 'center',
+    display: 'flex'}}>
+                {promotion.description ? promotion.description : "No Description"}
+              </div>
+              <Button
               className="btn-card"
               onClick={this.showModal}
               icon={<LinkOutlined />}>
               Link to Services{" "}
             </Button>
+            </div>
+            
           </Card>
         </div>
       )

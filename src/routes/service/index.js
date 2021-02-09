@@ -26,7 +26,7 @@ class Service extends React.Component {
       defaultImg,
       loading: false,
       error: false,
-      showError:false,
+      showError: false,
       saveServiceLoading: false,
       beforeAfterSets: [],
       newService: false,
@@ -35,7 +35,7 @@ class Service extends React.Component {
 
   getAllServices = async () => {
     this.setState({ loading: true })
-    const response = await axios.get('/admin/getAllAdminServices',)
+    const response = await axios.get('service/getAllService',)
     const services = response.data && response.data.service
     if (services)
       this.setState({ services, loading: false })
@@ -54,7 +54,7 @@ class Service extends React.Component {
         this.setState(prevState => ({
           service: {
             ...prevState.service, serviceImage: base64
-          },showError: false
+          }, showError: false
         }));
       }
     };
@@ -145,25 +145,26 @@ class Service extends React.Component {
   createService = async () => {
     const { service } = this.state
     const { serviceEmail, description, serviceImage, serviceName } = service
-    if (serviceEmail && description && serviceImage && serviceName) { 
-    this.setState({ saveServiceLoading: true })
-     try{
-    const saveService = await axios.post('/admin/createService', {
-      ...service,
-      serviceImage: '',
-    })
-    message.success('Data updated successfully!');
-  } catch (e) {
-    message.error('Error Occurred!');
-  }
-    this.setState({ saveServiceLoading: false })
-    this.hideModal()
-    this.getAllServices()
-}else{
-    this.setState({ 
-      showError: true
-    })
-  }
+    
+    if (serviceEmail && description && serviceImage && serviceName) {
+      this.setState({ saveServiceLoading: true })
+      try {
+        const saveService = await axios.post('/admin/createService', {
+          ...service,
+          serviceImage: '',
+        })
+        message.success('Data updated successfully!');
+      } catch (e) {
+        message.error('Error Occurred!');
+      }
+      this.setState({ saveServiceLoading: false })
+      this.hideModal()
+      this.getAllServices()
+    } else {
+      this.setState({
+        showError: true
+      })
+    }
   }
   saveService = async () => {
     const { newService, service } = this.state
@@ -173,25 +174,25 @@ class Service extends React.Component {
       this.setState({
         saveServiceLoading: true,
       })
-      try{
-      const saveService = await axios.post('/admin/updateService', {
-        ...service,
-        userId: getUserId(),
-        serviceImage: ''
-      });
-      message.success('Data updated successfully!');
-    } catch (e) {
-      message.error('Error Occurred!');
-    }
-    this.setState({
-      saveServiceLoading: false,
-    })
+      try {
+        const saveService = await axios.post('service/saveService', {
+          ...service,
+          userId: getUserId(),
+          serviceImage: ''
+        });
+        message.success('Data updated successfully!');
+      } catch (e) {
+        message.error('Error Occurred!');
+      }
+      this.setState({
+        saveServiceLoading: false,
+      })
       this.hideModal()
       this.getAllServices()
       this.setState({
         showError: true
       })
-  
+
     }
   }
 
@@ -210,7 +211,7 @@ class Service extends React.Component {
       service: {
         ...prevState.service,
         serviceEmail: e.target.value
-        },
+      },
       showError: false
     }))
   }
@@ -226,7 +227,7 @@ class Service extends React.Component {
   }
 
   modalUI = () => {
-    const { defaultImg, beforeAfterSets, service, saveServiceLoading,showError } = this.state
+    const { defaultImg, beforeAfterSets, service, saveServiceLoading, showError } = this.state
     console.log("service", service)
     return (
       <Modal

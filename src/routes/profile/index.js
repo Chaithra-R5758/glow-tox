@@ -68,55 +68,58 @@ class Profile extends React.Component {
         this.setState({
             submitLoading: true
         });
-       try{
-        const userPassword = await axios.post("user/updatePassword",
-            {
-                userId: getUserId(),
-                newPassword,
-            });
+        try {
+            const userPassword = await axios.post("user/updatePassword",
+                {
+                    userId: getUserId(),
+                    newPassword,
+                });
             message.success('Password Updated Successfully');
         } catch (e) {
-          message.error('There was a problem updating the password');
+            message.error('There was a problem updating the password');
         }
-          this.setState({ submitLoading: false });
-      }
+        this.setState({ submitLoading: false });
+    }
 
     userProfile = async (profile) => {
+        debugger
         this.setState({
             saveLoading: true
         });
-        try{
         const { userDetails } = this.state
-        const { 
-            recId, 
-            userName, 
-            phoneNumber, 
-            profilePic, 
+        const {
+            recId,
+            userName,
+            phoneNumber,
+            profilePic,
             profilePicFormat,
             emailId, } = userDetails
-        let params = {}
-        if (profilePicFormat) {
-            params = {
-                recId,
-                userName,
-                phoneNumber,
-                profilePic,
-                profilePicFormat,
+        if (userName && phoneNumber.length == 10) {
+            let params = {}
+            if (profilePicFormat) {
+                params = {
+                    recId,
+                    userName,
+                    phoneNumber,
+                    profilePic,
+                    profilePicFormat,
+                }
+            } else {
+                params = {
+                    recId,
+                    userName,
+                    phoneNumber,
+                    emailId
+                }
             }
-        } else {
-            params = {
-                recId,
-                userName,
-                phoneNumber,
-                emailId
+            try {
+                const userPassword = await axios.post("user/updateUserProfile", params)
+                message.success('Updated Successfully');
+            } catch (e) {
+                message.error('Error while Updating!');
             }
+            this.setState({ saveLoading: false });
         }
-        const userPassword = await axios.post("user/updateUserProfile", params)
-        message.success('Updated Successfully');
-        } catch (e) {
-          message.error('Error while Updating!');
-        }
-        this.setState({ saveLoading: false });
     }
 
 
@@ -226,6 +229,7 @@ class Profile extends React.Component {
                                             ]}
                                         >
                                             <Input
+                                                disabled={true}
                                                 defaultValue={userDetails.emailId}
                                                 onChange={e => this.emailChanged(e.target.value)}
                                                 size="large"
@@ -243,18 +247,18 @@ class Profile extends React.Component {
                                                 type='tel'
                                                 size="large"
                                                 title="Please Input Number"
-                                                pattern="[+][0-9]{2}-[0-9]{10}" required
+                                                //pattern="[+][0-9]{2}-[0-9]{10}" required
                                                 defaultValue={userDetails.phoneNumber}
                                                 onChange={e => this.phNumberChanged(e.target.value)}
                                                 style={{ borderRadius: '5px' }}
-                                                maxLength={14}
+                                                maxLength={10}
                                             />
                                         </Form.Item>
                                     </Form>
                                 </div>
                                 <Button
                                     className={'profile-primary-btn'}
-                                    onClick={() => this.saveUserDetails()}
+                                    //onClick={() => this.saveUserDetails()}
                                     htmlType="submit" loading={saveLoading} onClick={() => this.userProfile(profile)}> Submit
                             </Button>
                             </Space>
