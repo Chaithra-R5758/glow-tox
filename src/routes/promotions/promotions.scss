@@ -34,7 +34,7 @@
     .img-card {
         float: right;
         width: 150px;
-        height: 140px;
+        height: 120px;
         position: relative;
         margin-left: 20px;
     }
@@ -75,10 +75,10 @@
     .desc-card {
         font-family: "Poppins", sans-serif;
         display: flex;
-        margin-bottom: 10px;
+         margin-bottom: -10px;
         font-size: 12px;
         width: 140px;
-        height: 140px;
+        height: 120px;
         word-break: break-all;
         color: #9c9c9c;
         flex-direction: column;
