@@ -27,6 +27,7 @@ class Service extends React.Component {
       loading: false,
       error: false,
       showError: false,
+      showMe: false,
       saveServiceLoading: false,
       beforeAfterSets: [],
       newService: false,
@@ -38,7 +39,7 @@ class Service extends React.Component {
     const response = await axios.get('service/getAllService',)
     const services = response.data && response.data.service
     if (services)
-      this.setState({ services, loading: false })
+      this.setState({ services, loading: false ,showMe:true})
   }
 
   componentDidMount() {
@@ -48,12 +49,14 @@ class Service extends React.Component {
   imageHandler = async (e) => {
     const reader = new FileReader();
     const file = e.target.files[0];
+    const serviceImageFormat = '.' + file.type.split('/')[1]
     const base64 = await imageToBase64(file);
     reader.onload = () => {
       if (reader.readyState === 2) {
         this.setState(prevState => ({
           service: {
-            ...prevState.service, serviceImage: base64
+            ...prevState.service, serviceImage: base64,
+            serviceImageFormat
           }, showError: false
         }));
       }
@@ -136,24 +139,61 @@ class Service extends React.Component {
       const service = await axios.get(`/admin/getServiceById?serviceId=${id}`)
       this.setState({
         service,
-        saveServiceLoading: false
+        saveServiceLoading: false,showMe:true
       })
     }
     catch (e) {
     }
   }
+  createLookBook =async () => {
+    const {service} =this.state
+    this.setState({ saveServiceLoading: true })
+try{
+  const{
+    beforePic,
+    afterPic,
+    picFormat,}=service
+  
+  const params = {
+    serviceId:'rec2qBN2cMoUIYCmj',
+    beforePic,
+    afterPic,
+    picFormat,
+  }
+  const saveService = await axios.post("service/saveLookBook", params)
+  message.success('LookBook created successfully!');
+} catch (e) {
+  message.error('Error Occurred!');
+  this.setState({ saveServiceLoading: false })
+}
+    }
+  
+
   createService = async () => {
     const { service } = this.state
     const { serviceEmail, description, serviceImage, serviceName } = service
-    
+
     if (serviceEmail && description && serviceImage && serviceName) {
-      this.setState({ saveServiceLoading: true })
+      this.setState({ saveServiceLoading: true });
       try {
-        const saveService = await axios.post('/admin/createService', {
-          ...service,
-          serviceImage: '',
-        })
-        message.success('Data updated successfully!');
+        const { 
+          description,
+          serviceImage,
+          serviceName,
+          serviceImageFormat } = service
+  
+       const params = {
+           
+            serviceName,
+            category:'rec94gyidXCCxRpvk',
+            cost:99,
+            description,
+            serviceImage,
+            serviceImageFormat
+          }
+        
+        const saveService = await axios.post("service/saveService", params)
+        message.success('New Service updated successfully!');
       } catch (e) {
         message.error('Error Occurred!');
       }
@@ -162,24 +202,51 @@ class Service extends React.Component {
       this.getAllServices()
     } else {
       this.setState({
-        showError: true
+        showError: false
       })
     }
   }
   saveService = async () => {
-    const { newService, service } = this.state
+    const { newService, service,lookBook } = this.state
     if (newService) {
       this.createService()
-    } else {
+    } else if(lookBook){
+      this.createLookBook()
+    }else  {
       this.setState({
         saveServiceLoading: true,
       })
+      const { 
+        recId, 
+        isActive,
+        serviceName,
+        description,
+        serviceImage,
+        serviceImageFormat } = service
+
+        let params = {}
+      if (!serviceImageFormat) {
+        //image has not been changed
+      params = {
+          recId, 
+          isActive,
+          serviceImage,
+          serviceName,
+          description,
+        }
+      }
+      else {
+       params = {
+          recId, 
+          isActive,
+          serviceImage,
+          description,
+          serviceImage,
+          serviceImageFormat
+        }
+      }
       try {
-        const saveService = await axios.post('service/saveService', {
-          ...service,
-          userId: getUserId(),
-          serviceImage: ''
-        });
+        const saveService = await axios.post("service/saveService", params);
         message.success('Data updated successfully!');
       } catch (e) {
         message.error('Error Occurred!');
@@ -190,7 +257,7 @@ class Service extends React.Component {
       this.hideModal()
       this.getAllServices()
       this.setState({
-        showError: true
+        showError: true,showMe:true
       })
 
     }
@@ -227,7 +294,7 @@ class Service extends React.Component {
   }
 
   modalUI = () => {
-    const { defaultImg, beforeAfterSets, service, saveServiceLoading, showError } = this.state
+    const { defaultImg, beforeAfterSets, service, saveServiceLoading, showError,showMe } = this.state
     console.log("service", service)
     return (
       <Modal
@@ -283,15 +350,20 @@ class Service extends React.Component {
               id="input"
               onChange={(e) => this.imageHandler(e)}
             />
-            <div className="modal-title"
-              onClick={() => this.setState({
-                beforeAfterSets: [...beforeAfterSets, beforeAfterSet]
-              })}
-              style={{
-                fontFamily: "Poppins, sans-serif",
-                fontWeight: ' bolder', fontSize: '14px',
-                marginBottom: '10px', cursor: 'pointer',
-              }}>  Some Pics+ </div>
+            {
+              showMe && <div className="modal-title"
+                onClick={() => this.setState({
+                  beforeAfterSets: [...beforeAfterSets, beforeAfterSet]
+                })}
+                style={{
+                  fontFamily: "Poppins, sans-serif",
+                  fontWeight: ' bolder', fontSize: '14px',
+                  marginBottom: '10px', cursor: 'pointer',
+                }}>  Some Pics+ </div>
+                
+
+            }
+
             <div
               className={'thumnail-list-wrapper'}
               style={{
@@ -307,6 +379,8 @@ class Service extends React.Component {
               }
             </div>
           </div>
+
+
           <div
             className={'modal-content-right-wrapper'}
             style={{
@@ -388,6 +462,7 @@ class Service extends React.Component {
     this.setState({
       newService: true,
       service: {},
+      showMe:false,
     })
     this.showModal()
   }

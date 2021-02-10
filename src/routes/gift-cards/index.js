@@ -51,7 +51,7 @@ const GiftCards = () => {
         offer,
         serviceId,
       });
-      message.success('Data updated successfully!');
+      message.success('GiftCard updated successfully!');
     } catch (e) {
       message.error('Error Occurred!');
     }

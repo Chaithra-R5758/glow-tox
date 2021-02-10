@@ -216,7 +216,7 @@ class Promotions extends React.Component {
       }
       try {
         const savePromotion = await axios.post("promo/savePromo", params);
-        message.success('Data updated successfully!');
+        message.success('Promo updated successfully!');
       } catch (e) {
         message.error('Error Occurred!');
       }
@@ -238,25 +238,22 @@ class Promotions extends React.Component {
       try {
         const {
           promoCode,
-          promoName,
           description,
-          service,
-          offer,
           promoImage,
           promoImageFormat,
         } = promotion
 
         const params = {
           promoCode,
-          promoName: promoCode,
+          promoName:"feb offer",
           offer: '10%',
           description,
-          serviceId: service,
+          serviceId: 'rec2qBN2cMoUIYCmJ',
           promoImage,
           promoImageFormat,
         }
         const addPromo = await axios.post("promo/savePromo", params);
-        message.success('Data updated successfully!');
+        message.success('Promo Created successfully!');
       } catch (e) {
         message.error('Error Occurred!');
       }
