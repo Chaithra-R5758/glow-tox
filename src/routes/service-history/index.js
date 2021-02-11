@@ -71,17 +71,17 @@ class ServiceHistory extends React.Component {
         render: text => <a>{text}</a>,
       },
       {
-        title: 'Email Id',
+        title: 'Client EmailId',
         dataIndex: 'clientEmailId',
         key: 'clientEmailId',
       },
       {
-        title: 'Service',
+        title: 'Service Name',
         dataIndex: 'serviceId',
         key: 'serviceId',
       },
       {
-        title: 'Promo Name',
+        title: 'Promo Code',
         dataIndex: 'promoCode',
         key: 'promoCode',
       },
@@ -223,29 +223,29 @@ class ServiceHistory extends React.Component {
                       <img width={'90'} height={90} src={service.clientImage || defaultImg} />
                       <div className="create-wrapper"  >
 
-                        <Input value={service.clientName} placeholder="Full Name" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
+                        <Input value={service.clientName} placeholder="Client Name" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
 
-                        <Input value={service.clientPoints} placeholder="Loyality Points" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
+                        <Input value={service.clientLoyalityPoints} placeholder="Client Loyality Points" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
 
-                        <Input value={service.clientEmailId} placeholder="Email Id" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
+                        <Input value={service.clientEmailId} placeholder="Client EmailId" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
 
-                        <Input value={service.clientPhoneNumber} placeholder="Mobile Number" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
+                        <Input value={service.clientPhoneNumber} placeholder="Client Phone Number" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
 
                       </div>
 
                     </div>
                     <div style={{ height: '1px', width: '100%', backgroundColor: '#E2E2E2', marginTop: 20 }} />
                     <div className="image-wrapper" style={{ display: 'flex', marginTop: 20 }}>
-                      <img width={90} height={90} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTChQdlYiED1Ot1XBsYrExnQlEPnuU55oXFXA&usqp=CAU" />
+                      <img width={90} height={90} src={service.clientImage || defaultImg}/>
                       <div className="create-wrapper" >
 
-                        <Input value="Full Name" placeholder="Full Name" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
+                        <Input value={service.clientName}  placeholder="Client Name" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
 
-                        <Input value="Loyality Points" placeholder="Loyality Points" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
+                        <Input value={service.clientLoyalityPoints} placeholder="Client Loyality Points" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
 
-                        <Input value="Email Id" placeholder="Email Id" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
+                        <Input value={service.clientEmailId} placeholder="Client EmailId" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
 
-                        <Input value="Mobile Number" placeholder="Mobile Number" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 30 }} />
+                        <Input value={service.clientPhoneNumber} placeholder="Client Phone Number" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 30 }} />
 
                       </div>
 

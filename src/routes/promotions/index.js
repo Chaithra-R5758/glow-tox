@@ -319,6 +319,16 @@ class Promotions extends React.Component {
                     Promotions Edit
                   </div>
                   <div
+                    className="modal-code"
+                    style={{
+                      fontFamily: "Poppins, sans-serif",
+                      fontWeight: " bolder",
+                      fontSize: "16px",
+                      marginBottom: "-15px",
+                    }}>
+                    Promo Image
+                  </div>
+                  <div
                     className={"modal-img-card"}
                     style={{
                       backgroundColor: " #E2E2E2",
@@ -368,7 +378,7 @@ class Promotions extends React.Component {
                       fontSize: "16px",
                       marginBottom: "5px",
                     }}>
-                    Description
+                  Promo Description
                   </div>
                   <TextArea
                     onChange={this.onChangeDesc}
@@ -411,7 +421,7 @@ class Promotions extends React.Component {
                         fontSize: "15px",
                       }}
                     >
-                      Link to Services
+                     Service Name
                       <Input
                         onChange={this.onChangeLink}
                         value={promotion && promotion.service || ''}

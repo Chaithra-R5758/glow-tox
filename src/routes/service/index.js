@@ -332,6 +332,7 @@ class Service extends React.Component {
             flexWrap: 'wrap',
           }}
         >
+         
           <div className={'modal-content-left-wrapper'}
             style={{
               display: 'flex',
@@ -342,6 +343,16 @@ class Service extends React.Component {
               flexDirection: 'column',
               width: '50%'
             }}>
+               <div
+                    className="modal-code"
+                    style={{
+                      fontFamily: "Poppins, sans-serif",
+                      fontWeight: " bolder",
+                      fontSize: "16px",
+                      marginBottom: "-35px",
+                    }}>
+                    Service Image
+                  </div>
             <label htmlFor="input">
               <img
                 src={service.serviceImage || defaultImg}
