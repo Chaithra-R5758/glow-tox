@@ -4,6 +4,7 @@ import { Card, Table, Tag, Button, Input, Skeleton, Modal, Image } from 'antd';
 import React, { useState } from 'react';
 import axios from '../../config/api/'
 import { Error } from '../../components/error'
+import defaultImg from '../../assets/default.png'
 import { withRouter } from 'react-router-dom';
 import { SearchOutlined } from '@ant-design/icons'
 
@@ -36,6 +37,7 @@ class ServiceHistory extends React.Component {
     } catch (e) {
       this.setState({ isError: true })
     }
+    this.getServiceForID()
   }
 
 
@@ -111,7 +113,7 @@ class ServiceHistory extends React.Component {
         title: '',
         dataIndex: 'btn',
         key: 'btn',
-        render: text => <div className="view-btn" onClick={this.showModal}>View</div>
+        render: text => <div className="view-btn" onClick={()=>this.showModal(service)}>View</div>
       }
     ];
 
@@ -131,7 +133,7 @@ class ServiceHistory extends React.Component {
       
     ];
 
-    const { serviceHistory, isLoading, isError ,serviceHistorySearchResult} = this.state
+    const { serviceHistory, isLoading, isError ,serviceHistorySearchResult,service} = this.state
     if (isLoading) {
       return (
 
@@ -151,6 +153,17 @@ class ServiceHistory extends React.Component {
       )
     }
   }
+  getServiceForID = async (id) => {
+
+    try {
+      const service = await axios.get(`/transaction/getTransaction?transactionId=${id}`)
+      this.setState({
+        service,
+      })
+    }
+    catch (e) {
+    }
+  }
 
   saveService = async (service) => {
     this.setState({
@@ -164,7 +177,7 @@ class ServiceHistory extends React.Component {
 
   searchTextChanged = (searchText) => {
     const { serviceHistory } = this.state
-    const serviceHistorySearchResult =  serviceHistory.filter(service => service.TransactionId.toLowerCase().includes(searchText.toLowerCase()))
+    const serviceHistorySearchResult =  serviceHistory.filter(service => service.clientName.toLowerCase().includes(searchText.toLowerCase()))
     this.setState({searchText, serviceHistorySearchResult})
   }
 
@@ -199,16 +212,16 @@ class ServiceHistory extends React.Component {
 
 
                     <div className="image-wrapper" style={{ display: 'flex', marginTop: 20 }}>
-                      <img width={'90'} height={90} src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTChQdlYiED1Ot1XBsYrExnQlEPnuU55oXFXA&usqp=CAU" />
+                      <img width={'90'} height={90} src={service.clientImage || defaultImg} />
                       <div className="create-wrapper"  >
 
-                        <Input value="Full Name" placeholder="Full Name" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
+                        <Input value={service.clientName} placeholder="Full Name" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
 
-                        <Input value="Loyality Points" placeholder="Loyality Points" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
+                        <Input value={service.clientPoints} placeholder="Loyality Points" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
 
-                        <Input value="Email Id" placeholder="Email Id" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
+                        <Input value={service.clientEmailId} placeholder="Email Id" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
 
-                        <Input value="Mobile Number" placeholder="Mobile Number" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
+                        <Input value={service.clientPhoneNumber} placeholder="Mobile Number" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
 
                       </div>
 
