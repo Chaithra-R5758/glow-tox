@@ -39,7 +39,7 @@ class Service extends React.Component {
     const response = await axios.get('service/getAllService',)
     const services = response.data && response.data.service
     if (services)
-      this.setState({ services, loading: false ,showMe:true})
+      this.setState({ services, loading: false, showMe: true })
   }
 
   componentDidMount() {
@@ -139,61 +139,69 @@ class Service extends React.Component {
       const service = await axios.get(`/admin/getServiceById?serviceId=${id}`)
       this.setState({
         service,
-        saveServiceLoading: false,showMe:true
+        saveServiceLoading: false,
+        showMe: true
       })
     }
     catch (e) {
     }
   }
-  createLookBook =async () => {
-    const {service} =this.state
+
+  createLookBook = async () => {
+    const { service } = this.state
     this.setState({ saveServiceLoading: true })
-try{
-  const{
-    beforePic,
-    afterPic,
-    picFormat,}=service
-  
-  const params = {
-    serviceId:'rec2qBN2cMoUIYCmj',
-    beforePic,
-    afterPic,
-    picFormat,
-  }
-  const saveService = await axios.post("service/saveLookBook", params)
-  message.success('LookBook created successfully!');
-} catch (e) {
-  message.error('Error Occurred!');
-  this.setState({ saveServiceLoading: false })
-}
+    try {
+      const {
+        beforePic,
+        afterPic,
+        picFormat, } = service
+
+      const params = {
+        serviceId: 'rec2qBN2cMoUIYCmj',
+        beforePic,
+        afterPic,
+        picFormat,
+      }
+      const saveService = await axios.post("service/saveLookBook", params)
+      message.success('LookBook created successfully!');
+    } catch (e) {
+      message.error('Error Occurred!');
+      this.setState({ saveServiceLoading: false })
     }
-  
+  }
 
   createService = async () => {
     const { service } = this.state
     const { serviceEmail, description, serviceImage, serviceName } = service
 
     if (serviceEmail && description && serviceImage && serviceName) {
-      this.setState({ saveServiceLoading: true });
+      this.setState({ saveServiceLoading: true })
       try {
-        const { 
+
+        const {
           description,
           serviceImage,
           serviceName,
-          serviceImageFormat } = service
-  
-       const params = {
-           
-            serviceName,
-            category:'rec94gyidXCCxRpvk',
-            cost:99,
-            description,
-            serviceImage,
-            serviceImageFormat
-          }
-        
+          serviceImageFormat,
+        } = service
+
+        const params = {
+          serviceName,
+          category: 'rec94gyidXCCxRpvk',
+          cost: 99,
+          description,
+          serviceImage,
+          serviceImageFormat
+        }
         const saveService = await axios.post("service/saveService", params)
         message.success('New Service updated successfully!');
+
+
+        // const saveService = await axios.post('/admin/createService', {
+        //   ...service,
+        //   serviceImage: '',
+        // })
+        // message.success('Data updated successfully!');
       } catch (e) {
         message.error('Error Occurred!');
       }
@@ -206,29 +214,31 @@ try{
       })
     }
   }
+
   saveService = async () => {
-    const { newService, service,lookBook } = this.state
+    const { newService, service, lookBook } = this.state
     if (newService) {
       this.createService()
-    } else if(lookBook){
+    } else if (lookBook) {
       this.createLookBook()
-    }else  {
+    } else {
       this.setState({
         saveServiceLoading: true,
       })
-      const { 
-        recId, 
+
+      const {
+        recId,
         isActive,
         serviceName,
         description,
         serviceImage,
         serviceImageFormat } = service
 
-        let params = {}
+      let params = {}
       if (!serviceImageFormat) {
         //image has not been changed
-      params = {
-          recId, 
+        params = {
+          recId,
           isActive,
           serviceImage,
           serviceName,
@@ -236,8 +246,8 @@ try{
         }
       }
       else {
-       params = {
-          recId, 
+        params = {
+          recId,
           isActive,
           serviceImage,
           description,
@@ -245,6 +255,7 @@ try{
           serviceImageFormat
         }
       }
+
       try {
         const saveService = await axios.post("service/saveService", params);
         message.success('Data updated successfully!');
@@ -257,7 +268,8 @@ try{
       this.hideModal()
       this.getAllServices()
       this.setState({
-        showError: true,showMe:true
+        showError: true,
+        showMe: true
       })
 
     }
@@ -294,7 +306,7 @@ try{
   }
 
   modalUI = () => {
-    const { defaultImg, beforeAfterSets, service, saveServiceLoading, showError,showMe } = this.state
+    const { defaultImg, beforeAfterSets, service, saveServiceLoading, showError, showMe } = this.state
     console.log("service", service)
     return (
       <Modal
@@ -351,7 +363,8 @@ try{
               onChange={(e) => this.imageHandler(e)}
             />
             {
-              showMe && <div className="modal-title"
+              showMe &&
+              <div className="modal-title"
                 onClick={() => this.setState({
                   beforeAfterSets: [...beforeAfterSets, beforeAfterSet]
                 })}
@@ -359,11 +372,9 @@ try{
                   fontFamily: "Poppins, sans-serif",
                   fontWeight: ' bolder', fontSize: '14px',
                   marginBottom: '10px', cursor: 'pointer',
-                }}>  Some Pics+ </div>
-                
-
+                }}>  Some Pics+
+            </div>
             }
-
             <div
               className={'thumnail-list-wrapper'}
               style={{
@@ -379,8 +390,6 @@ try{
               }
             </div>
           </div>
-
-
           <div
             className={'modal-content-right-wrapper'}
             style={{
@@ -462,7 +471,7 @@ try{
     this.setState({
       newService: true,
       service: {},
-      showMe:false,
+      showMe: false,
     })
     this.showModal()
   }

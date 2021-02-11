@@ -64,15 +64,17 @@ class Profile extends React.Component {
     };
 
     userPassword = async (password) => {
-        const { newPassword } = this.state
+        const { newPassword, userDetails } = this.state
+        const { emailId } = userDetails
         this.setState({
             submitLoading: true
         });
         try {
             const userPassword = await axios.post("user/updatePassword",
                 {
-                    userId: getUserId(),
-                    newPassword,
+                    emailId,
+                    password:newPassword,
+                    confirmPassword:newPassword,
                 });
             message.success('Password Updated Successfully');
         } catch (e) {
@@ -82,10 +84,6 @@ class Profile extends React.Component {
     }
 
     userProfile = async (profile) => {
-        debugger
-        this.setState({
-            saveLoading: true
-        });
         const { userDetails } = this.state
         const {
             recId,
@@ -95,6 +93,9 @@ class Profile extends React.Component {
             profilePicFormat,
             emailId, } = userDetails
         if (userName && phoneNumber.length == 10) {
+            this.setState({
+                saveLoading: true
+            });
             let params = {}
             if (profilePicFormat) {
                 params = {
@@ -120,6 +121,11 @@ class Profile extends React.Component {
             }
             this.setState({ saveLoading: false });
         }
+        else if(phoneNumber.length != 10){
+            this.setState({
+                phoneNumberError:'Phone number cannot be less than 10 digits'
+            })
+        }
     }
 
 
@@ -137,23 +143,26 @@ class Profile extends React.Component {
             userDetails: {
                 ...prevState.userDetails,
                 emailId
-            }
+            },
+            phoneNumberError:'',
         }))
     }
 
     phNumberChanged = (phoneNumber) => {
-
-        this.setState(prevState => ({
-            userDetails: {
-                ...prevState.userDetails,
-                phoneNumber
-            }
-        }))
+        if(phoneNumber.length <= 10){
+            this.setState(prevState => ({
+                userDetails: {
+                    ...prevState.userDetails,
+                    phoneNumber
+                },
+                phoneNumberError:'',
+            }))
+        }
     }
 
     profileUI = () => {
-        const { userDetails, saveLoading, isError, password, profile, loading, submitLoading } = this.state
-        console.log("Profile", userDetails)
+        const { phoneNumberError, userDetails, saveLoading, isError, password, profile, loading, submitLoading } = this.state
+        //console.log("Profile", userDetails)
         if (loading) {
             return (
                 <div className={'content-body-wrapper'}>
@@ -174,7 +183,7 @@ class Profile extends React.Component {
                 </div>
             )
         } else if (isError) {
-        } else if (userDetails.userName) {
+        } else if (userDetails.emailId) {
             return (
                 <div className={'content-body-wrapper'}>
                     <div className={'profile-card'} >
@@ -185,7 +194,7 @@ class Profile extends React.Component {
                                     className={'profile-img'} />
                             </div>
                             <div className="edit-btn-card">
-                                <label className htmlFor="input">
+                                <label className htmlFor="input" style={{cursor:'pointer'}}>
                                     <i type="link" style={{ color: "#343557", fontSize: '1.5em' }}>
                                         {<EditFilled />} </i>
                                 </label>
@@ -244,23 +253,24 @@ class Profile extends React.Component {
                                             }]}
                                         >
                                             <Input
-                                                type='tel'
+                                                type='number'
                                                 size="large"
-                                                title="Please Input Number"
-                                                //pattern="[+][0-9]{2}-[0-9]{10}" required
+                                                title="Please Input Number" 
+                                                required
                                                 defaultValue={userDetails.phoneNumber}
+                                                value={userDetails.phoneNumber}
                                                 onChange={e => this.phNumberChanged(e.target.value)}
                                                 style={{ borderRadius: '5px' }}
-                                                maxLength={10}
-                                            />
+                                                onInput={(e) => e.target.value = e.target.value.slice(0, 10)}/>
                                         </Form.Item>
                                     </Form>
                                 </div>
                                 <Button
                                     className={'profile-primary-btn'}
                                     //onClick={() => this.saveUserDetails()}
-                                    htmlType="submit" loading={saveLoading} onClick={() => this.userProfile(profile)}> Submit
+                                    htmlType="submit" loading={saveLoading} onClick={() => this.userProfile(profile)}> Update
                             </Button>
+                            <div style={{color:'red'}}>{phoneNumberError}</div>
                             </Space>
                         </Card>
                     </div>
@@ -331,7 +341,7 @@ class Profile extends React.Component {
                                     </Form>
                                 </div>
                                 <Button className={'profile-primary-pwd-btn'} loading={submitLoading} onClick={() => this.userPassword(password)}>
-                                    Submit
+                                    Update
                                         </Button>
                             </Space>
                         </Card>

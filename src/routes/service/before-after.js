@@ -24,7 +24,7 @@ export const BeforeAfter = (props) => {
                 accept="image/*"
                 name="image-upload"
                 id="input"
-            onChange={()=>imageHandler}
+            // onChange={this.imageHandler}
             />
             <label htmlFor="input">
                 <img

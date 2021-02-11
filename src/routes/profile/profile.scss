@@ -1,5 +1,17 @@
 .profile-screen {
     background-color: #f6f6f8;
+
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+    }
+
+    /* Firefox */
+    input[type=number] {
+    -moz-appearance: textfield;
+    }
+
     .content-body-wrapper {
         display: flex;
         flex-wrap: wrap;
