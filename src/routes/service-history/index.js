@@ -19,8 +19,9 @@ class ServiceHistory extends React.Component {
       serviceHistory: [],
       service: {},
       saveGiftcardLoading: false,
-      searchText:'',
-      serviceHistorySearchResult:[],
+      searchText: '',
+      serviceHistorySearchResult: [],
+      serviceId: '',
     };
   }
   async componentDidMount() {
@@ -37,15 +38,16 @@ class ServiceHistory extends React.Component {
     } catch (e) {
       this.setState({ isError: true })
     }
-    this.getServiceForID()
   }
 
 
 
-  showModal = () => {
+  showModal = (serviceId) => {
     this.setState({
       visible: true,
+      serviceId,
     });
+    this.getServiceForID(serviceId)
   };
 
   hideModal = () => {
@@ -53,6 +55,7 @@ class ServiceHistory extends React.Component {
       visible: false,
     });
   };
+
   servicesUI = () => {
 
     const columns = [
@@ -90,30 +93,33 @@ class ServiceHistory extends React.Component {
           {status.toUpperCase()}
         </Tag>)
 
-          // <>
-          //   {
-          //     const color = 'green'
-          //   //status.length > 0 && status.map(tag => {
-          //     let color = status.length > 5 ? 'geekblue' : 'green';
-          //     if (tag === 'Refund') {
-          //       color = 'orange';
-          //     } else if (tag === 'chargeback') {
-          //       color = 'red';
-          //     }
-          //     return (
-          //       <Tag color={color} key={tag}>
-          //         {tag.toUpperCase()}
-          //       </Tag>
-          //     );
-          //   })}
-          // </>
-       // ),
+        // <>
+        //   {
+        //     const color = 'green'
+        //   //status.length > 0 && status.map(tag => {
+        //     let color = status.length > 5 ? 'geekblue' : 'green';
+        //     if (tag === 'Refund') {
+        //       color = 'orange';
+        //     } else if (tag === 'chargeback') {
+        //       color = 'red';
+        //     }
+        //     return (
+        //       <Tag color={color} key={tag}>
+        //         {tag.toUpperCase()}
+        //       </Tag>
+        //     );
+        //   })}
+        // </>
+        // ),
       },
       {
+        // title: '',
+        // dataIndex: 'btn',
+        // key: 'btn',
         title: '',
-        dataIndex: 'btn',
-        key: 'btn',
-        render: text => <div className="view-btn" onClick={()=>this.showModal(service)}>View</div>
+        dataIndex: 'transactionId',
+        key: 'transactionId',
+        render: id => <div className="view-btn" onClick={() => this.showModal(id)}>View</div>
       }
     ];
 
@@ -130,10 +136,10 @@ class ServiceHistory extends React.Component {
         service: 'service 1',
         promoname: 'No',
       },
-      
+
     ];
 
-    const { serviceHistory, isLoading, isError ,serviceHistorySearchResult,service} = this.state
+    const { serviceHistory, isLoading, isError, serviceHistorySearchResult, service } = this.state
     if (isLoading) {
       return (
 
@@ -148,17 +154,19 @@ class ServiceHistory extends React.Component {
     } else {
       return (
         <div className={'history-card'}>
-          <Table dataSource={serviceHistorySearchResult.length ? serviceHistorySearchResult :serviceHistory } columns={columns} />
+          <Table dataSource={serviceHistorySearchResult.length ? serviceHistorySearchResult : serviceHistory} columns={columns} />
         </div>
       )
     }
   }
-  getServiceForID = async (id) => {
 
+  getServiceForID = async (id) => {
     try {
-      const service = await axios.get(`/transaction/getTransaction?transactionId=${id}`)
+      const {data} = await axios.get(`/transaction/getTransaction?transactionId=${id}`)
+      const transaction = data && data.transaction
+      
       this.setState({
-        service,
+        service:transaction,
       })
     }
     catch (e) {
@@ -177,14 +185,14 @@ class ServiceHistory extends React.Component {
 
   searchTextChanged = (searchText) => {
     const { serviceHistory } = this.state
-    const serviceHistorySearchResult =  serviceHistory.filter(service => service.clientName.toLowerCase().includes(searchText.toLowerCase()))
-    this.setState({searchText, serviceHistorySearchResult})
+    const serviceHistorySearchResult = serviceHistory.filter(service => service.clientName.toLowerCase().includes(searchText.toLowerCase()))
+    this.setState({ searchText, serviceHistorySearchResult })
   }
 
   render() {
 
     const { service, saveServiceLoading, searchText, } = this.state
-    
+
 
     return (
 
@@ -198,8 +206,8 @@ class ServiceHistory extends React.Component {
               <div className={'service-history-wrapper'}>
                 <div className={'gift-card-inner-wrapper'}>
                   <div className={'search-wrapper'} >
-                    <Input placeholder="Search..." prefix={<SearchOutlined />}  value={searchText}
-                        onChange={e => this.searchTextChanged(e.target.value)}/>
+                    <Input placeholder="Search..." prefix={<SearchOutlined />} value={searchText}
+                      onChange={e => this.searchTextChanged(e.target.value)} />
                   </div>
                   {this.servicesUI()}
                   <Modal
