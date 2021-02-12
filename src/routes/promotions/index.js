@@ -1,6 +1,6 @@
 import { PageTitle } from "../../components/page-title";
 import "./promotions.scss";
-import { Input, Card, Skeleton, message } from "antd";
+import { Input, Card, Skeleton, message,Checkbox } from "antd";
 import loginImg from "../../assets/login-img.png";
 import { LinkOutlined, EditFilled } from "@ant-design/icons";
 import { Modal, Button } from "antd";
@@ -40,26 +40,6 @@ class Promotions extends React.Component {
     this.getAllPromotions()
   }
 
-  onChangeLink = e => {
-    this.setState(prevState => ({
-      promotion: {
-        ...prevState.promotion,
-        service: e.target.value
-      },
-      showError: false
-    }))
-  }
-
-  onChangeCode = e => {
-    this.setState(prevState => ({
-      promotion: {
-        ...prevState.promotion,
-        promoCode: e.target.value
-      },
-      showError: false
-    }))
-  }
-
   onChangeDesc = e => {
     this.setState(prevState => ({
       promotion: {
@@ -69,7 +49,42 @@ class Promotions extends React.Component {
       showError: false
     }))
   }
-
+  onChangeName = e => {
+    this.setState(prevState => ({
+      promotion: {
+        ...prevState.promotion,
+        promoName: e.target.value
+      },
+      showError: false
+    }))
+  }
+  onChangeCode = e => {
+    this.setState(prevState => ({
+      promotion: {
+        ...prevState.promotion,
+        promoCode: e.target.value
+      },
+      showError: false
+    }))
+  }
+  onChangeLink = e => {
+    this.setState(prevState => ({
+      promotion: {
+        ...prevState.promotion,
+        serviceName: e.target.value
+      },
+      showError: false
+    }))
+  }
+  onChangeOffer = e => {
+    this.setState(prevState => ({
+      promotion: {
+        ...prevState.promotion,
+        offer: e.target.value
+      },
+      showError: false
+    }))
+  }
   showModal = (promotion = {}) => {
     this.setState({
       visible: true,
@@ -164,9 +179,8 @@ class Promotions extends React.Component {
               </div>
               <Button
               className="btn-card"
-              onClick={this.showModal}
-              icon={<LinkOutlined />}>
-              Link to Services{" "}
+              onClick={this.showModal}>
+              Service Name
             </Button>
             </div>
             
@@ -248,8 +262,8 @@ class Promotions extends React.Component {
 
         const params = {
           promoCode,
-          promoName: promoCode,
-          offer: '10%',
+          promoName,
+          offer,
           description,
           serviceId: service,
           promoImage,
@@ -304,7 +318,7 @@ class Promotions extends React.Component {
                 onCancel={this.hideModal}
                 footer={null}
                 width={400}
-                style={{ top: 80 }}
+                style={{ top: 40 }}
               >
                 <div className={"add-promo-card"}>
                   <div
@@ -318,6 +332,29 @@ class Promotions extends React.Component {
                   >
                     Promotions Edit
                   </div>
+                  <div
+                      className="modal-link"
+                      style={{
+                        fontFamily: "Poppins, sans-serif",
+                        fontWeight: " bolder",
+                        fontSize: "15px",
+                      }}
+                    >
+                      Promo Name
+                    
+                      <Input
+                       onChange={this.onChangeName}
+                        value={promotion && promotion.promoName || ''}
+                        style={{
+                          width: "100%",
+                          backgroundColor: " #E2E2E2",
+                          blockSize: 30,
+                          border: "0px",
+                          borderRadius: "5px",
+                          marginTop: "5px",
+                        }}
+                      />
+                       </div>
                   <div
                     className="modal-code"
                     style={{
@@ -390,6 +427,41 @@ class Promotions extends React.Component {
                       borderRadius: "5px",
                     }}
                   />
+                   <div className={"parent-class"} style={{ display: "flex" }}>
+                     
+                   <Checkbox  style={{marginTop:25,width:'50%', fontFamily: "Poppins, sans-serif",
+                        fontWeight: " bolder",
+                        fontSize: "16px",}} value={promotion && promotion.isActive || ''} >IsActive</Checkbox>
+                  <div
+                      className="modal-link"
+                      style={{
+                        fontFamily: "Poppins, sans-serif",
+                        fontWeight: " bolder",
+                        fontSize: "16px",
+                      }}
+                    >
+                      Offer
+                     
+                      <Input
+                       type="text"
+                       list="offer"
+                       onChange={this.onChangeOffer}
+                        value={promotion && promotion.offer || ''}
+                        style={{
+                          backgroundColor: " #E2E2E2",
+                          blockSize: 30,
+                          border: "0px",
+                          borderRadius: "5px",
+                          marginTop: "5px",
+                        }}
+                      />
+                      <datalist id="offer" >
+                      <option>$</option>
+                        <option>%</option>
+                      </datalist>
+                       </div>
+                      
+                      </div>
                   <div className={"parent-class"} style={{ display: "flex" }}>
                     <div
                       className="modal-link"
@@ -401,7 +473,7 @@ class Promotions extends React.Component {
                     >
                       Promo Code
                       <Input
-                        onChange={this.onChangeCode}
+                       onChange={this.onChangeCode}
                         value={promotion && promotion.promoCode || ''}
                         style={{
                           width: "80%",
@@ -423,8 +495,10 @@ class Promotions extends React.Component {
                     >
                      Service Name
                       <Input
-                        onChange={this.onChangeLink}
-                        value={promotion && promotion.service || ''}
+                       onChange={this.onChangeLink}
+                      type="text"
+                      list="option"
+                        value={promotion && promotion.serviceName || ''}
                         style={{
                           backgroundColor: " #E2E2E2",
                           blockSize: 30,
@@ -433,6 +507,10 @@ class Promotions extends React.Component {
                           marginTop: "5px",
                         }}
                       />
+                      <datalist id="option" >
+                      <option value={promotion && promotion.serviceName || ''}/>
+                      </datalist>
+                      
                       <Button
                         loading={savePromotionLoading}
                         //onClick={() => this.addPromo(promo)}

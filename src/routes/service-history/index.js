@@ -139,7 +139,7 @@ class ServiceHistory extends React.Component {
 
     ];
 
-    const { serviceHistory, isLoading, isError, serviceHistorySearchResult, service } = this.state
+    const { serviceHistory, isLoading, isError, serviceHistorySearchResult } = this.state
     if (isLoading) {
       return (
 
@@ -234,7 +234,7 @@ class ServiceHistory extends React.Component {
                       </div>
 
                     </div>
-                    <div style={{ height: '1px', width: '100%', backgroundColor: '#E2E2E2', marginTop: 20 }} />
+                    {/* <div style={{ height: '1px', width: '100%', backgroundColor: '#E2E2E2', marginTop: 20 }} />
                     <div className="image-wrapper" style={{ display: 'flex', marginTop: 20 }}>
                       <img width={90} height={90} src={service.clientImage || defaultImg}/>
                       <div className="create-wrapper" >
@@ -251,7 +251,7 @@ class ServiceHistory extends React.Component {
 
                     </div>
                     <Button loading={saveServiceLoading}
-                      onClick={() => this.saveService(service)} className="save-btn" style={{ float: 'right', backgroundColor: '#5D72E9', color: 'white', borderRadius: '5px', padding: ' 0px 25px', marginTop: -20 }} >Save</Button>
+                      onClick={() => this.saveService(service)} className="save-btn" style={{ float: 'right', backgroundColor: '#5D72E9', color: 'white', borderRadius: '5px', padding: ' 0px 25px', marginTop: -20 }} >Save</Button> */}
 
                   </Modal>
                 </div>

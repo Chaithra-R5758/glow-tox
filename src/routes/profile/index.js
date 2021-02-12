@@ -115,7 +115,7 @@ class Profile extends React.Component {
             }
             try {
                 const userPassword = await axios.post("user/updateUserProfile", params)
-                message.success('Updated Successfully');
+                message.success('Profile Updated Successfully');
                 window.location.reload()
             } catch (e) {
                 message.error('Error while Updating!');

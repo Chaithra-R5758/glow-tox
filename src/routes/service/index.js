@@ -1,7 +1,7 @@
 import { PageTitle } from '../../components/page-title'
 import loginImg from '../../assets/login-img.png'
 import './service.scss';
-import { Card, Button, Modal, Skeleton, Anchor, Input, message, PageHeader, Form } from 'antd';
+import { Card, Button, Modal, Skeleton, Anchor, Input, message, Checkbox, Form } from 'antd';
 import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import { imageToBase64, getUserId } from '../../utils/'
@@ -31,6 +31,7 @@ class Service extends React.Component {
       saveServiceLoading: false,
       beforeAfterSets: [],
       newService: false,
+      category:'',
     }
   }
 
@@ -65,9 +66,11 @@ class Service extends React.Component {
   };
 
   showModal = (service = {}) => {
+    
     this.setState({
       visible: true,
-      service
+      service,
+    
     });
   };
 
@@ -146,6 +149,17 @@ class Service extends React.Component {
     catch (e) {
     }
   }
+  getServiceCategory = async () => {
+    try {
+      const {data} = await axios.get('/service/getAllServiceCategory')
+      const services = data && data.services
+      this.setState({
+        service:services,
+      })
+    }
+    catch (e) {
+    }
+  }
 
   createLookBook = async () => {
     const { service } = this.state
@@ -154,10 +168,11 @@ class Service extends React.Component {
       const {
         beforePic,
         afterPic,
+        serviceId,
         picFormat, } = service
 
       const params = {
-        serviceId: 'rec2qBN2cMoUIYCmj',
+        serviceId,
         beforePic,
         afterPic,
         picFormat,
@@ -182,13 +197,15 @@ class Service extends React.Component {
           description,
           serviceImage,
           serviceName,
+          category,
+          cost,
           serviceImageFormat,
         } = service
 
         const params = {
           serviceName,
-          category: 'rec94gyidXCCxRpvk',
-          cost: 99,
+          category,
+          cost,
           description,
           serviceImage,
           serviceImageFormat
@@ -208,6 +225,7 @@ class Service extends React.Component {
       this.setState({ saveServiceLoading: false })
       this.hideModal()
       this.getAllServices()
+      this.getServiceCategory()
     } else {
       this.setState({
         showError: false
@@ -267,6 +285,7 @@ class Service extends React.Component {
       })
       this.hideModal()
       this.getAllServices()
+      this.getServiceCategory()
       this.setState({
         showError: true,
         showMe: true
@@ -285,16 +304,24 @@ class Service extends React.Component {
     }))
   }
 
-  onChangeEmail = e => {
+  onChangeCategory = e => {
     this.setState(prevState => ({
       service: {
         ...prevState.service,
-        serviceEmail: e.target.value
+        category: e.target.value
       },
       showError: false
     }))
   }
-
+  onChangeCost = e => {
+    this.setState(prevState => ({
+      service: {
+        ...prevState.service,
+        cost: e.target.value
+      },
+      showError: false
+    }))
+  }
   onChangeDesc = e => {
     this.setState(prevState => ({
       service: {
@@ -420,13 +447,13 @@ class Service extends React.Component {
                 border: '1px solid #d9d9d9',
               }}
             />
-            <div>Email Id
+            {/* <div>Email Id
             </div>
             <Form layout="vertical">
               <Form.Item name='email' rules={[{ type: 'email' }]}>
                 <Input
                   type='email'
-                  value={service.email}
+                  value={service.email|| ''}
                   onChange={this.onChangeEmail}
                   style={{
                     padding: '5px',
@@ -436,12 +463,12 @@ class Service extends React.Component {
                   }}
                 />
               </Form.Item>
-            </Form>
+            </Form> */}
             <div>Description</div>
             <TextArea
-              value={service.description}
+              value={service.description|| ''}
               onChange={this.onChangeDesc}
-              rows={7}
+              rows={5}
               style={{
                 padding: '5px',
                 margin: '5px 0',
@@ -449,7 +476,36 @@ class Service extends React.Component {
                 border: '1px solid #d9d9d9',
               }}
             />
-          </div>
+            <div className={"parent-class"} style={{ display: "flex" }}>
+            <div> Category
+                    <Input
+                       onChange={this.onChangeCategory}
+                        value={service.serviceCategory|| ''}
+                        style={{
+                          width:'90%',
+                          padding: '5px',
+                          margin: '5px 0px',
+                          borderRadius: '5px',
+                          border: '1px solid #d9d9d9',
+                        }}
+                      />
+                      </div>
+                      <div> Cost 
+                    <Input
+                       onChange={this.onChangeCost}
+                        value={service.cost|| ''}
+                        style={{
+                          padding: '5px',
+                margin: '5px 0',
+                borderRadius: '5px',
+                border: '1px solid #d9d9d9',
+                        }}
+                      />
+                     </div>
+                     
+                      </div>
+                      <Checkbox  style={{ fontFamily: "Poppins, sans-serif"}} value={ service.isActive || ''} >IsActive</Checkbox>
+               </div>
         </div>
 
         <div
