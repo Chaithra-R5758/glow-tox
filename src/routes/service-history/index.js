@@ -193,31 +193,122 @@ class ServiceHistory extends React.Component {
                   {this.servicesUI()}
                   <Modal
                     visible={this.state.visible}
-                    onCancel={this.hideModal} footer={null} width={600} style={{ top: 180 }} >
+                    onCancel={this.hideModal} footer={null} width={700} style={{ top: 130 }} >
                     <div className="modal-title" style={{
                       fontFamily: "Poppins, sans-serif",
                       fontWeight: ' bolder', fontSize: '18px', marginTop: -10
                     }}>Service History-View</div>
                     <div className="image-wrapper" style={{ display: 'flex', marginTop: 20 }}>
-                      <img width={'90'} height={90} src={service.clientImage  || defaultImg} />
-                      <div className="create-wrapper"  >
-                        <Input value={service.clientName} placeholder="Client Name" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
-                        <Input value={service.clientLoyalityPoints} placeholder="Client Loyality Points" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
-                        <Input value={service.clientEmailId} placeholder="Client EmailId" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
-                        <Input value={service.clientPhoneNumber} placeholder="Client Phone Number" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 30 }} />
-                      </div>
+                      <img width={130} height={140} src={service.clientImage  || defaultImg} />
+                      <div className="create-wrapper" style={{ display: 'flex',flexWrap:'wrap'}}  >
+                      <div
+                    className="modal-link"
+                    style={{
+                      fontFamily: "Poppins, sans-serif",
+                      fontWeight: " bolder",
+                      fontSize: "15px",
+                      marginLeft: 10,
+                    }}
+                  >
+                   Client Name
+                        <Input value={service.clientName} placeholder="Client Name" style={{ width: 250, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10,marginBottom: -25 }} />
+                        </div>
+                        <div
+                    className="modal-link"
+                    style={{
+                      fontFamily: "Poppins, sans-serif",
+                      fontWeight: " bolder",
+                      fontSize: "15px",
+                      marginLeft: 10
+                    }}
+                  >
+                     Client EmailId 
+                
+                        <Input value={service.clientEmailId} placeholder="Client EmailId"  style={{ width: 250, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
+                        </div>
+                        </div>
+                        <div className="create-wrapper" style={{ display: 'flex',flexWrap:'wrap' }}  >
+                         <div
+                    className="modal-link"
+                    style={{
+                      fontFamily: "Poppins, sans-serif",
+                      fontWeight: " bolder",
+                      fontSize: "15px",
+                      
+                    }}
+                  >
+                     Client Loyality Points
+                        <Input value={service.clientLoyalityPoints} placeholder="Client Loyality Points"  style={{ width: 250, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
+                        </div>
+                        <div
+                    className="modal-link"
+                    style={{
+                      fontFamily: "Poppins, sans-serif",
+                      fontWeight: " bolder",
+                      fontSize: "15px",
+                    }}
+                  >
+                   Client PhoneNumber
+                        <Input value={service.clientPhoneNumber} placeholder="Client Phone Number" style={{ width: 250, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 30 }} />
+                        </div>
+                      
+                    </div>
                     </div>
                     <div style={{ height: '1px', width: '100%', backgroundColor: '#E2E2E2', marginTop: 20 }} />
                     <div className="image-wrapper" style={{ display: 'flex', marginTop: 20 }}>
-                      <img width={90} height={90} src={service.serviceImage || defaultImg} />
-                      <div className="create-wrapper" >
-                        <Input value={service.serviceName} placeholder="service Name" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
-                        <Input value={service.serviceCost} placeholder="service cost" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
-                        <Input value={service.promoCode} placeholder="promo Code" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
-                        <Input value={service.status} placeholder="Status" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
+                      <img width={130} height={140} src={service.serviceImage || defaultImg} />
+                      <div className="create-wrapper"  style={{ display: 'flex',flexWrap:'wrap'}}>
+                      <div
+                    className="modal-link"
+                    style={{
+                      fontFamily: "Poppins, sans-serif",
+                      fontWeight: " bolder",
+                      fontSize: "15px",
+                      marginLeft: 10,
+                    }}
+                  >
+                   Service Name
+                        <Input value={service.serviceName} placeholder="service Name" style={{ width: 250, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
+                        </div>
+                        <div
+                    className="modal-link"
+                    style={{
+                      fontFamily: "Poppins, sans-serif",
+                      fontWeight: " bolder",
+                      fontSize: "15px",
+                      marginLeft: 10
+                    }}
+                  >
+                    Promo Code
+                        <Input value={service.promoCode} placeholder="promo Code" style={{ width: 250, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
+                        </div>
+                        </div>
+                        <div className="create-wrapper" style={{ display: 'flex',flexWrap:'wrap' }}  >
+                         <div
+                    className="modal-link"
+                    style={{
+                      fontFamily: "Poppins, sans-serif",
+                      fontWeight: " bolder",
+                      fontSize: "15px",
+                      
+                    }}
+                  > Service Cost 
+                        <Input value={service.serviceCost} placeholder="service cost"style={{ width: 250, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
+                        </div>
+                        <div
+                    className="modal-link"
+                    style={{
+                      fontFamily: "Poppins, sans-serif",
+                      fontWeight: " bolder",
+                      fontSize: "15px",
+                    }}
+                  >
+                   Status
+                        <Input value={service.status} placeholder="Status" style={{ width: 250, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
+                        </div>
+                      
                       </div>
-                    </div>
-
+                      </div>
 
 
                     {/* <Button loading={saveServiceLoading}
