@@ -275,7 +275,7 @@ const GiftCards = () => {
                         fontWeight: " bolder",
                         fontSize: "15px",
                       }}>Service Name
-                      <Input
+                      {/* <Input
                         onChange={e => setServiceId(e.target.value, setShowError(false))}
                         type="text"
                         list="option"
@@ -289,15 +289,26 @@ const GiftCards = () => {
                           border: "0px",
                           borderRadius: "5px",
                          }}
-                      />
-                      <datalist id="option">
+                      /> */}
+                      <select id="option"
+                       onChange={e => setServiceId(e.target.value, setShowError(false))}
+                       placeholder="Service Name"
+                        disabled={!newGiftCard}
+                        value={serviceId || ""}
+                        style={{
+                          width:300,
+                          backgroundColor: " #E2E2E2",
+                          blockSize: 40,
+                          border: "0px",
+                          borderRadius: "5px",
+                         }}>
                         {services.map(
                           (service) =>
                             service.isActive && (
                             <option value={service.serviceId}>{service.serviceName}</option>
                             )
                         )}
-                      </datalist>
+                      </select>
                     </div>
                     <div
                     className="modal-link"
