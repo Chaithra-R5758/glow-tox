@@ -31,7 +31,8 @@ class Service extends React.Component {
       saveServiceLoading: false,
       beforeAfterSets: [],
       newService: false,
-      category:'',
+      category: '',
+      categories:[]
     }
   }
 
@@ -65,12 +66,13 @@ class Service extends React.Component {
     reader.readAsDataURL(file);
   };
 
-  showModal = (service = {}) => {
-    
+  showModal = (service = {}, category) => {
+
     this.setState({
       visible: true,
       service,
-    
+      category
+
     });
   };
 
@@ -106,7 +108,11 @@ class Service extends React.Component {
           <div className={'dashboard-card'}>
             <Card
               hoverable
-              style={{ width: '220px', height: '300px' }}
+              style={{ 
+                width: '220px', 
+              height: '300px', 
+              backgroundColor: !service.isActive && 'rgba(245, 245, 245, 1)',
+              opacity: !service.isActive && '.4',  }}
               cover={<img
                 alt="example"
                 src={service.serviceImage || loginImg}
@@ -123,8 +129,9 @@ class Service extends React.Component {
               <div className={'service-card-body-wrapper'}>
                 <div className={'service-meta-data-wrapper'}>
                   <div className={'service-title'}>{service.serviceName || "No-Title"}</div>
-                  <div className={'edit-btn'}
-                    onClick={() => this.showModal(service)}>Edit</div>
+                  <div 
+                    className={service.isActive ? 'edit-btn' : 'edit-btn-disabled'}
+                    onClick={() => service.isActive && this.showModal(service)}>Edit</div>
                 </div>
                 <div>
                 </div>
@@ -151,10 +158,10 @@ class Service extends React.Component {
   }
   getServiceCategory = async () => {
     try {
-      const {data} = await axios.get('/service/getAllServiceCategory')
-      const services = data && data.services
+      const { data } = await axios.get('/service/getAllServiceCategory')
+      const categories = data && data.serviceCategory
       this.setState({
-        service:services,
+        categories,
       })
     }
     catch (e) {
@@ -225,7 +232,7 @@ class Service extends React.Component {
       this.setState({ saveServiceLoading: false })
       this.hideModal()
       this.getAllServices()
-      this.getServiceCategory()
+      //  this.getServiceCategory()
     } else {
       this.setState({
         showError: false
@@ -285,7 +292,7 @@ class Service extends React.Component {
       })
       this.hideModal()
       this.getAllServices()
-      this.getServiceCategory()
+      //   this.getServiceCategory()
       this.setState({
         showError: true,
         showMe: true
@@ -333,8 +340,7 @@ class Service extends React.Component {
   }
 
   modalUI = () => {
-    const { defaultImg, beforeAfterSets, service, saveServiceLoading, showError, showMe } = this.state
-    console.log("service", service)
+    const { categories, defaultImg, beforeAfterSets, service, saveServiceLoading, showError, showMe } = this.state
     return (
       <Modal
         visible={this.state.visible}
@@ -359,7 +365,7 @@ class Service extends React.Component {
             flexWrap: 'wrap',
           }}
         >
-         
+
           <div className={'modal-content-left-wrapper'}
             style={{
               display: 'flex',
@@ -370,15 +376,15 @@ class Service extends React.Component {
               flexDirection: 'column',
               width: '50%'
             }}>
-               <div
-                    className="modal-code"
-                    style={{
-                      fontFamily: "Poppins, sans-serif",
-                      fontWeight: " bolder",
-                      fontSize: "16px",
-                      marginBottom: "-35px",
-                    }}>
-                    Service Image
+            <div
+              className="modal-code"
+              style={{
+                fontFamily: "Poppins, sans-serif",
+                fontWeight: " bolder",
+                fontSize: "16px",
+                marginBottom: "-35px",
+              }}>
+              Service Image
                   </div>
             <label htmlFor="input">
               <img
@@ -466,7 +472,7 @@ class Service extends React.Component {
             </Form> */}
             <div>Description</div>
             <TextArea
-              value={service.description|| ''}
+              value={service.description || ''}
               onChange={this.onChangeDesc}
               rows={5}
               style={{
@@ -477,35 +483,54 @@ class Service extends React.Component {
               }}
             />
             <div className={"parent-class"} style={{ display: "flex" }}>
-            <div> Category
+              <div> Category
                     <Input
-                       onChange={this.onChangeCategory}
-                        value={service.serviceCategory|| ''}
+                  onChange={this.onChangeCategory}
+                  value={service.serviceCategory || ''}
+                  list="option"
+                  style={{
+                    width: '90%',
+                    padding: '5px',
+                    margin: '5px 0px',
+                    borderRadius: '5px',
+                    border: '1px solid #d9d9d9',
+                  }}
+                />
+
+
+                {/* <Input
+                        onChange={this.onChangeLink}
+                        type="text"
+                        list="option"
+                        value={(promotion && promotion.serviceName) || ""}
                         style={{
-                          width:'90%',
-                          padding: '5px',
-                          margin: '5px 0px',
-                          borderRadius: '5px',
-                          border: '1px solid #d9d9d9',
+                          backgroundColor: " #E2E2E2",
+                          blockSize: 30,
+                          border: "0px",
+                          borderRadius: "5px",
+                          marginTop: "5px",
                         }}
-                      />
-                      </div>
-                      <div> Cost 
+                      /> */}
+                <datalist id="option">
+                  {categories.map(cat => <option value={cat.serviceCategory} />)}
+                </datalist>
+              </div>
+              <div> Cost
                     <Input
-                       onChange={this.onChangeCost}
-                        value={service.cost|| ''}
-                        style={{
-                          padding: '5px',
-                margin: '5px 0',
-                borderRadius: '5px',
-                border: '1px solid #d9d9d9',
-                        }}
-                      />
-                     </div>
-                     
-                      </div>
-                      <Checkbox  style={{ fontFamily: "Poppins, sans-serif"}} value={ service.isActive || ''} >IsActive</Checkbox>
-               </div>
+                  onChange={this.onChangeCost}
+                  value={service.cost || ''}
+                  style={{
+                    padding: '5px',
+                    margin: '5px 0',
+                    borderRadius: '5px',
+                    border: '1px solid #d9d9d9',
+                  }}
+                />
+              </div>
+
+            </div>
+            <Checkbox style={{ fontFamily: "Poppins, sans-serif" }} value={service.isActive || ''} >IsActive</Checkbox>
+          </div>
         </div>
 
         <div
@@ -541,6 +566,7 @@ class Service extends React.Component {
       showMe: false,
     })
     this.showModal()
+    this.getServiceCategory()
   }
 
   render() {

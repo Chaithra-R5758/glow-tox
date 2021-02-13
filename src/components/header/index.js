@@ -21,6 +21,8 @@ const Header = () => {
     getUserDetails()
   }, []);
 
+  const trimName = (name) => name && name.slice(0, 15)
+
   return (
     <div className={'header'}>
       <div className={'header-wrapper'}>
@@ -34,7 +36,7 @@ const Header = () => {
                   src={userDetails.profilePic || ''} />
               }
             </div>
-            <div className={'profile-text'}> {userDetails.userName || ''}</div>
+            <div className={'profile-text'}> {trimName(userDetails.userName) || ''}</div>
           </div>
         </div>
       </div>

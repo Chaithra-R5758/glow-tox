@@ -68,7 +68,7 @@ class ServiceHistory extends React.Component {
         title: 'Client Name',
         dataIndex: 'clientName',
         key: 'clientName',
-        render: text => <a>{text}</a>,
+        render: text => <div>{text}</div>,
       },
       {
         title: 'Client EmailId',
@@ -77,8 +77,8 @@ class ServiceHistory extends React.Component {
       },
       {
         title: 'Service Name',
-        dataIndex: 'serviceId',
-        key: 'serviceId',
+        dataIndex: 'serviceName',
+        key: 'serviceName',
       },
       {
         title: 'Promo Code',
@@ -92,25 +92,6 @@ class ServiceHistory extends React.Component {
         render: status => (<Tag color={'green'} key={''}>
           {status.toUpperCase()}
         </Tag>)
-
-        // <>
-        //   {
-        //     const color = 'green'
-        //   //status.length > 0 && status.map(tag => {
-        //     let color = status.length > 5 ? 'geekblue' : 'green';
-        //     if (tag === 'Refund') {
-        //       color = 'orange';
-        //     } else if (tag === 'chargeback') {
-        //       color = 'red';
-        //     }
-        //     return (
-        //       <Tag color={color} key={tag}>
-        //         {tag.toUpperCase()}
-        //       </Tag>
-        //     );
-        //   })}
-        // </>
-        // ),
       },
       {
         // title: '',
@@ -139,7 +120,7 @@ class ServiceHistory extends React.Component {
 
     ];
 
-    const { serviceHistory, isLoading, isError, serviceHistorySearchResult } = this.state
+    const { serviceHistory, isLoading, isError, serviceHistorySearchResult, service } = this.state
     if (isLoading) {
       return (
 
@@ -162,11 +143,11 @@ class ServiceHistory extends React.Component {
 
   getServiceForID = async (id) => {
     try {
-      const {data} = await axios.get(`/transaction/getTransaction?transactionId=${id}`)
+      const { data } = await axios.get(`/transaction/getTransaction?transactionId=${id}`)
       const transaction = data && data.transaction
-      
+
       this.setState({
-        service:transaction,
+        service: transaction,
       })
     }
     catch (e) {
@@ -217,41 +198,33 @@ class ServiceHistory extends React.Component {
                       fontFamily: "Poppins, sans-serif",
                       fontWeight: ' bolder', fontSize: '18px', marginTop: -10
                     }}>Service History-View</div>
-
-
                     <div className="image-wrapper" style={{ display: 'flex', marginTop: 20 }}>
-                      <img width={'90'} height={90} src={service.clientImage || defaultImg} />
+                      <img width={'90'} height={90} src={service.clientImage  || defaultImg} />
                       <div className="create-wrapper"  >
-
                         <Input value={service.clientName} placeholder="Client Name" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
-
                         <Input value={service.clientLoyalityPoints} placeholder="Client Loyality Points" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
-
                         <Input value={service.clientEmailId} placeholder="Client EmailId" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
-
-                        <Input value={service.clientPhoneNumber} placeholder="Client Phone Number" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
-
-                      </div>
-
-                    </div>
-                    {/* <div style={{ height: '1px', width: '100%', backgroundColor: '#E2E2E2', marginTop: 20 }} />
-                    <div className="image-wrapper" style={{ display: 'flex', marginTop: 20 }}>
-                      <img width={90} height={90} src={service.clientImage || defaultImg}/>
-                      <div className="create-wrapper" >
-
-                        <Input value={service.clientName}  placeholder="Client Name" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
-
-                        <Input value={service.clientLoyalityPoints} placeholder="Client Loyality Points" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
-
-                        <Input value={service.clientEmailId} placeholder="Client EmailId" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
-
                         <Input value={service.clientPhoneNumber} placeholder="Client Phone Number" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 30 }} />
-
                       </div>
-
                     </div>
-                    <Button loading={saveServiceLoading}
-                      onClick={() => this.saveService(service)} className="save-btn" style={{ float: 'right', backgroundColor: '#5D72E9', color: 'white', borderRadius: '5px', padding: ' 0px 25px', marginTop: -20 }} >Save</Button> */}
+                    <div style={{ height: '1px', width: '100%', backgroundColor: '#E2E2E2', marginTop: 20 }} />
+                    <div className="image-wrapper" style={{ display: 'flex', marginTop: 20 }}>
+                      <img width={90} height={90} src={service.serviceImage || defaultImg} />
+                      <div className="create-wrapper" >
+                        <Input value={service.serviceName} placeholder="service Name" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
+                        <Input value={service.serviceCost} placeholder="service cost" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
+                        <Input value={service.promoCode} placeholder="promo Code" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
+                        <Input value={service.status} placeholder="Status" style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginLeft: 10, marginBottom: 10 }} />
+                      </div>
+                    </div>
+
+
+
+                    {/* <Button loading={saveServiceLoading}
+                      onClick={() => this.saveService(service)} 
+                      className="save-btn" style={{ float: 'right', backgroundColor: '#5D72E9', color: 'white', borderRadius: '5px', padding: ' 0px 25px', marginTop: -20 }} >
+                        Save
+                    </Button> */}
 
                   </Modal>
                 </div>

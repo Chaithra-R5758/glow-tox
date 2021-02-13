@@ -8,8 +8,8 @@ import axios from '../../config/api/'
 
 const Login = () => {
 
-  const [userName, setUserName] = useState('');
-  const [password, setPassword] = useState('');
+  const [userName, setUserName] = useState('test@gmail.com');
+  const [password, setPassword] = useState('test@1234');
   const [errorMsg, setErrorMsg] = useState('');
   const [isLoading, setIsLoading] = useState(false);
 

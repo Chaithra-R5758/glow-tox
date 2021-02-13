@@ -115,6 +115,17 @@
           margin: 10px;
           width: 70%;
      }
+     service-card{
+          width: 220px;
+          height: 300px;
+         
+     }
+     service-card-disabled{
+          width: 220px;
+          height: 300px;
+          background-color: rgba(245, 245, 245, 1);
+          opacity: .4;
+     }
      .edit-btn {
           background-color: #5d72e9;
           font-family: "Poppins", sans-serif;
@@ -124,6 +135,9 @@
           align-self: flex-end;
           margin: 10px;
           padding: 6px 30px;
+     }
+     .edit-btn-disabled {
+          background-color: #b1b4c5;
      }
      .service-meta-data-wrapper {
           margin-top: -5px;

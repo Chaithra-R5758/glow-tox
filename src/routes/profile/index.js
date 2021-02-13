@@ -73,8 +73,8 @@ class Profile extends React.Component {
             const userPassword = await axios.post("user/updatePassword",
                 {
                     emailId,
-                    password:newPassword,
-                    confirmPassword:newPassword,
+                    password: newPassword,
+                    confirmPassword: newPassword,
                 });
             message.success('Password Updated Successfully');
         } catch (e) {
@@ -115,16 +115,16 @@ class Profile extends React.Component {
             }
             try {
                 const userPassword = await axios.post("user/updateUserProfile", params)
-                message.success('Profile Updated Successfully');
+                message.success('Updated Successfully');
                 window.location.reload()
             } catch (e) {
                 message.error('Error while Updating!');
             }
             this.setState({ saveLoading: false });
         }
-        else if(phoneNumber.length != 10){
+        else if (phoneNumber.length != 10) {
             this.setState({
-                phoneNumberError:'Phone number cannot be less than 10 digits'
+                phoneNumberError: 'Phone number cannot be less than 10 digits'
             })
         }
     }
@@ -145,18 +145,18 @@ class Profile extends React.Component {
                 ...prevState.userDetails,
                 emailId
             },
-            phoneNumberError:'',
+            phoneNumberError: '',
         }))
     }
 
     phNumberChanged = (phoneNumber) => {
-        if(phoneNumber.length <= 10){
+        if (phoneNumber.length <= 10) {
             this.setState(prevState => ({
                 userDetails: {
                     ...prevState.userDetails,
                     phoneNumber
                 },
-                phoneNumberError:'',
+                phoneNumberError: '',
             }))
         }
     }
@@ -195,7 +195,7 @@ class Profile extends React.Component {
                                     className={'profile-img'} />
                             </div>
                             <div className="edit-btn-card">
-                                <label className htmlFor="input" style={{cursor:'pointer'}}>
+                                <label className htmlFor="input" style={{ cursor: 'pointer' }}>
                                     <i type="link" style={{ color: "#343557", fontSize: '1.5em' }}>
                                         {<EditFilled />} </i>
                                 </label>
@@ -256,13 +256,16 @@ class Profile extends React.Component {
                                             <Input
                                                 type='number'
                                                 size="large"
-                                                title="Please Input Number" 
+                                                title="Please Input Number"
+                                                //pattern="[0-9]{10}" 
                                                 required
+                                                //formatter={number}
                                                 defaultValue={userDetails.phoneNumber}
                                                 value={userDetails.phoneNumber}
                                                 onChange={e => this.phNumberChanged(e.target.value)}
                                                 style={{ borderRadius: '5px' }}
-                                                onInput={(e) => e.target.value = e.target.value.slice(0, 10)}/>
+                                                onInput={(e) => e.target.value = e.target.value.slice(0, 10)}
+                                            />
                                         </Form.Item>
                                     </Form>
                                 </div>
@@ -271,8 +274,8 @@ class Profile extends React.Component {
                                     //onClick={() => this.saveUserDetails()}
                                     htmlType="submit" loading={saveLoading} onClick={() => this.userProfile(profile)}> Update
                             </Button>
-                            <div style={{color:'red'}}>{phoneNumberError}</div>
                             </Space>
+                            <div style={{color:'red',marginTop:'10px', textAlign:'center', marginLeft:'-70px'}}> {phoneNumberError} </div>
                         </Card>
                     </div>
                     <div className={'profile-card-pwd'}>

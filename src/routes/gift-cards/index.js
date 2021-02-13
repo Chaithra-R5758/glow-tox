@@ -88,7 +88,7 @@ const GiftCards = () => {
         title: 'Client Name',
         dataIndex: 'createdBy',
         key: 'createdBy',
-        render: text => <a>{text}</a>,
+        render: text => <div>{text}</div>,
       },
       {
         title: 'Email Id',
