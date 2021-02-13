@@ -1,7 +1,7 @@
 import { PageTitle } from '../../components/page-title'
 import loginImg from '../../assets/login-img.png'
 import './service.scss';
-import { Card, Button, Modal, Skeleton, Anchor, Input, message, Checkbox, Form } from 'antd';
+import { Card, Button, Modal, Skeleton, Anchor, Input, message, Checkbox, Form, Select } from 'antd';
 import React, { useState } from 'react';
 import { withRouter } from 'react-router-dom';
 import { imageToBase64, getUserId } from '../../utils/'
@@ -27,12 +27,11 @@ class Service extends React.Component {
       loading: false,
       error: false,
       showError: false,
-      showMe: false,
       saveServiceLoading: false,
       beforeAfterSets: [],
       newService: false,
       category: '',
-      categories:[]
+      categories: []
     }
   }
 
@@ -108,11 +107,12 @@ class Service extends React.Component {
           <div className={'dashboard-card'}>
             <Card
               hoverable
-              style={{ 
-                width: '220px', 
-              height: '300px', 
-              backgroundColor: !service.isActive && 'rgba(245, 245, 245, 1)',
-              opacity: !service.isActive && '.4',  }}
+              style={{
+                width: '220px',
+                height: '300px',
+                backgroundColor: !service.isActive && 'rgba(245, 245, 245, 1)',
+                opacity: !service.isActive && '.4',
+              }}
               cover={<img
                 alt="example"
                 src={service.serviceImage || loginImg}
@@ -129,8 +129,8 @@ class Service extends React.Component {
               <div className={'service-card-body-wrapper'}>
                 <div className={'service-meta-data-wrapper'}>
                   <div className={'service-title'}>{service.serviceName || "No-Title"}</div>
-                  <div 
-                    className={service.isActive ? 'edit-btn' : 'edit-btn-disabled'}
+                  <div
+                    className={'edit-btn'}
                     onClick={() => service.isActive && this.showModal(service)}>Edit</div>
                 </div>
                 <div>
@@ -150,7 +150,6 @@ class Service extends React.Component {
       this.setState({
         service,
         saveServiceLoading: false,
-        showMe: true
       })
     }
     catch (e) {
@@ -295,12 +294,19 @@ class Service extends React.Component {
       //   this.getServiceCategory()
       this.setState({
         showError: true,
-        showMe: true
       })
 
     }
   }
-
+  onChangeIsActive = e => {
+    this.setState((prevState) => ({
+      service: {
+        ...prevState.service,
+        isActive: e.target.checked,
+      },
+      showError: false,
+    }));
+  }
   onChangeName = e => {
     this.setState(prevState => ({
       service: {
@@ -340,7 +346,7 @@ class Service extends React.Component {
   }
 
   modalUI = () => {
-    const { categories, defaultImg, beforeAfterSets, service, saveServiceLoading, showError, showMe } = this.state
+    const { categories, defaultImg, beforeAfterSets, service, saveServiceLoading, showError, newService } = this.state
     return (
       <Modal
         visible={this.state.visible}
@@ -407,7 +413,7 @@ class Service extends React.Component {
               onChange={(e) => this.imageHandler(e)}
             />
             {
-              showMe &&
+              !newService &&
               <div className="modal-title"
                 onClick={() => this.setState({
                   beforeAfterSets: [...beforeAfterSets, beforeAfterSet]
@@ -470,23 +476,27 @@ class Service extends React.Component {
                 />
               </Form.Item>
             </Form> */}
-            <div>Description</div>
-            <TextArea
-              value={service.description || ''}
-              onChange={this.onChangeDesc}
-              rows={5}
-              style={{
-                padding: '5px',
-                margin: '5px 0',
-                borderRadius: '5px',
-                border: '1px solid #d9d9d9',
-              }}
-            />
+
+            {newService && <div>Description</div>}
+            {newService &&
+              <TextArea
+                value={service.description || ''}
+                onChange={this.onChangeDesc}
+                rows={5}
+                style={{
+                  padding: '5px',
+                  margin: '5px 0',
+                  borderRadius: '5px',
+                  border: '1px solid #d9d9d9',
+                }}
+              />
+            }
             <div className={"parent-class"} style={{ display: "flex" }}>
               <div> Category
-                    <Input
+                    {/* <Input
+                    disabled={!newService}
                   onChange={this.onChangeCategory}
-                  value={service.serviceCategory || ''}
+                  value={service && service.serviceId}
                   list="option"
                   style={{
                     width: '90%',
@@ -495,7 +505,7 @@ class Service extends React.Component {
                     borderRadius: '5px',
                     border: '1px solid #d9d9d9',
                   }}
-                />
+                /> */}
 
 
                 {/* <Input
@@ -511,9 +521,21 @@ class Service extends React.Component {
                           marginTop: "5px",
                         }}
                       /> */}
-                <datalist id="option">
-                  {categories.map(cat => <option value={cat.serviceCategory} />)}
-                </datalist>
+                <select id="option" disabled={!newService}
+                  onChange={this.onChangeCategory}
+                  value={service && service.serviceId}
+                  style={{
+                    width: '90%',
+                    padding: '5px',
+                    margin: '5px 0px',
+                    borderRadius: '5px',
+                    border: '1px solid #d9d9d9',
+                  }}>
+                  {categories.map(
+                    cat =>
+                      <option value={cat.serviceId}>{cat.serviceCategory}</option>
+                  )}
+                </select>
               </div>
               <div> Cost
                     <Input
@@ -529,7 +551,9 @@ class Service extends React.Component {
               </div>
 
             </div>
-            <Checkbox style={{ fontFamily: "Poppins, sans-serif" }} value={service.isActive || ''} >IsActive</Checkbox>
+            {!newService &&
+              <Checkbox style={{ fontFamily: "Poppins, sans-serif" }} checked={service && service.isActive}
+                onChange={e => this.onChangeIsActive(e)}>IsActive</Checkbox>}
           </div>
         </div>
 

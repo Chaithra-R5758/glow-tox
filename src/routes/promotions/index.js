@@ -85,15 +85,36 @@ class Promotions extends React.Component {
     }));
   };
 
-  onChangeLink = (e) => {
+  onChangeOfferType = (e) => {
     this.setState((prevState) => ({
       promotion: {
         ...prevState.promotion,
-        serviceName: e.target.value,
+        promoOfferType: e.target.value,
       },
       showError: false,
     }));
   };
+
+  onChangeService = (e) => {
+    this.setState((prevState) => ({
+      promotion: {
+        ...prevState.promotion,
+        serviceId: e.target.value,
+      },
+      showError: false,
+    }));
+  };
+
+  onChangeIsActive = e => {
+    this.setState((prevState) => ({
+      promotion: {
+        ...prevState.promotion,
+        isActive: e.target.checked,
+      },
+      showError: false,
+    }));
+  }
+
   onChangeOffer = (e) => {
     this.setState((prevState) => ({
       promotion: {
@@ -159,7 +180,11 @@ class Promotions extends React.Component {
     } else if (promotions && promotions.length > 0) {
       return promotions.map((promotion) => (
         <div className={"promo-card"}>
-          <Card bordered={true}>
+          <Card bordered={true}
+            style={{
+              opacity: !promotion.isActive && '.5',
+            }}
+          >
             <div className="edit-btn-card">
               <Button
                 type="link"
@@ -169,7 +194,7 @@ class Promotions extends React.Component {
                   color: "#343557",
                   fontSize: "1.5em",
                 }}
-                onClick={() => this.showModal(promotion)}
+                onClick={() => promotion.isActive && this.showModal(promotion)}
               >
                 {<EditFilled />}
               </Button>
@@ -191,8 +216,8 @@ class Promotions extends React.Component {
                   ? promotion.description
                   : "No Description"}
               </div>
-              <Button className="btn-card" onClick={this.showModal}>
-                Service Name
+              <Button className="btn-card">
+                {promotion.serviceName}
               </Button>
             </div>
           </Card>
@@ -253,8 +278,9 @@ class Promotions extends React.Component {
 
   addPromo = async () => {
     const { promotion } = this.state;
-    const { description, promoCode, promoImage, service } = promotion;
-    if (description && promoCode && promoImage && service) {
+    const { description, promoCode, promoImage, serviceId } = promotion;
+    debugger
+    if (description && promoCode && promoImage && serviceId) {
       this.setState({
         savePromotionLoading: true,
       });
@@ -263,7 +289,7 @@ class Promotions extends React.Component {
           promoCode,
           promoName,
           description,
-          service,
+          serviceId,
           offer,
           promoImage,
           promoImageFormat,
@@ -274,7 +300,7 @@ class Promotions extends React.Component {
           promoName,
           offer,
           description,
-          serviceId: service,
+          serviceId,
           promoImage,
           promoImageFormat,
         };
@@ -311,7 +337,7 @@ class Promotions extends React.Component {
       this.setState({
         services,
       });
-    } catch (e) {}
+    } catch (e) { }
   };
 
   render() {
@@ -368,12 +394,14 @@ class Promotions extends React.Component {
                     style={{
                       fontFamily: "Poppins, sans-serif",
                       fontWeight: " bolder",
-                      fontSize: "15px",
+                      fontSize: "16px",
+                      margin: '10px 0 0 0',
+
                     }}
                   >
                     Promo Name
                     <Input
-                     disabled={!newPromo}
+                      disabled={!newPromo}
                       onChange={this.onChangeName}
                       value={(promotion && promotion.promoName) || ""}
                       style={{
@@ -392,7 +420,7 @@ class Promotions extends React.Component {
                       fontFamily: "Poppins, sans-serif",
                       fontWeight: " bolder",
                       fontSize: "16px",
-                      marginBottom: "-15px",
+                      margin: "10px 0 -17px 0",
                     }}
                   >
                     Promo Image
@@ -445,7 +473,6 @@ class Promotions extends React.Component {
                       fontFamily: "Poppins, sans-serif",
                       fontWeight: " bolder",
                       fontSize: "16px",
-                      marginBottom: "5px",
                     }}
                   >
                     Promo Description
@@ -495,39 +522,38 @@ class Promotions extends React.Component {
                     >
                       Offer
                       <Input
-                       disabled={!newPromo}
+                        disabled={!newPromo}
                         onChange={this.onChangeOffer}
                         value={(promotion && promotion.offer) || ""}
                         style={{
-                          width:"90%",
+                          width: "90%",
                           backgroundColor: " #E2E2E2",
                           blockSize: 30,
                           border: "0px",
                           borderRadius: "5px",
-                          marginTop: "5px",
                         }}
                       />
-                       </div>
-                      <Input
-                        disabled={!newPromo}
-                       type="text"
-                       list="offer"
-                       onChange={this.onChangeOffer}
-                        style={{
-                          width:"20%",
-                          backgroundColor: " #E2E2E2",
-                          blockSize: 30,
-                          border: "0px",
-                          borderRadius: "5px",
-                          marginTop: "30px",
-                          marginLeft:'-10px'
-                        }}
-                        />
-                      <datalist id="offer">
-                        <option>$</option>
-                        <option>%</option>
-                      </datalist>
-                   
+                    </div>
+                    <Input
+                      disabled={!newPromo}
+                      type="text"
+                      list="offer"
+                      onChange={this.onChangeOfferType}
+                      style={{
+                        width: "20%",
+                        backgroundColor: " #E2E2E2",
+                        blockSize: 30,
+                        border: "0px",
+                        borderRadius: "5px",
+                        marginTop: "25px",
+                        marginLeft: '-10px'
+                      }}
+                    />
+                    <datalist id="offer">
+                      <option>$</option>
+                      <option>%</option>
+                    </datalist>
+
                   </div>
                   <div className={"parent-class"} style={{ display: "flex" }}>
                     <div
@@ -536,6 +562,7 @@ class Promotions extends React.Component {
                         fontFamily: "Poppins, sans-serif",
                         fontWeight: " bolder",
                         fontSize: "15px",
+                        marginTop: '10px'
                       }}
                     >
                       Promo Code
@@ -549,7 +576,6 @@ class Promotions extends React.Component {
                           blockSize: 30,
                           border: "0px",
                           borderRadius: "5px",
-                          marginTop: "5px",
                         }}
                       />
                     </div>
@@ -558,34 +584,35 @@ class Promotions extends React.Component {
                       style={{
                         fontFamily: "Poppins, sans-serif",
                         fontWeight: " bolder",
-                        fontSize: "15px",
+                        fontSize: "16px",
+                        marginTop: '10px'
                       }}
                     >
                       Service Name
                       <Input
-                       disabled={!newPromo}
-                        onChange={this.onChangeLink}
+                        disabled={!newPromo}
+                        onChange={this.onChangeService}
                         type="text"
                         list="option"
-                        value={(promotion && promotion.serviceName) || ""}
+                        value={(promotion && promotion.serviceId) || ""}
                         style={{
                           backgroundColor: " #E2E2E2",
                           blockSize: 30,
                           border: "0px",
                           borderRadius: "5px",
-                          marginTop: "5px",
+                          marginTop: "-2px",
                         }}
                       />
                       <datalist id="option">
                         {services.map(
                           (service) =>
                             service.isActive && (
-                              <option value={service.serviceName} />
+                              <option value={service.serviceId}>{service.serviceName}</option>
                             )
                         )}
                       </datalist>
-                      
-                     
+
+
                       <Button
                         loading={savePromotionLoading}
                         //onClick={() => this.addPromo(promo)}
@@ -602,20 +629,21 @@ class Promotions extends React.Component {
                       >
                         Save
                       </Button>
-                      {!newPromo && 
-                      <div className={'promo-isActive'}>
-                        <Checkbox
-                          style={{
-                            marginTop: 25,
-                            marginLeft:-150,
-                         //   width: "50%",
-                            fontFamily: "Poppins, sans-serif",
-                            fontWeight: " bolder",
-                            fontSize: "12px",
-                          }}
-                          value={(promotion && promotion.isActive) || ""}
-                        >
-                          IsActive
+                      {!newPromo &&
+                        <div className={'promo-isActive'}>
+                          <Checkbox
+                            style={{
+                              marginTop: 25,
+                              marginLeft: -150,
+                              //   width: "50%",
+                              fontFamily: "Poppins, sans-serif",
+                              fontWeight: " bolder",
+                              fontSize: "12px",
+                            }}
+                            checked={promotion && promotion.isActive}
+                            onChange={e => this.onChangeIsActive(e)}
+                          >
+                            IsActive
                         </Checkbox>
                         </div>
                       }

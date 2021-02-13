@@ -28,7 +28,7 @@
     }
 
     .promo-card {
-        margin: 10px 0px;
+        margin: 15px 0px;
     }
 
     .img-card {
@@ -74,9 +74,9 @@
     }
     .promo-name{
         font-family: "Poppins", sans-serif;
-        display: flex;
-        font-size: 16px;
-        font-weight: bolder;
+        font-size: 0.9rem;
+        color: #5f5956;
+        font-weight: 600;
     }
     .desc-card {
         font-family: "Poppins", sans-serif;
@@ -114,7 +114,7 @@
             margin-left: 10px;
         }
         .btn-card {
-            margin-left: 30px;
+         //   margin-left: 30px;
         }
     }
 }
