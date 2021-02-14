@@ -10,13 +10,14 @@ import axios from "../../config/api/";
 import defaultImg from "../../assets/default.png";
 import Error from "../../components/error";
 import TextArea from "antd/lib/input/TextArea";
+import { handleError } from '../../utils/error-handling/'
 import {
   imageToBase64,
   getUserId,
   urltoBase64,
   getExtensionFromUrl,
 } from "../../utils/";
-
+const trimName = (name) => name && name.slice(0, 20)
 class Promotions extends React.Component {
   constructor() {
     super();
@@ -182,7 +183,7 @@ class Promotions extends React.Component {
         <div className={"promo-card"}>
           <Card bordered={true}
             style={{
-              opacity: !promotion.isActive && '.5',
+              opacity: !promotion.isActive && '.6',
             }}
           >
             <div className="edit-btn-card">
@@ -216,8 +217,8 @@ class Promotions extends React.Component {
                   ? promotion.description
                   : "No Description"}
               </div>
-              <Button className="btn-card">
-                {promotion.serviceName}
+              <Button className="btn-card" style={{ cursor: "auto" }}>
+             { trimName(promotion.serviceName)|| ''}
               </Button>
             </div>
           </Card>
@@ -266,7 +267,7 @@ class Promotions extends React.Component {
         const savePromotion = await axios.post("promo/savePromo", params);
         message.success("Data updated successfully!");
       } catch (e) {
-        message.error("Error Occurred!");
+        handleError(e)
       }
       this.hideModal();
       this.getAllPromotions();
@@ -278,23 +279,22 @@ class Promotions extends React.Component {
 
   addPromo = async () => {
     const { promotion } = this.state;
-    const { description, promoCode, promoImage, serviceId } = promotion;
-    debugger
-    if (description && promoCode && promoImage && serviceId) {
+    const {
+      description,
+      offer,
+      promoCode,
+      promoImage,
+      promoImageFormat,
+      promoName,
+      promoOfferType,
+      serviceId, } = promotion;
+
+    if (description && offer && promoCode && promoImage && promoImageFormat && serviceId && promoName) {
       this.setState({
         savePromotionLoading: true,
       });
       try {
-        const {
-          promoCode,
-          promoName,
-          description,
-          serviceId,
-          offer,
-          promoImage,
-          promoImageFormat,
-        } = promotion;
-
+        const { promoOfferType } = promotion;
         const params = {
           promoCode,
           promoName,
@@ -303,11 +303,13 @@ class Promotions extends React.Component {
           serviceId,
           promoImage,
           promoImageFormat,
+          promoOfferType,
         };
         const addPromo = await axios.post("promo/savePromo", params);
         message.success("Data updated successfully!");
       } catch (e) {
-        message.error("Error Occurred!");
+        handleError(e)
+        //message.error("Error Occurred!");
       }
 
       this.setState({
@@ -337,7 +339,9 @@ class Promotions extends React.Component {
       this.setState({
         services,
       });
-    } catch (e) { }
+    } catch (e) {
+      handleError(e)
+     }
   };
 
   render() {
@@ -373,9 +377,12 @@ class Promotions extends React.Component {
               <Modal
                 visible={this.state.visible}
                 onCancel={this.hideModal}
+                centered = {true}
                 footer={null}
                 width={400}
-                style={{ top: 40 }}
+                style={{ 
+                  //top: 40 
+                }}
               >
                 <div className={"add-promo-card"}>
                   <div
@@ -397,8 +404,7 @@ class Promotions extends React.Component {
                       fontSize: "16px",
                       margin: '10px 0 0 0',
 
-                    }}
-                  >
+                    }}>
                     Promo Name
                     <Input
                       disabled={!newPromo}
@@ -555,7 +561,7 @@ class Promotions extends React.Component {
                     </datalist>
 
                   </div>
-                  <div className={"parent-class"} style={{ display: "flex" }}>
+                  <div className={"parent-class"} style={{}}>
                     <div
                       className="modal-link"
                       style={{
@@ -571,7 +577,7 @@ class Promotions extends React.Component {
                         disabled={!newPromo}
                         value={(promotion && promotion.promoCode) || ""}
                         style={{
-                          width: "80%",
+                          //width: "80%",
                           backgroundColor: " #E2E2E2",
                           blockSize: 30,
                           border: "0px",
@@ -586,55 +592,57 @@ class Promotions extends React.Component {
                         fontWeight: " bolder",
                         fontSize: "16px",
                         marginTop: '10px'
-                      }}
-                    >
+                      }}>
                       Service Name
-                      <Input
+                      <select
+                        id="option"
                         disabled={!newPromo}
                         onChange={this.onChangeService}
                         type="text"
                         list="option"
                         value={(promotion && promotion.serviceId) || ""}
                         style={{
+                          // backgroundColor: " #E2E2E2",
+                          // blockSize: 30,
+                          // border: "0px",
+                          // borderRadius: "5px",
+                          // marginTop: "-2px",
+
+                          width: '100%',
                           backgroundColor: " #E2E2E2",
                           blockSize: 30,
                           border: "0px",
                           borderRadius: "5px",
-                          marginTop: "-2px",
+                          marginBottom:!newPromo ? "0" : "30px"
                         }}
-                      />
-                      <datalist id="option">
+
+                      // onChange={e => setServiceId(e.target.value, setShowError(false))}
+                      //  placeholder="Service Name"
+                      //disabled={!newGiftCard}
+                      //value={serviceId || ""}
+                      // style={{
+                      //   width:300,
+                      //   backgroundColor: " #E2E2E2",
+                      //   blockSize: 40,
+                      //   border: "0px",
+                      //   borderRadius: "5px",
+                      //  }}
+                      >
+                        {!newPromo ? null:<option value={''}></option> }
                         {services.map(
                           (service) =>
                             service.isActive && (
-                              <option value={service.serviceId}>{service.serviceName}</option>
+                              <option value={service.recId}>{service.serviceName}</option>
                             )
                         )}
-                      </datalist>
-
-
-                      <Button
-                        loading={savePromotionLoading}
-                        //onClick={() => this.addPromo(promo)}
-                        onClick={() => this.savePromotion(promotion)}
-                        className="save-btn"
-                        style={{
-                          float: "right",
-                          backgroundColor: "#5D72E9",
-                          color: "white",
-                          borderRadius: "5px",
-                          padding: " 0px 25px",
-                          marginTop: "20px",
-                        }}
-                      >
-                        Save
-                      </Button>
+                      </select>
+                      
                       {!newPromo &&
                         <div className={'promo-isActive'}>
                           <Checkbox
                             style={{
                               marginTop: 25,
-                              marginLeft: -150,
+                             // marginLeft: -150,
                               //   width: "50%",
                               fontFamily: "Poppins, sans-serif",
                               fontWeight: " bolder",
@@ -647,7 +655,25 @@ class Promotions extends React.Component {
                         </Checkbox>
                         </div>
                       }
-                    </div>
+                      </div>
+                      <Button
+                        loading={savePromotionLoading}
+                        //onClick={() => this.addPromo(promo)}
+                        onClick={() => this.savePromotion(promotion)}
+                        className="save-btn"
+                        style={{
+                          float: "right",
+                          backgroundColor: "#5D72E9",
+                          color: "white",
+                          borderRadius: "5px",
+                          padding: " 0px 25px",
+                          margin: !newPromo ? "-25px 0" : "-15px 0",
+                        }}
+                      >
+                        Save
+                      </Button>
+                      
+                    
                   </div>
                 </div>
                 {showError && (

@@ -65,3 +65,11 @@ export const isBase64 = (str) => {
         return false;
     }
 }
+
+export const logOutUser = () => {
+    Cookies.remove('accessToken')
+    Cookies.remove('recId')
+    Cookies.remove('userId')
+    Cookies.remove('userType')
+    window.location.reload();
+  }

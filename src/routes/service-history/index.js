@@ -7,7 +7,7 @@ import { Error } from '../../components/error'
 import defaultImg from '../../assets/default.png'
 import { withRouter } from 'react-router-dom';
 import { SearchOutlined } from '@ant-design/icons'
-
+import { handleError } from '../../utils/error-handling/'
 
 class ServiceHistory extends React.Component {
   constructor() {
@@ -22,6 +22,7 @@ class ServiceHistory extends React.Component {
       searchText: '',
       serviceHistorySearchResult: [],
       serviceId: '',
+      showSearchResults:false,
     };
   }
   async componentDidMount() {
@@ -36,6 +37,7 @@ class ServiceHistory extends React.Component {
         this.setState({ serviceHistory })
 
     } catch (e) {
+      handleError(e)
       this.setState({ isError: true })
     }
   }
@@ -120,7 +122,7 @@ class ServiceHistory extends React.Component {
 
     ];
 
-    const { serviceHistory, isLoading, isError, serviceHistorySearchResult, service } = this.state
+    const { serviceHistory, isLoading, isError, serviceHistorySearchResult, showSearchResults, service } = this.state
     if (isLoading) {
       return (
 
@@ -135,7 +137,7 @@ class ServiceHistory extends React.Component {
     } else {
       return (
         <div className={'history-card'}>
-          <Table dataSource={serviceHistorySearchResult.length ? serviceHistorySearchResult : serviceHistory} columns={columns} />
+          <Table dataSource={showSearchResults ? serviceHistorySearchResult : serviceHistory} columns={columns} />
         </div>
       )
     }
@@ -151,6 +153,7 @@ class ServiceHistory extends React.Component {
       })
     }
     catch (e) {
+      handleError(e)
     }
   }
 
@@ -166,8 +169,10 @@ class ServiceHistory extends React.Component {
 
   searchTextChanged = (searchText) => {
     const { serviceHistory } = this.state
-    const serviceHistorySearchResult = serviceHistory.filter(service => service.clientName.toLowerCase().includes(searchText.toLowerCase()))
-    this.setState({ searchText, serviceHistorySearchResult })
+      this.setState({ showSearchResults:searchText ? true : false },() => {
+        const serviceHistorySearchResult = serviceHistory.filter(service => service.transactionId.toLowerCase().includes(searchText.toLowerCase()))
+        this.setState({ searchText, serviceHistorySearchResult })
+      })
   }
 
   render() {

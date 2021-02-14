@@ -5,6 +5,7 @@ import axios from '../../config/api/'
 import { SearchOutlined } from '@ant-design/icons'
 import { Card, Table, Tag, Input, Button, Modal, Skeleton, message } from 'antd';
 import { StatusComponent } from '../../components/status/'
+import { handleError } from '../../utils/error-handling';
 
 const GiftCards = () => {
 
@@ -34,6 +35,7 @@ const GiftCards = () => {
         setGiftCards(giftCards)
       }
     } catch (e) {
+      handleError(e)
       setIsError(true)
     }
   }
@@ -47,11 +49,14 @@ const GiftCards = () => {
       const { data } = await axios.get("service/getAllService");
       const services = data.service;
       setServices(services)
-    } catch (e) { }
+    } catch (e) {
+      handleError(e)
+     }
   };
 
   const saveGiftcard = async () => {
     //const { clientName, emailId, offer, serviceId } = giftcard
+    
     if (clientName && emailId && offer && serviceId) {
       setSaveGiftcardLoading(true)
       try {
@@ -64,9 +69,8 @@ const GiftCards = () => {
           });
         message.success('Data updated successfully!');
       } catch (e) {
-        message.error('Error Occurred!');
+        handleError(e)
       }
-
       setSaveGiftcardLoading(false)
       hideModal()
       getAllGiftCards()
@@ -76,14 +80,12 @@ const GiftCards = () => {
   }
 
   const showModal = (giftCard) => {
-    debugger
     if(giftCard){
       //edit view
-      //const {createdBy, clientEmailId, offer, serviceName} = giftCard
       setClientName(giftCard.createdBy)
       setEmailId(giftCard.clientEmailId)
       setOffer(giftCard.offer)
-      setServiceId(giftCard.serviceName)
+      setServiceId(giftCard.serviceId)
       setNewGiftCard(false)
     }else{
       //new view
@@ -145,7 +147,12 @@ const GiftCards = () => {
         title: '',
         dataIndex: 'status',
         key: 'status',
-        render: (status,giftCard) => status === 'New' && <div className="view-btn" onClick={() => {showModal(giftCard)}}>Edit</div>
+        render: (status,giftCard) => {
+          console.log('giftCard',giftCard)
+          return(
+          status === 'New' && <div className="view-btn" onClick={() => {showModal(giftCard)}}>Edit</div>
+          )
+        }
       },
     ];
 
@@ -216,8 +223,7 @@ const GiftCards = () => {
                   <div className="modal-title" style={{
                     fontFamily: "Poppins, sans-serif",
                     fontWeight: ' bolder', fontSize: '18px', marginTop: -10
-                  }}>Gift Cards-Create</div>
-
+                  }}>Gift Cards</div>
                   <div className="create-wrapper" style={{ display: 'flex', marginTop: 20 }}>
                   <div
                     className="modal-link"
@@ -230,7 +236,7 @@ const GiftCards = () => {
                     Client Name
                     <Input
                       placeholder="Client Name"
-                      defaultValue={clientName}
+                      value={clientName}
                       onChange={e => setClientName(e.target.value, setShowError(false))}
                       disabled={!newGiftCard}
                       style={{
@@ -253,7 +259,7 @@ const GiftCards = () => {
                     Email Id
                     <Input
                       placeholder="Email Id"
-                      defaultValue={emailId}
+                      value={emailId}
                       disabled={!newGiftCard}
                       onChange={e => setEmailId(e.target.value, setShowError(false))}
                       style={{ width: 320,marginTop:'-5', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px' }} />
@@ -302,10 +308,11 @@ const GiftCards = () => {
                           border: "0px",
                           borderRadius: "5px",
                          }}>
+                           {!newGiftCard ? null: <option value={''}>{''}</option>}
                         {services.map(
                           (service) =>
                             service.isActive && (
-                            <option value={service.serviceId}>{service.serviceName}</option>
+                            <option value={service.recId}>{service.serviceName}</option>
                             )
                         )}
                       </select>
@@ -321,7 +328,7 @@ const GiftCards = () => {
                     Value
                     <Input
                       placeholder="Value"
-                      defaultValue={offer}
+                      value={offer}
                       disabled={!newGiftCard}
                       onChange={e =>setOffer(e.target.value, setShowError(false))}
                       style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px',marginRight:10 }}

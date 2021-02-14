@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { withRouter, useHistory } from "react-router-dom";
+import { logOutUser } from '../../utils/'
 import Icon from '@ant-design/icons';
 import './navbar.scss';
 import { NAV_OPTIONS, HEADER_TITLE } from '../../constants/';
@@ -129,14 +130,6 @@ const NavBar = () => {
     }
   }
 
-  const logOutClicked = () => {
-    Cookies.remove('accessToken')
-    Cookies.remove('recId')
-    Cookies.remove('userId')
-    Cookies.remove('userType')
-    window.location.reload();
-  }
-
   const getNavOptionsMob = () => {
     const grey3 = '#edf0f5';
     const navIconSize = '24px'
@@ -155,7 +148,7 @@ const NavBar = () => {
               position: 'absolute',
               width: '100%'
             }}
-            onClick={logOutClicked}>
+            onClick={logOutUser}>
             <div>
               <PoweroffOutlined style={{
                 cursor: 'pointer',
@@ -225,7 +218,7 @@ const NavBar = () => {
         <div className={'nav-options-wrapper'} >
           {getNavOptions()}
 
-          <div className={'nav-option logout-option'} onClick={logOutClicked}>
+          <div className={'nav-option logout-option'} onClick={logOutUser}>
             <div>
               <PoweroffOutlined style={{
                 cursor: 'pointer',

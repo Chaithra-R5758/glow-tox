@@ -523,7 +523,9 @@ class Service extends React.Component {
                       /> */}
                 <select id="option" disabled={!newService}
                   onChange={this.onChangeCategory}
-                  value={service && service.serviceId}
+                  type="text"
+                        list="option"
+                  value={service && service.serviceId||''}
                   style={{
                     width: '90%',
                     padding: '5px',
@@ -531,9 +533,10 @@ class Service extends React.Component {
                     borderRadius: '5px',
                     border: '1px solid #d9d9d9',
                   }}>
+                     {!newService ? null:<option value={''}></option> }
                   {categories.map(
                     cat =>
-                      <option value={cat.serviceId}>{cat.serviceCategory}</option>
+                      <option value={cat.recId}>{cat.serviceCategory}</option>
                   )}
                 </select>
               </div>
