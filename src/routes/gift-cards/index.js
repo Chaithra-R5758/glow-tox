@@ -24,6 +24,12 @@ const GiftCards = () => {
   const [showError, setShowError] = useState(false)
   const [services, setServices] = useState([])
   const [newGiftCard, setNewGiftCard] = useState(false)
+  const [showSearchResults, setShowSearchResults] = useState(false)
+  const [promoOfferType,setPromoOfferType] = useState('')
+
+  useEffect(() => {
+    getAllService()
+  },[])
 
   const getAllGiftCards = async () => {
     setIsLoading(true)
@@ -51,12 +57,12 @@ const GiftCards = () => {
       setServices(services)
     } catch (e) {
       handleError(e)
-     }
+    }
   };
 
   const saveGiftcard = async () => {
     //const { clientName, emailId, offer, serviceId } = giftcard
-    
+
     if (clientName && emailId && offer && serviceId) {
       setSaveGiftcardLoading(true)
       try {
@@ -64,7 +70,7 @@ const GiftCards = () => {
           {
             clientName,
             clientEmailId: emailId,
-            offer,
+            offer:offer+promoOfferType,
             serviceId,
           });
         message.success('Data updated successfully!');
@@ -80,14 +86,14 @@ const GiftCards = () => {
   }
 
   const showModal = (giftCard) => {
-    if(giftCard){
+    if (giftCard) {
       //edit view
       setClientName(giftCard.createdBy)
       setEmailId(giftCard.clientEmailId)
       setOffer(giftCard.offer)
       setServiceId(giftCard.serviceId)
       setNewGiftCard(false)
-    }else{
+    } else {
       //new view
       setClientName('')
       setEmailId('')
@@ -147,10 +153,10 @@ const GiftCards = () => {
         title: '',
         dataIndex: 'status',
         key: 'status',
-        render: (status,giftCard) => {
-          console.log('giftCard',giftCard)
-          return(
-          status === 'New' && <div className="view-btn" onClick={() => {showModal(giftCard)}}>Edit</div>
+        render: (status, giftCard) => {
+          console.log('giftCard', giftCard)
+          return (
+            status === 'New' && <div className="view-btn" onClick={() => { showModal(giftCard) }}>Edit</div>
           )
         }
       },
@@ -181,7 +187,7 @@ const GiftCards = () => {
       return (
         <div className={'gift-card'}>
           <Table
-            dataSource={giftCardSearchResult.length ? giftCardSearchResult : giftCards}
+            dataSource={showSearchResults ? giftCardSearchResult : giftCards}
             columns={columns} />
         </div>
       )
@@ -189,11 +195,11 @@ const GiftCards = () => {
   }
 
   const searchTextChanged = (searchText) => {
+    setShowSearchResults(searchText ? 1 : 0)
     const giftCardSearchResult = giftCards.filter(giftcard => giftcard.giftCardId.toLowerCase().includes(searchText.toLowerCase()))
     setSearchText(searchText)
     setGiftCardSearchResult(giftCardSearchResult)
   }
-
 
   return (
     <div className="gift-card-screen">
@@ -219,52 +225,52 @@ const GiftCards = () => {
                 {giftcardUI()}
                 <Modal
                   visible={visible}
-                  onCancel={hideModal} footer={null} width={700}style={{ top: 250 }} >
+                  onCancel={hideModal} footer={null} width={700} style={{ top: 250 }} >
                   <div className="modal-title" style={{
                     fontFamily: "Poppins, sans-serif",
                     fontWeight: ' bolder', fontSize: '18px', marginTop: -10
                   }}>Gift Cards</div>
                   <div className="create-wrapper" style={{ display: 'flex', marginTop: 20 }}>
-                  <div
-                    className="modal-link"
-                    style={{
-                      fontFamily: "Poppins, sans-serif",
-                      fontWeight: " bolder",
-                      fontSize: "15px",
-                    }}
-                  >
-                    Client Name
-                    <Input
-                      placeholder="Client Name"
-                      value={clientName}
-                      onChange={e => setClientName(e.target.value, setShowError(false))}
-                      disabled={!newGiftCard}
+                    <div
+                      className="modal-link"
                       style={{
-                        width: 300,
-                        backgroundColor: ' #E2E2E2',
-                        blockSize: 40, border: '0px',
-                        borderRadius: '5px',
-                        // marginRight: 40
+                        fontFamily: "Poppins, sans-serif",
+                        fontWeight: " bolder",
+                        fontSize: "15px",
                       }}
-                    />
+                    >
+                      Client Name
+                    <Input
+                        placeholder="Client Name"
+                        value={clientName}
+                        onChange={e => setClientName(e.target.value, setShowError(false))}
+                        disabled={!newGiftCard}
+                        style={{
+                          width: 300,
+                          backgroundColor: ' #E2E2E2',
+                          blockSize: 40, border: '0px',
+                          borderRadius: '5px',
+                          // marginRight: 40
+                        }}
+                      />
                     </div>
                     <div
-                    className="modal-link"
-                    style={{
-                      fontFamily: "Poppins, sans-serif",
-                      fontWeight: " bolder",
-                      fontSize: "15px",
-                    }}
-                  >
-                    Email Id
+                      className="modal-link"
+                      style={{
+                        fontFamily: "Poppins, sans-serif",
+                        fontWeight: " bolder",
+                        fontSize: "15px",
+                      }}
+                    >
+                      Email Id
                     <Input
-                      placeholder="Email Id"
-                      value={emailId}
-                      disabled={!newGiftCard}
-                      onChange={e => setEmailId(e.target.value, setShowError(false))}
-                      style={{ width: 320,marginTop:'-5', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px' }} />
-                  
-                  </div>
+                        placeholder="Email Id"
+                        value={emailId}
+                        disabled={!newGiftCard}
+                        onChange={e => setEmailId(e.target.value, setShowError(false))}
+                        style={{ width: 320, marginTop: '-5', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px' }} />
+
+                    </div>
                   </div>
 
                   <div className={'create-row'} style={{ display: 'flex', marginTop: 5 }}>
@@ -296,59 +302,61 @@ const GiftCards = () => {
                           borderRadius: "5px",
                          }}
                       /> */}
-                      <select id="option"
-                       onChange={e => setServiceId(e.target.value, setShowError(false))}
-                       placeholder="Service Name"
+                      <select 
+                        id="option"
+                        onChange={e => setServiceId(e.target.value, setShowError(false))}
+                        placeholder="Service Name"
                         disabled={!newGiftCard}
                         value={serviceId || ""}
                         style={{
-                          width:300,
+                          width: 300,
                           backgroundColor: " #E2E2E2",
                           blockSize: 40,
                           border: "0px",
                           borderRadius: "5px",
-                         }}>
-                           {!newGiftCard ? null: <option value={''}>{''}</option>}
+                        }}>
+                        {newGiftCard && <option value={''}>{''}</option>}
                         {services.map(
                           (service) =>
                             service.isActive && (
-                            <option value={service.recId}>{service.serviceName}</option>
+                              <option value={service.recId}>{service.serviceName}</option>
                             )
                         )}
                       </select>
                     </div>
                     <div
-                    className="modal-link"
-                    style={{
-                      fontFamily: "Poppins, sans-serif",
-                      fontWeight: " bolder",
-                      fontSize: "15px",
-                    }}
-                  >
-                    Value
+                      className="modal-link"
+                      style={{
+                        fontFamily: "Poppins, sans-serif",
+                        fontWeight: " bolder",
+                        fontSize: "15px",
+                      }}>
+                      Value
                     <Input
-                      placeholder="Value"
-                      value={offer}
-                      disabled={!newGiftCard}
-                      onChange={e =>setOffer(e.target.value, setShowError(false))}
-                      style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px',marginRight:10 }}
-                    />
-                    </div>
-                     <Input
-                        type="text"
-                        list="type"
+                        placeholder="Value"
+                        value={offer}
                         disabled={!newGiftCard}
-                        style={{
-                          width:110, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px',marginBottom:30,marginTop:23
-                        }} />
-                      <datalist id="type" >
-                        <option>$</option>
-                        <option>%</option>
-                      </datalist>
-                   </div>
-                 
+                        onChange={e => setOffer(e.target.value, setShowError(false))}
+                        style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginRight: 10 }}
+                      />
+                    </div>
+                    <Input
+                      type="text"
+                      list="type"
+                      disabled={!newGiftCard}
+                      style={{
+                        width: 110, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginBottom: 30, marginTop: 23
+                      }} 
+                      onChange={e => setPromoOfferType(e.target.value)}
+                      />
+                    <datalist id="type" >
+                      <option>$</option>
+                      <option>%</option>
+                    </datalist>
+                  </div>
+
                   <Button loading={saveGiftcardLoading}
-                    onClick={() => saveGiftcard()} className="save-btn" style={{ float: 'right', backgroundColor: '#5D72E9', color: 'white', borderRadius: '5px', padding: '0px 25px 0px 25px',marginTop:-20 }}>Save</Button>
+                    onClick={() => saveGiftcard()} className="save-btn" style={{ float: 'right', backgroundColor: '#5D72E9', color: 'white', borderRadius: '5px', padding: '0px 25px 0px 25px', marginTop: -20 }}>Save</Button>
                   {showError && <div style={{
                     color: 'red',
                     textAlign: 'center',

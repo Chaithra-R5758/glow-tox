@@ -17,7 +17,9 @@ import {
   urltoBase64,
   getExtensionFromUrl,
 } from "../../utils/";
+
 const trimName = (name) => name && name.slice(0, 20)
+
 class Promotions extends React.Component {
   constructor() {
     super();
@@ -45,6 +47,7 @@ class Promotions extends React.Component {
 
   async componentDidMount() {
     this.getAllPromotions();
+    this.getAllService()
   }
 
   onChangeDesc = (e) => {
@@ -263,6 +266,7 @@ class Promotions extends React.Component {
           promoImageFormat,
         };
       }
+      
       try {
         const savePromotion = await axios.post("promo/savePromo", params);
         message.success("Data updated successfully!");
@@ -298,12 +302,11 @@ class Promotions extends React.Component {
         const params = {
           promoCode,
           promoName,
-          offer,
+          offer:offer+promoOfferType,
           description,
           serviceId,
           promoImage,
           promoImageFormat,
-          promoOfferType,
         };
         const addPromo = await axios.post("promo/savePromo", params);
         message.success("Data updated successfully!");
@@ -394,7 +397,7 @@ class Promotions extends React.Component {
                       marginTop: -10,
                     }}
                   >
-                    Promotions Edit
+                    Promotions {!newPromo ? 'Edit' : 'Add'}
                   </div>
                   <div
                     className="modal-link"
@@ -628,7 +631,7 @@ class Promotions extends React.Component {
                       //   borderRadius: "5px",
                       //  }}
                       >
-                        {!newPromo ? null:<option value={''}></option> }
+                        {newPromo && <option value={''}></option> }
                         {services.map(
                           (service) =>
                             service.isActive && (

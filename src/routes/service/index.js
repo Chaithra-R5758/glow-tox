@@ -45,6 +45,7 @@ class Service extends React.Component {
 
   componentDidMount() {
     this.getAllServices()
+    this.getServiceCategory()
   }
 
   imageHandler = async (e) => {
@@ -130,6 +131,8 @@ class Service extends React.Component {
                 <div className={'service-meta-data-wrapper'}>
                   <div className={'service-title'}>{service.serviceName || "No-Title"}</div>
                   <div
+                    //className={service.isActive ? 'edit-btn' : 'edit-btn-disabled'}
+
                     className={'edit-btn'}
                     onClick={() => service.isActive && this.showModal(service)}>Edit</div>
                 </div>
@@ -155,6 +158,7 @@ class Service extends React.Component {
     catch (e) {
     }
   }
+
   getServiceCategory = async () => {
     try {
       const { data } = await axios.get('/service/getAllServiceCategory')
@@ -477,19 +481,21 @@ class Service extends React.Component {
               </Form.Item>
             </Form> */}
 
-            {newService && <div>Description</div>}
             {newService &&
-              <TextArea
-                value={service.description || ''}
-                onChange={this.onChangeDesc}
-                rows={5}
-                style={{
-                  padding: '5px',
-                  margin: '5px 0',
-                  borderRadius: '5px',
-                  border: '1px solid #d9d9d9',
-                }}
-              />
+              <div>
+                <div>Description</div>
+                <TextArea
+                  value={service.description || ''}
+                  onChange={this.onChangeDesc}
+                  rows={5}
+                  style={{
+                    padding: '5px',
+                    margin: '5px 0',
+                    borderRadius: '5px',
+                    border: '1px solid #d9d9d9',
+                  }}
+                />
+              </div>
             }
             <div className={"parent-class"} style={{ display: "flex" }}>
               <div> Category
@@ -524,8 +530,8 @@ class Service extends React.Component {
                 <select id="option" disabled={!newService}
                   onChange={this.onChangeCategory}
                   type="text"
-                        list="option"
-                  value={service && service.serviceId||''}
+                  list="option"
+                  value={service && service.serviceId || ''}
                   style={{
                     width: '90%',
                     padding: '5px',
@@ -533,7 +539,7 @@ class Service extends React.Component {
                     borderRadius: '5px',
                     border: '1px solid #d9d9d9',
                   }}>
-                     {!newService ? null:<option value={''}></option> }
+                  {newService && <option value={''}></option>}
                   {categories.map(
                     cat =>
                       <option value={cat.recId}>{cat.serviceCategory}</option>

@@ -14,7 +14,6 @@ const showError = ({ toast, data }) => {
 
 export const handleError = ({ code = 0, message = '', response = '' }) => {
     const { data } = response
-    
     switch (code) {
         case 100:
             showError({ toast: 'error', data: `Unable to connect. Please try again.` });
