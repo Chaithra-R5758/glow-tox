@@ -8,6 +8,7 @@ import { imageToBase64, getUserId } from '../../utils/'
 import axios from '../../config/api/'
 import defaultImg from '../../assets/default.png'
 import Error from '../../components/error'
+import { handleError } from '../../utils/error-handling/'
 import { BeforeAfter } from './before-after'
 
 const { Meta } = Card;
@@ -31,7 +32,9 @@ class Service extends React.Component {
       beforeAfterSets: [],
       newService: false,
       category: '',
-      categories: []
+      serviceId: '',
+      categories: [],
+      servicebyid:[],
     }
   }
 
@@ -46,39 +49,37 @@ class Service extends React.Component {
   componentDidMount() {
     this.getAllServices()
     this.getServiceCategory()
+    
   }
 
   imageHandler = async (e) => {
     const reader = new FileReader();
     const file = e.target.files[0];
-    if (file.size > 3000000) {
-      message.error("File size must be under 3MB")
-    }
-    else {
-      const serviceImageFormat = '.' + file.type.split('/')[1]
-      const base64 = await imageToBase64(file);
-      reader.onload = () => {
-        if (reader.readyState === 2) {
-          this.setState(prevState => ({
-            service: {
-              ...prevState.service, serviceImage: base64,
-              serviceImageFormat
-            }, showError: false
-          }));
-        }
-      };
-      reader.readAsDataURL(file);
+    const serviceImageFormat = '.' + file.type.split('/')[1]
+    const base64 = await imageToBase64(file);
+    reader.onload = () => {
+      if (reader.readyState === 2) {
+        this.setState(prevState => ({
+          service: {
+            ...prevState.service, serviceImage: base64,
+            serviceImageFormat
+          }, showError: false
+        }));
+      }
     };
-  }
+    reader.readAsDataURL(file);
+  };
 
-  showModal = (service = {}, category) => {
+  showModal = (service = {}, category,serviceId) => {
 
     this.setState({
       visible: true,
       service,
-      category
+      category,
+      serviceId,
 
     });
+    this.getServiceForID(serviceId)
   };
 
   hideModal = () => {
@@ -90,7 +91,7 @@ class Service extends React.Component {
   };
 
   servicesUI = () => {
-    const { loading, error, services } = this.state
+    const { loading, error, services ,servicebyid} = this.state
     if (loading) {
       return (
         ["", "", "", "", ""].map(option =>
@@ -116,8 +117,8 @@ class Service extends React.Component {
               style={{
                 width: '220px',
                 height: '300px',
-                backgroundColor: !service.isActive && 'rgba(245, 245, 245, 1)',
-                opacity: !service.isActive && '.4',
+                opacity: !service.isActive && '.6',
+                cursor: !service.isActive && 'auto',
               }}
               cover={<img
                 alt="example"
@@ -154,13 +155,14 @@ class Service extends React.Component {
   getServiceForID = async (id) => {
 
     try {
-      const service = await axios.get(`/admin/getServiceById?serviceId=${id}`)
+      const { data } = await axios.get(`/service/getService?serviceId=${id}`)
+      const servicebyid = data && data.servicebyid
       this.setState({
-        service,
-        saveServiceLoading: false,
+       servicebyid ,
       })
     }
     catch (e) {
+      handleError(e)
     }
   }
 
@@ -202,28 +204,30 @@ class Service extends React.Component {
 
   createService = async () => {
     const { service } = this.state
-    const { serviceEmail, description, serviceImage, serviceName } = service
+    const {
+      category,
+      cost,
+      description,
+      serviceImage,
+      serviceImageFormat,
+      serviceName } = service
 
-    if (serviceEmail && description && serviceImage && serviceName) {
+    if (
+      category &&
+      cost &&
+      description &&
+      serviceImage &&
+      serviceImageFormat &&
+      serviceName) {
       this.setState({ saveServiceLoading: true })
       try {
-
-        const {
-          description,
-          serviceImage,
-          serviceName,
-          category,
-          cost,
-          serviceImageFormat,
-        } = service
-
         const params = {
-          serviceName,
           category,
-          cost,
+          cost: parseInt(cost),
           description,
           serviceImage,
-          serviceImageFormat
+          serviceImageFormat,
+          serviceName
         }
         const saveService = await axios.post("service/saveService", params)
         message.success('New Service updated successfully!');
@@ -249,19 +253,28 @@ class Service extends React.Component {
   }
 
   saveService = async () => {
-    const { newService, service, lookBook } = this.state
+    const { newService, service } = this.state
     if (newService) {
+      //new service
       this.createService()
-    } else if (lookBook) {
-      this.createLookBook()
-    } else {
+    }
+    else {
+      //edit service
       this.setState({
         saveServiceLoading: true,
       })
 
+      // "recId" : "recHnu0OoeHqYl5nu",                        //Mandidate
+      //                       "isActive" : true,                                   //Optional
+      //                       "cost" : 909,                                        //Optional
+      //                       "description" : "Testing update service API",       //Optional
+      //                       "serviceImage": "base64 encoded <= 3MB",            //Optional
+      //                       "serviceImageFormat" : ".png" 
+
       const {
         recId,
         isActive,
+        cost,
         serviceName,
         description,
         serviceImage,
@@ -273,7 +286,7 @@ class Service extends React.Component {
         params = {
           recId,
           isActive,
-          serviceImage,
+          cost: parseInt(cost),
           serviceName,
           description,
         }
@@ -282,13 +295,13 @@ class Service extends React.Component {
         params = {
           recId,
           isActive,
-          serviceImage,
+          cost: parseInt(cost),
+          serviceName,
           description,
           serviceImage,
           serviceImageFormat
         }
       }
-
       try {
         const saveService = await axios.post("service/saveService", params);
         message.success('Data updated successfully!');
@@ -300,7 +313,7 @@ class Service extends React.Component {
       })
       this.hideModal()
       this.getAllServices()
-      //   this.getServiceCategory()
+      this.getServiceForID()
       this.setState({
         showError: true,
       })
@@ -355,7 +368,7 @@ class Service extends React.Component {
   }
 
   modalUI = () => {
-    const { categories, defaultImg, beforeAfterSets, service, saveServiceLoading, showError, newService } = this.state
+    const { categories, defaultImg, beforeAfterSets, service, saveServiceLoading, showError, newService ,servicebyid} = this.state
     return (
       <Modal
         visible={this.state.visible}
@@ -536,7 +549,7 @@ class Service extends React.Component {
                   onChange={this.onChangeCategory}
                   type="text"
                   list="option"
-                  value={service && service.serviceId || ''}
+                  value={service && service.category || ''}
                   style={{
                     width: '90%',
                     padding: '5px',

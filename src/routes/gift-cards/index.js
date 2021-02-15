@@ -337,15 +337,10 @@ const GiftCards = () => {
                         value={offer}
                         disabled={!newGiftCard}
                         onChange={e => setOffer(e.target.value, setShowError(false))}
-                        style={{ width:  !newGiftCard ? 320 : 220,
-                          backgroundColor: ' #E2E2E2', 
-                          blockSize: 40, border: '0px',
-                           borderRadius: '5px', 
-                           marginRight: !newGiftCard ? 0 :10,
-                           marginBottom:30 }}
+                        style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginRight: 10 }}
                       />
                     </div>
-                    {/* <Input
+                    <Input
                       type="text"
                       list="type"
                       disabled={!newGiftCard}
@@ -353,18 +348,11 @@ const GiftCards = () => {
                         width: 110, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginBottom: 30, marginTop: 23
                       }} 
                       onChange={e => setPromoOfferType(e.target.value)}
-                      /> */}
-                    { newGiftCard && <select id="type" type="text"
-                      disabled={!newGiftCard}
-                      style={{
-                        width: 110, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginBottom: 30, marginTop: 23
-                      }} 
-                      onChange={e => setPromoOfferType(e.target.value)} >
-                         <option></option>
+                      />
+                    <datalist id="type" >
                       <option>$</option>
                       <option>%</option>
-                    </select>
-}
+                    </datalist>
                   </div>
 
                   <Button loading={saveGiftcardLoading}
