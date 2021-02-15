@@ -51,20 +51,25 @@ class Service extends React.Component {
   imageHandler = async (e) => {
     const reader = new FileReader();
     const file = e.target.files[0];
-    const serviceImageFormat = '.' + file.type.split('/')[1]
-    const base64 = await imageToBase64(file);
-    reader.onload = () => {
-      if (reader.readyState === 2) {
-        this.setState(prevState => ({
-          service: {
-            ...prevState.service, serviceImage: base64,
-            serviceImageFormat
-          }, showError: false
-        }));
-      }
+    if (file.size > 3000000) {
+      message.error("File size must be under 3MB")
+    }
+    else {
+      const serviceImageFormat = '.' + file.type.split('/')[1]
+      const base64 = await imageToBase64(file);
+      reader.onload = () => {
+        if (reader.readyState === 2) {
+          this.setState(prevState => ({
+            service: {
+              ...prevState.service, serviceImage: base64,
+              serviceImageFormat
+            }, showError: false
+          }));
+        }
+      };
+      reader.readAsDataURL(file);
     };
-    reader.readAsDataURL(file);
-  };
+  }
 
   showModal = (service = {}, category) => {
 
