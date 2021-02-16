@@ -3,7 +3,7 @@ import { PageTitle } from '../../components/page-title/'
 import './gift-card.scss';
 import axios from '../../config/api/'
 import { SearchOutlined } from '@ant-design/icons'
-import { Card, Table, Tag, Input, Button, Modal, Skeleton, message } from 'antd';
+import { Card, Table, Tag, Input, Button, Modal, Skeleton, message, Form } from 'antd';
 import { StatusComponent } from '../../components/status/'
 import { handleError } from '../../utils/error-handling';
 
@@ -25,11 +25,11 @@ const GiftCards = () => {
   const [services, setServices] = useState([])
   const [newGiftCard, setNewGiftCard] = useState(false)
   const [showSearchResults, setShowSearchResults] = useState(false)
-  const [promoOfferType,setPromoOfferType] = useState('')
-
+  const [promoOfferType, setPromoOfferType] = useState('')
+  const [status, setStatus] = useState('')
   useEffect(() => {
     getAllService()
-  },[])
+  }, [])
 
   const getAllGiftCards = async () => {
     setIsLoading(true)
@@ -70,8 +70,9 @@ const GiftCards = () => {
           {
             clientName,
             clientEmailId: emailId,
-            offer:offer+promoOfferType,
+            offer: offer + promoOfferType,
             serviceId,
+            status
           });
         message.success('Data updated successfully!');
       } catch (e) {
@@ -93,12 +94,14 @@ const GiftCards = () => {
       setOffer(giftCard.offer)
       setServiceId(giftCard.serviceId)
       setNewGiftCard(false)
+      setStatus(giftCard.status)
     } else {
       //new view
       setClientName('')
       setEmailId('')
       setOffer('')
       setServiceId('')
+      setStatus('')
       setNewGiftCard(true)
       getAllService()
     }
@@ -111,6 +114,7 @@ const GiftCards = () => {
     setEmailId('')
     setOffer('')
     setServiceId('')
+    setStatus('')
   };
 
   const giftcardUI = () => {
@@ -263,13 +267,18 @@ const GiftCards = () => {
                       }}
                     >
                       Email Id
-                    <Input
-                        placeholder="Email Id"
-                        value={emailId}
-                        disabled={!newGiftCard}
-                        onChange={e => setEmailId(e.target.value, setShowError(false))}
-                        style={{ width: 320, marginTop: '-5', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px' }} />
-
+                      <Form layout="vertical">
+                        <Form.Item name='email' rules={[{ type: 'email',
+                       message: 'The input is not valid E-mail!' }]}>
+                          <Input
+                            type='email'
+                            placeholder="Email Id"
+                            value={emailId}
+                            disabled={!newGiftCard}
+                            onChange={e => setEmailId(e.target.value, setShowError(false))}
+                            style={{ width: 320, marginTop: '-5', backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px' }} />
+                        </Form.Item>
+                      </Form>
                     </div>
                   </div>
 
@@ -302,7 +311,7 @@ const GiftCards = () => {
                           borderRadius: "5px",
                          }}
                       /> */}
-                      <select 
+                      <select
                         id="option"
                         onChange={e => setServiceId(e.target.value, setShowError(false))}
                         placeholder="Service Name"
@@ -337,10 +346,17 @@ const GiftCards = () => {
                         value={offer}
                         disabled={!newGiftCard}
                         onChange={e => setOffer(e.target.value, setShowError(false))}
-                        style={{ width: 220, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginRight: 10 }}
+                        style={{
+                          width: !newGiftCard ? 220 : 115,
+                          backgroundColor: ' #E2E2E2',
+                          blockSize: 40, border: '0px',
+                          borderRadius: '5px',
+                          marginRight: !newGiftCard ? 10 : 0,
+                          marginBottom: 30
+                        }}
                       />
                     </div>
-                    <Input
+                    {/* <Input
                       type="text"
                       list="type"
                       disabled={!newGiftCard}
@@ -348,11 +364,31 @@ const GiftCards = () => {
                         width: 110, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginBottom: 30, marginTop: 23
                       }} 
                       onChange={e => setPromoOfferType(e.target.value)}
-                      />
-                    <datalist id="type" >
+                      /> */}
+                    {newGiftCard && <select id="type" type="text"
+                      disabled={!newGiftCard}
+                      style={{
+                        width: 110, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginBottom: 30, marginTop: 23, marginRight: 10
+                      }}
+                      onChange={e => setPromoOfferType(e.target.value)} >
+                      <option></option>
                       <option>$</option>
                       <option>%</option>
-                    </datalist>
+                    </select>
+                    }
+                    <select id="type" type="text"
+                      disabled={!newGiftCard}
+                      value={status || ""}
+                      style={{
+                        width: 110, backgroundColor: ' #E2E2E2', blockSize: 40, border: '0px', borderRadius: '5px', marginBottom: 30, marginTop: 23
+                      }}
+                      onChange={e => setStatus(e.target.value)} >
+                      {newGiftCard && <option></option>}
+                      <option>New</option>
+                      <option>Rejected</option>
+                      <option>Redeemed</option>
+
+                    </select>
                   </div>
 
                   <Button loading={saveGiftcardLoading}

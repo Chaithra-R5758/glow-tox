@@ -1,6 +1,6 @@
 import { PageTitle } from "../../components/page-title";
 import "./promotions.scss";
-import { Input, Card, Skeleton, message, Checkbox } from "antd";
+import { Input, Card, Skeleton, message, Checkbox, Alert } from "antd";
 import loginImg from "../../assets/login-img.png";
 import { LinkOutlined, EditFilled } from "@ant-design/icons";
 import { Modal, Button } from "antd";
@@ -149,23 +149,23 @@ class Promotions extends React.Component {
       message.error("File size must be under 3MB")
     }
     else {
-    const promoImageFormat = "." + file.type.split("/")[1];
-    const base64 = await imageToBase64(file);
-    reader.onload = () => {
-      if (reader.readyState === 2) {
-        this.setState((prevState) => ({
-          promotion: {
-            ...prevState.promotion,
-            promoImage: base64,
-            promoImageFormat,
-          },
-          showError: false,
-        }));
-      }
+      const promoImageFormat = "." + file.type.split("/")[1];
+      const base64 = await imageToBase64(file);
+      reader.onload = () => {
+        if (reader.readyState === 2) {
+          this.setState((prevState) => ({
+            promotion: {
+              ...prevState.promotion,
+              promoImage: base64,
+              promoImageFormat,
+            },
+            showError: false,
+          }));
+        }
+      };
+      reader.readAsDataURL(file);
     };
-    reader.readAsDataURL(file);
   }
-  };
 
   promotionsUI = () => {
     const { loading, error, promotions, promotion } = this.state;
@@ -203,7 +203,7 @@ class Promotions extends React.Component {
                   color: "#343557",
                   fontSize: "1.5em",
                 }}
-                onClick={() => promotion.isActive && this.showModal(promotion)}
+                onClick={() =>this.showModal(promotion)}
               >
                 {<EditFilled />}
               </Button>
@@ -226,7 +226,7 @@ class Promotions extends React.Component {
                   : "No Description"}
               </div>
               <Button className="btn-card" style={{ cursor: "auto" }}>
-             { trimName(promotion.serviceName)|| ''}
+                {trimName(promotion.serviceName) || ''}
               </Button>
             </div>
           </Card>
@@ -271,7 +271,7 @@ class Promotions extends React.Component {
           promoImageFormat,
         };
       }
-      
+
       try {
         const savePromotion = await axios.post("promo/savePromo", params);
         message.success("Data updated successfully!");
@@ -307,7 +307,7 @@ class Promotions extends React.Component {
         const params = {
           promoCode,
           promoName,
-          offer:offer+promoOfferType,
+          offer: offer + promoOfferType,
           description,
           serviceId,
           promoImage,
@@ -349,7 +349,7 @@ class Promotions extends React.Component {
       });
     } catch (e) {
       handleError(e)
-     }
+    }
   };
 
   render() {
@@ -385,10 +385,10 @@ class Promotions extends React.Component {
               <Modal
                 visible={this.state.visible}
                 onCancel={this.hideModal}
-                centered = {true}
+                centered={true}
                 footer={null}
                 width={400}
-                style={{ 
+                style={{
                   //top: 40 
                 }}
               >
@@ -540,7 +540,7 @@ class Promotions extends React.Component {
                         onChange={this.onChangeOffer}
                         value={(promotion && promotion.offer) || ""}
                         style={{
-                          width: "90%",
+                          width: newPromo ? "115%" : '153%',
                           backgroundColor: " #E2E2E2",
                           blockSize: 30,
                           border: "0px",
@@ -548,7 +548,7 @@ class Promotions extends React.Component {
                         }}
                       />
                     </div>
-                    <Input
+                    {/* <Input
                       disabled={!newPromo}
                       type="text"
                       list="offer"
@@ -562,12 +562,24 @@ class Promotions extends React.Component {
                         marginTop: "25px",
                         marginLeft: '-10px'
                       }}
-                    />
-                    <datalist id="offer">
+                    /> */}
+                    {newPromo && <select id="offer" disabled={!newPromo}
+                      type="text"
+                      onChange={this.onChangeOfferType}
+                      style={{
+                        width: "20%",
+                        backgroundColor: " #E2E2E2",
+                        blockSize: 30,
+                        border: "0px",
+                        borderRadius: "5px",
+                        marginTop: "25px",
+                        marginLeft: '50px'
+                      }}>
+                      <option></option>
                       <option>$</option>
                       <option>%</option>
-                    </datalist>
-
+                    </select>
+                    }
                   </div>
                   <div className={"parent-class"} style={{}}>
                     <div
@@ -621,7 +633,7 @@ class Promotions extends React.Component {
                           blockSize: 30,
                           border: "0px",
                           borderRadius: "5px",
-                          marginBottom:!newPromo ? "0" : "30px"
+                          marginBottom: !newPromo ? "0" : "30px"
                         }}
 
                       // onChange={e => setServiceId(e.target.value, setShowError(false))}
@@ -636,7 +648,7 @@ class Promotions extends React.Component {
                       //   borderRadius: "5px",
                       //  }}
                       >
-                        {newPromo && <option value={''}></option> }
+                        {newPromo && <option value={''}></option>}
                         {services.map(
                           (service) =>
                             service.isActive && (
@@ -644,13 +656,13 @@ class Promotions extends React.Component {
                             )
                         )}
                       </select>
-                      
+
                       {!newPromo &&
                         <div className={'promo-isActive'}>
                           <Checkbox
                             style={{
                               marginTop: 25,
-                             // marginLeft: -150,
+                              // marginLeft: -150,
                               //   width: "50%",
                               fontFamily: "Poppins, sans-serif",
                               fontWeight: " bolder",
@@ -663,25 +675,25 @@ class Promotions extends React.Component {
                         </Checkbox>
                         </div>
                       }
-                      </div>
-                      <Button
-                        loading={savePromotionLoading}
-                        //onClick={() => this.addPromo(promo)}
-                        onClick={() => this.savePromotion(promotion)}
-                        className="save-btn"
-                        style={{
-                          float: "right",
-                          backgroundColor: "#5D72E9",
-                          color: "white",
-                          borderRadius: "5px",
-                          padding: " 0px 25px",
-                          margin: !newPromo ? "-25px 0" : "-15px 0",
-                        }}
-                      >
-                        Save
+                    </div>
+                    <Button
+                      loading={savePromotionLoading}
+                      //onClick={() => this.addPromo(promo)}
+                      onClick={() => this.savePromotion(promotion)}
+                      className="save-btn"
+                      style={{
+                        float: "right",
+                        backgroundColor: "#5D72E9",
+                        color: "white",
+                        borderRadius: "5px",
+                        padding: " 0px 25px",
+                        margin: !newPromo ? "-25px 0" : "-15px 0",
+                      }}
+                    >
+                      Save
                       </Button>
-                      
-                    
+
+
                   </div>
                 </div>
                 {showError && (

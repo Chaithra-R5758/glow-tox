@@ -48,6 +48,10 @@ class Profile extends React.Component {
     imageHandler = async (e) => {
         const reader = new FileReader();
         const file = e.target.files[0];
+        if (file.size > 3000000) {
+            message.error("File size must be under 3MB")
+          }
+          else {
         const profilePicFormat = '.' + file.type.split('/')[1]
         const base64 = await imageToBase64(file);
         reader.onload = () => {
@@ -62,7 +66,7 @@ class Profile extends React.Component {
 
         reader.readAsDataURL(file);
     };
-
+    }
     userPassword = async (password) => {
         const { newPassword, userDetails } = this.state
         const { emailId } = userDetails

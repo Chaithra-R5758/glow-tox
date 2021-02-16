@@ -8,8 +8,8 @@ import { imageToBase64, getUserId } from '../../utils/'
 import axios from '../../config/api/'
 import defaultImg from '../../assets/default.png'
 import Error from '../../components/error'
-import { handleError } from '../../utils/error-handling/'
 import { BeforeAfter } from './before-after'
+import {handleError} from '../../utils/error-handling/'
 
 const { Meta } = Card;
 const { TextArea } = Input;
@@ -32,9 +32,7 @@ class Service extends React.Component {
       beforeAfterSets: [],
       newService: false,
       category: '',
-      serviceId: '',
-      categories: [],
-      servicebyid:[],
+      categories: []
     }
   }
 
@@ -49,12 +47,15 @@ class Service extends React.Component {
   componentDidMount() {
     this.getAllServices()
     this.getServiceCategory()
-    
   }
 
   imageHandler = async (e) => {
     const reader = new FileReader();
     const file = e.target.files[0];
+    if (file.size > 3000000) {
+     message.error("File size must be under 3MB")
+   }
+   else {
     const serviceImageFormat = '.' + file.type.split('/')[1]
     const base64 = await imageToBase64(file);
     reader.onload = () => {
@@ -69,17 +70,16 @@ class Service extends React.Component {
     };
     reader.readAsDataURL(file);
   };
+ }
 
-  showModal = (service = {}, category,serviceId) => {
-
+  showModal = (service = {}, category) => {
+    const { serviceId } = service
+    this.getServiceForID(serviceId || '')
     this.setState({
       visible: true,
       service,
-      category,
-      serviceId,
-
+      category
     });
-    this.getServiceForID(serviceId)
   };
 
   hideModal = () => {
@@ -91,7 +91,7 @@ class Service extends React.Component {
   };
 
   servicesUI = () => {
-    const { loading, error, services ,servicebyid} = this.state
+    const { loading, error, services } = this.state
     if (loading) {
       return (
         ["", "", "", "", ""].map(option =>
@@ -140,7 +140,7 @@ class Service extends React.Component {
                     //className={service.isActive ? 'edit-btn' : 'edit-btn-disabled'}
 
                     className={'edit-btn'}
-                    onClick={() => service.isActive && this.showModal(service)}>Edit</div>
+                    onClick={() =>this.showModal(service)}>Edit</div>
                 </div>
                 <div>
                 </div>
@@ -153,16 +153,18 @@ class Service extends React.Component {
   }
 
   getServiceForID = async (id) => {
-
-    try {
-      const { data } = await axios.get(`/service/getService?serviceId=${id}`)
-      const servicebyid = data && data.servicebyid
-      this.setState({
-       servicebyid ,
-      })
-    }
-    catch (e) {
-      handleError(e)
+    if (id) {
+      try {
+        const {data} = await axios.get(`/admin/getServiceById?serviceId=${id}`)
+        debugger
+        this.setState({
+          service:data.service || {},
+          saveServiceLoading: false,
+        })
+      }
+      catch (e) {
+       handleError(e) 
+      }
     }
   }
 
@@ -175,6 +177,7 @@ class Service extends React.Component {
       })
     }
     catch (e) {
+      handleError(e) 
     }
   }
 
@@ -313,7 +316,7 @@ class Service extends React.Component {
       })
       this.hideModal()
       this.getAllServices()
-      this.getServiceForID()
+      //   this.getServiceCategory()
       this.setState({
         showError: true,
       })
@@ -368,7 +371,7 @@ class Service extends React.Component {
   }
 
   modalUI = () => {
-    const { categories, defaultImg, beforeAfterSets, service, saveServiceLoading, showError, newService ,servicebyid} = this.state
+    const { categories, defaultImg, beforeAfterSets, service, saveServiceLoading, showError, newService } = this.state
     return (
       <Modal
         visible={this.state.visible}
@@ -566,6 +569,7 @@ class Service extends React.Component {
               </div>
               <div> Cost
                     <Input
+                    type='number'
                   onChange={this.onChangeCost}
                   value={service.cost || ''}
                   style={{
